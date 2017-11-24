@@ -36,7 +36,7 @@ class Kibd_model extends MY_Model
 		unset($filter['page'], $filter['limit'], $filter['ord_by'], $filter['ord_pos'], $filter['id_organisasi'], $filter['is_kdp']);
 
 		$this->where("{$this->_table}.is_deleted",0);
-		foreach ($filter as $key => $value)
+		foreach (trim_empty_data($filter) as $key => $value)
 			$this->like($key, $value);
 
     	# Get result count for pagination

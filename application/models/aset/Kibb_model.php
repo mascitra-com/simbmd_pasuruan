@@ -28,7 +28,7 @@ class Kibb_model extends MY_Model
         unset($filter['page'], $filter['limit'], $filter['ord_by'], $filter['ord_pos'], $filter['id_organisasi']);
 
         $this->where('is_deleted',0);
-		foreach ($filter as $key => $value)
+		foreach (trim_empty_data($filter) as $key => $value)
 			$this->like($key, $value);
 
     	# Get result count for pagination
