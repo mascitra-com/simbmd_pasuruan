@@ -1,0 +1,77 @@
+a:3:{s:4:"time";i:1511533581;s:3:"ttl";i:3600;s:4:"data";s:3603:"
+<?php $this->_section_start('title'); ?>Ruangan<?php $this->_section_end(); ?>
+
+<?php $this->_section_start('breadcrump'); ?>
+<li class="breadcrumb-item"><a href="<?php echo site_url(); ?>">Beranda</a></li>
+<li class="breadcrumb-item"><a href="<?php echo site_url('ruangan'); ?>">Ruangan</a></li>
+<li class="breadcrumb-item active"><?php echo isset($ruangan) ? 'Sunting' : 'Tambah'; ?></li>
+<?php $this->_section_end(); ?>
+
+<?php $this->_section_start('content'); ?>
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<div class="card-header"><?php echo isset($ruangan) ? 'Sunting' : 'Tambah'; ?> Ruangan</div>
+			<div class="card-body">
+				<form action="<?php echo isset($ruangan) ? site_url('ruangan/update') : site_url('ruangan/insert'); ?>" method="POST">
+					<input type="hidden" name="id" value="<?php echo isset($ruangan) ? $ruangan->id : ''; ?>">
+					<input type="hidden" name="id_organisasi" value="<?php echo $organisasi->id; ?>">
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">Organisasi</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control" value="<?php echo $organisasi->nama; ?>" readonly/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">Kode</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control" name="kode" placeholder="Kode" value="<?php echo isset($ruangan) ? $ruangan->kode : ''; ?>" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">Nama Ruangan</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control" name="nama" placeholder="Nama ruangan" value="<?php echo isset($ruangan) ? $ruangan->nama : ''; ?>" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">Penganggung Jawab</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control" name="penanggung_nama" placeholder="Penanggung Jawab" value="<?php echo isset($ruangan) ? $ruangan->penanggung_nama : ''; ?>"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">NIP</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control" name="penanggung_nip" placeholder="Penanggung Jawab" value="<?php echo isset($ruangan) ? $ruangan->penanggung_nip : ''; ?>"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">Jabatan</label>
+						<div class="col-md-4">
+							<input type="text" class="form-control" name="penanggung_jabatan" placeholder="Penanggung Jawab" value="<?php echo isset($ruangan) ? $ruangan->penanggung_jabatan : ''; ?>"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label"></label>
+						<div class="col-md-4">
+							<button class="btn btn-primary"><i class="fa fa-save mr-2"></i>Simpan</button>
+							<a href="<?php echo site_url('ruangan'); ?>" class="btn btn-warning"><i class="fa fa-arrow-left mr-2"></i>Kembali</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->_section_end(); ?>
+
+<?php $this->_section_start('script'); ?>
+<script type="text/javascript">
+	var ruangan = (function(){
+		theme.activeMenu('.nav-ruangan');
+	})();
+</script>
+<?php $this->_section_end(); ?>
+<?php echo $this->_include('commons/index'); ?>
+";}

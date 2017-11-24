@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+	<style type="text/css">
+	.dropdown-toggle.btn-default {
+		color: #292b2c;
+		background-color: #fff;
+		border-color: #ccc;
+	}
+	.bootstrap-select.show > .dropdown-menu > .dropdown-menu {
+		display: block;
+	}
+	.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden {
+		display: none;
+	}
+	.bootstrap-select > .dropdown-menu > .dropdown-menu li a {
+		display: block;
+		width: 100%;
+		padding: 3px 1.5rem;
+		clear: both;
+		font-weight: 400;
+		color: #292b2c;
+		text-align: inherit;
+		white-space: nowrap;
+		background: 0 0;
+		border: 0;
+		text-decoration: none;
+	}
+	.bootstrap-select > .dropdown-menu > .dropdown-menu li a:hover {
+		background-color: #f4f4f4;
+	}
+	.bootstrap-select > .dropdown-toggle {
+		width: 100%;
+	}
+	.dropdown-menu > li.active > a {
+		color: #fff !important;
+		background-color: #337ab7 !important;
+	}
+	.bootstrap-select .check-mark {
+		line-height: 14px;
+	}
+	.bootstrap-select .check-mark::after {
+		font-family: "FontAwesome";
+		content: "\f00c";
+	}
+	.bootstrap-select button {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* Make filled out selects be the same size as empty selects */
+	.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+		display: inline !important;
+	}
+</style>
+</head>
+<body>
+	<select class="selectpicker" data-live-search="true">
+		<option value="">Apel</option>
+		<option value="">Jeruk</option>
+		<option value="">Nanas</option>
+	</select>
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+</body>
+</html>

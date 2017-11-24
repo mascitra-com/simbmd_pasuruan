@@ -1,0 +1,1 @@
+del C:\xampp\htdocs\_codeigniter\simbmds\application\cache\blade*

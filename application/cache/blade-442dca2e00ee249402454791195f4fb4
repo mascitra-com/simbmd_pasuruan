@@ -1,0 +1,148 @@
+a:3:{s:4:"time";i:1511533676;s:3:"ttl";i:3600;s:4:"data";s:7471:"
+<?php $this->_section_start('title'); ?>Pengadaan<?php $this->_section_end(); ?>
+
+<?php $this->_section_start('breadcrump'); ?>
+<li class="breadcrumb-item"><a href="<?php echo site_url(); ?>">Beranda</a></li>
+<li class="breadcrumb-item"><a href="<?php echo site_url('pengadaan?id_organisasi='.$spk->id_organisasi); ?>">Pengadaan</a></li>
+<li class="breadcrumb-item active">Rincian</li>
+<?php $this->_section_end(); ?>
+
+<?php $this->_section_start('content'); ?>
+<div class="btn-group mb-3">
+	<a href="<?php echo site_url('pengadaan/detail/'.$spk->id); ?>" class="btn btn-primary active">01. Detail SPK</a>
+	<a href="<?php echo site_url('pengadaan/rincian/'.$spk->id); ?>" class="btn btn-primary">02. Rincian Aset</a>
+	<a href="<?php echo site_url('pengadaan/sp2d/'.$spk->id); ?>" class="btn btn-primary">03. SP2D</a>
+</div>
+<div class="row mb-3">
+	<div class="col">
+		<div class="card">
+			<div class="card-header">Detail Kontrak</div>
+			<div class="card-body row">
+				<div class="col-6">
+					<div class="row">
+						<?php $nilai_kontrak = (!empty($spk->addendum_nilai)) ? $spk->addendum_nilai : $spk->nilai ?>
+						<div class="col">Nilai Kontrak</div><div class="col"> : <?php echo monefy($nilai_kontrak); ?>,00</div>
+						<div class="w-100"></div>
+						<div class="col">Total SP2D</div><div class="col"> : <?php echo monefy($sp2d['total']); ?>,00</div>
+						<div class="w-100"></div>
+						<div class="col">Sisa Kontrak</div><div class="col"> : <?php echo monefy($nilai_kontrak - $sp2d['total']),00; ?></div>
+						<div class="w-100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<div class="card">
+			<div class="card-header">Detail SPK</div>
+			<div class="card-body">
+				<form action="<?php echo site_url('pengadaan/update_spk'); ?>" method="POST">
+					<input type="hidden" name="id" value="<?php echo $spk->id; ?>">
+					<div class="row">
+						<div class="col">
+							<div class="form-row">
+								<div class="form-group col">
+									<label>No. Kontrak</label>
+									<input type="text" class="form-control form-control-sm" name="nomor" value="<?php echo $spk->nomor; ?>" placeholder="No. SPK/Kontrak/Perjanjian" required <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+								<div class="form-group col">
+									<label>Tgl. Kontrak</label>
+									<input type="date" class="form-control form-control-sm" name="tanggal" value="<?php echo datify($spk->tanggal, 'Y-m-d'); ?>" placeholder="Tanggal kontrak" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Jangka Waktu</label>
+									<input type="number" class="form-control form-control-sm" name="jangka_waktu" value="<?php echo $spk->jangka_waktu; ?>" placeholder="Jangka waktu" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+								<div class="form-group col">
+									<label>Nilai</label>
+									<input type="number" class="form-control form-control-sm" name="nilai" value="<?php echo $spk->nilai; ?>" placeholder="Nilai" required <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Keterangan</label>
+								<textarea class="form-control form-control-sm" rows="5" name="keterangan" value="<?php echo $spk->keterangan; ?>" placeholder="Keterangan" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>></textarea>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Nama Perusahaan</label>
+									<input type="text" class="form-control form-control-sm" name="nama_perusahaan" value="<?php echo $spk->nama_perusahaan; ?>" placeholder="Nama perusahaan" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+								<div class="form-group col">
+									<label>Bentuk</label>
+									<input type="text" class="form-control form-control-sm" name="bentuk" value="<?php echo $spk->bentuk; ?>" placeholder="Bentuk" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Alamat</label>
+									<input type="text" class="form-control form-control-sm" name="alamat" value="<?php echo $spk->alamat; ?>" placeholder="Alamat" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+								<div class="form-group col">
+									<label>Pimpinan</label>
+									<input type="text" class="form-control form-control-sm" name="pimpinan" value="<?php echo $spk->pimpinan; ?>" placeholder="Pimpinan" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label>NPWP</label>
+									<input type="text" class="form-control form-control-sm" name="npwp" value="<?php echo $spk->npwp; ?>" placeholder="NPWP" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+								<div class="form-group col">
+									<label>Bank</label>
+									<input type="text" class="form-control form-control-sm" name="bank" value="<?php echo $spk->bank; ?>" placeholder="Bank" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Atas Nama</label>
+									<input type="text" class="form-control form-control-sm" name="atas_nama" value="<?php echo $spk->atas_nama; ?>" placeholder="Atas Nama" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+								<div class="form-group col">
+									<label>No. Rekening</label>
+									<input type="text" class="form-control form-control-sm" name="no_rek" value="<?php echo $spk->no_rek; ?>" placeholder="No. Rekening" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col">
+							<label>Addendum Nilai</label>
+							<input type="number" class="form-control form-control-sm" name="addendum_nilai" value="<?php echo $spk->addendum_nilai; ?>" placeholder="Addendum Nilai" <?php echo (!empty($sp2d['total']))?'readonly':''; ?>/>
+						</div>
+						<div class="form-group col">
+							<label>Kegiatan</label>
+							<select name="id_kegiatan" class="form-control form-control-sm" <?php echo (!empty($sp2d['total']))?'disabled':''; ?>>
+								<option>Pilih Kegiatan....</option>
+								<?php foreach($kegiatan AS $data): ?>
+								<option value="<?php echo $data->id; ?>" <?php echo $spk->id_kegiatan===$data->id?'selected':''; ?>><?php echo $data->kode.' - '.$data->nama; ?></option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<div class="form-row">
+						<div class="col text-right">
+							<button type="submit" class="btn btn-primary" <?php echo (!empty($sp2d['total']))?'disabled':''; ?>><i class="fa fa-save"></i> Simpan</button>
+							<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<?php $this->_section_end(); ?>
+
+<?php $this->_section_start('script'); ?>
+<script>
+	theme.activeMenu('.nav-pengadaan')
+</script>
+<?php $this->_section_end(); ?>
+<?php echo $this->_include('commons/index'); ?>
+";}
