@@ -48,7 +48,7 @@ if ( ! function_exists('zerofy'))
 
 if ( ! function_exists('datify'))
 {
-	function datify($string, $format)
+	function datify($string, $format = 'd-m-Y')
 	{
 		return date($format, strtotime($string));
 	}

@@ -17,10 +17,10 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Pilih UPB</label>
 						<div class="col-md-4">
-							<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
+							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
 								@foreach($organisasi AS $org)
-								<option value="{{$org->id}}">{{$org->nama}}</option>
+								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
 								@endforeach
 							</select>
 						</div>

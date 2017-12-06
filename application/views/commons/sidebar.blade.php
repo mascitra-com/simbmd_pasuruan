@@ -8,6 +8,7 @@
 			<li class="nav nav-title">UTAMA</li>
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
+			<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
 			
 
 			<li class="nav nav-title">MUTASI TAMBAH</li>
@@ -39,6 +40,12 @@
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-aset">
 					<li class="nav"><a href="{{site_url('report/rekap_aset/index/17')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.17 thn 2007</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_aset/index/13')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.13 thn 2006</a></li>
+				</ul>
+			</li>
+			<li class="nav nav-rekap-penerimaan">
+				<a href="#menu-rekap-penerimaan" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Penerimaan<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-penerimaan">
+					<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-report2"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Barang</a></li>

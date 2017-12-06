@@ -473,9 +473,58 @@
 						</tbody>
 					</table>
 				</div>
-
+				
+				<!-- Tambah Nilai -->
 				<div class="tab-pane" id="tambah_nilai" role="tabpanel">
-					<!-- TAMBAH NILAI -->
+					<table class="table table-hover table-striped table-bordered">
+						<thead>
+							<tr>
+								<th class="text-nowrap text-center">Aksi</th>
+								<th class="text-nowrap text-center">Kode Barang</th>
+								<th class="text-nowrap">Nama</th>
+								<th class="text-nowrap">Merk</th>
+								<th class="text-nowrap">Alamat</th>
+								<th class="text-nowrap">Tipe</th>
+								<th class="text-nowrap">Jumlah</th>
+								<th class="text-nowrap">Nilai</th>
+								<th class="text-nowrap">Nilai Penunjang</th>
+								<th class="text-nowrap">Kategori</th>
+							</tr>
+						</thead>
+						<tbody>
+							@if(empty($kpt))
+							<tr><td colspan="10" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							@endif
+
+							@foreach($kpt AS $item)
+							<tr>
+								<td class="text-nowrap text-center">
+									@if(empty($sp2d['total']))
+									<div class="btn-group">
+										<a href="{{site_url('kapitalisasi/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('kapitalisasi/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+									</div>
+									@endif
+								</td>
+								<td class="text-nowrap text-center">
+									{{zerofy($item->id_kategori->kd_golongan)}} .
+									{{zerofy($item->id_kategori->kd_bidang)}} .
+									{{zerofy($item->id_kategori->kd_kelompok)}} .
+									{{zerofy($item->id_kategori->kd_subkelompok)}} .
+									{{zerofy($item->id_kategori->kd_subsubkelompok)}}
+								</td>
+								<td class="text-nowrap">{{$item->nama}}</td>
+								<td class="text-nowrap">{{$item->merk}}</td>
+								<td class="text-nowrap">{{$item->alamat}}</td>
+								<td class="text-nowrap">{{$item->tipe}}</td>
+								<td class="text-nowrap">{{$item->jumlah}}</td>
+								<td class="text-nowrap">{{monefy($item->nilai)}}</td>
+								<td class="text-nowrap">{{monefy($item->nilai_penunjang)}}</td>
+								<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 
 				<!-- KDP KIB-C -->

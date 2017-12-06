@@ -15,15 +15,5 @@ class Dashboard extends MY_Controller {
 
 	public function tes()
 	{
-		// do{
-
-		// }while(count(array_unique($result)) < count($result));
-
-		$result = array();
-		for($i=0;$i<100000;$i++){
-			$result[] = strtoupper(uniqid().'.'.date('dmYhis'));
-		}
-
-		echo (count(array_unique($result)) === count($result)) ? 'TRUE': 'DUPLICATED';
 	}
 }
