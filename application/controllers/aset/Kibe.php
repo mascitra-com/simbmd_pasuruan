@@ -84,6 +84,21 @@ class Kibe extends MY_Controller {
         $this->render('modules/transfer/kibe', $data);
     }
 
+    public function add_penghapusan($id_organisasi = NULL)
+    {
+        if(empty($id_organisasi))
+            show_404();
+
+        $filter = $this->input->get();
+        $filter['id_organisasi'] = $id_organisasi;
+
+        $result 			= $this->kib->get_data($filter);
+        $data['filter']     = $filter;
+        $data['kib'] 		= $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
+        $this->render('modules/penghapusan/kibe', $data);
+    }
+
 	public function edit($id = NULL)
 	{
 		if(empty($id)) {

@@ -32,7 +32,7 @@
 			
 			<li class="nav nav-title">MUTASI KURANG</li>
 			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-hapus"><a href="#"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			
 			<li class="nav nav-title">LAPORAN</li>
 			<li class="nav nav-rekap-aset">
