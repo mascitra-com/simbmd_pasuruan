@@ -17,6 +17,7 @@ class Pengadaan extends MY_Controller {
 		$this->load->model('aset/Kibd_model','kibd');
 		$this->load->model('aset/Kibe_model','kibe');
 		$this->load->model('aset/Kibnon_model','kibnon');
+		$this->load->model('Kapitalisasi_model','kapitalisasi');
 	}
 	
 	public function index()
@@ -106,6 +107,7 @@ class Pengadaan extends MY_Controller {
 		$data['kibnon'] = $this->kibnon->get_data_pengajuan($data['spk']->id);
 		$data['kdpc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id, TRUE);
 		$data['kdpd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id, TRUE);
+		$data['kpt'] 	= $this->kapitalisasi->get_data_pengajuan($data['spk']->id);
 
 		$this->render('modules/pengadaan/rincian', $data);
 	}
@@ -141,6 +143,9 @@ class Pengadaan extends MY_Controller {
 				break;
 			case 'd_kdp':
 				$this->go('aset/kdpd/add_pengadaan/'.$id);
+				break;
+			case 'tambah':
+				$this->go('kapitalisasi/add_pengadaan/langkah_1/'.$id);
 				break;
 		
 			default:

@@ -24,7 +24,7 @@
 			<table>
 				<tr><td class="bold">PROVONSI</td><td>:</td><td>JAWA TIMUR</td></tr>
 				<tr><td class="bold">KABUPATEN</td><td>:</td><td>{{$detail['nama_kota']}}</td></tr>
-				<tr><td class="bold">UPB</td><td>:</td><td>PASURUAN</td></tr>
+				<tr><td class="bold">UPB</td><td>:</td><td>{{$detail['upb']}}</td></tr>
 			</table>
 		</div>
 		<div class="title bold mt-4">

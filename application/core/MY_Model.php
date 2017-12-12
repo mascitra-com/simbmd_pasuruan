@@ -104,7 +104,7 @@ class MY_Model extends MY_Base_model {
         return $data;
     }
 
-    protected function subtitute($data)
+    public function subtitute($data)
     {
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Ruangan_model', 'ruangan');
@@ -152,7 +152,8 @@ class MY_Model extends MY_Base_model {
             $qd = "SELECT id FROM aset_d WHERE reg_induk = '{$reg}'";
             $qe = "SELECT id FROM aset_e WHERE reg_induk = '{$reg}'";
             $qf = "SELECT id FROM aset_f WHERE reg_induk = '{$reg}'";
-            $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qf}) AS q";
+            $qk = "SELECT id FROM kapitalisasi WHERE reg_induk = '{$reg}'";
+            $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qf} UNION {$qk}) AS q";
             $result = $this->db->query($query);
             
             if ($result->num_rows() < 1) {

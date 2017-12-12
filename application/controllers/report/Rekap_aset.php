@@ -8,11 +8,18 @@ class Rekap_aset extends MY_Controller {
 		parent::__construct();
 		$this->load->model('report/Rekap_aset_model', 'report');
 		$this->load->model('organisasi_model', 'organisasi');
+		$this->load->model('Auth_model', 'auth');
 	}
 	
 	public function index($jenis = null)
 	{
-		$data['organisasi'] = $this->organisasi->get_many_by(array('jenis'=>4));
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
+		
+		# Jika bukan superadmin
+		if (!$this->auth->get_super_access()) {
+			$id = $this->auth->get_id_organisasi();
+			$data['organisasi'] = $this->organisasi->get_many_by('id', $id);
+		}
 
 		switch ($jenis) {
 			case 17:

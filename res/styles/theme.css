@@ -126,3 +126,5 @@ th {
 .table-scroll {
 	overflow-x: scroll;
 }
+
+.text-small {font-size: small!important;}

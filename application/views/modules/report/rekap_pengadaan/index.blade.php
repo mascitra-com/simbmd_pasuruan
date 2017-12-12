@@ -11,9 +11,9 @@
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Rekapitulasi Aset Tetap (Permendagri No.17)</div>
+			<div class="card-header">Rekapitulasi Pengadaan Aset</div>
 			<div class="card-body">
-				<form action="{{site_url('report/rekap_aset/cetak/17')}}" method="POST">
+				<form action="{{site_url('report/rekap_pengadaan/cetak')}}" method="POST">
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Pilih UPB</label>
 						<div class="col-md-4">
@@ -26,33 +26,29 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Jenis Rekap</label>
+						<label class="col-md-3 col-form-label text-right">Periode</label>
 						<div class="col-md-4">
-							<select name="jenis" class="form-control form-control-sm">
-								<option value="1">1. Bidang</option>
-								<option value="2">2. Kelompok</option>
-								<option value="3">3. Sub-Kelompok</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Header Laporan</label>
-						<div class="col-md-4">
-							<input type="text" name="header" class="form-control form-control-sm" placeholder="Header laporan" />
+							<?php $year = date('Y'); ?>
+							<div class="input-group">
+							<input type="date" name="periode_start" class="form-control form-control-sm" value="{{datify('1-1-'.$year, 'Y-m-d')}}" placeholder="Dari" />
+							<span class="input-group-addon">s.d.</span>
+							<input type="date" name="periode_end" class="form-control form-control-sm" value="{{datify('31-12-'.$year, 'Y-m-d')}}" placeholder="Dari" />
+							</div>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Laporan</label>
 						<div class="col-md-4">
-							<input type="date" name="tanggal" class="form-control form-control-sm" placeholder="Tanggal Laporan" />
+							<input type="date" name="tanggal" class="form-control form-control-sm" value="{{date('Y-m-d')}}" placeholder="Tanggal Laporan" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nama Kota</label>
 						<div class="col-md-4">
-							<input type="text" name="nama_kota" class="form-control form-control-sm" placeholder="Nama kota" />
+							<input type="text" name="nama_kota" class="form-control form-control-sm" value="Pasuruan" placeholder="Nama kota" />
 						</div>
 					</div>
+					<hr>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right"></label>
 						<div class="col-md-4">
@@ -77,6 +73,7 @@
 							<input type="text" name="lapor_jabatan" class="form-control form-control-sm" placeholder="Jabatan" />
 						</div>
 					</div>
+					<hr>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right"></label>
 						<div class="col-md-4">
@@ -118,7 +115,7 @@
 @section('script')
 <script type="text/javascript">
 	var org = (function(){
-		theme.activeMenu('.nav-rekap-aset');
+		theme.activeMenu('.nav-rekap-penerimaan');
 	})();
 </script>
 @end
