@@ -10,6 +10,7 @@ class Kibc extends MY_Controller {
 		$this->load->model('Organisasi_model', 'organisasi');
 		$this->load->model('Kategori_model', 'kategori');
 		$this->load->model('Spk_model', 'spk');
+		$this->load->model('Hibah_model', 'hibah');
 		$this->load->library('pagination');
 	}
 	
@@ -76,6 +77,15 @@ class Kibc extends MY_Controller {
 
 		$data['spk'] = $this->spk->get($id_spk);
 		$this->render('modules/pengadaan/form_kibc', $data);
+	}
+
+	public function add_hibah($id_hibah = NULL)
+	{
+		if(empty($id_hibah))
+			show_404();
+
+		$data['hibah'] = $this->hibah->get($id_hibah);
+		$this->render('modules/hibah/form_kibc', $data);
 	}
 
 	public function edit($id = NULL)
