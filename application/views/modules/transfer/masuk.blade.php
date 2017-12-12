@@ -1,9 +1,9 @@
 @layout('commons/index')
-@section('title')Transfer Keluar@end
+@section('title')Transfer Masuk@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item active">Transfer Keluar</li>
+<li class="breadcrumb-item active">Transfer Masuk</li>
 @endsection
 
 @section('content')
@@ -35,29 +35,32 @@
 					<tr>
 						<th class="text-center">No. Transfer</th>
 						<th>Tujuan</th>
-						<th class="text-nowrap">No. Jurnal</th>
-						<th class="text-center">Tanggal Jurnal</th>
-						<th class="text-center">No Serah Terima</th>
-						<th class="text-center">Tanggal Serah Terima</th>
+						<th>No. Jurnal</th>
+						<th class="text-nowrap">Tanggal Jurnal</th>
+						<th class="text-nowrap">No Serah Terima</th>
+						<th class="text-nowrap">Tanggal Serah Terima</th>
 						<th class="text-nowrap">Pengajuan</th>
-                        <th class="text-center">Tanggal Verifikasi</th>
+                        <th class="text-nowrap">Tanggal Verifikasi</th>
                         <th class="text-nowrap">Status</th>
                         <th class="text-center"></th>
                     </tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Bagian Umum</td>
-						<td>452434</td>
-						<td>6-12-2017</td>
-						<td>4534324</td>
-						<td>12-12-2017</td>
-						<td></td>
-						<td>12-12-2017</td>
-						<td></td>
-						<td><a href="{{ site_url('transfer/detail/172') }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a></td>
-					</tr>
+				<tr>
+					<td>1</td>
+					<td>Bagian Umum</td>
+					<td>452434</td>
+					<td>6-12-2017</td>
+					<td>4534324</td>
+					<td>12-12-2017</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+						<a href="{{ site_url('transfer/detail/172') }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
+						<a href="#" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Verifikasi</a>
+					</td>
+				</tr>
                 </tbody>
 			</thead>
 		</table>
@@ -74,6 +77,6 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-transfer-keluar')
+	theme.activeMenu('.nav-transfer-masuk')
 </script>
 @end

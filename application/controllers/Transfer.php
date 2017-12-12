@@ -7,6 +7,7 @@
  */
 
 class Transfer extends MY_Controller {
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Organisasi_model', 'organisasi');
@@ -14,10 +15,6 @@ class Transfer extends MY_Controller {
 
 	public function index() {
 		show_404();
-	}
-
-	public function masuk() {
-
 	}
 
 	public function keluar() {
@@ -32,6 +29,20 @@ class Transfer extends MY_Controller {
 		}
 		$data['filter'] = $filter;
 		$this->render('modules/transfer/keluar', $data);
+	}
+
+	public function masuk() {
+		$filter = $this->input->get();
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+		$filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+
+		# Jika bukan superadmin
+		if (!$this->auth->get_super_access()) {
+			$filter['id_organisasi'] = $this->auth->get_id_organisasi();
+			$data['organisasi'] = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
+		}
+		$data['filter'] = $filter;
+		$this->render('modules/transfer/masuk', $data);
 	}
 
 	public function add($id = null) {
@@ -51,7 +62,7 @@ class Transfer extends MY_Controller {
 
 		$data['id_transfer'] = $id;
 		$data['id_organisasi'] = 172;
-		$this->render('modules/transfer/detail');
+		$this->render('modules/transfer/detail', $data);
 	}
 
 	public function rincian($id = null) {
