@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="btn-group mb-3">
-        <a href="{{site_url('transfer/detail/1')}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('transfer/detail/'.$id_organisasi)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="row mb-3">
@@ -68,12 +68,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">KIB-E</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kibnon" role="tab">Tidak Diakui Aset</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tambah_nilai" role="tab">Penambahan Nilai</a>
                         </li>
                     </ul>
                 </div>
@@ -485,7 +479,7 @@
                                 aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST">
+                    <form action="{{ site_url('transfer/rincian_redirect/'.$id_organisasi) }}" method="POST">
                         <div class="modal-title"><b>Aset Tetap</b></div>
                         <ul style="list-style: none;">
                             <li><input type="radio" name="jenis" value="a"> A - Tanah</li>
@@ -493,11 +487,6 @@
                             <li><input type="radio" name="jenis" value="c"> C - Gedung Dan Bangunan</li>
                             <li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
                             <li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
-                            <li><input type="radio" name="jenis" value="tambah"> Penambahan Nilai</li>
-                        </ul>
-                        <div class="modal-title mr-2"><b>Selain Aset Tetap</b></div>
-                        <ul style="list-style: none;">
-                            <li><input type="radio" name="jenis" value="non"> Tidak Diakui Aset</li>
                         </ul>
                         <hr>
                         <div class="form-group">

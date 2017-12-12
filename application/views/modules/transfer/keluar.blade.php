@@ -14,7 +14,7 @@
 				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
 					<option></option>
 					@foreach($organisasi AS $org)
-					<option value="{{$org->id}}">{{$org->nama}}</option>
+						<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
 					@endforeach
 				</select>
 				<span class="input-group-btn">

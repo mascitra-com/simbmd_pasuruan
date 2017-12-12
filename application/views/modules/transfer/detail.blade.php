@@ -10,7 +10,7 @@
 @section('content')
 <div class="btn-group mb-3">
 	<a href="#" class="btn btn-primary active">01. Detail Transfer Keluar</a>
-	<a href="{{ site_url('transfer/rincian/1') }}" class="btn btn-primary">02. Rincian Aset</a>
+	<a href="{{ site_url('transfer/rincian/'.$id_organisasi) }}" class="btn btn-primary">02. Rincian Aset</a>
 </div>
 <div class="row">
 	<div class="col">

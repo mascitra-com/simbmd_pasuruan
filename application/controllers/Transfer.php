@@ -50,6 +50,7 @@ class Transfer extends MY_Controller {
 		}
 
 		$data['id_transfer'] = $id;
+		$data['id_organisasi'] = 172;
 		$this->render('modules/transfer/detail');
 	}
 
@@ -65,6 +66,37 @@ class Transfer extends MY_Controller {
         $data['kibe'] 	= null;
         $data['kibnon'] = null;
 		$data['id_transfer'] = $id;
+		$data['id_organisasi'] = 172;
 		$this->render('modules/transfer/rincian', $data);
 	}
+
+
+    public function rincian_redirect($id_org = null)
+    {
+        if(empty($id_org))
+            show_404();
+
+        $jenis = $this->input->post('jenis');
+
+        switch ($jenis) {
+            case 'a':
+                $this->go('aset/kiba/add_transfer/'.$id_org);
+                break;
+            case 'b':
+                $this->go('aset/kibb/add_transfer/'.$id_org);
+                break;
+            case 'c':
+                $this->go('aset/kibc/add_transfer/'.$id_org);
+                break;
+            case 'd':
+                $this->go('aset/kibd/add_transfer/'.$id_org);
+                break;
+            case 'e':
+                $this->go('aset/kibe/add_transfer/'.$id_org);
+                break;
+            default:
+                show_404();
+                break;
+        }
+    }
 }

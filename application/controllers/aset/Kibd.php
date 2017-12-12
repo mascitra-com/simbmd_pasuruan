@@ -70,13 +70,13 @@ class Kibd extends MY_Controller {
 		$this->render('modules/aset/kibd/form', $data);
 	}
 
-	public function add_pengadaan($id_hibah = NULL)
+	public function add_pengadaan($id_spk = NULL)
 	{
-		if(empty($id_hibah))
+		if(empty($id_spk))
 			show_404();
 
-		$data['hibah'] = $this->hibah->get($id_hibah);
-		$this->render('modules/hibah/form_kibd', $data);
+		$data['spk'] = $this->spk->get($id_spk);
+		$this->render('modules/pengadaan/form_kibd', $data);
 	}
 
 	public function add_hibah($id_hibah = NULL)
@@ -87,6 +87,22 @@ class Kibd extends MY_Controller {
 		$data['hibah'] = $this->hibah->get($id_hibah);
 		$this->render('modules/hibah/form_kibd', $data);
 	}
+
+    public function add_transfer($id_organisasi = NULL)
+    {
+        if(empty($id_organisasi))
+            show_404();
+
+        $filter = $this->input->get();
+        $filter['is_kdp'] = false;
+        $filter['id_organisasi'] = $id_organisasi;
+
+        $result 			= $this->kib->get_data($filter);
+        $data['filter']     = $filter;
+        $data['kib'] 		= $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
+        $this->render('modules/transfer/kibd', $data);
+    }
 
 	public function edit($id = NULL)
 	{

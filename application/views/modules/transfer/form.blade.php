@@ -195,7 +195,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right"></label>
                             <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <a href="{{ site_url('transfer/detail/172') }}" type="submit" class="btn btn-primary">Simpan</a>
                                 <button type="reset" class="btn btn-secondary">Bersihkan</button>
                                 <a href="{{site_url('aset/kiba')}}" class="btn btn-warning">Kembali</a>
                             </div>
