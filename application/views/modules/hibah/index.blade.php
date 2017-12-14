@@ -34,7 +34,6 @@
 				<thead>
 					<tr>
 						<th class="text-center">No. Hibah</th>
-						<th>No. Lokasi</th>
 						<th>No. Jurnal</th>
 						<th class="text-nowrap">Tanggal Jurnal</th>
 						<th>Asal Penerimaan</th>
@@ -48,7 +47,6 @@
                     @foreach($hibah as $list)
 					<tr>
 						<td class="text-center">{{ $list->id }}</td>
-						<td>{{ $list->no_lokasi }}</td>
 						<td>{{ $list->no_jurnal }}</td>
 						<td class="text-nowrap">{{ datify($list->tgl_jurnal, 'd-m-Y') }}</td>
 						<td class="text-sm">{{ $list->asal_penerimaan }}</td>
@@ -85,15 +83,9 @@
 			</div>
 			<div class="modal-body">
 				<form action="{{ site_url('hibah/insert_hibah') }}" method="POST">
-					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="col">
-							<div class="form-row">
-								<div class="form-group col">
-									<label>No. Lokasi</label>
-									<input type="text" class="form-control form-control-sm" name="no_lokasi" placeholder="Nomor Lokasi" required/>
-								</div>
-							</div>
+							<input type="hidden" class="form-control form-control-sm" name="id_organisasi" required value="{{ $filter['id_organisasi'] }}"/>
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. Jurnal</label>
@@ -112,12 +104,12 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col">
-							<label>No. BA Serah Terima</label>
-							<input type="number" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. BA Serah Terima" />
+							<label>No. Serah Terima</label>
+							<input type="number" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Serah Terima" />
 						</div>
 						<div class="form-group col">
-							<label>Tanggal BA Serah Terima</label>
-                            <input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal BA Serah Terima" />
+							<label>Tanggal Serah Terima</label>
+                            <input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal Serah Terima" />
                         </div>
 					</div>
                     <div class="form-row">

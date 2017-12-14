@@ -120,6 +120,17 @@ class Kiba extends MY_Controller {
 		$this->render('modules/pengadaan/form_kiba', $data);
 	}
 
+	public function edit_hibah($id = NULL)
+	{
+		if(empty($id))
+			show_404();
+
+		$data['kib'] = $this->kib->get($id);
+		$data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
+		$data['hibah'] = $this->hibah->get($data['kib']->id_hibah);
+		$this->render('modules/hibah/form_kiba', $data);
+	}
+
 	public function insert()
 	{
 		$data = $this->input->post();
@@ -246,6 +257,28 @@ class Kiba extends MY_Controller {
 		}
 	}
 
+	public function update_hibah()
+	{
+		$data 		   = $this->input->post();
+		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+		$id 		   = $data['id'];
+		unset($data['id']);
+
+		if (!$this->kib->form_verify($data)) {
+			$this->message('Isi data yang wajib diisi', 'danger');
+			$this->go('aset/kiba/edit_hibah/'.$id);
+		}
+
+		$sukses = $this->kib->update($id, $data);
+		if($sukses) {
+			$this->message('Data berhasil disunting','success');
+			$this->go('hibah/rincian/'.$data['id_hibah']);
+		} else {
+			$this->message('Data gagal disunting','danger');
+			$this->go('aset/kiba/edit_hibah/'.$id);
+		}
+	}
+
 	public function delete($id = NULL)
 	{
 		if(empty($id)) {
@@ -276,6 +309,22 @@ class Kiba extends MY_Controller {
 		} else {
 			$this->message('Data gagal dihapus','danger');
 			$this->go('pengadaan/rincian/'.$data->id_spk);
+		}
+	}
+
+	public function delete_hibah($id = NULL)
+	{
+		if(empty($id))
+			show_404();
+
+		$data 	= $this->kib->get($id);
+		$sukses = $this->kib->delete($id);
+		if($sukses) {
+			$this->message("Data berhasil dihapus",'success');
+			$this->go('hibah/rincian/'.$data->id_hibah);
+		} else {
+			$this->message('Data gagal dihapus','danger');
+			$this->go('hibah/rincian/'.$data->id_hibah);
 		}
 	}
 

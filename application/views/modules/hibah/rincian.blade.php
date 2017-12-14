@@ -4,7 +4,7 @@
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
     <li class="breadcrumb-item"><a href="{{site_url('transfer/keluar')}}">Hibah</a></li>
-    <li class="breadcrumb-item active">Rincian Transfer Keluar</li>
+    <li class="breadcrumb-item active">Rincian Hibah</li>
     @end
 
 @section('content')
@@ -28,9 +28,6 @@
                 <div class="card-body row">
                     <div class="col">
                         <div class="row">
-                            <div class="col">No. Lokasi</div>
-                            <div class="col"> : {{ $hibah->no_lokasi }}</div>
-                            <div class="w-100"></div>
                             <div class="col">No. Jurnal</div>
                             <div class="col"> : {{ $hibah->no_jurnal }}</div>
                             <div class="w-100"></div>
@@ -62,9 +59,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">KIB-E</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kibnon" role="tab">Tidak Diakui Aset</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tambah_nilai" role="tab">Penambahan Nilai</a>
@@ -104,8 +98,8 @@
                                     <td class="text-nowrap text-center">
                                         @if(empty($sp2d['total']))
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kiba/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kiba/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('aset/kiba/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('aset/kiba/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -173,8 +167,8 @@
                                     <td class="text-nowrap text-center">
                                         @if(empty($sp2d['total']))
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibb/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibb/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('aset/kibb/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('aset/kibb/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -248,8 +242,8 @@
                                     <td class="text-nowrap text-center">
                                         @if(empty($sp2d['total']))
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibc/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibc/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('aset/kibc/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('aset/kibc/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -321,8 +315,8 @@
                                     <td class="text-nowrap text-center">
                                         @if(empty($sp2d['total']))
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibd/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibd/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('aset/kibd/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('aset/kibd/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -345,7 +339,7 @@
                                     <td class="text-nowrap">{{$item->kode_tanah}}</td>
                                     <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
                                     <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                    <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                    <td class="text-nowrap">{{ucwords($item->asal_usul)}}</td>
                                     <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
                                     <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
                                     <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
@@ -391,8 +385,8 @@
                                     <td class="text-nowrap text-center">
                                         @if(empty($sp2d['total']))
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibe/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibe/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('aset/kibe/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('aset/kibe/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -425,7 +419,57 @@
                     </div>
 
                     <div class="tab-pane" id="tambah_nilai" role="tabpanel">
-                        <!-- TAMBAH NILAI -->
+                        <div class="tab-pane" id="tambah_nilai" role="tabpanel">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="text-nowrap text-center">Aksi</th>
+                                    <th class="text-nowrap text-center">Kode Barang</th>
+                                    <th class="text-nowrap">Nama</th>
+                                    <th class="text-nowrap">Merk</th>
+                                    <th class="text-nowrap">Alamat</th>
+                                    <th class="text-nowrap">Tipe</th>
+                                    <th class="text-nowrap">Jumlah</th>
+                                    <th class="text-nowrap">Nilai</th>
+                                    <th class="text-nowrap">Nilai Penunjang</th>
+                                    <th class="text-nowrap">Kategori</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(empty($kpt))
+                                    <tr><td colspan="10" class="text-center"><b><i>Data kosong</i></b></td></tr>
+                                @endif
+
+                                @foreach($kpt AS $item)
+                                    <tr>
+                                        <td class="text-nowrap text-center">
+                                            @if(empty($sp2d['total']))
+                                                <div class="btn-group">
+                                                    <a href="{{site_url('kapitalisasi/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                    <a href="{{site_url('kapitalisasi/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td class="text-nowrap text-center">
+                                            {{zerofy($item->id_kategori->kd_golongan)}} .
+                                            {{zerofy($item->id_kategori->kd_bidang)}} .
+                                            {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                            {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                            {{zerofy($item->id_kategori->kd_subsubkelompok)}}
+                                        </td>
+                                        <td class="text-nowrap">{{$item->nama}}</td>
+                                        <td class="text-nowrap">{{$item->merk}}</td>
+                                        <td class="text-nowrap">{{$item->alamat}}</td>
+                                        <td class="text-nowrap">{{$item->tipe}}</td>
+                                        <td class="text-nowrap">{{$item->jumlah}}</td>
+                                        <td class="text-nowrap">{{monefy($item->nilai)}}</td>
+                                        <td class="text-nowrap">{{monefy($item->nilai_penunjang)}}</td>
+                                        <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -453,10 +497,6 @@
                             <li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
                             <li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
                             <li><input type="radio" name="jenis" value="tambah"> Penambahan Nilai</li>
-                        </ul>
-                        <div class="modal-title mr-2"><b>Selain Aset Tetap</b></div>
-                        <ul style="list-style: none;">
-                            <li><input type="radio" name="jenis" value="non"> Tidak Diakui Aset</li>
                         </ul>
                         <hr>
                         <div class="form-group">

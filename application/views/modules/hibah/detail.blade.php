@@ -23,12 +23,6 @@
 						<div class="col">
 							<div class="form-row">
 								<div class="form-group col">
-									<label>No. Lokasi</label>
-									<input type="text" class="form-control form-control-sm" value="{{ $hibah->no_lokasi }}" name="no_lokasi" placeholder="Nomor Lokasi" required/>
-								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col">
 									<label>No. Jurnal</label>
 									<input type="number" class="form-control form-control-sm" value="{{ $hibah->no_jurnal }}" name="no_jurnal" placeholder="Nomor Jurnal" />
 								</div>
