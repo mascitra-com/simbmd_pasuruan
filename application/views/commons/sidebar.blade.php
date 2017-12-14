@@ -46,6 +46,7 @@
 				<a href="#menu-rekap-penerimaan" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Penerimaan<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-penerimaan">
 					<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
+					<li class="nav"><a href="{{site_url('report/rekap_hibah/')}}"><i class="fa fa-file-o fa-fw icon"></i> Hibah</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-report2"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Barang</a></li>
