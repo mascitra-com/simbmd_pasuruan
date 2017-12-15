@@ -87,8 +87,12 @@ class MY_Model extends MY_Base_model {
         return TRUE;
     }
 
-    protected function fill_empty_data($data)
+    protected function fill_empty_data($data = array())
     {
+        if (empty($data)) {
+            return $data;
+        }
+
         foreach ($data as $key => $value)
         {
             foreach ($value as $index => $item)

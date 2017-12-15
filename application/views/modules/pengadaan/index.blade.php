@@ -52,7 +52,7 @@
 						<td class="text-center">
 							<div class="btn-group btn-group-sm">
 								<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
-								<button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+								<button class="btn btn-danger" data-id="{{$spk->id}}"><i class="fa fa-trash"></i></button>
 							</div>
 						</td>
 					</tr>
@@ -173,6 +173,23 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-hapus">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Apakah anda yakin?</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<h3>Menghapus data SPK juga akan menghapus semua rincian pengadaan dan SP2D.</h3>
+			</div>
+			<div class="modal-footer">
+				<a href="" class="btn btn-warning" id="btn-hapus-confirm">Tetap hapus</a>
+				<button class="btn btn-primary" data-dismiss="modal">Batal</button>
+			</div>
+		</div>
+	</div>
+</div>
 @end
 
 @section('style')
@@ -183,6 +200,11 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-pengadaan')
+	theme.activeMenu('.nav-pengadaan');
+	$("[data-id]").on('click', function(){
+		var id = $(this).data('id');
+		$("#btn-hapus-confirm").attr("href", "{{site_url('pengadaan/delete_spk/')}}"+id);
+		$("#modal-hapus").modal('show');
+	});
 </script>
 @end

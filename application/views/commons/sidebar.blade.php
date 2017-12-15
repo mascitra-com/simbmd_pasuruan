@@ -49,7 +49,7 @@
 				</ul>
 			</li>
 			<li class="nav nav-report2"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Barang</a></li>
-			<li class="nav nav-report1"><a href="{{site_url('report/rekap_aset')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
+			<li class="nav nav-rekap-kib"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
 
 
 			@if($this->session->auth['is_admin'] == 1)
