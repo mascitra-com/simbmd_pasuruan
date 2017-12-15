@@ -9,7 +9,7 @@
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
 			<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
-			
+
 
 			<li class="nav nav-title">MUTASI TAMBAH</li>
 			<li class="nav nav-invent">
@@ -27,12 +27,12 @@
 				</ul>
 			</li>
 			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
-			<li class="nav nav-sumber"><a href="#"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
-			<li class="nav nav-sumber"><a href="#"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
+			<li class="nav nav-hibah"><a href="{{site_url('hibah')}}"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
+			<li class="nav nav-transfer-masuk"><a href="{{ site_url('transfer/masuk') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
 			
 			<li class="nav nav-title">MUTASI KURANG</li>
-			<li class="nav nav-transfer"><a href="#"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-hapus"><a href="#"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
+			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			
 			<li class="nav nav-title">LAPORAN</li>
 			<li class="nav nav-rekap-aset">

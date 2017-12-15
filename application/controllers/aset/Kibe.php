@@ -11,6 +11,7 @@ class Kibe extends MY_Controller {
 		$this->load->model('Kategori_model', 'kategori');
 		$this->load->model('Ruangan_model', 'ruangan');
 		$this->load->model('Spk_model', 'spk');
+		$this->load->model('Hibah_model', 'hibah');
 		$this->load->library('pagination');
 	}
 	
@@ -57,6 +58,46 @@ class Kibe extends MY_Controller {
 		$data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['spk']->id_organisasi);
 		$this->render('modules/pengadaan/form_kibe', $data);
 	}
+
+	public function add_hibah($id_hibah = NULL)
+	{
+		if(empty($id_hibah))
+			show_404();
+
+		$data['hibah'] = $this->hibah->get($id_hibah);
+		$data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['hibah']->id_organisasi);
+		$this->render('modules/hibah/form_kibe', $data);
+	}
+
+    public function add_transfer($id_organisasi = NULL)
+    {
+        if(empty($id_organisasi))
+            show_404();
+
+        $filter = $this->input->get();
+        $filter['id_organisasi'] = $id_organisasi;
+
+        $result 			= $this->kib->get_data($filter);
+        $data['filter']     = $filter;
+        $data['kib'] 		= $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
+        $this->render('modules/transfer/kibe', $data);
+    }
+
+    public function add_penghapusan($id_organisasi = NULL)
+    {
+        if(empty($id_organisasi))
+            show_404();
+
+        $filter = $this->input->get();
+        $filter['id_organisasi'] = $id_organisasi;
+
+        $result 			= $this->kib->get_data($filter);
+        $data['filter']     = $filter;
+        $data['kib'] 		= $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
+        $this->render('modules/penghapusan/kibe', $data);
+    }
 
 	public function edit($id = NULL)
 	{

@@ -64,6 +64,7 @@ class MY_Model extends MY_Base_model {
     {
         $data['log_time']   = date('Y-m-d H:i:s');
         $data['log_action'] = 'INSERT';
+        $data['log_user'] = isset($this->session->auth['id']) ? $this->session->auth['id'] : '';
         return $data;
     }
 
@@ -71,6 +72,7 @@ class MY_Model extends MY_Base_model {
     {
         $data['log_time']   = date('Y-m-d H:i:s');
         $data['log_action'] = 'UPDATE';
+        $data['log_user'] = isset($this->session->auth['id']) ? $this->session->auth['id'] : '';
         return $data;
     }
 
@@ -182,6 +184,17 @@ class MY_Model extends MY_Base_model {
         }
 
         $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_spk'=>$id_spk));
+        $result = $this->subtitute($result);
+        $result = $this->fill_empty_data($result);
+
+        return $result;
+    }
+    public function get_data_hibah($id_hibah, $is_kdp = FALSE)
+    {
+        $this->select("{$this->_table}.*");
+        $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
+        $this->where('kd_golongan<>', '6');
+        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah));
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);
 

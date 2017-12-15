@@ -10,6 +10,7 @@ class Kiba extends MY_Controller {
 		$this->load->model('Organisasi_model', 'organisasi');
 		$this->load->model('Kategori_model', 'kategori');
 		$this->load->model('Spk_model', 'spk');
+		$this->load->model('Hibah_model', 'hibah');
 		$this->load->library('pagination');
 	}
 	
@@ -53,6 +54,45 @@ class Kiba extends MY_Controller {
 
 		$data['spk'] = $this->spk->get($id_spk);
 		$this->render('modules/pengadaan/form_kiba', $data);
+	}
+
+	public function add_hibah($id_spk = NULL)
+	{
+		if(empty($id_spk))
+			show_404();
+
+		$data['hibah'] = $this->hibah->get($id_spk);
+		$this->render('modules/hibah/form_kiba', $data);
+	}
+
+	public function add_transfer($id_organisasi = NULL)
+	{
+		if(empty($id_organisasi))
+			show_404();
+
+        $filter = $this->input->get();
+        $filter['id_organisasi'] = $id_organisasi;
+
+        $result 			= $this->kib->get_data($filter);
+        $data['filter']     = $filter;
+        $data['kib'] 		= $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
+		$this->render('modules/transfer/kiba', $data);
+	}
+
+	public function add_penghapusan($id_organisasi = NULL)
+	{
+		if(empty($id_organisasi))
+			show_404();
+
+        $filter = $this->input->get();
+        $filter['id_organisasi'] = $id_organisasi;
+
+        $result 			= $this->kib->get_data($filter);
+        $data['filter']     = $filter;
+        $data['kib'] 		= $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
+		$this->render('modules/k/kiba', $data);
 	}
 
 	public function edit($id = NULL)
@@ -129,6 +169,36 @@ class Kiba extends MY_Controller {
 		} else {
 			$this->message('Data gagal disimpan','danger');
 			$this->go('aset/kiba/add_pengadaan/'.$data['id_spk']);
+		}
+	}
+
+	public function insert_hibah()
+	{
+		$data = $this->input->post();
+		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
+
+		if (!$this->kib->form_verify($data)) {
+			$this->message('Isi data yang wajib diisi', 'danger');
+			$this->go('aset/kiba/add_hibah/'.$data['id_hibah']);
+		}
+
+		$data_final = array();
+		$kuantitas = !empty($data['kuantitas']) ? $data['kuantitas'] : 1;
+		unset($data['kuantitas']);
+
+		for ($i=0; $i < $kuantitas; $i++) {
+			$data_final[$i] = $data;
+			$data_final[$i]['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']) + $i;
+			$data_final[$i]['reg_induk']  = $this->kib->get_reg_induk();
+		}
+
+		$sukses = $this->kib->batch_insert($data_final);
+		if($sukses) {
+			$this->message('Data berhasil disimpan','success');
+			$this->go('hibah/rincian/'.$data['id_hibah']);
+		} else {
+			$this->message('Data gagal disimpan','danger');
+			$this->go('aset/kiba/add_hibah/'.$data['id_hibah']);
 		}
 	}
 
