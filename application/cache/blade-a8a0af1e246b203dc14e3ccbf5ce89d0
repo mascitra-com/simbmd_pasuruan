@@ -1,4 +1,4 @@
-a:3:{s:4:"time";i:1513351011;s:3:"ttl";i:3600;s:4:"data";s:5442:"<div id="sidebar">
+a:3:{s:4:"time";i:1513351493;s:3:"ttl";i:3600;s:4:"data";s:5690:"<div id="sidebar">
 	<div class="wrapper">
 		<div class="title">
 			<h3 class="mb-0 text-bolder">SIMBMD</h3>
@@ -9,7 +9,7 @@ a:3:{s:4:"time";i:1513351011;s:3:"ttl";i:3600;s:4:"data";s:5442:"<div id="sideba
 			<li class="nav nav-dashboard"><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="<?php echo site_url('profil'); ?>"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
 			<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
-			
+
 
 			<li class="nav nav-title">MUTASI TAMBAH</li>
 			<li class="nav nav-invent">
@@ -27,12 +27,12 @@ a:3:{s:4:"time";i:1513351011;s:3:"ttl";i:3600;s:4:"data";s:5442:"<div id="sideba
 				</ul>
 			</li>
 			<li class="nav nav-pengadaan"><a href="<?php echo site_url('pengadaan'); ?>"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
-			<li class="nav nav-sumber"><a href="#"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
-			<li class="nav nav-sumber"><a href="#"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
+			<li class="nav nav-hibah"><a href="<?php echo site_url('hibah'); ?>"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
+			<li class="nav nav-transfer-masuk"><a href="<?php echo  site_url('transfer/masuk') ; ?>"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
 			
 			<li class="nav nav-title">MUTASI KURANG</li>
-			<li class="nav nav-transfer"><a href="#"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-hapus"><a href="#"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-transfer-keluar"><a href="<?php echo  site_url('transfer/keluar') ; ?>"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
+			<li class="nav nav-penghapusan"><a href="<?php echo  site_url('penghapusan') ; ?>"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			
 			<li class="nav nav-title">LAPORAN</li>
 			<li class="nav nav-rekap-aset">
