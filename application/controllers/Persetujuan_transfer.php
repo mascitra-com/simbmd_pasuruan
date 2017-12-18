@@ -68,13 +68,18 @@ class Persetujuan_transfer extends MY_Controller {
 
 		if($sukses) {
     		# BEGIN TRANSFER
-			if ($this->transfer($data['id_transfer'])) {
-				$this->transfer->update($data['id_transfer'], array('status_pengajuan'=>$data['status']));
+
+    		if ($data['status']==='2') {
+				$this->transfer($data['id_transfer']);
+    		}
+    		
+    		$sukses2 = $this->transfer->update($data['id_transfer'], array('status_pengajuan'=>$data['status']));
+			if ($sukses2) {
 				$this->message('Data berhasil diverifikasi','success');
 				$this->go('persetujuan_transfer');
 			} else {
     			# ROLL OUT
-				$this->transfer->delete($sukses);
+				$this->persetujuan->delete($sukses);
 			}
 
 		} else {
@@ -99,7 +104,7 @@ class Persetujuan_transfer extends MY_Controller {
 
 			$where_in = $this->{$kib}->as_array()->get_many_by('id_transfer', $id);
 			$where_in = array_column($where_in, 'id_aset');
-			
+
 			if (!empty($where_in)) {
 				$this->db->where_in('id', $where_in)->update("aset_{$item}", array('id_organisasi'=>$transfer->id_tujuan));
 			}
