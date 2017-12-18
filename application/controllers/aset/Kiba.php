@@ -68,18 +68,27 @@ class Kiba extends MY_Controller
         $this->render('modules/hibah/form_kiba', $data);
     }
 
-    public function add_transfer($id_organisasi = NULL)
+    public function add_transfer($id_transfer = NULL)
     {
-        if (empty($id_organisasi))
+        $this->load->model('Transfer_model', 'transfer');
+
+        if (empty($id_transfer))
             show_404();
 
+        $data['transfer']       = $this->transfer->get($id_transfer);
+        $where_not_in           = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_transfer', $id_transfer);
+        $where_not_in           = array_column($where_not_in, 'id_aset');
+        
+        # FILTER
         $filter = $this->input->get();
-        $filter['id_organisasi'] = $id_organisasi;
+        $filter['id_organisasi'] =  $data['transfer']->id_organisasi;
 
-        $result = $this->kib->get_data($filter);
-        $data['filter'] = $filter;
-        $data['kib'] = $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
+        $result = $this->kib->where_not_in('id', !empty($where_not_in)?$where_not_in:'')->get_data($filter);
+
+        $data['filter']         = $filter;
+        $data['kib']            = $result['data'];
+        $data['terpilih_count'] = count($where_not_in);
+        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
         $this->render('modules/transfer/kiba', $data);
     }
 
@@ -244,6 +253,27 @@ class Kiba extends MY_Controller
         }
     }
 
+    public function insert_transfer()
+    {
+        $this->load->model('aset/Kiba_temp_model', 'kib_temp');
+
+        $data = $this->input->post();
+        $kib  = $this->kib->as_array()->get($data['id_aset']);
+
+        $kib['id_transfer'] = $data['id_transfer'];
+        $kib['id_aset']     = $data['id_aset'];
+
+        unset($kib['id']);
+
+        $sukses = $this->kib_temp->insert($kib);
+        if($sukses) {
+            $terpilih_count = $this->kib_temp->count_by('id_transfer', $data['id_transfer']);
+            echo json_encode(array('status'=>'sukses', 'terpilih_count'=> $terpilih_count));
+        } else {
+
+        }
+    }
+
     public function update()
     {
         $data = $this->input->post();
@@ -368,7 +398,7 @@ class Kiba extends MY_Controller
     public function delete_penghapusan($id = NULL)
     {
         if (empty($id))
-        show_404();
+            show_404();
 
         $id_hapus = $this->kib_temp->get($id)->id_hapus;
         $sukses = $this->kib_temp->delete($id);

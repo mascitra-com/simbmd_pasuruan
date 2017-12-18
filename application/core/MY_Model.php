@@ -198,7 +198,7 @@ class MY_Model extends MY_Base_model {
 
     public function get_data_pengajuan($id_spk, $is_kdp = FALSE)
     {
-# SELAIN ASET NON
+        # SELAIN ASET NON
         if ($this->_table !== 'aset_non') {
 
             $this->join('kategori', $this->_table.'.id_kategori = kategori.id');

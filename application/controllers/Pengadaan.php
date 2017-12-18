@@ -93,8 +93,6 @@ class Pengadaan extends MY_Controller {
 			$this->kibd->delete_by(array('id_spk'=>$id));
 			$this->kibe->delete_by(array('id_spk'=>$id));
 			$this->kibnon->delete_by(array('id_spk'=>$id));
-			$this->kibc->delete_by(array('id_spk'=>$id));
-			$this->kibd->delete_by(array('id_spk'=>$id));
 			$this->kapitalisasi->delete_by(array('id_spk'=>$id));
 			$this->sp2d->delete_by(array('id_spk'=>$id));
 

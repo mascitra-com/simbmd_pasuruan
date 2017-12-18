@@ -11,7 +11,12 @@ class Transfer extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('Transfer_model', 'transfer');
-		$this->load->model('Organisasi_model', 'organisasi');
+        $this->load->model('Organisasi_model', 'organisasi');
+        $this->load->model('aset/Kiba_temp_model', 'kiba');
+        $this->load->model('aset/Kibb_temp_model', 'kibb');
+        $this->load->model('aset/Kibc_temp_model', 'kibc');
+        $this->load->model('aset/Kibd_temp_model', 'kibd');
+		$this->load->model('aset/Kibe_temp_model', 'kibe');
 		$this->load->library('pagination');
 	}
 
@@ -78,39 +83,39 @@ class Transfer extends MY_Controller {
 			show_404();
 
         # RINCIAN
-        $data['kiba'] 	  = null;
-        $data['kibb'] 	  = null;
-        $data['kibc'] 	  = null;
-        $data['kibd'] 	  = null;
-        $data['kibe']	  = null;
+        $data['kiba'] 	  = $this->kiba->get_data_transfer($id);
+        $data['kibb'] 	  = $this->kibb->get_data_transfer($id);
+        $data['kibc'] 	  = $this->kibc->get_data_transfer($id);
+        $data['kibd'] 	  = $this->kibd->get_data_transfer($id);
+        $data['kibe']	  = $this->kibe->get_data_transfer($id);
 		$data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
 		
 		$this->render('modules/transfer/keluar_rincian', $data);
 	}
 
 
-    public function rincian_redirect($id_org = null)
+    public function rincian_redirect($id = null)
     {
-        if(empty($id_org))
+        if(empty($id))
             show_404();
 
         $jenis = $this->input->post('jenis');
 
         switch ($jenis) {
             case 'a':
-                $this->go('aset/kiba/add_transfer/'.$id_org);
+                $this->go('aset/kiba/add_transfer/'.$id);
                 break;
             case 'b':
-                $this->go('aset/kibb/add_transfer/'.$id_org);
+                $this->go('aset/kibb/add_transfer/'.$id);
                 break;
             case 'c':
-                $this->go('aset/kibc/add_transfer/'.$id_org);
+                $this->go('aset/kibc/add_transfer/'.$id);
                 break;
             case 'd':
-                $this->go('aset/kibd/add_transfer/'.$id_org);
+                $this->go('aset/kibd/add_transfer/'.$id);
                 break;
             case 'e':
-                $this->go('aset/kibe/add_transfer/'.$id_org);
+                $this->go('aset/kibe/add_transfer/'.$id);
                 break;
             default:
                 show_404();
@@ -124,7 +129,7 @@ class Transfer extends MY_Controller {
 
     	if (!$this->transfer->form_verify($data)) {
     		$this->message('Isi data yang perlu diisi', 'danger');
-    		$this->go('transfer/add/'.$data['id_organisasi']);
+    		$this->go('transfer/add/'.$data['idanisasi']);
     	}
 
     	$sukses = $this->transfer->insert($data);

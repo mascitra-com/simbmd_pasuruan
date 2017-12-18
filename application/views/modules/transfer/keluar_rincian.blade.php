@@ -2,78 +2,78 @@
 @section('title')Transfer Keluar - Rincian@end
 
 @section('breadcrump')
-    <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
-    <li class="breadcrumb-item active">Rincian Aset</li>
-    @end4
+<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
+<li class="breadcrumb-item active">Rincian Aset</li>
+@end4
 
 @section('content')
-    <div class="btn-group mb-3">
-        <a href="{{site_url('transfer/detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
-        <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <div class="card">
-                <div class="card-header form-inline">
-                    <span class="mr-auto">Detail Kontrak</span>
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
-                        <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
-                    </div>
+<div class="btn-group mb-3">
+    <a href="{{site_url('transfer/detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+    <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        <div class="card">
+            <div class="card-header form-inline">
+                <span class="mr-auto">Detail Kontrak</span>
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
+                    <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
                 </div>
-                <div class="card-body row">
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-4">Asal</div>
-                            <div class="col"> : {{$transfer->id_organisasi->nama}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4">Tujuan</div>
-                            <div class="col"> : {{$transfer->id_tujuan->nama}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4">No. Surat</div>
-                            <div class="col"> : {{$transfer->surat_no}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4">No. Jurnal</div>
-                            <div class="col"> : {{$transfer->jurnal_no}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-4">No. Serah Terima</div>
-                            <div class="col"> : {{$transfer->serah_terima_no}}</div>
-                            <div class="w-100"></div>
-                        </div>
+            </div>
+            <div class="card-body row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4">Asal</div>
+                        <div class="col"> : {{$transfer->id_organisasi->nama}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4">Tujuan</div>
+                        <div class="col"> : {{$transfer->id_tujuan->nama}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4">No. Surat</div>
+                        <div class="col"> : {{$transfer->surat_no}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4">No. Jurnal</div>
+                        <div class="col"> : {{$transfer->jurnal_no}}</div>
+                        <div class="w-100"></div>
+                        <div class="col-4">No. Serah Terima</div>
+                        <div class="col"> : {{$transfer->serah_terima_no}}</div>
+                        <div class="w-100"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#kiba" role="tab">KIB-A</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kibb" role="tab">KIB-B</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kibc" role="tab">KIB-C</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kibd" role="tab">KIB-D</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">KIB-E</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body tab-content table-scroll px-0 py-0">
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#kiba" role="tab">KIB-A</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kibb" role="tab">KIB-B</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kibc" role="tab">KIB-C</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kibd" role="tab">KIB-D</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">KIB-E</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body tab-content table-scroll px-0 py-0">
 
-                    <!-- KIB-A -->
-                    <div class="tab-pane active" id="kiba" role="tabpanel">
-                        <table class="table table-hover table-striped table-bordered">
-                            <thead>
+                <!-- KIB-A -->
+                <div class="tab-pane active" id="kiba" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
@@ -90,59 +90,58 @@
                                 <th class="text-nowrap">Keterangan</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @if(empty($kiba))
-                                <tr>
-                                    <td colspan="14" class="text-center"><b><i>Data kosong</i></b></td>
-                                </tr>
+                            <tr>
+                                <td colspan="14" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
                             @endif
                             @if($kiba)
-                                @foreach($kiba AS $item)
-                                    <tr>
-                                        <td class="text-nowrap text-center">
-                                            @if(empty($sp2d['total']))
-                                                <div class="btn-group">
-                                                    <a href="{{site_url('aset/kiba/edit_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('aset/kiba/delete_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Apakah anda yakin?')"><i
-                                                                class="fa fa-trash"></i></a>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap text-center">
-                                            {{zerofy($item->id_kategori->kd_golongan)}} .
-                                            {{zerofy($item->id_kategori->kd_bidang)}} .
-                                            {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                            {{zerofy($item->reg_barang,4)}}
-                                        </td>
-                                        <td class="text-nowrap">{{$item->luas}}</td>
-                                        <td class="text-nowrap">{{$item->alamat}}</td>
-                                        <td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
-                                        <td class="text-nowrap">{{$item->sertifikat_no}}</td>
-                                        <td class="text-nowrap">{{$item->hak}}</td>
-                                        <td class="text-nowrap">{{$item->pengguna}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd/m/Y')}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd/m/Y')}}</td>
-                                        <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                        <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap">{{$item->keterangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach($kiba AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    @if(empty($sp2d['total']))
+                                    <div class="btn-group">
+                                     class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                     <a href="{{site_url('aset/kiba/delete_transfer/'.$item->id)}}"
+                                         class="btn btn-sm btn-danger"
+                                         onclick="return confirm('Apakah anda yakin?')"><i
+                                         class="fa fa-trash"></i></a>
+                                     </div>
+                                     @endif
+                                 </td>
+                                 <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->luas}}</td>
+                                <td class="text-nowrap">{{$item->alamat}}</td>
+                                <td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
+                                <td class="text-nowrap">{{$item->sertifikat_no}}</td>
+                                <td class="text-nowrap">{{$item->hak}}</td>
+                                <td class="text-nowrap">{{$item->pengguna}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd/m/Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd/m/Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
                             @endif
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <!-- KIB-B -->
-                    <div class="tab-pane" id="kibb" role="tabpanel">
-                        <table class="table table-hover table-striped table-bordered">
-                            <thead>
+                <!-- KIB-B -->
+                <div class="tab-pane" id="kibb" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
@@ -166,67 +165,62 @@
                                 <th class="text-nowrap">Ruang</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @if(empty($kibb))
-                                <tr>
-                                    <td colspan="21" class="text-center"><b><i>Data kosong</i></b></td>
-                                </tr>
+                            <tr>
+                                <td colspan="21" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
                             @endif
                             @if($kibb)
-                                @foreach($kibb AS $item)
-                                    <tr>
-                                        <td class="text-nowrap text-center">
-                                            @if(empty($sp2d['total']))
-                                                <div class="btn-group">
-                                                    <a href="{{site_url('aset/kibb/edit_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('aset/kibb/delete_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Apakah anda yakin?')"><i
-                                                                class="fa fa-trash"></i></a>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap text-center">
-                                            {{zerofy($item->id_kategori->kd_golongan)}} .
-                                            {{zerofy($item->id_kategori->kd_bidang)}} .
-                                            {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                            {{zerofy($item->reg_barang,4)}}
-                                        </td>
-                                        <td class="text-nowrap">{{$item->merk}}</td>
-                                        <td class="text-nowrap">{{$item->tipe}}</td>
-                                        <td class="text-nowrap">{{$item->ukuran}}</td>
-                                        <td class="text-nowrap">{{$item->bahan}}</td>
-                                        <td class="text-nowrap">{{$item->no_pabrik}}</td>
-                                        <td class="text-nowrap">{{$item->no_rangka}}</td>
-                                        <td class="text-nowrap">{{$item->no_mesin}}</td>
-                                        <td class="text-nowrap">{{$item->no_polisi}}</td>
-                                        <td class="text-nowrap">{{$item->no_bpkb}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                        <td class="text-nowrap">{{$item->kondisi}}</td>
-                                    <!-- <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td> -->
-                                        <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                        <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                        <td class="text-nowrap">{{$item->keterangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_ruangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach($kibb AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    @if(empty($sp2d['total']))
+                                    <div class="btn-group">
+                                        <a href="{{site_url('aset/kibb/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->merk}}</td>
+                                <td class="text-nowrap">{{$item->tipe}}</td>
+                                <td class="text-nowrap">{{$item->ukuran}}</td>
+                                <td class="text-nowrap">{{$item->bahan}}</td>
+                                <td class="text-nowrap">{{$item->no_pabrik}}</td>
+                                <td class="text-nowrap">{{$item->no_rangka}}</td>
+                                <td class="text-nowrap">{{$item->no_mesin}}</td>
+                                <td class="text-nowrap">{{$item->no_polisi}}</td>
+                                <td class="text-nowrap">{{$item->no_bpkb}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{$item->kondisi}}</td>
+                                <!-- <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td> -->
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
                             @endif
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <!-- KIB-C -->
-                    <div class="tab-pane" id="kibc" role="tabpanel">
-                        <table class="table table-hover table-striped table-bordered">
-                            <thead>
+                <!-- KIB-C -->
+                <div class="tab-pane" id="kibc" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
@@ -248,64 +242,59 @@
                                 <th class="text-nowrap">Keterangan</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @if(empty($kibc))
-                                <tr>
-                                    <td colspan="19" class="text-center"><b><i>Data kosong</i></b></td>
-                                </tr>
+                            <tr>
+                                <td colspan="19" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
                             @endif
                             @if($kibc)
-                                @foreach($kibc AS $item)
-                                    <tr>
-                                        <td class="text-nowrap text-center">
-                                            @if(empty($sp2d['total']))
-                                                <div class="btn-group">
-                                                    <a href="{{site_url('aset/kibc/edit_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('aset/kibc/delete_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Apakah anda yakin?')"><i
-                                                                class="fa fa-trash"></i></a>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap text-center">
-                                            {{zerofy($item->id_kategori->kd_golongan)}} .
-                                            {{zerofy($item->id_kategori->kd_bidang)}} .
-                                            {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                            {{zerofy($item->reg_barang,4)}}
-                                        </td>
-                                        <td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-                                        <td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-                                        <td class="text-nowrap">{{$item->luas_lantai}}</td>
-                                        <td class="text-nowrap">{{$item->lokasi}}</td>
-                                        <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
-                                        <td class="text-nowrap">{{$item->dokumen_no}}</td>
-                                        <td class="text-nowrap">{{$item->status_tanah}}</td>
-                                        <td class="text-nowrap">{{$item->kode_tanah}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                        <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                        <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                        <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                        <td class="text-nowrap">{{$item->keterangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach($kibc AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    @if(empty($sp2d['total']))
+                                    <div class="btn-group">
+                                        <a href="{{site_url('aset/kibc/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
+                                <td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
+                                <td class="text-nowrap">{{$item->luas_lantai}}</td>
+                                <td class="text-nowrap">{{$item->lokasi}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
+                                <td class="text-nowrap">{{$item->status_tanah}}</td>
+                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
                             @endif
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <!-- KIB-D -->
-                    <div class="tab-pane" id="kibd" role="tabpanel">
-                        <table class="table table-hover table-striped table-bordered">
-                            <thead>
+                <!-- KIB-D -->
+                <div class="tab-pane" id="kibd" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
@@ -328,65 +317,60 @@
                                 <th class="text-nowrap">Keterangan</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @if(empty($kibd))
-                                <tr>
-                                    <td colspan="20" class="text-center"><b><i>Data kosong</i></b></td>
-                                </tr>
+                            <tr>
+                                <td colspan="20" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
                             @endif
                             @if($kibd)
-                                @foreach($kibd AS $item)
-                                    <tr>
-                                        <td class="text-nowrap text-center">
-                                            @if(empty($sp2d['total']))
-                                                <div class="btn-group">
-                                                    <a href="{{site_url('aset/kibd/edit_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('aset/kibd/delete_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Apakah anda yakin?')"><i
-                                                                class="fa fa-trash"></i></a>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap text-center">
-                                            {{zerofy($item->id_kategori->kd_golongan)}} .
-                                            {{zerofy($item->id_kategori->kd_bidang)}} .
-                                            {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                            {{zerofy($item->reg_barang,4)}}
-                                        </td>
-                                        <td class="text-nowrap">{{$item->kontruksi}}</td>
-                                        <td class="text-nowrap">{{$item->panjang}}</td>
-                                        <td class="text-nowrap">{{$item->lebar}}</td>
-                                        <td class="text-nowrap">{{$item->luas}}</td>
-                                        <td class="text-nowrap">{{$item->lokasi}}</td>
-                                        <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
-                                        <td class="text-nowrap">{{$item->dokumen_no}}</td>
-                                        <td class="text-nowrap">{{$item->status_tanah}}</td>
-                                        <td class="text-nowrap">{{$item->kode_tanah}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                        <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                        <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                        <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                        <td class="text-nowrap">{{$item->keterangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach($kibd AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    @if(empty($sp2d['total']))
+                                    <div class="btn-group">
+                                        <a href="{{site_url('aset/kibd/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->kontruksi}}</td>
+                                <td class="text-nowrap">{{$item->panjang}}</td>
+                                <td class="text-nowrap">{{$item->lebar}}</td>
+                                <td class="text-nowrap">{{$item->luas}}</td>
+                                <td class="text-nowrap">{{$item->lokasi}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
+                                <td class="text-nowrap">{{$item->status_tanah}}</td>
+                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
                             @endif
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <!-- KIB-E -->
-                    <div class="tab-pane" id="kibe" role="tabpanel">
-                        <table class="table table-hover table-striped table-bordered">
-                            <thead>
+                <!-- KIB-E -->
+                <div class="tab-pane" id="kibe" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
@@ -405,78 +389,69 @@
                                 <th class="text-nowrap">Ruang</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @if(empty($kibe))
-                                <tr>
-                                    <td colspan="16" class="text-center"><b><i>Data kosong</i></b></td>
-                                </tr>
+                            <tr>
+                                <td colspan="16" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
                             @endif
                             @if($kibe)
-                                @foreach($kibe AS $item)
-                                    <tr>
-                                        <td class="text-nowrap text-center">
-                                            @if(empty($sp2d['total']))
-                                                <div class="btn-group">
-                                                    <a href="{{site_url('aset/kibe/edit_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('aset/kibe/delete_pengadaan/'.$item->id)}}"
-                                                       class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Apakah anda yakin?')"><i
-                                                                class="fa fa-trash"></i></a>
-                                                </div>
-                                            @endif
-                                        </td>
-                                        <td class="text-nowrap text-center">
-                                            {{zerofy($item->id_kategori->kd_golongan)}} .
-                                            {{zerofy($item->id_kategori->kd_bidang)}} .
-                                            {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                            {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                            {{zerofy($item->reg_barang,4)}}
-                                        </td>
-                                        <td class="text-nowrap">{{$item->judul}}</td>
-                                        <td class="text-nowrap">{{$item->pencipta}}</td>
-                                        <td class="text-nowrap">{{$item->bahan}}</td>
-                                        <td class="text-nowrap">{{$item->ukuran}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                        <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                        <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                        <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                        <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                        <td class="text-nowrap">{{$item->keterangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_ruangan}}</td>
-                                        <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach($kibe AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    @if(empty($sp2d['total']))
+                                    <div class="btn-group">
+                                        <a href="{{site_url('aset/kibe/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->judul}}</td>
+                                <td class="text-nowrap">{{$item->pencipta}}</td>
+                                <td class="text-nowrap">{{$item->bahan}}</td>
+                                <td class="text-nowrap">{{$item->ukuran}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
                             @endif
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="tab-pane" id="tambah_nilai" role="tabpanel">
-                        <!-- TAMBAH NILAI -->
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    @end
+@end
 
 @section('modal')
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-add">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Aset</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-add">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Aset</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ site_url('transfer/rincian_redirect/'.$id_organisasi) }}" method="POST">
+                    <form action="{{site_url('transfer/rincian_redirect/'.$transfer->id)}}" method="POST">
                         <div class="modal-title"><b>Aset Tetap</b></div>
                         <ul style="list-style: none;">
                             <li><input type="radio" name="jenis" value="a"> A - Tanah</li>
@@ -489,7 +464,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Pilih</button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal"><i
-                                        class="fa fa-times"></i> Batal
+                                class="fa fa-times"></i> Batal
                             </button>
                         </div>
                     </form>
@@ -497,18 +472,18 @@
             </div>
         </div>
     </div>
-@endsection
+    @endsection
 
-@section('style')
+    @section('style')
     <style>
-        th, td {
-            font-size: smaller !important;
-        }
-    </style>
+    th, td {
+        font-size: smaller !important;
+    }
+</style>
 @endsection
 
 @section('script')
-    <script>
-        theme.activeMenu('.nav-transfer-keluar');
-    </script>
-    @end
+<script>
+    theme.activeMenu('.nav-transfer-keluar');
+</script>
+@end
