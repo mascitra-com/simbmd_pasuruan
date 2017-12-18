@@ -73,7 +73,7 @@ class Persetujuan_transfer extends MY_Controller {
 				$this->transfer($data['id_transfer']);
     		}
     		
-    		$sukses2 = $this->transfer->update($data['id_transfer'], array('status_pengajuan'=>$data['status']));
+    		$sukses2 = $this->transfer->update($data['id_transfer'], array('status_pengajuan'=>$data['status'], 'tanggal_verifikasi'=>date('Y-m-d h:i')));
 			if ($sukses2) {
 				$this->message('Data berhasil diverifikasi','success');
 				$this->go('persetujuan_transfer');
