@@ -1,10 +1,10 @@
 @layout('commons/index')
-@section('title')KIB-E@end
+@section('title')Transfer Keluar - KIB-E@end
 
 @section('breadcrump')
 	<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar')}}">Transfer Keluar</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/rincian/172')}}">Rincian Aset</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi)}}">Transfer Keluar</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar_rincian/'.$transfer->id)}}">Rincian Aset</a></li>
 	<li class="breadcrumb-item active">Tambah Aset KIB-E</li>
 @end
 
@@ -12,6 +12,13 @@
 <div class="row">
 	<div class="col">
 		<div class="card">
+			<div class="card-header form-inline">
+				<div class="btn-group">
+					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button>
+					<button class="btn btn-primary">Terpilih <span class="badge badge-warning" id="terpilih_count">{{$terpilih_count}}</span></button>
+				</div>
+			</div>
 			<div class="card-body table-responsive table-scroll px-0 py-0">
 				<table class="table table-hover table-striped table-bordered">
 					<thead>
@@ -42,9 +49,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<div class="btn-group">
-									<a href="{{ site_url('transfer/rincian/'.$filter['id_organisasi']) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
-								</div>
+								<button data-id-transfer="{{$transfer->id}}" data-id-aset="{{$item->id}}" data-id- class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -66,7 +71,7 @@
 							<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 							<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 							<td class="text-nowrap">{{$item->keterangan}}</td>
-							<td class="text-nowrap">{{$item->id_ruangan}}</td>
+							<td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
 							<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 						</tr>
 						@endforeach
@@ -88,7 +93,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('aset/kibe')}}" method="GET">
+				<form action="{{site_url('aset/kibe/add_transfer/'.$transfer->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">
@@ -177,7 +182,27 @@
 @section('script')
 <script type="text/javascript">
 	var kib = (function(){
-		theme.activeMenu('.nav-invent');
+		theme.activeMenu('.nav-transfer-keluar');
+		$(document).ajaxError(function(){alert('Terjadi kesalahan')});
+		$("[data-id-transfer]").on('click', fungsiTambah);
+
+		function fungsiTambah(e) {
+			var data = {
+				'id_transfer':$(e.currentTarget).data('id-transfer'),
+				'id_aset':$(e.currentTarget).data('id-aset')
+			};
+
+			$.post("{{site_url('aset/kibe/insert_transfer')}}",
+				data,
+				function(result){
+					if (result.status === 'sukses') {
+						$(e.currentTarget).closest('tr').remove();
+						$("#terpilih_count").empty().text(result.terpilih_count);
+					} else {
+						alert('terjadi kesalahan');
+					}
+			}, 'json');
+		}
 	})();
 </script>
 @end

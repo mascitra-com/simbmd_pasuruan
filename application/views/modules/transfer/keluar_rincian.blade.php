@@ -8,9 +8,18 @@
 @end4
 
 @section('content')
-<div class="btn-group mb-3">
-    <a href="{{site_url('transfer/detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
-    <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
+<div class="form-inline">
+    <div class="btn-group mb-3">
+        <a href="{{site_url('transfer/keluar_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
+    </div>
+    <div class="btn-group mb-3 ml-auto">
+        @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+        <a href="{{site_url('transfer/finish_transaction/'.$transfer->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+        @elseif($transfer->status_pengajuan === '1')
+        <a href="{{site_url('transfer/cancel_transaction/'.$transfer->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+        @endif
+    </div>
 </div>
 <div class="row mb-3">
     <div class="col">
@@ -18,7 +27,9 @@
             <div class="card-header form-inline">
                 <span class="mr-auto">Detail Kontrak</span>
                 <div class="btn-group btn-group-sm">
+                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
+                    @endif
                     <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
                 </div>
             </div>
@@ -87,7 +98,7 @@
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap text-right">Nilai</th>
-                                <th class="text-nowrap">Keterangan</th>
+                                <th>Keterangan</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
@@ -101,17 +112,11 @@
                             @foreach($kiba AS $item)
                             <tr>
                                 <td class="text-nowrap text-center">
-                                    @if(empty($sp2d['total']))
-                                    <div class="btn-group">
-                                     class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                     <a href="{{site_url('aset/kiba/delete_transfer/'.$item->id)}}"
-                                         class="btn btn-sm btn-danger"
-                                         onclick="return confirm('Apakah anda yakin?')"><i
-                                         class="fa fa-trash"></i></a>
-                                     </div>
-                                     @endif
-                                 </td>
-                                 <td class="text-nowrap text-center">
+                                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+                                    <a href="{{site_url('aset/kiba/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap text-center">
                                     {{zerofy($item->id_kategori->kd_golongan)}} .
                                     {{zerofy($item->id_kategori->kd_bidang)}} .
                                     {{zerofy($item->id_kategori->kd_kelompok)}} .
@@ -161,7 +166,7 @@
                                 <th class="text-nowrap text-right">Nilai</th>
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
-                                <th class="text-nowrap">Keterangan</th>
+                                <th>Keterangan</th>
                                 <th class="text-nowrap">Ruang</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
@@ -176,10 +181,8 @@
                             @foreach($kibb AS $item)
                             <tr>
                                 <td class="text-nowrap text-center">
-                                    @if(empty($sp2d['total']))
-                                    <div class="btn-group">
-                                        <a href="{{site_url('aset/kibb/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                    </div>
+                                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+                                    <a href="{{site_url('aset/kibb/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -202,13 +205,13 @@
                                 <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
                                 <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
                                 <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap">{{$item->kondisi}}</td>
-                                <!-- <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td> -->
+                                <!-- <td class="text-nowrap">{{$item->kondisi}}</td> -->
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
                                 <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
                                 <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
                                 <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                 <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
                                 <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
                             </tr>
                             @endforeach
@@ -239,7 +242,7 @@
                                 <th class="text-nowrap text-right">Nilai</th>
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
-                                <th class="text-nowrap">Keterangan</th>
+                                <th>Keterangan</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
@@ -253,10 +256,8 @@
                             @foreach($kibc AS $item)
                             <tr>
                                 <td class="text-nowrap text-center">
-                                    @if(empty($sp2d['total']))
-                                    <div class="btn-group">
-                                        <a href="{{site_url('aset/kibc/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                    </div>
+                                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+                                    <a href="{{site_url('aset/kibc/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -279,7 +280,7 @@
                                 <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
                                 <td class="text-nowrap">{{$item->asal_usul}}</td>
                                 <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
                                 <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
                                 <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                 <td class="text-nowrap">{{$item->keterangan}}</td>
@@ -314,7 +315,7 @@
                                 <th class="text-nowrap text-right">Nilai</th>
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
-                                <th class="text-nowrap">Keterangan</th>
+                                <th>Keterangan</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
@@ -328,10 +329,8 @@
                             @foreach($kibd AS $item)
                             <tr>
                                 <td class="text-nowrap text-center">
-                                    @if(empty($sp2d['total']))
-                                    <div class="btn-group">
-                                        <a href="{{site_url('aset/kibd/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                    </div>
+                                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+                                    <a href="{{site_url('aset/kibd/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -355,7 +354,7 @@
                                 <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
                                 <td class="text-nowrap">{{$item->asal_usul}}</td>
                                 <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
                                 <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
                                 <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                 <td class="text-nowrap">{{$item->keterangan}}</td>
@@ -385,7 +384,7 @@
                                 <th class="text-nowrap text-right">Nilai</th>
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
-                                <th class="text-nowrap">Keterangan</th>
+                                <th>Keterangan</th>
                                 <th class="text-nowrap">Ruang</th>
                                 <th class="text-nowrap">Kategori</th>
                             </tr>
@@ -400,10 +399,8 @@
                             @foreach($kibe AS $item)
                             <tr>
                                 <td class="text-nowrap text-center">
-                                    @if(empty($sp2d['total']))
-                                    <div class="btn-group">
-                                        <a href="{{site_url('aset/kibe/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                    </div>
+                                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+                                    <a href="{{site_url('aset/kibe/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -426,7 +423,7 @@
                                 <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
                                 <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                 <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
                                 <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
                             </tr>
                             @endforeach
