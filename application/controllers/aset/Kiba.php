@@ -71,12 +71,19 @@ class Kiba extends MY_Controller
     public function add_transfer($id_transfer = NULL)
     {
         $this->load->model('Transfer_model', 'transfer');
-        $this->load->model('aset/Kibd_temp_model', 'kib_temp');
+        $this->load->model('aset/Kiba_temp_model', 'kib_temp');
 
         if (empty($id_transfer))
             show_404();
 
         $data['transfer'] = $this->transfer->get($id_transfer);
+
+        # INI DUPLIKAT!!!
+        if ($data['transfer']->status_pengajuan !== '0' AND $data['transfer']->status_pengajuan !== '3') {
+            $this->message('Data sedang menunggu persetujuan atau telah disetujui');
+            $this->go('transfer/keluar_rincian/'.$id_transfer);
+        }
+
         $where_not_in     = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_transfer', $id_transfer);
         $where_not_in     = array_column($where_not_in, 'id_aset');
         
@@ -90,7 +97,7 @@ class Kiba extends MY_Controller
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
         $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
-        $this->render('modules/transfer/kibb', $data);
+        $this->render('modules/transfer/kiba', $data);
     }
 
     public function add_penghapusan($id = NULL)

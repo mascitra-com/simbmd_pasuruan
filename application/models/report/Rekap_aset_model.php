@@ -180,6 +180,10 @@ class Rekap_aset_model extends MY_Model {
 
 	public function kodefikasi($data)
 	{
+		if (empty($data[0]->jumlah_aset)) {
+			return $data;
+		}
+
 		$this->load->model('Kategori_model','kategori');
 		$temp = $this->kategori->get_many_by(array('jenis<'=>4));
 

@@ -32,6 +32,13 @@
 			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
 			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			
+			@if($this->session->auth['is_superadmin'] == 1)
+			<li class="nav nav-title">PERSETUJUAN</li>
+			<li class="nav nav-persetujuan-hibah"><a href="{{site_url('persetujuan_hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
+			<li class="nav nav-persetujuan-transfer"><a href="{{site_url('persetujuan_transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
+			<li class="nav nav-persetujuan-hapus"><a href="{{site_url('persetujuan_hapus')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
+			@endif
+
 			<li class="nav nav-title">LAPORAN</li>
 			<li class="nav nav-rekap-aset">
 				<a href="#menu-rekap-aset" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Aset Tetap<i class="fa fa-angle-down ml-auto"></i></a>

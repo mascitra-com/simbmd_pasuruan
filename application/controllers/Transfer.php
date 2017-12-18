@@ -37,22 +37,26 @@ class Transfer extends MY_Controller {
 
         $result = $this->transfer->get_data($filter);
         $data['transfer'] 	= $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'],$filter,'transfer/keluar?id_organisasi='.$filter['id_organisasi']);
         $data['filter']   	= $filter;
         $this->render('modules/transfer/keluar', $data);
     }
 
     public function masuk() {
         $filter = $this->input->get();
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
-        $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+        $data['organisasi']  = $this->organisasi->get_data(array('jenis' => 4));
+        $filter['id_tujuan'] = isset($filter['id_tujuan']) ? $filter['id_tujuan'] : '';
 
         # Jika bukan superadmin
         if (!$this->auth->get_super_access()) {
-            $filter['id_organisasi'] = $this->auth->get_id_organisasi();
-            $data['organisasi'] = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
+            $filter['id_tujuan'] = $this->auth->get_id_organisasi();
+            $data['organisasi']  = $this->organisasi->get_many_by('id', $filter['id_tujuan']);
         }
-        $data['filter'] = $filter;
+
+        $result = $this->transfer->get_data_masuk($filter);
+        $data['transfer']   = $result['data'];
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'],$filter,'transfer/masuk?id_organisasi='.$filter['id_tujuan']);
+        $data['filter']     = $filter;
         $this->render('modules/transfer/masuk', $data);
     }
 
@@ -78,6 +82,17 @@ class Transfer extends MY_Controller {
         $this->render('modules/transfer/keluar_detail', $data);
     }
 
+    public function masuk_detail($id = null) {
+        if (empty($id)) {
+            show_404();
+        }
+
+        $data['transfer']   = $this->transfer->subtitute($this->transfer->get($id));
+        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+
+        $this->render('modules/transfer/masuk_detail', $data);
+    }
+
     public function keluar_rincian($id = null) {
         if (empty($id))
             show_404();
@@ -93,6 +108,20 @@ class Transfer extends MY_Controller {
         $this->render('modules/transfer/keluar_rincian', $data);
     }
 
+    public function masuk_rincian($id = null) {
+        if (empty($id))
+            show_404();
+
+        # RINCIAN
+        $data['kiba']     = $this->kiba->get_data_transfer($id);
+        $data['kibb']     = $this->kibb->get_data_transfer($id);
+        $data['kibc']     = $this->kibc->get_data_transfer($id);
+        $data['kibd']     = $this->kibd->get_data_transfer($id);
+        $data['kibe']     = $this->kibe->get_data_transfer($id);
+        $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
+
+        $this->render('modules/transfer/masuk_rincian', $data);
+    }
 
     public function rincian_redirect($id = null)
     {
