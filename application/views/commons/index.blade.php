@@ -39,7 +39,7 @@
 @yield('modal')
 
 <script type="text/javascript" src="{{base_url('res/plugins/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{base_url('res/plugins/jquery/jquery.number.min.js')}}"></script>
+<script type="text/javascript" src="{{base_url('res/plugins/numeral/numeral.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/popper.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/chosen/chosen.jquery.min.js')}}"></script>
@@ -47,28 +47,37 @@
 @yield('script')
 <script !src="">
     $(document).ready(function() {
-        $("input[name^='nilai']").attr('type', 'text');
-        $("input[name^='addendum_nilai']").attr('type', 'text');
-        @if(isset($kib->nilai))
-        $("input[name='nilai']").val($.number({{ $kib->nilai }}, 2, ',', '.'));
-        @endif
-        @if(isset($kib->nilai_sisa))
-        $("input[name='nilai_sisa']").val($.number({{ $kib->nilai_sisa }}, 2, ',', '.'));
-        @endif
-        @if(isset($kib->nilai_tambah))
-        $("input[name='nilai_tambah']").val($.number({{ $kib->nilai_tambah }}, 2, ',', '.'));
-        @endif
-        @if(isset($kpt->nilai_penunjang))
-        $("input[name='nilai_penunjang']").val($.number({{ $kpt->nilai_penunjang }}, 2, ',', '.'));
-        @endif
-        @if(isset($spk->nilai))
-        $("input[name='nilai']").val($.number({{ $spk->nilai }}, 2, ',', '.'));
-        @endif
-        @if(isset($spk->addendum_nilai))
-        $("input[name='addendum_nilai']").val($.number({{ $spk->addendum_nilai }}, 2, ',', '.'));
-        @endif
-        $("input[name^='nilai']").number(true, 2, ',', '.');
-        $("input[name^='addendum_nilai']").number(true, 2, ',', '.');
+
+        numeral.register('locale', 'in', {
+            delimiters: {
+                thousands: '.',
+                decimal: ','
+            },
+            abbreviations: {
+                thousand: 'rb',
+                million: 'jt',
+                billion: 'm',
+                trillion: 't'
+            },
+            ordinal : function (number) {
+                return number === 1 ? 'er' : 'ème';
+            },
+            currency: {
+                symbol: 'Rp'
+            }
+        });
+
+        // switch between locales
+        numeral.locale('in');
+
+        var num;
+        $("input[name^='nilai'],input[name^='addendum_nilai']").attr('type', 'text').on('blur', function(){
+            num = numeral($(this).val()).format('0,0.00');
+            $(this).val(num);
+        }).on('focus', function(){
+            num = numeral($(this).val()).format('0.00');
+            $(this).val(num);
+        });
     });
 </script>
 </body>

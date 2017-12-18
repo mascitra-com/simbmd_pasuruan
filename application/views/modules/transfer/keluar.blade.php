@@ -42,27 +42,50 @@
 						<th class="text-nowrap">Pengajuan</th>
                         <th class="text-center">Tanggal Verifikasi</th>
                         <th class="text-nowrap">Status</th>
-                        <th class="text-center"></th>
+                        <th class="text-center">Aksi</th>
                     </tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Bagian Umum</td>
-						<td>452434</td>
-						<td>6-12-2017</td>
-						<td>4534324</td>
-						<td>12-12-2017</td>
+					@if(empty($transfer))
+					<tr><td colspan="10" class="text-center">Tidak ada data</td></tr>
+					@endif
+					
+					@foreach($transfer AS $item)
+					<tr class="small">
+						<td>{{$item->id}}</td>
+						<td>{{$item->id_tujuan->nama}}</td>
+						<td>{{$item->surat_no}}</td>
+						<td>{{datify($item->surat_tgl)}}</td>
+						<td>{{$item->serah_terima_no}}</td>
+						<td>{{datify($item->serah_terima_tgl)}}</td>
 						<td></td>
-						<td>12-12-2017</td>
-						<td></td>
-						<td><a href="{{ site_url('transfer/detail/172') }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a></td>
+						<td>{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
+						<td>
+							@if($item->status_pengajuan === '0')
+							<span class="badge badge-secondary">draf</span>
+							@elseif($item->status_pengajuan === '1')
+							<span class="badge badge-warning">menunggu</span>
+							@elseif($item->status_pengajuan === '2')
+							<span class="badge badge-success">disetujui</span>
+							@elseif($item->status_pengajuan === '3')
+							<span class="badge badge-danger">ditolak</span>
+							@else
+							ERROR
+							@endif
+						</td>
+						<td>
+							<div class="btn-group">
+								<a href="{{ site_url('transfer/keluar_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
+								<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+							</div>
+						</td>
 					</tr>
+					@endforeach
                 </tbody>
 			</thead>
 		</table>
 	</div>
-	<div class="card-footer"></div>
+	<div class="card-footer">{{$pagination}}</div>
 </div>
 @end
 

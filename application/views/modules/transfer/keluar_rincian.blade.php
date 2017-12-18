@@ -3,13 +3,13 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('transfer/keluar')}}">Transfer Keluar</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
     <li class="breadcrumb-item active">Rincian Aset</li>
     @end4
 
 @section('content')
     <div class="btn-group mb-3">
-        <a href="{{site_url('transfer/detail/'.$id_organisasi)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('transfer/detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="row mb-3">
@@ -18,30 +18,27 @@
                 <div class="card-header form-inline">
                     <span class="mr-auto">Detail Kontrak</span>
                     <div class="btn-group btn-group-sm">
-                        <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#modal-add"><i
-                                    class="fa fa-plus"></i> Tambah
-                        </button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
                         <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
                     </div>
                 </div>
                 <div class="card-body row">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
-                            <div class="col">Asal</div>
-                            <div class="col"> :</div>
+                            <div class="col-4">Asal</div>
+                            <div class="col"> : {{$transfer->id_organisasi->nama}}</div>
                             <div class="w-100"></div>
-                            <div class="col">Tujuan</div>
-                            <div class="col"> :</div>
+                            <div class="col-4">Tujuan</div>
+                            <div class="col"> : {{$transfer->id_tujuan->nama}}</div>
                             <div class="w-100"></div>
-                            <div class="col">No. Surat</div>
-                            <div class="col"> :</div>
+                            <div class="col-4">No. Surat</div>
+                            <div class="col"> : {{$transfer->surat_no}}</div>
                             <div class="w-100"></div>
-                            <div class="col">No. Jurnal</div>
-                            <div class="col"> :</div>
+                            <div class="col-4">No. Jurnal</div>
+                            <div class="col"> : {{$transfer->jurnal_no}}</div>
                             <div class="w-100"></div>
-                            <div class="col">No. Serah Terima</div>
-                            <div class="col"> :</div>
+                            <div class="col-4">No. Serah Terima</div>
+                            <div class="col"> : {{$transfer->serah_terima_no}}</div>
                             <div class="w-100"></div>
                         </div>
                     </div>

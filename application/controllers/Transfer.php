@@ -10,7 +10,9 @@ class Transfer extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->model('Transfer_model', 'transfer');
 		$this->load->model('Organisasi_model', 'organisasi');
+		$this->load->library('pagination');
 	}
 
 	public function index() {
@@ -19,15 +21,19 @@ class Transfer extends MY_Controller {
 
 	public function keluar() {
 		$filter = $this->input->get();
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+		$data['organisasi'] 	 = $this->organisasi->get_data(array('jenis' => 4));
 		$filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
 
 		# Jika bukan superadmin
 		if (!$this->auth->get_super_access()) {
 			$filter['id_organisasi'] = $this->auth->get_id_organisasi();
-			$data['organisasi'] = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
+			$data['organisasi'] 	 = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
 		}
-		$data['filter'] = $filter;
+
+		$result = $this->transfer->get_data($filter);
+		$data['transfer'] 	= $result['data'];
+		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
+		$data['filter']   	= $filter;
 		$this->render('modules/transfer/keluar', $data);
 	}
 
@@ -50,35 +56,36 @@ class Transfer extends MY_Controller {
 			$this->message('Pilih UPB Terlebih Dahulu', 'warning');
 			$this->go('transfer/keluar');
 		}
+
 		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
 		$data['org'] = $this->organisasi->get($id);
 		$this->render('modules/transfer/form', $data);
 	}
 
-	public function detail($id = null) {
+	public function keluar_detail($id = null) {
 		if (empty($id)) {
 			show_404();
 		}
 
-		$data['id_transfer'] = $id;
-		$data['id_organisasi'] = 172;
-		$this->render('modules/transfer/detail', $data);
+		$data['transfer']	= $this->transfer->subtitute($this->transfer->get($id));
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+
+		$this->render('modules/transfer/keluar_detail', $data);
 	}
 
-	public function rincian($id = null) {
-		if (empty($id)) {
+	public function keluar_rincian($id = null) {
+		if (empty($id))
 			show_404();
-		}
+
         # RINCIAN
-        $data['kiba'] 	= null;
-        $data['kibb'] 	= null;
-        $data['kibc'] 	= null;
-        $data['kibd'] 	= null;
-        $data['kibe'] 	= null;
-        $data['kibnon'] = null;
-		$data['id_transfer'] = $id;
-		$data['id_organisasi'] = 172;
-		$this->render('modules/transfer/rincian', $data);
+        $data['kiba'] 	  = null;
+        $data['kibb'] 	  = null;
+        $data['kibc'] 	  = null;
+        $data['kibd'] 	  = null;
+        $data['kibe']	  = null;
+		$data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
+		
+		$this->render('modules/transfer/keluar_rincian', $data);
 	}
 
 
@@ -109,5 +116,45 @@ class Transfer extends MY_Controller {
                 show_404();
                 break;
         }
+    }
+
+    public function insert()
+    {
+    	$data = $this->input->post();
+
+    	if (!$this->transfer->form_verify($data)) {
+    		$this->message('Isi data yang perlu diisi', 'danger');
+    		$this->go('transfer/add/'.$data['id_organisasi']);
+    	}
+
+    	$sukses = $this->transfer->insert($data);
+    	if($sukses) {
+    		$this->message('Data berhasil ditambah','success');
+    		$this->go('transfer/keluar_detail/'.$sukses);
+    	} else {
+    		$this->message('Terjadi kesalahan', 'danger');
+    		$this->go('transfer/add/'.$data['id_organisasi']);
+    	}
+    }
+
+    public function update()
+    {
+    	$data = $this->input->post();
+    	$id   = $data['id'];
+    	unset($data['id']);
+
+    	if (!$this->transfer->form_verify($data)) {
+    		$this->message('Isi data yang perlu diisi', 'danger');
+    		$this->go('transfer/add/'.$data['id_organisasi']);
+    	}
+
+    	$sukses = $this->transfer->update($id, $data);
+    	if($sukses) {
+    		$this->message('Data berhasil ditambah','success');
+    		$this->go('transfer/keluar_detail/'.$id);
+    	} else {
+    		$this->message('Terjadi kesalahan', 'danger');
+    		$this->go('transfer/keluar_detail/'.$id);
+    	}
     }
 }
