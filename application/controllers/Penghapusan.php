@@ -11,6 +11,11 @@ class Penghapusan extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('aset/Kiba_model', 'kiba');
+        $this->load->model('aset/Kibb_model', 'kibb');
+        $this->load->model('aset/Kibc_model', 'kibc');
+        $this->load->model('aset/Kibd_model', 'kibd');
+        $this->load->model('aset/Kibe_model', 'kibe');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Penghapusan_model', 'hapus');
     }
@@ -48,15 +53,31 @@ class Penghapusan extends MY_Controller
         }
     }
 
+    public function update()
+    {
+        $data = $this->input->post();
+        if (!$this->hapus->form_verify($data)) {
+            $this->message('Isi data yang diperlukan', 'danger');
+            $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
+        }
+
+        $sukses = $this->hapus->update($data['id'], $data);
+        if($sukses) {
+            $this->message('Data berhasil disimpan','success');
+            $this->go('penghapusan/detail/'.$sukses);
+        } else {
+            $this->message('Terjadi kesalahan','danger');
+            $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
+        }
+    }
+
     public function detail($id = null) {
         if (empty($id)) {
             show_404();
         }
 
-        $data['id_transfer'] = $id;
-        $data['id_organisasi'] = 172;
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
-        $data['org'] = $this->organisasi->get($id);
+        $data['hapus'] = $this->hapus->get($id);
+        $data['org'] = $this->organisasi->get($data['hapus']->id_organisasi);
         $this->render('modules/penghapusan/detail', $data);
     }
 
@@ -65,15 +86,17 @@ class Penghapusan extends MY_Controller
         if (empty($id)) {
             show_404();
         }
+        $data['hapus'] = $this->hapus->get($id);
+
         # RINCIAN
-        $data['kiba'] 	= null;
-        $data['kibb'] 	= null;
-        $data['kibc'] 	= null;
-        $data['kibd'] 	= null;
-        $data['kibe'] 	= null;
-        $data['kibnon'] = null;
-        $data['id_transfer'] = $id;
-        $data['id_organisasi'] = 172;
+        $data['kiba'] = $this->kiba->get_data_hapus($data['hapus']->id);
+        $data['kibb'] = $this->kibb->get_data_hapus($data['hapus']->id);
+        $data['kibc'] = $this->kibc->get_data_hapus($data['hapus']->id);
+        $data['kibd'] = $this->kibd->get_data_hapus($data['hapus']->id);
+        $data['kibe'] = $this->kibe->get_data_hapus($data['hapus']->id);
+
+        $data['org'] = $this->organisasi->get($data['hapus']->id_organisasi);
+        $this->session->unset_userdata('hapus_aset');
         $this->render('modules/penghapusan/rincian', $data);
     }
 
