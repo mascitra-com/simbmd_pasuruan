@@ -29,8 +29,8 @@
 			<div class="card-header form-inline">
 				<form action="{{site_url('aset/kibe')}}" method="GET" class="mr-auto">
 					<div class="input-group">
-						<select name="id_organisasi" class="form-control">
-							<option value="">Pilih Organisasi....</option>
+						<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB..." required>
+						<option value="">Pilih Organisasi....</option>
 							@foreach($organisasi AS $org)
 							<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
 							@endforeach

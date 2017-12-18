@@ -47,6 +47,7 @@
 @yield('script')
 <script>
     $(document).ready(function() {
+
         numeral.register('locale', 'in', {
             delimiters: {
                 thousands: '.',

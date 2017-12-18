@@ -10,7 +10,7 @@ class Rekap_hibah_model extends MY_Model {
 	public function get_rekapitulasi($config = array())
 	{
 		# Ambil data SPK
-		$select 	 = "id,no_jurnal,asal_penerimaan,tgl_serah_terima,keterangan";
+		$select 	 = "id,no_jurnal,tgl_jurnal, asal_penerimaan,no_serah_terima, tgl_serah_terima,keterangan";
 		$where 		 = array('is_deleted'=>0,'id_organisasi'=>$config['id_organisasi']);
 		$where_query = "tgl_serah_terima BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'";
 		$final 		 = $this->db->select($select)->where($where)->where($where_query)->get('hibah')->result();
@@ -35,10 +35,6 @@ class Rekap_hibah_model extends MY_Model {
 		$qe = "SELECT reg_induk, reg_barang, kondisi, judul AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_e e JOIN kategori k ON e.id_kategori = k.id {$where}";
 		$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
 		$final->aset = $this->db->query($query)->result();
-
-		# Ambil non aset
-		$select = "id,nama,CONCAT(merk,' ',tipe) AS merk,nilai";
-		$final->non_aset = $this->db->select($select)->where(array('id_hibah'=>$id_hibah))->get('aset_non')->result();
 
 		#Ambil Kapitalisasi
 		$query = $qe = "SELECT reg_induk, kap.nama AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori}  FROM kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id {$where}";

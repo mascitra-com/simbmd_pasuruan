@@ -13,11 +13,10 @@ class Rekap_aset extends MY_Controller {
 	
 	public function index($jenis = null)
 	{
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
-		
-		# Jika bukan superadmin
+        $data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
+        # Jika bukan superadmin
 		if (!$this->auth->get_super_access()) {
-			$id = $this->auth->get_id_organisasi();
+			$data['id_organisasi'] = $id = $this->auth->get_id_organisasi();
 			$data['organisasi'] = $this->organisasi->get_many_by('id', $id);
 		}
 

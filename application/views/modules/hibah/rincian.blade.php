@@ -3,27 +3,31 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('hibah')}}">Hibah</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
     <li class="breadcrumb-item active">Rincian Hibah</li>
     @end
 
 @section('content')
-    <div class="btn-group mb-3">
-        <a href="#" class="btn btn-primary">01. Detail Hibah</a>
-        <a href="#" class="btn btn-primary active">02. Rincian Hibah</a>
+    <div class="form-inline">
+        <div class="btn-group mb-3">
+            <a href="{{ site_url('hibah/detail/'.$hibah->id) }}" class="btn btn-primary">01. Detail Hibah</a>
+            <a href="#" class="btn btn-primary active">02. Rincian Hibah</a>
+        </div>
+        <div class="btn-group mb-3 ml-auto">
+            @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
+                <button class="btn btn-primary" data-toggle="modal"
+                        data-target="#modal-add"><i
+                            class="fa fa-plus"></i> Tambah
+                </button>
+            @endif
+            <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
+        </div>
     </div>
     <div class="row mb-3">
         <div class="col">
             <div class="card">
                 <div class="card-header form-inline">
                     <span class="mr-auto">Detail Kontrak</span>
-                    <div class="btn-group btn-group-sm">
-                        <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#modal-add"><i
-                                    class="fa fa-plus"></i> Tambah
-                        </button>
-                        <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
-                    </div>
                 </div>
                 <div class="card-body row">
                     <div class="col">
@@ -74,7 +78,7 @@
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Luas (m3)</th>
+                                <th class="text-nowrap">Luas (m2)</th>
                                 <th class="text-nowrap">Alamat</th>
                                 <th class="text-nowrap">Tgl. Sertifikat</th>
                                 <th class="text-nowrap">No. Sertifikat</th>
@@ -96,7 +100,7 @@
                             @foreach($kiba AS $item)
                                 <tr>
                                     <td class="text-nowrap text-center">
-                                        @if(empty($sp2d['total']))
+                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kiba/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                                 <a href="{{site_url('aset/kiba/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -165,7 +169,7 @@
                             @foreach($kibb AS $item)
                                 <tr>
                                     <td class="text-nowrap text-center">
-                                        @if(empty($sp2d['total']))
+                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibb/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                                 <a href="{{site_url('aset/kibb/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -240,7 +244,7 @@
                             @foreach($kibc AS $item)
                                 <tr>
                                     <td class="text-nowrap text-center">
-                                        @if(empty($sp2d['total']))
+                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibc/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                                 <a href="{{site_url('aset/kibc/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -313,7 +317,7 @@
                             @foreach($kibd AS $item)
                                 <tr>
                                     <td class="text-nowrap text-center">
-                                        @if(empty($sp2d['total']))
+                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibd/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                                 <a href="{{site_url('aset/kibd/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -383,7 +387,7 @@
                             @foreach($kibe AS $item)
                                 <tr>
                                     <td class="text-nowrap text-center">
-                                        @if(empty($sp2d['total']))
+                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibe/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                                 <a href="{{site_url('aset/kibe/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
@@ -443,7 +447,7 @@
                                 @foreach($kpt AS $item)
                                     <tr>
                                         <td class="text-nowrap text-center">
-                                            @if(empty($sp2d['total']))
+                                            @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                                 <div class="btn-group">
                                                     <a href="{{site_url('kapitalisasi/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
                                                     <a href="{{site_url('kapitalisasi/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>

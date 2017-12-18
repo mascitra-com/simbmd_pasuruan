@@ -32,7 +32,7 @@
     <div class="header">
         <table>
             <tr>
-                <td class="bold">PROVONSI</td>
+                <td class="bold">PROVINSI</td>
                 <td>:</td>
                 <td>JAWA TIMUR</td>
             </tr>

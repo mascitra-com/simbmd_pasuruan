@@ -173,13 +173,13 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" placeholder="Nilai" required/>
+							<input type="number" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?$kib->nilai:''}}" required/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai Sisa</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai_sisa" placeholder="Nilai sisa"/>
+							<input type="number" class="form-control" name="nilai_sisa" value="{{isset($kib)?$kib->nilai_sisa:''}}" placeholder="Nilai sisa"/>
 						</div>
 					</div>
 					<div class="form-group row">

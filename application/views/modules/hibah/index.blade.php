@@ -54,8 +54,8 @@
 						<td class="text-nowrap">{{ datify($list->tgl_serah_terima, 'd-m-Y') }}</td>
 						<td class="text-center">
 							<div class="btn-group btn-group-sm">
-								<a href="{{ base_url('hibah/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
-								<button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+								<a href="{{ site_url('hibah/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
+								<a href="{{ site_url('hibah/delete/'.$list->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							</div>
 						</td>
 					</tr>
@@ -100,10 +100,11 @@
                                 <label>Asal Penerimaan</label>
 								<select name="asal_penerimaan" id="asal_penerimaan" class="form-control" required >
                                     <option value="">Pilih Salah Satu</option>
-                                    <option value="0">Pusat</option>
-									<option value="1">Provinsi</option>
+                                    <option value="0">Pemerintah Pusat</option>
+									<option value="1">Pemerintah Provinsi</option>
 									<option value="2">Pemerintah Daerah</option>
-									<option value="3">Pemerintah Lainnya</option>
+									<option value="3">Pemerintah Daerah Lainnya</option>
+									<option value="4">Penerimaan Lainnya</option>
 								</select>
                             </div>
 						</div>

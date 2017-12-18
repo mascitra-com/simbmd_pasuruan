@@ -128,7 +128,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" max="{{$spk->nilai}}" placeholder="Nilai" required/>
+							<input type="number" class="form-control" name="nilai" max="{{$spk->nilai}}" placeholder="Nilai" value="{{isset($spk)?$spk->nilai:''}}" required/>
 						</div>
 					</div>
 					<div class="form-group row">

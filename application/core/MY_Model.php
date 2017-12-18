@@ -217,11 +217,8 @@ class MY_Model extends MY_Base_model {
         return $result;
     }
 
-    public function get_data_hibah($id_hibah, $is_kdp = FALSE)
+    public function get_data_hibah($id_hibah)
     {
-        $this->select("{$this->_table}.*");
-        $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-        $this->where('kd_golongan<>', '6');
         $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah));
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);
@@ -238,10 +235,6 @@ class MY_Model extends MY_Base_model {
 
     public function get_data_hapus($id_hapus)
     {
-        $this->_table = "{$this->_table}_temp";
-        $this->select("{$this->_table}.*");
-        $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-        $this->where('kd_golongan<>', '6');
         $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hapus'=>$id_hapus));
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);

@@ -20,7 +20,7 @@
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
 								@foreach($organisasi AS $org)
-								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
+								<option value="{{$org->id}}" class="text-small" {{ $org->id === $id_organisasi ? 'selected' : '' }}>{{$org->nama}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -44,7 +44,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Laporan</label>
 						<div class="col-md-4">
-							<input type="date" name="tanggal" class="form-control form-control-sm" placeholder="Tanggal Laporan" />
+							<input type="date" name="tanggal" class="form-control form-control-sm" placeholder="Tanggal Laporan" value="{{ date('Y-m-d') }}" />
 						</div>
 					</div>
 					<div class="form-group row">

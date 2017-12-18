@@ -23,7 +23,7 @@
                 </div>
             </form>
             <div class="btn-group">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modal-hapus"><i class="fa fa-plus mr-2"></i>Baru</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus mr-2"></i>Baru</button>
                 <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button> -->
                 <button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
             </div>
@@ -39,13 +39,15 @@
                     <th class="text-nowrap">No. SK</th>
                     <th class="text-nowrap">Tanggal SK</th>
                     <th class="text-nowrap">Keterangan</th>
+                    <th class="text-nowrap">Status</th>
+                    <th class="">Tanggal Verifikasi</th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody>
                 @if($hapus)
                     @foreach($hapus as $list)
-                        <tr>
+                        <tr class="small">
                             <td class="text-center">{{ $list->id }}</td>
                             <td>{{ $list->no_jurnal }}</td>
                             <td class="text-nowrap">{{ datify($list->tgl_jurnal, 'd-m-Y') }}</td>
@@ -53,9 +55,25 @@
                             <td class="text-nowrap">{{ datify($list->tgl_sk, 'd-m-Y') }}</td>
                             <td class="text-nowrap">{{ $list->keterangan }}</td>
                             <td class="text-center">
+                                @if($list->status_pengajuan === '0')
+                                    <span class="badge badge-secondary">draf</span>
+                                @elseif($list->status_pengajuan === '1')
+                                    <span class="badge badge-warning">menunggu</span>
+                                @elseif($list->status_pengajuan === '2')
+                                    <span class="badge badge-success">disetujui</span>
+                                @elseif($list->status_pengajuan === '3')
+                                    <span class="badge badge-danger">ditolak</span>
+                                @else
+                                    ERROR
+                                @endif
+                            </td>
+                            <td class="text-nowrap">{{ $list->tanggal_verifikasi }}</td>
+                            <td class="text-center">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ base_url('penghapusan/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
-                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    <a href="{{ base_url('penghapusan/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                    @if($list->status_pengajuan == '0' || $list->status_pengajuan == '3')
+                                        <button data-id="{{ $list->id }}" class="btn btn-danger "><i class="fa fa-trash"></i></button>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -73,7 +91,7 @@
     </div>
     @end
 @section('modal')
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-hapus">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-add">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -89,7 +107,7 @@
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <label>No. Jurnal</label>
-                                        <input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="Nomor Jurnal" required />
+                                        <input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="(Otomatis)" disabled />
                                     </div>
                                     <div class="form-group col">
                                         <label>Tgl. Jurnal</label>
@@ -117,7 +135,11 @@
                         <div class="form-row">
                             <div class="form-group col">
                                 <label>Alasan</label>
-                                <textarea name="alasan" id="alasan" class="form-control" rows="3"></textarea>
+                                <select name="alasan" id="alasan" class="form-control form-control-sm">
+                                    <option value="Dijual">Dijual</option>
+                                    <option value="Dimusnahkan">Dimusnahkan</option>
+                                    <option value="Dihibahkan">Dihibahkan</option>
+                                </select>
                             </div>
                         </div>
                         <hr>
@@ -132,6 +154,24 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-hapus">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Apakah anda yakin?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <h3>Menghapus data Pengajuan juga akan menghapus semua rincian aset yang diajukan.</h3>
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="btn btn-warning" id="btn-hapus-confirm">Tetap hapus</a>
+                    <button class="btn btn-primary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
     @end
 @section('style')
     <style>
@@ -141,6 +181,11 @@
 
 @section('script')
     <script>
-        theme.activeMenu('.nav-penghapusan')
+        theme.activeMenu('.nav-penghapusan');
+        $("[data-id]").on('click', function(){
+            var id = $(this).data('id');
+            $("#btn-hapus-confirm").attr("href", "{{site_url('penghapusan/delete/')}}"+id);
+            $("#modal-hapus").modal('show');
+        });
     </script>
     @end

@@ -16,7 +16,6 @@ class Hibah extends MY_Controller
         $this->load->model('aset/Kibc_model', 'kibc');
         $this->load->model('aset/Kibd_model', 'kibd');
         $this->load->model('aset/Kibe_model', 'kibe');
-        $this->load->model('aset/Kibnon_model', 'kibnon');
         $this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
     }
@@ -111,6 +110,27 @@ class Hibah extends MY_Controller
         $data['kpt'] = $this->kapitalisasi->get_data_hibah($data['hibah']->id);
 
         $this->render('modules/hibah/rincian', $data);
+    }
+
+    public function delete($id = null)
+    {
+        if(empty($id))
+            show_404();
+
+        $sukses = $this->hibah->delete($id);
+        if($sukses) {
+            $this->kiba->delete_by(array('id_hibah'=>$id));
+            $this->kibb->delete_by(array('id_hibah'=>$id));
+            $this->kibc->delete_by(array('id_hibah'=>$id));
+            $this->kibd->delete_by(array('id_hibah'=>$id));
+            $this->kibe->delete_by(array('id_hibah'=>$id));
+
+            $this->message('Data berhasil dihapus','success');
+            $this->go('hibah');
+        } else {
+            $this->message('Data gagal dihapus','danger');
+            $this->go('hibah');
+        }
     }
 
     public function rincian_redirect($id = null)

@@ -97,27 +97,25 @@ class Kibe extends MY_Controller
         $this->render('modules/transfer/kibe', $data);
     }
 
-    public function add_penghapusan($id = NULL)
+    public function add_penghapusan($id_hapus = NULL)
     {
-        if (empty($id))
+        $this->load->model('Penghapusan_model', 'hapus');
+        if (empty($id_hapus))
             show_404();
 
-        $filter = $this->input->get();
+        $data['hapus'] = $this->hapus->get($id_hapus);
+        $where_not_in = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_hapus', $id_hapus);
+        $where_not_in = array_column($where_not_in, 'id_aset');
 
-        $data['hapus'] = $this->hapus->get($id);
+        $filter = $this->input->get();
         $filter['id_organisasi'] = $data['hapus']->id_organisasi;
 
-        $aset = $this->db->select('id_aset')->where('id_hapus', $data['hapus']->id)->from('aset_e_temp')->get()->result_array();
-        $aset = array_column($aset, 'id_aset');
-        if (count($aset))
-            $result = $this->kib->where_not_in('id', $aset)->get_data($filter);
-        else
-            $result = $this->kib->get_data($filter);
-        $data['aset'] = $aset;
+        $result = $this->kib->where_not_in('id', !empty($where_not_in) ? $where_not_in : "")->get_data($filter);
 
         $data['filter'] = $filter;
         $data['kib'] = $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
+        $data['terpilih_count'] = count($where_not_in);
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this) . '/add_penghapusan');
         $this->render('modules/penghapusan/kibe', $data);
     }
 
@@ -234,6 +232,7 @@ class Kibe extends MY_Controller
             $data_final[$i] = $data;
             $data_final[$i]['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']) + $i;
             $data_final[$i]['reg_induk'] = $this->kib->get_reg_induk();
+            $data_final[$i]['id_hibah'] = $data['id_hibah'];
         }
 
         $sukses = $this->kib->batch_insert($data_final);
@@ -339,17 +338,15 @@ class Kibe extends MY_Controller
 
     public function insert_penghapusan()
     {
-        $input = $this->input->get();
-        $kib = $this->kib->get($input['id_aset']);
-        $kib->id_aset = $kib->id;
-        $kib->id_hapus = $input['id'];
-        unset($kib->id);
-        if ($this->db->insert('aset_e_temp', $kib)) {
-            $this->message('Data berhasil disimpan', 'success');
-            $this->go('aset/kibe/add_penghapusan/' . $input['id']);
-        } else {
-            $this->message('Data Gagal disimpan', 'danger');
-            $this->go('aset/kibe/add_penghapusan/' . $input['id']);
+        $input = $this->input->post();
+        $kib = $this->kib->as_array()->get($input['id_aset']);
+        $kib['id_hapus'] = $input['id_hapus'];
+        $kib['id_aset']  = $input['id_aset'];
+        unset($kib['id']);
+        $sukses = $this->kib_temp->insert($kib);
+        if($sukses) {
+            $terpilih_count = $this->kib_temp->count_by('id_hapus', $input['id_hapus']);
+            echo json_encode(array('status'=>'sukses', 'terpilih_count'=> $terpilih_count));
         }
     }
 
@@ -391,14 +388,14 @@ class Kibe extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data = $this->kib->get($id);
+        $id_hibah = $this->kib->get($id)->id_hibah;
         $sukses = $this->kib->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('hibah/rincian/' . $data->id_hibah);
+            $this->go('hibah/rincian/' . $id_hibah);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('hibah/rincian/' . $data->id_hibah);
+            $this->go('hibah/rincian/' . $id_hibah);
         }
     }
 
