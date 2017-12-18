@@ -45,8 +45,9 @@
 <script type="text/javascript" src="{{base_url('res/plugins/chosen/chosen.jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/scripts/theme.js')}}"></script>
 @yield('script')
-<script !src="">
+<script>
     $(document).ready(function() {
+<<<<<<< HEAD
 
         numeral.register('locale', 'in', {
             delimiters: {

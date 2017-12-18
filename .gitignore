@@ -19,4 +19,4 @@ application/logs/*
 /vendor/
 
 .idea/*
-application/cache/
+/application/cache/*
