@@ -37,7 +37,8 @@ class Kdpd extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
-		
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
 			$this->go('aset/kdpd/add_pengadaan/'.$data['id_spk']);
@@ -67,6 +68,8 @@ class Kdpd extends MY_Controller {
 	{
 		$data 		   = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 		$id 		   = $data['id'];
 		unset($data['id']);
 

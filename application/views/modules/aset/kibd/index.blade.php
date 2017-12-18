@@ -140,15 +140,15 @@
 						</div>
 						<div class="form-group col">
 							<label>Panjang</label>
-							<input type="text" class="form-control" name="panjang" value="{{isset($filter['panjang'])?$filter['panjang']:''}}" />
+							<input type="text" class="form-control" name="panjang" value="{{isset($filter['panjang'])?$filter['panjang']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Lebar</label>
-							<input type="text" class="form-control" name="lebar" value="{{isset($filter['lebar'])?$filter['lebar']:''}}" />
+							<input type="text" class="form-control" name="lebar" value="{{isset($filter['lebar'])?$filter['lebar']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Luas</label>
-							<input type="text" class="form-control" name="luas" value="{{isset($filter['luas'])?$filter['luas']:''}}" />
+							<input type="text" class="form-control" name="luas" value="{{isset($filter['luas'])?$filter['luas']:''}}" required />
 						</div>
 					</div>
 					<div class="row">
@@ -158,35 +158,35 @@
 						</div>
 						<div class="form-group col">
 							<label>Lokasi</label>
-							<input type="text" class="form-control" name="lokasi" value="{{isset($filter['lokasi'])?$filter['lokasi']:''}}" />
+							<input type="text" class="form-control" name="lokasi" value="{{isset($filter['lokasi'])?$filter['lokasi']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Tgl.Dokumen</label>
-							<input type="text" class="form-control" name="dokumen_tgl" value="{{isset($filter['dokumen_tgl'])?$filter['dokumen_tgl']:''}}" />
+							<input type="text" class="form-control" name="dokumen_tgl" value="{{isset($filter['dokumen_tgl'])?$filter['dokumen_tgl']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>No.Dokumen</label>
-							<input type="text" class="form-control" name="dokumen_no" value="{{isset($filter['dokumen_no'])?$filter['dokumen_no']:''}}" />
+							<input type="text" class="form-control" name="dokumen_no" value="{{isset($filter['dokumen_no'])?$filter['dokumen_no']:''}}" required />
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label>Status Tanah</label>
-							<input type="text" class="form-control" name="status_tanah" value="{{isset($filter['status_tanah'])?$filter['status_tanah']:''}}" />
+							<input type="text" class="form-control" name="status_tanah" value="{{isset($filter['status_tanah'])?$filter['status_tanah']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Kode Tanah</label>
-							<input type="text" class="form-control" name="kode_tanah" value="{{isset($filter['kode_tanah'])?$filter['kode_tanah']:''}}" />
+							<input type="text" class="form-control" name="kode_tanah" value="{{isset($filter['kode_tanah'])?$filter['kode_tanah']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Kondisi</label>
-							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" />
+							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" required />
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label>Asal Usul</label>
-							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" />
+							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Keterangan</label>
@@ -194,7 +194,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Nilai</label>
-							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" />
+							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" required />
 						</div>
 					</div>
 					<div class="row">

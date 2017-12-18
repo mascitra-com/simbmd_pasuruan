@@ -91,11 +91,11 @@
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. BA Serah Terima</label>
-									<input type="text" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Berita Acara Serah Terima" required/>
+									<input type="text" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Berita Acara Serah Terima" required />
 								</div>
 								<div class="form-group col">
 									<label>Tgl. BA Serah Terima</label>
-									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal Berita Acara Serah Terima" required/>
+									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal Berita Acara Serah Terima" required />
 								</div>
 							</div>
 							<div class="form-row">

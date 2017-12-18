@@ -102,11 +102,11 @@
 						<div class="col">
 							<div class="form-group">
 								<label>Nama</label>
-								<input type="text" class="form-control" name="nama" value="{{isset($filter['nama'])?$filter['nama']:''}}" />
+								<input type="text" class="form-control" name="nama" value="{{isset($filter['nama'])?$filter['nama']:''}}" required />
 							</div>
 							<div class="form-group">
 								<label>Merk</label>
-								<input type="text" class="form-control" name="merk" value="{{isset($filter['merk'])?$filter['merk']:''}}" />
+								<input type="text" class="form-control" name="merk" value="{{isset($filter['merk'])?$filter['merk']:''}}" required />
 							</div>
 							<div class="form-group">
 								<label>Keterangan</label>
@@ -116,11 +116,11 @@
 						<div class="col">
 							<div class="form-group">
 								<label>Nilai</label>
-								<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" />
+								<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" required />
 							</div>
 							<div class="form-group">
 								<label>Tipe</label>
-								<input type="text" class="form-control" name="tipe" value="{{isset($filter['tipe'])?$filter['tipe']:''}}" />
+								<input type="text" class="form-control" name="tipe" value="{{isset($filter['tipe'])?$filter['tipe']:''}}" required />
 							</div>
 							<div class="form-group">
 								<label>Jumlah Tampilan Data</label>

@@ -89,16 +89,16 @@
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. Jurnal</label>
-									<input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="Nomor Jurnal" />
+									<input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="Nomor Jurnal" required />
 								</div>
                                 <div class="form-group col">
                                     <label>Tgl. Jurnal</label>
-                                    <input type="date" class="form-control form-control-sm" name="tgl_jurnal" placeholder="Tanggal Jurnal" />
+                                    <input type="date" class="form-control form-control-sm" name="tgl_jurnal" placeholder="Tanggal Jurnal" required />
                                 </div>
 							</div>
 							<div class="form-group">
                                 <label>Asal Penerimaan</label>
-								<select name="asal_penerimaan" id="asal_penerimaan" class="form-control">
+								<select name="asal_penerimaan" id="asal_penerimaan" class="form-control" required >
                                     <option value="">Pilih Salah Satu</option>
                                     <option value="0">Pusat</option>
 									<option value="1">Provinsi</option>
@@ -111,11 +111,11 @@
 					<div class="form-row">
 						<div class="form-group col">
 							<label>No. Serah Terima</label>
-							<input type="number" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Serah Terima" />
+							<input type="number" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Serah Terima" required />
 						</div>
 						<div class="form-group col">
 							<label>Tanggal Serah Terima</label>
-                            <input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal Serah Terima" />
+                            <input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal Serah Terima" required />
                         </div>
 					</div>
                     <div class="form-row">

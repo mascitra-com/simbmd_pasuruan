@@ -40,6 +40,8 @@ class Pengadaan extends MY_Controller {
 	public function insert_spk()
 	{
 		$data = $this->input->post();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['addendum_nilai'] 	= unmonefy($data['addendum_nilai']);
 		if (!$this->spk->form_verify($data)) {
 			$this->message('Isi data yang diperlukan', 'danger');
 			$this->go('pengadaan?id_organisasi='.$data['id_organisasi']);
@@ -58,8 +60,9 @@ class Pengadaan extends MY_Controller {
 	public function update_spk()
 	{
 		$data = $this->input->post();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['addendum_nilai'] 	= unmonefy($data['addendum_nilai']);
 		$id   = $data['id'];
-
 		unset($data['id']);
 
 		if (!$this->spk->form_verify($data)) {

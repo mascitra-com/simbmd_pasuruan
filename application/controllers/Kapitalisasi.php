@@ -171,6 +171,8 @@ class Kapitalisasi extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$data['reg_induk']  = $this->kapitalisasi->get_reg_induk();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
 
 		if (!$this->kapitalisasi->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi');
@@ -206,6 +208,8 @@ class Kapitalisasi extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$data['reg_induk']  = $this->kapitalisasi->get_reg_induk();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
 
 		if (!$this->kapitalisasi->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi');
@@ -240,6 +244,8 @@ class Kapitalisasi extends MY_Controller {
 	public function update_pengadaan()
 	{
 		$data = $this->input->post();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
 		$id   = $data['id'];
 		unset($data['id']);
 
@@ -279,6 +285,8 @@ class Kapitalisasi extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$id   = $data['id'];
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
 		unset($data['id']);
 
 		if (!$this->kapitalisasi->form_verify($data)) {

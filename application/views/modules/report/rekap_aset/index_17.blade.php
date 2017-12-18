@@ -38,7 +38,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Header Laporan</label>
 						<div class="col-md-4">
-							<input type="text" name="header" class="form-control form-control-sm" placeholder="Header laporan" />
+							<input type="text" name="header" class="form-control form-control-sm" placeholder="Header laporan" value="Laporan"/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -50,7 +50,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nama Kota</label>
 						<div class="col-md-4">
-							<input type="text" name="nama_kota" class="form-control form-control-sm" placeholder="Nama kota" />
+							<input type="text" name="nama_kota" class="form-control form-control-sm" placeholder="Nama kota" value="Pasuruan"/>
 						</div>
 					</div>
 					<div class="form-group row">

@@ -132,11 +132,11 @@
 						</div>
 						<div class="form-group col">
 							<label>Judul</label>
-							<input type="text" class="form-control" name="judul" value="{{isset($filter['judul'])?$filter['judul']:''}}" />
+							<input type="text" class="form-control" name="judul" value="{{isset($filter['judul'])?$filter['judul']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Pencipta</label>
-							<input type="text" class="form-control" name="pencipta" value="{{isset($filter['pencipta'])?$filter['pencipta']:''}}" />
+							<input type="text" class="form-control" name="pencipta" value="{{isset($filter['pencipta'])?$filter['pencipta']:''}}" required/>
 						</div>
 					</div>
 					<div class="row">
@@ -146,21 +146,21 @@
 						</div>
 						<div class="form-group col">
 							<label>Ukuran</label>
-							<input type="text" class="form-control" name="ukuran" value="{{isset($filter['ukuran'])?$filter['ukuran']:''}}" />
+							<input type="text" class="form-control" name="ukuran" value="{{isset($filter['ukuran'])?$filter['ukuran']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Tanggal Pembuatan</label>
-							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" />
+							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" required />
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label>Asal Usul</label>
-							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" />
+							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Kondisi</label>
-							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" />
+							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Keterangan</label>
@@ -170,11 +170,11 @@
 					<div class="row">
 						<div class="form-group col">
 							<label>Nilai</label>
-							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" />
+							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Nilai Sisa</label>
-							<input type="text" class="form-control" name="nilai_sisa" value="{{isset($filter['nilai_sisa'])?$filter['nilai_sisa']:''}}" />
+							<input type="text" class="form-control" name="nilai_sisa" value="{{isset($filter['nilai_sisa'])?$filter['nilai_sisa']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Masa Manfaat</label>

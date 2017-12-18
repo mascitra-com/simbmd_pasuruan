@@ -40,6 +40,7 @@
 			<div class="card-body">
 				<form action="{{site_url('pengadaan/update_spk')}}" method="POST">
 					<input type="hidden" name="id" value="{{$spk->id}}">
+					<input type="hidden" name="id_organisasi" value="{{$spk->id_organisasi}}">
 					<div class="row">
 						<div class="col">
 							<div class="form-row">
@@ -55,11 +56,11 @@
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. BA Serah Terima</label>
-									<input type="text" class="form-control form-control-sm" name="no_serah_terima" value="{{isset($spk->no_serah_terima) ? $spk->no_serah_terima : ''}}" placeholder="No. Berita Acara Serah Terima" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="no_serah_terima" value="{{isset($spk->no_serah_terima) ? $spk->no_serah_terima : ''}}" placeholder="No. Berita Acara Serah Terima" {{(!empty($sp2d['total']))?'readonly':''}}/>
 								</div>
 								<div class="form-group col">
 									<label>Tgl. BA Serah Terima</label>
-									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" value="{{isset($spk->tgl_serah_terima) ? datify($spk->tgl_serah_terima, 'Y-m-d') : ''}}" placeholder="Tanggal Berita Acara Serah Terima" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" value="{{isset($spk->tgl_serah_terima) ? datify($spk->tgl_serah_terima, 'Y-m-d') : ''}}" placeholder="Tanggal Berita Acara Serah Terima"  {{(!empty($sp2d['total']))?'readonly':''}}/>
 								</div>
 							</div>
 							<div class="form-row">
@@ -69,7 +70,7 @@
 								</div>
 								<div class="form-group col">
 									<label>Nilai</label>
-									<input type="number" class="form-control form-control-sm" name="nilai" value="{{$spk->nilai}}" placeholder="Nilai" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="number" class="form-control form-control-sm" name="nilai" placeholder="Nilai" required {{(!empty($sp2d['total']))?'readonly':''}}/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -123,7 +124,7 @@
 					<div class="form-row">
 						<div class="form-group col">
 							<label>Addendum Nilai</label>
-							<input type="number" class="form-control form-control-sm" name="addendum_nilai" value="{{$spk->addendum_nilai}}" placeholder="Addendum Nilai" {{(!empty($sp2d['total']))?'readonly':''}}/>
+							<input type="number" class="form-control form-control-sm" name="addendum_nilai" placeholder="Addendum Nilai" {{(!empty($sp2d['total']))?'readonly':''}}/>
 						</div>
 						<div class="form-group col">
 							<label>Kegiatan</label>

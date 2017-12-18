@@ -3,7 +3,7 @@
 class Kiba_model extends MY_Model
 {
 	public $_table = 'aset_a';
-	public $required = array('id_organisasi','id_kategori','nilai');
+	public $required = array('id_organisasi','id_kategori','nilai','sertifikat_tgl','sertifikat_no','pengguna','tahun','alamat','hak','tgl_pembukuan','tgl_perolehan','luas','asal_usul');
 
     public function __construct()
     {

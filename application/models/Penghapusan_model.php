@@ -1,9 +1,9 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class Hibah_model extends MY_Model
+class Penghapusan_model extends MY_Model
 {
-	public $_table = 'hibah';
-	public $required = array('no_jurnal', 'tgl_jurnal', 'asal_penerimaan', 'no_serah_terima', 'tgl_serah_terima', 'id_organisasi');
+	public $_table = 'penghapusan';
+	public $required = array('no_jurnal', 'tgl_jurnal', 'no_serah_terima', 'tgl_serah_terima', 'id_organisasi');
 
     public function __construct()
     {

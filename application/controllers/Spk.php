@@ -63,6 +63,8 @@ class Spk extends MY_Controller
 	public function insert()
 	{
 		$data = $this->input->post();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['addendum_nilai'] 	= unmonefy($data['addendum_nilai']);
 		unset($data['adde']);
 
 		if (!$this->spk->form_verify($data)) {
@@ -83,6 +85,8 @@ class Spk extends MY_Controller
 	public function update()
 	{
 		$data = $this->input->post();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['addendum_nilai'] 	= unmonefy($data['addendum_nilai']);
 		$id   = $data['id'];
 		unset($data['id'], $data['adde']);
 

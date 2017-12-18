@@ -17,7 +17,7 @@
 				<form action="{{isset($kib)?site_url('aset/kiba/update'):site_url('aset/kiba/insert')}}" method="POST">
 					<input type="hidden" name="id" value="{{isset($kib)?$kib->id:''}}">
 					<input type="hidden" name="id_organisasi" value="{{$org->id}}">
-					
+
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Kode Pemilik</label>
 						<div class="col-md-4">
@@ -46,8 +46,8 @@
 						<div class="col-md-4">
 							<div class="input-group">
 								<select class="form-control" name="id_kategori">
-									@if(isset($kib))
-									<?php 
+									@if(isset($kib->id_kategori))
+									<?php
 									$kt = $kib->id_kategori;
 									$kd = $kt->kd_golongan.'.'.$kt->kd_bidang.'.'.$kt->kd_kelompok.'.'.$kt->kd_subkelompok.'.'.$kt->kd_subsubkelompok;
 									?>
@@ -127,7 +127,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" step="0.01" placeholder="Nilai" value="{{isset($kib)?$kib->nilai:''}}" required/>
+							<input type="number" class="form-control" name="nilai" placeholder="Nilai" required/>
 						</div>
 					</div>
 					<div class="form-group row">

@@ -138,7 +138,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Tingkat</label>
-							<select name="tingkat" class="form-control">
+							<select name="tingkat" class="form-control" required>
 								<option value="">Semua</option>
 								<option value="1" {{isset($filter['tingkat'])&&$filter['tingkat']==1?'selected':''}}>Ya</option>
 								<option value="0" {{isset($filter['tingkat'])&&$filter['tingkat']==0?'selected':''}}>Tidak</option>
@@ -146,7 +146,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Beton</label>
-							<select name="beton" class="form-control">
+							<select name="beton" class="form-control" required>
 								<option value="">Semua</option>
 								<option value="1" {{isset($filter['tingkat'])&&$filter['tingkat']==1?'selected':''}}>Ya</option>
 								<option value="0" {{isset($filter['tingkat'])&&$filter['tingkat']==0?'selected':''}}>Tidak</option>
@@ -154,7 +154,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Luas Lantai</label>
-							<input type="text" class="form-control" name="luas_lantai" value="{{isset($filter['luas_lantai'])?$filter['luas_lantai']:''}}" />
+							<input type="text" class="form-control" name="luas_lantai" value="{{isset($filter['luas_lantai'])?$filter['luas_lantai']:''}}" required />
 						</div>
 					</div>
 					<div class="row">
@@ -164,7 +164,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Tgl.Dokumen</label>
-							<input type="text" class="form-control" name="dokumen_tgl" value="{{isset($filter['dokumen_tgl'])?$filter['dokumen_tgl']:''}}" />
+							<input type="text" class="form-control" name="dokumen_tgl" value="{{isset($filter['dokumen_tgl'])?$filter['dokumen_tgl']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>No.Dokumen</label>
@@ -174,7 +174,7 @@
 					<div class="row">
 						<div class="form-group col">
 							<label>Status Tanah</label>
-							<input type="text" class="form-control" name="status_tanah" value="{{isset($filter['status_tanah'])?$filter['status_tanah']:''}}" />
+							<input type="text" class="form-control" name="status_tanah" value="{{isset($filter['status_tanah'])?$filter['status_tanah']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Kode Tanah</label>
@@ -182,13 +182,13 @@
 						</div>
 						<div class="form-group col">
 							<label>Kondisi</label>
-							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" />
+							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" required />
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label>Asal Usul</label>
-							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" />
+							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>Keterangan</label>
@@ -196,7 +196,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Nilai</label>
-							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" />
+							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" required />
 						</div>
 					</div>
 					<div class="row">

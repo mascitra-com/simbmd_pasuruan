@@ -89,10 +89,11 @@ class Kib_non extends MY_Controller {
 	{
 		$data = $this->input->post();
 
+        $data['nilai'] 	= unmonefy($data['nilai']);
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('aset/kib_non');
-		}
+            $this->go('aset/kib_non/add/'.$data['id_organisasi']);
+        }
 
 		$sukses = $this->kib->insert($data);
 		if($sukses) {
@@ -107,8 +108,9 @@ class Kib_non extends MY_Controller {
 	public function insert_pengadaan()
 	{
 		$data = $this->input->post();
-		
-		if (!$this->kib->form_verify($data)) {
+        $data['nilai'] 	= unmonefy($data['nilai']);
+
+        if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
 			$this->go('aset/kib_non/add_pengadaan/'.$data['id_spk']);
 		}
@@ -135,12 +137,13 @@ class Kib_non extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$id   = $data['id'];
+        $data['nilai'] 	= unmonefy($data['nilai']);
 		unset($data['id']);
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('aset/kib_non');
-		}
+            $this->go('aset/kib_non/edit/'.$id);
+        }
 
 		$sukses = $this->kib->update($id, $data);
 		if($sukses) {
@@ -156,7 +159,8 @@ class Kib_non extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$id   = $data['id'];
-		unset($data['id']);
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        unset($data['id']);
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');

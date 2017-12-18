@@ -61,4 +61,13 @@ if ( ! function_exists('unnullify'))
 		return ($string===null)?'':$string;
 	}
 }
+
+if ( ! function_exists('unmonefy'))
+{
+	function unmonefy($string)
+	{
+		$string = str_replace('.', '', $string);
+		return str_replace(',', '.', $string);
+	}
+}
 ?>

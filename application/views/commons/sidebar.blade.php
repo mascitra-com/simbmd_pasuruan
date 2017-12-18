@@ -9,38 +9,22 @@
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
 			<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
-            <li class="nav nav-invent">
-                <a href="#menu-invent" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
-                <ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-invent">
-                    <li class="nav"><a href="{{site_url('aset/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-                    <li class="nav"><a href="{{site_url('aset/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-                    <li class="nav"><a href="{{site_url('aset/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-                <!-- <li class="nav"><a href="{{site_url('aset/kibc/kdp')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C (KDP)</a></li> -->
-                    <li class="nav"><a href="{{site_url('aset/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-                <!-- <li class="nav"><a href="{{site_url('aset/kibd/kdp')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D (KDP)</a></li> -->
-                    <li class="nav"><a href="{{site_url('aset/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-                    <li class="nav"><a href="{{site_url('aset/kib_non')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
-                <!-- <li class="nav"><a href="{{site_url('aset/kibf')}}"><i class="fa fa-cube fa-fw icon"></i>KIB-F</a></li> -->
-                </ul>
-            </li>
-
-
-			<li class="nav nav-title">MUTASI TAMBAH</li>
+            <li class="nav nav-title">MUTASI TAMBAH</li>
+			<li class="nav nav-inventarisasi">
+				<a href="#menu-inventarisasi" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Inventarisasi<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-inventarisasi">
+					<li class="nav"><a href="{{site_url('aset/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
+				<!-- <li class="nav"><a href="{{site_url('aset/kibc/kdp')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C (KDP)</a></li> -->
+					<li class="nav"><a href="{{site_url('aset/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
+				<!-- <li class="nav"><a href="{{site_url('aset/kibd/kdp')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D (KDP)</a></li> -->
+					<li class="nav"><a href="{{site_url('aset/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
+					<li class="nav"><a href="{{site_url('aset/kib_non')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
+				<!-- <li class="nav"><a href="{{site_url('aset/kibf')}}"><i class="fa fa-cube fa-fw icon"></i>KIB-F</a></li> -->
+				</ul>
+			</li>
 			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
-            <li class="nav nav-inventarisasi">
-                <a href="#menu-inventarisasi" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Inventarisasi<i class="fa fa-angle-down ml-auto"></i></a>
-                <ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-inventarisasi">
-                    <li class="nav"><a href="{{site_url('aset/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-                    <li class="nav"><a href="{{site_url('aset/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-                    <li class="nav"><a href="{{site_url('aset/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-                <!-- <li class="nav"><a href="{{site_url('aset/kibc/kdp')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C (KDP)</a></li> -->
-                    <li class="nav"><a href="{{site_url('aset/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-                <!-- <li class="nav"><a href="{{site_url('aset/kibd/kdp')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D (KDP)</a></li> -->
-                    <li class="nav"><a href="{{site_url('aset/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-                    <li class="nav"><a href="{{site_url('aset/kib_non')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
-                <!-- <li class="nav"><a href="{{site_url('aset/kibf')}}"><i class="fa fa-cube fa-fw icon"></i>KIB-F</a></li> -->
-                </ul>
-            </li>
             <li class="nav nav-hibah"><a href="{{site_url('hibah')}}"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
             <li class="nav nav-transfer-masuk"><a href="{{ site_url('transfer/masuk') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
 			

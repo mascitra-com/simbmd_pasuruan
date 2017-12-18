@@ -67,13 +67,13 @@
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right">Nilai Satuan</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" value="{{isset($kpt) ? $kpt->nilai : ''}}" placeholder="Nilai Satuan" required />
+							<input type="number" class="form-control" name="nilai" placeholder="Nilai Satuan" required />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right">Nilai Penunjang</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai_penunjang" value="{{isset($kpt) ? $kpt->nilai_penunjang : ''}}" placeholder="Nilai Penunjang" />
+							<input type="number" class="form-control" name="nilai_penunjang" placeholder="Nilai Penunjang" />
 						</div>
 					</div>
 					<div class="form-group row">

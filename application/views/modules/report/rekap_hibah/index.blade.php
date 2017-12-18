@@ -48,6 +48,12 @@
 							<input type="text" name="nama_kota" class="form-control form-control-sm" value="Pasuruan" placeholder="Nama kota" />
 						</div>
 					</div>
+					<div class="form-group row">
+						<label class="col-md-3 col-form-label text-right">Keterangan</label>
+						<div class="col-md-4">
+							<input type="text" name="keterangan" class="form-control form-control-sm" value="" placeholder="Keterangan" />
+						</div>
+					</div>
 					<hr>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right"></label>

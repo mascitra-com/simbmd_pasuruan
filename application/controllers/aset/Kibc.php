@@ -161,13 +161,15 @@ class Kibc extends MY_Controller
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
-        $data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
-        $data['reg_induk'] = $this->kib->get_reg_induk();
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibc');
+            $this->go('aset/kibc/add/' . $data['id_organisasi']);
         }
+        $data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
+        $data['reg_induk'] = $this->kib->get_reg_induk();
 
         $sukses = $this->kib->insert($data);
         if ($sukses) {
@@ -183,6 +185,8 @@ class Kibc extends MY_Controller
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
@@ -213,6 +217,8 @@ class Kibc extends MY_Controller
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
@@ -243,18 +249,20 @@ class Kibc extends MY_Controller
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
         $id = $data['id'];
         unset($data['id']);
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibc');
+            $this->go('aset/kibc/edit/' . $id);
         }
 
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('aset/kibc');
+            $this->go('aset/kibc?id_organisasi='.$data['id_organisasi']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
             $this->go('aset/kibc/edit/' . $id);
@@ -265,6 +273,8 @@ class Kibc extends MY_Controller
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
         $id = $data['id'];
         unset($data['id']);
 
@@ -287,6 +297,8 @@ class Kibc extends MY_Controller
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
         $id = $data['id'];
         unset($data['id']);
 

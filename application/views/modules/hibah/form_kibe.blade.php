@@ -110,7 +110,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Tanggal Perolehan</label>
+						<label class="col-md-3 col-form-label text-right">Tanggal Serah Terima</label>
 						<div class="col-md-4">
 							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):''}}"/>
 						</div>
@@ -143,13 +143,13 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?$kib->nilai:''}}" required/>
+							<input type="number" class="form-control" name="nilai" placeholder="Nilai" required/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai Sisa</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?$kib->nilai_sisa:''}}"/>
+							<input type="number" class="form-control" name="nilai_sisa" placeholder="Nilai sisa"/>
 						</div>
 					</div>
 					<div class="form-group row">

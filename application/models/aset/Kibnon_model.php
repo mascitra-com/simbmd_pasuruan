@@ -3,7 +3,7 @@
 class Kibnon_model extends MY_Model
 {
 	public $_table = 'aset_non';
-	public $required = array('id_organisasi','nilai');
+	public $required = array('id_organisasi','nilai','nama','merk','tipe');
 
     public function __construct()
     {

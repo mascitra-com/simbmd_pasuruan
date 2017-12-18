@@ -135,13 +135,14 @@ class Kiba extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$data['tahun'] 		= !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
-		$data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
-		$data['reg_induk'] 	= $this->kib->get_reg_induk();
+		$data['nilai'] 	= unmonefy($data['nilai']);
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('aset/kiba');
-		}
+            $this->go('aset/kiba/add/'.$data['id_organisasi']);
+        }
+        $data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
+        $data['reg_induk'] 	= $this->kib->get_reg_induk();
 
 		$sukses = $this->kib->insert($data);
 		if($sukses) {
@@ -156,6 +157,7 @@ class Kiba extends MY_Controller {
 	public function insert_pengadaan()
 	{
 		$data = $this->input->post();
+        $data['nilai'] 	= unmonefy($data['nilai']);
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
 		
 		if (!$this->kib->form_verify($data)) {
@@ -186,7 +188,8 @@ class Kiba extends MY_Controller {
 	public function insert_hibah()
 	{
 		$data = $this->input->post();
-		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
@@ -231,18 +234,20 @@ class Kiba extends MY_Controller {
 		$data 		   = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
 		$id 		   = $data['id'];
-		unset($data['id']);
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        unset($data['id']);
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('aset/kiba');
-		}
+            $this->go('aset/kiba/edit/'.$id);
+        }
 
 		$sukses = $this->kib->update($id, $data);
 		if($sukses) {
 			$this->message('Data berhasil disimpan','success');
-			$this->go('aset/kiba');
-		} else {
+            $this->go('aset/kiba?id_organisasi='.$data['id_organisasi']);
+
+        } else {
 			$this->message('Data gagal disimpan','danger');
 			$this->go('aset/kiba/edit/'.$id);
 		}
@@ -252,6 +257,8 @@ class Kiba extends MY_Controller {
 	{
 		$data 		   = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 		$id 		   = $data['id'];
 		unset($data['id']);
 
@@ -274,6 +281,8 @@ class Kiba extends MY_Controller {
 	{
 		$data 		   = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 		$id 		   = $data['id'];
 		unset($data['id']);
 
