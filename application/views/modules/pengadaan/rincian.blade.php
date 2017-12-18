@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="btn-group mb-3">
-	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail SPK</a>
+	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail Pengadaan</a>
 	<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary active">02. Rincian Aset</a>
 	<a href="{{site_url('pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary">03. SP2D</a>
 </div>
@@ -91,7 +91,8 @@
 							<tr>
 								<th class="text-nowrap text-center">Aksi</th>
 								<th class="text-nowrap text-center">Kode Barang</th>
-								<th class="text-nowrap">Luas (m3)</th>
+								<th class="text-nowrap text-center">Nama Barang</th>
+								<th class="text-nowrap">Luas (m2)</th>
 								<th class="text-nowrap">Alamat</th>
 								<th class="text-nowrap">Tgl. Sertifikat</th>
 								<th class="text-nowrap">No. Sertifikat</th>

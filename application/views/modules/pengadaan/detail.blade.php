@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="btn-group mb-3">
-	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary active">01. Detail SPK/Non-SPK</a>
+	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary active">01. Detail Pengadaan</a>
 	<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary">02. Rincian Aset</a>
 	<a href="{{site_url('pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary">03. SP2D</a>
 </div>
@@ -36,7 +36,7 @@
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Detail SPK</div>
+			<div class="card-header">Detail Pengadaan</div>
 			<div class="card-body">
 				<form action="{{site_url('pengadaan/update_spk')}}" method="POST">
 					<input type="hidden" name="id" value="{{$spk->id}}">
@@ -49,7 +49,17 @@
 								</div>
 								<div class="form-group col">
 									<label>Tgl. Kontrak</label>
-									<input type="date" class="form-control form-control-sm" name="tanggal" value="{{datify($spk->tanggal, 'Y-m-d')}}" placeholder="Tanggal kontrak" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="date" class="form-control form-control-sm" name="tanggal" value="{{datify($spk->tanggal, 'Y-m-d')}}" placeholder="Tanggal kontrak" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col">
+									<label>No. BA Serah Terima</label>
+									<input type="text" class="form-control form-control-sm" name="no_serah_terima" value="{{isset($spk->no_serah_terima) ? $spk->no_serah_terima : ''}}" placeholder="No. Berita Acara Serah Terima" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+								</div>
+								<div class="form-group col">
+									<label>Tgl. BA Serah Terima</label>
+									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" value="{{isset($spk->tgl_serah_terima) ? datify($spk->tgl_serah_terima, 'Y-m-d') : ''}}" placeholder="Tanggal Berita Acara Serah Terima" required {{(!empty($sp2d['total']))?'readonly':''}}/>
 								</div>
 							</div>
 							<div class="form-row">

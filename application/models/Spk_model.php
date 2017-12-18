@@ -3,7 +3,7 @@
 class Spk_model extends MY_Model
 {
 	public $_table = 'spk';
-	public $required = array('nomor', 'tanggal', 'nilai', 'id_organisasi');
+	public $required = array('nomor', 'tanggal', 'no_serah_terima', 'tgl_serah_terima', 'nilai', 'id_organisasi');
 
     public function __construct()
     {
