@@ -80,6 +80,33 @@ class Pengadaan extends MY_Controller {
 		}
 	}
 
+	public function delete_spk($id = null)
+	{
+		if(empty($id))
+			show_404();
+
+		$sukses = $this->spk->delete($id);
+		if($sukses) {
+			$this->kiba->delete_by(array('id_spk'=>$id));
+			$this->kibb->delete_by(array('id_spk'=>$id));
+			$this->kibc->delete_by(array('id_spk'=>$id));
+			$this->kibd->delete_by(array('id_spk'=>$id));
+			$this->kibe->delete_by(array('id_spk'=>$id));
+			$this->kibnon->delete_by(array('id_spk'=>$id));
+			$this->kibc->delete_by(array('id_spk'=>$id));
+			$this->kibd->delete_by(array('id_spk'=>$id));
+			$this->kapitalisasi->delete_by(array('id_spk'=>$id));
+			$this->sp2d->delete_by(array('id_spk'=>$id));
+
+			$this->message('Data berhasil dihapus','success');
+			$this->go('pengadaan');
+		} else {
+			$this->message('Data gagal dihapus','danger');
+			$this->go('pengadaan');
+		}
+
+	}
+
 	public function detail($id = null)
 	{
 		if(empty($id))
@@ -124,36 +151,36 @@ class Pengadaan extends MY_Controller {
 
 		switch ($jenis) {
 			case 'a':
-				$this->go('aset/kiba/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kiba/add_pengadaan/'.$id);
+			break;
 			case 'b':
-				$this->go('aset/kibb/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kibb/add_pengadaan/'.$id);
+			break;
 			case 'c':
-				$this->go('aset/kibc/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kibc/add_pengadaan/'.$id);
+			break;
 			case 'd':
-				$this->go('aset/kibd/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kibd/add_pengadaan/'.$id);
+			break;
 			case 'e':
-				$this->go('aset/kibe/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kibe/add_pengadaan/'.$id);
+			break;
 			case 'non':
-				$this->go('aset/kib_non/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kib_non/add_pengadaan/'.$id);
+			break;
 			case 'c_kdp':
-				$this->go('aset/kdpc/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kdpc/add_pengadaan/'.$id);
+			break;
 			case 'd_kdp':
-				$this->go('aset/kdpd/add_pengadaan/'.$id);
-				break;
+			$this->go('aset/kdpd/add_pengadaan/'.$id);
+			break;
 			case 'tambah':
-				$this->go('kapitalisasi/add_pengadaan/langkah_1/'.$id);
-				break;
-		
+			$this->go('kapitalisasi/add_pengadaan/langkah_1/'.$id);
+			break;
+
 			default:
-				show_404();
-				break;
+			show_404();
+			break;
 		}
 	}
 
@@ -168,6 +195,17 @@ class Pengadaan extends MY_Controller {
 		$this->render('modules/pengadaan/sp2d', $data);
 	}
 
+	public function get_sp2d($id = null)
+	{
+		$data = $this->sp2d->get($id);
+
+		if ($data) {
+			$data->tanggal = datify($data->tanggal, 'Y-m-d');
+		}
+
+		echo json_encode($data);
+	}
+
 	public function insert_sp2d()
 	{
 		$data = $this->input->post();
@@ -179,6 +217,27 @@ class Pengadaan extends MY_Controller {
 		$sukses = $this->sp2d->insert($data);
 		if($sukses) {
 			$this->message('Data berhasil ditambah','success');
+			$this->go('pengadaan/sp2d/'.$data['id_spk']);
+		} else {
+			$this->message('Terjadi kesalahan','danger');
+			$this->go('pengadaan/sp2d/'.$data['id_spk']);
+		}
+	}
+
+	public function update_sp2d()
+	{
+		$data = $this->input->post();
+		$id   = $data['id'];
+		unset($data['id']);
+
+		if (!$this->sp2d->form_verify($data)) {
+			$this->message('Isi data yang perlu diisi', 'danger');
+			$this->go('pengadaan/sp2d/'.$data['id_spk']);
+		}
+
+		$sukses = $this->sp2d->update($id, $data);
+		if($sukses) {
+			$this->message('Data berhasil disunting','success');
 			$this->go('pengadaan/sp2d/'.$data['id_spk']);
 		} else {
 			$this->message('Terjadi kesalahan','danger');

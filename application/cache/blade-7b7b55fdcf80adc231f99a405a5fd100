@@ -1,17 +1,17 @@
-@layout('commons/index')
-@section('title')Pengadaan - Rincian@end
+a:3:{s:4:"time";i:1513351011;s:3:"ttl";i:3600;s:4:"data";s:8336:"
+<?php $this->_section_start('title'); ?>Pengadaan - Rincian<?php $this->_section_end(); ?>
 
-@section('breadcrump')
-<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<?php $this->_section_start('breadcrump'); ?>
+<li class="breadcrumb-item"><a href="<?php echo site_url(); ?>">Beranda</a></li>
+<li class="breadcrumb-item"><a href="<?php echo site_url('pengadaan?id_organisasi='.$spk->id_organisasi); ?>">Pengadaan</a></li>
 <li class="breadcrumb-item active">SP2D</li>
-@end
+<?php $this->_section_end(); ?>
 
-@section('content')
+<?php $this->_section_start('content'); ?>
 <div class="btn-group mb-3">
-	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail SPK</a>
-	<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary">02. Rincian Aset</a>
-	<a href="{{site_url('pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary active">03. SP2D</a>
+	<a href="<?php echo site_url('pengadaan/detail/'.$spk->id); ?>" class="btn btn-primary">01. Detail SPK</a>
+	<a href="<?php echo site_url('pengadaan/rincian/'.$spk->id); ?>" class="btn btn-primary">02. Rincian Aset</a>
+	<a href="<?php echo site_url('pengadaan/sp2d/'.$spk->id); ?>" class="btn btn-primary active">03. SP2D</a>
 </div>
 <div class="row mb-3">
 	<div class="col">
@@ -20,21 +20,21 @@
 			<div class="card-body row">
 				<div class="col">
 					<div class="row">
-						<div class="col">No. Kontrak</div><div class="col"> : {{$spk->nomor}}</div>
+						<div class="col">No. Kontrak</div><div class="col"> : <?php echo $spk->nomor; ?></div>
 						<div class="w-100"></div>
-						<div class="col">Tanggal Kontrak</div><div class="col"> : {{datify($spk->tanggal, 'd/m/Y')}}</div>
+						<div class="col">Tanggal Kontrak</div><div class="col"> : <?php echo datify($spk->tanggal, 'd/m/Y'); ?></div>
 						<div class="w-100"></div>
-						<div class="col">Jangka Waktu</div><div class="col"> : {{$spk->jangka_waktu}} Bulan</div>
+						<div class="col">Jangka Waktu</div><div class="col"> : <?php echo $spk->jangka_waktu; ?> Bulan</div>
 					</div>
 				</div>
 				<div class="col">
 					<div class="row">
 						<?php $nilai_kontrak = (!empty($spk->addendum_nilai)) ? $spk->addendum_nilai : $spk->nilai ?>
-						<div class="col">Nilai Kontrak</div><div class="col"> : {{monefy($nilai_kontrak)}},00</div>
+						<div class="col">Nilai Kontrak</div><div class="col"> : <?php echo monefy($nilai_kontrak); ?>,00</div>
 						<div class="w-100"></div>
 						<div class="col">Total Rincian</div><div class="col"> : </div>
 						<div class="w-100"></div>
-						<div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}},00</div>
+						<div class="col">Total SP2D</div><div class="col"> : <?php echo monefy($sp2d['total']); ?>,00</div>
 						<div class="w-100"></div>
 					</div>
 				</div>
@@ -62,28 +62,28 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($sp2d['data'] AS $data)
+						<?php foreach($sp2d['data'] AS $data): ?>
 						<tr>
-							<td class="text-center">{{$data->nomor}}</td>
-							<td>{{datify($data->tanggal,'d/m/Y')}}</td>
-							<td>{{$data->kode_rekening}}</td>
-							<td class="text-right">{{monefy($data->nilai)}}</td>
-							<td>{{$data->keterangan}}</td>
+							<td class="text-center"><?php echo $data->nomor; ?></td>
+							<td><?php echo datify($data->tanggal,'d/m/Y'); ?></td>
+							<td><?php echo $data->kode_rekening; ?></td>
+							<td class="text-right"><?php echo monefy($data->nilai); ?></td>
+							<td><?php echo $data->keterangan; ?></td>
 							<td class="text-center text-nowrap btn-group">
-								<button class="btn btn-warning btn-sm" data-id="{{$data->id}}"><i class="fa fa-pencil"></i></button>
-								<a href="{{site_url('pengadaan/delete_sp2d/'.$data->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+								<button class="btn btn-warning btn-sm" data-id="<?php echo $data->id; ?>"><i class="fa fa-pencil"></i></button>
+								<a href="<?php echo site_url('pengadaan/delete_sp2d/'.$data->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
-						@endforeach
+						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
-@end
+<?php $this->_section_end(); ?>
 
-@section('modal')
+<?php $this->_section_start('modal'); ?>
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -94,9 +94,9 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col">
-						<form action="{{site_url('pengadaan/insert_sp2d')}}" method="POST">
+						<form action="<?php echo site_url('pengadaan/insert_sp2d'); ?>" method="POST">
 							<input type="hidden" name="id">
-							<input type="hidden" name="id_spk" value="{{$spk->id}}">
+							<input type="hidden" name="id_spk" value="<?php echo $spk->id; ?>">
 							<div class="form-group">
 								<label>Nomor SP2D</label>
 								<input type="text" class="form-control form-control-sm" name="nomor" placeholder="Nomor" required/>
@@ -150,18 +150,18 @@
 		</div>
 	</div>
 </div>
-@end
+<?php $this->_section_end(); ?>
 
-@section('style')
+<?php $this->_section_start('style'); ?>
 <style type="text/css">
 	.col-scroll {
 		max-height: 450px!important;
 		overflow-y: auto;!important;
 	}
 </style>
-@endsection
+<?php $this->_section_end(); ?>section
 
-@section('script')
+<?php $this->_section_start('script'); ?>
 <script>
 	var sp2d = (function(){
 		
@@ -178,7 +178,7 @@
 
 		function fungsiTombolCari(e) {
 			var key = $("#ip-search").val();
-			$.getJSON("{{site_url('rekening/get_data_search?key=')}}"+key, function(result){
+			$.getJSON("<?php echo site_url('rekening/get_data_search?key='); ?>"+key, function(result){
 				$("#tbl-rekening > tbody").empty();
 				$.each(result, function(key, value){
 					var html = "<tr>";
@@ -194,9 +194,9 @@
 
 		function fungsiTombolEdit(e) {
 			var id = $(e.currentTarget).data('id');
-			$("#modal-tambah form").attr('action', "{{site_url('pengadaan/update_sp2d')}}");
+			$("#modal-tambah form").attr('action', "<?php echo site_url('pengadaan/update_sp2d'); ?>");
 			$("#modal-tambah form input[name=id]").val(id);
-			$.getJSON("{{site_url('pengadaan/get_sp2d/')}}"+id, function(result){
+			$.getJSON("<?php echo site_url('pengadaan/get_sp2d/'); ?>"+id, function(result){
 				if (result) {
 					$("[name=nomor]").val(result.nomor);
 					$("[name=tanggal]").val(result.tanggal);
@@ -210,12 +210,15 @@
 		}
 
 		function reset() {
-			$("#modal-tambah form").attr('action', "{{site_url('pengadaan/insert_sp2d')}}");
+			$("#modal-tambah form").attr('action', "<?php echo site_url('pengadaan/insert_sp2d'); ?>");
 			$("#modal-tambah form").trigger('reset');
 			$("#tbl-rekening > tbody").empty();
 		}
 	})();
 	
 </script>
-@endsection
+<?php $this->_section_end(); ?>section
 
+
+<?php echo $this->_include('commons/index'); ?>
+";}
