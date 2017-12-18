@@ -16,6 +16,7 @@
 				<div class="btn-group">
 					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
 					<button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button>
+					<button class="btn btn-primary"><i class="fa fa-check mr-2"></i>Terpilih <span class="badge badge-secondary">12</span></button>
 				</div>
 			</div>
 			<div class="card-body table-responsive table-scroll px-0 py-0">
@@ -47,7 +48,7 @@
 						<tr>
 							<td class="text-nowrap text-center">
 								<div class="btn-group">
-									<a href="{{ site_url('penghapusan/rincian/'.$filter['id_organisasi']) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+									<a href="{{ site_url('kiba/insert_penghapusan?id_aset='.$item->id.'&id_org='.$filter['id_organisasi']) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
 								</div>
 							</td>
 							<td class="text-nowrap text-center">

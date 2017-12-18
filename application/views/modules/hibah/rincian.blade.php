@@ -3,14 +3,14 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('transfer/keluar')}}">Hibah</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('hibah')}}">Hibah</a></li>
     <li class="breadcrumb-item active">Rincian Hibah</li>
     @end
 
 @section('content')
     <div class="btn-group mb-3">
-        <a href="#" class="btn btn-primary">01. Detail Transfer Keluar</a>
-        <a href="#" class="btn btn-primary active">02. Rincian Transfer Keluar</a>
+        <a href="#" class="btn btn-primary">01. Detail Hibah</a>
+        <a href="#" class="btn btn-primary active">02. Rincian Hibah</a>
     </div>
     <div class="row mb-3">
         <div class="col">

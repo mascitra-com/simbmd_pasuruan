@@ -92,7 +92,7 @@ class Kiba extends MY_Controller {
         $data['filter']     = $filter;
         $data['kib'] 		= $result['data'];
         $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/'.get_class($this));
-		$this->render('modules/k/kiba', $data);
+		$this->render('modules/penghapusan/kiba', $data);
 	}
 
 	public function edit($id = NULL)
@@ -211,6 +211,19 @@ class Kiba extends MY_Controller {
 			$this->message('Data gagal disimpan','danger');
 			$this->go('aset/kiba/add_hibah/'.$data['id_hibah']);
 		}
+	}
+
+    public function insert_penghapusan()
+    {
+        $input = $this->input->get();
+        $aset = $input['id_aset'];
+        if($all_aset = $this->session->userdata('hapus_aset')){
+            $all_aset[] .= $aset;
+        } else {
+            $all_aset = array($aset);
+        }
+        $data['aset'] = $this->session->set_userdata('hapus_aset', $all_aset);
+        $this->go('aset/kiba/add_penghapusan/'.$input['id_org']);
 	}
 
 	public function update()

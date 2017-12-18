@@ -74,6 +74,6 @@
 
 @section('script')
     <script>
-        theme.activeMenu('.nav-transfer-masuk')
+        theme.activeMenu('.nav-penghapusan')
     </script>
     @end

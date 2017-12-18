@@ -38,32 +38,32 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" class="form-control" value="12345"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tanggal Jurnal</label>
                             <div class="col-md-4">
-                                <input type="date" class="form-control"/>
+                                <input type="text" class="form-control" value="{{ date('m/d/Y') }}"/>
                             </div>
                         </div>
                         <hr>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right"></label>
                             <div class="col-md-4">
-                                <h5>BA Penghapusan</h5>
+                                <h5>SK Penghapusan</h5>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Nomor Penghapusan</label>
+                            <label class="col-md-3 col-form-label text-right">SK Penghapusan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" class="form-control" value="98766"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Tanggal Penghapusan</label>
+                            <label class="col-md-3 col-form-label text-right">SK Penghapusan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" class="form-control" value="{{date('m/d/Y')}}"/>
                             </div>
                         </div>
                         <hr>

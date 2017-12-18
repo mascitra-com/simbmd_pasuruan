@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="btn-group mb-3">
-        <a href="{{site_url('penghapusan/detail/'.$id_organisasi)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('penghapusan/detail/'.$id_organisasi)}}" class="btn btn-primary">01. Penghapusan Aset</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="row mb-3">
@@ -29,13 +29,13 @@
                     <div class="col">
                         <div class="row">
                             <div class="col">UPB</div>
-                            <div class="col"> :</div>
+                            <div class="col"> : SEKRETARIAT DPRD</div>
                             <div class="w-100"></div>
                             <div class="col">No. Jurnal</div>
-                            <div class="col"> :</div>
+                            <div class="col"> : 12345</div>
                             <div class="w-100"></div>
                             <div class="col">No. Penghapusan</div>
-                            <div class="col"> :</div>
+                            <div class="col"> : 98766</div>
                             <div class="w-100"></div>
                         </div>
                     </div>

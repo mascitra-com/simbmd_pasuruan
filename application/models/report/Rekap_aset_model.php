@@ -196,10 +196,8 @@ class Rekap_aset_model extends MY_Model {
 			$kode  = $item->kd_golongan;
 			$kode .= (isset($item->kd_bidang))?'.'.$item->kd_bidang:'';
 			$kode .= (isset($item->kd_kelompok))?'.'.$item->kd_kelompok:'';
-
-			$item->kategori = $kategori[$kode]->nama;
-		}
-
+			$item->kategori = $kategori["$kode"]->nama;
+        }
 		return $data;
 	}
 }

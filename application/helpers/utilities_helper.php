@@ -3,7 +3,7 @@ if ( ! function_exists('monefy'))
 {
 	function monefy($text="")
 	{
-		return number_format($text,0,',','.');
+		return number_format($text,2,',','.');
 	}
 }
 

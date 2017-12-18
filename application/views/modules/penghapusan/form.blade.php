@@ -47,19 +47,19 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right"></label>
                             <div class="col-md-4">
-                                <h5>BA Penghapusan</h5>
+                                <h5>SK Penghapusan</h5>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Nomor Penghapusan</label>
+                            <label class="col-md-3 col-form-label text-right">Nomor SK</label>
                             <div class="col-md-4">
                                 <input type="text" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Tanggal Penghapusan</label>
+                            <label class="col-md-3 col-form-label text-right">Tanggal SK</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="date" class="form-control"/>
                             </div>
                         </div>
                         <hr>

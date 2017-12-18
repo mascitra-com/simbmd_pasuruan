@@ -52,7 +52,7 @@
 						<tr>
 							<th class="text-nowrap text-center">Aksi</th>
 							<th class="text-nowrap text-center">Kode Barang</th>
-							<th class="text-nowrap">Luas (m3)</th>
+							<th class="text-nowrap">Luas (m2)</th>
 							<th class="text-nowrap">Alamat</th>
 							<th class="text-nowrap">Tgl. Sertifikat</th>
 							<th class="text-nowrap">No. Sertifikat</th>

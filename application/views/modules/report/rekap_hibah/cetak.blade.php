@@ -37,7 +37,7 @@
 					<tr>
 						<th class="text-center small bold">NO.</th>
 						<th class="text-center small bold">KD. BARANG</th>
-						<th class="text-center small bold">REG. INDUK</th>
+						<th class="text-center small boldz">REG. INDUK</th>
 						<th class="text-center small bold">NAMA BARANG</th>
 						<th class="text-center small bold">MERK/TIPE</th>
 						<th class="text-center small bold">KONDISI</th>
@@ -62,6 +62,7 @@
 						<td colspan="8" class="small">
 							<span class="ml-3">No. Jurnal: {{$hibah->no_jurnal}}</span>
 							<span class="ml-3">Asal Penerimaan: {{$hibah->asal_penerimaan}}</span>
+							<span class="ml-3">Keterangan: {{$hibah->keterangan}}</span>
 						</td>
 					</tr>
 					<!-- ASET -->

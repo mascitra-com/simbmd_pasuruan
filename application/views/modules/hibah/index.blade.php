@@ -98,7 +98,13 @@
 							</div>
 							<div class="form-group">
                                 <label>Asal Penerimaan</label>
-                                <input type="text" class="form-control form-control-sm" name="asal_penerimaan" placeholder="Asal Penerimaan Hibah" required/>
+								<select name="asal_penerimaan" id="asal_penerimaan" class="form-control">
+                                    <option value="">Pilih Salah Satu</option>
+                                    <option value="0">Pusat</option>
+									<option value="1">Provinsi</option>
+									<option value="2">Pemerintah Daerah</option>
+									<option value="3">Pemerintah Lainnya</option>
+								</select>
                             </div>
 						</div>
 					</div>

@@ -76,7 +76,7 @@ class Penghapusan extends MY_Controller
 
         switch ($jenis) {
             case 'a':
-                $this->go('aset/kiba/add_transfer/'.$id_org);
+                $this->go('aset/kiba/add_penghapusan/'.$id_org);
                 break;
             case 'b':
                 $this->go('aset/kibb/add_penghapusan/'.$id_org);

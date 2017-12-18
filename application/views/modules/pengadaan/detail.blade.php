@@ -9,7 +9,7 @@
 
 @section('content')
 <div class="btn-group mb-3">
-	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary active">01. Detail SPK</a>
+	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary active">01. Detail SPK/Non-SPK</a>
 	<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary">02. Rincian Aset</a>
 	<a href="{{site_url('pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary">03. SP2D</a>
 </div>
