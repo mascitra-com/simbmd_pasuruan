@@ -54,15 +54,17 @@
                             <td class="text-nowrap">{{ $list->no_sk }}</td>
                             <td class="text-nowrap">{{ datify($list->tgl_sk, 'd-m-Y') }}</td>
                             <td class="text-nowrap">{{ $list->keterangan }}</td>
-                            <td class="text-nowrap">
-                                @if($list->status_pengajuan == '0')
-                                    <span class="badge badge-secondary">draft</span>
-                                @elseif($list->status_pengajuan == '1')
-                                    <span class="badge badge-secondary">menunggu</span>
-                                @elseif($list->status_pengajuan == '2')
-                                    <span class="badge badge-secondary">disetujui</span>
-                                @elseif($list->status_pengajuan == '3')
-                                    <span class="badge badge-secondary">ditolak</span>
+                            <td class="text-center">
+                                @if($list->status_pengajuan === '0')
+                                    <span class="badge badge-secondary">draf</span>
+                                @elseif($list->status_pengajuan === '1')
+                                    <span class="badge badge-warning">menunggu</span>
+                                @elseif($list->status_pengajuan === '2')
+                                    <span class="badge badge-success">disetujui</span>
+                                @elseif($list->status_pengajuan === '3')
+                                    <span class="badge badge-danger">ditolak</span>
+                                @else
+                                    ERROR
                                 @endif
                             </td>
                             <td class="text-nowrap">{{ $list->tanggal_verifikasi }}</td>

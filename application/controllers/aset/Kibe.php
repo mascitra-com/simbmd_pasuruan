@@ -345,7 +345,7 @@ class Kibe extends MY_Controller
         unset($kib['id']);
         $sukses = $this->kib_temp->insert($kib);
         if($sukses) {
-            $terpilih_count = $this->kib_temp->count_by('id_transfer', $input['id_transfer']);
+            $terpilih_count = $this->kib_temp->count_by('id_hapus', $input['id_hapus']);
             echo json_encode(array('status'=>'sukses', 'terpilih_count'=> $terpilih_count));
         }
     }
@@ -388,14 +388,14 @@ class Kibe extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data = $this->kib_temp->get($id);
+        $id_hibah = $this->kib_temp->get($id)->id_hibah;
         $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('hibah/rincian/' . $data->id_hibah);
+            $this->go('hibah/rincian/' . $id_hibah);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('hibah/rincian/' . $data->id_hibah);
+            $this->go('hibah/rincian/' . $id_hibah);
         }
     }
 

@@ -128,9 +128,10 @@ class Kibd extends MY_Controller
         $where_not_in = array_column($where_not_in, 'id_aset');
 
         $filter = $this->input->get();
+        $filter['is_kdp'] = false;
         $filter['id_organisasi'] = $data['hapus']->id_organisasi;
 
-        $result = $this->kib->where_not_in('id', !empty($where_not_in) ? $where_not_in : "")->get_data($filter);
+        $result = $this->kib->where_not_in('aset_d.id', !empty($where_not_in) ? $where_not_in : "")->get_data($filter);
 
         $data['filter'] = $filter;
         $data['kib'] = $result['data'];

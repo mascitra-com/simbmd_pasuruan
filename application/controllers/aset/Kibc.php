@@ -128,9 +128,10 @@ class Kibc extends MY_Controller
         $where_not_in = array_column($where_not_in, 'id_aset');
 
         $filter = $this->input->get();
+        $filter['is_kdp'] = false;
         $filter['id_organisasi'] = $data['hapus']->id_organisasi;
 
-        $result = $this->kib->where_not_in('id', !empty($where_not_in) ? $where_not_in : "")->get_data($filter);
+        $result = $this->kib->where_not_in('aset_c.id', !empty($where_not_in) ? $where_not_in : "")->get_data($filter);
 
         $data['filter'] = $filter;
         $data['kib'] = $result['data'];
@@ -411,10 +412,10 @@ class Kibc extends MY_Controller
         $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('hibah/rincian/' . $id_hibah);
+            $this->go('hibah/rincian/' . $data->id_hibah);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('hibah/rincian/' . $id_hibah);
+            $this->go('hibah/rincian/' . $data->id_hibah);
         }
     }
 
