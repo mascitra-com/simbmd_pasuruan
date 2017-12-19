@@ -11,12 +11,11 @@ class Hibah extends MY_Controller
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kegiatan_model', 'kegiatan');
 
-        $this->load->model('aset/Kiba_model', 'kiba');
-        $this->load->model('aset/Kibb_model', 'kibb');
-        $this->load->model('aset/Kibc_model', 'kibc');
-        $this->load->model('aset/Kibd_model', 'kibd');
-        $this->load->model('aset/Kibe_model', 'kibe');
-        $this->load->model('aset/Kibnon_model', 'kibnon');
+        $this->load->model('aset/Kiba_temp_model', 'kiba');
+        $this->load->model('aset/Kibb_temp_model', 'kibb');
+        $this->load->model('aset/Kibc_temp_model', 'kibc');
+        $this->load->model('aset/Kibd_temp_model', 'kibd');
+        $this->load->model('aset/Kibe_temp_model', 'kibe');
         $this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
     }

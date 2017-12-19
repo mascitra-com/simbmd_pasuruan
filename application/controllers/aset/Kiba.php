@@ -13,7 +13,6 @@ class Kiba extends MY_Controller
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Spk_model', 'spk');
         $this->load->model('Hibah_model', 'hibah');
-        $this->load->model('Penghapusan_model', 'hapus');
         $this->load->library('pagination');
     }
 
@@ -92,27 +91,25 @@ class Kiba extends MY_Controller
         $this->render('modules/transfer/kiba', $data);
     }
 
-    public function add_penghapusan($id = NULL)
+    public function add_penghapusan($id_hapus = NULL)
     {
-        if (empty($id))
+        $this->load->model('Penghapusan_model', 'hapus');
+        if (empty($id_hapus))
             show_404();
 
-        $filter = $this->input->get();
+        $data['hapus'] = $this->hapus->get($id_hapus);
+        $where_not_in = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_hapus', $id_hapus);
+        $where_not_in = array_column($where_not_in, 'id_aset');
 
-        $data['hapus'] = $this->hapus->get($id);
+        $filter = $this->input->get();
         $filter['id_organisasi'] = $data['hapus']->id_organisasi;
 
-        $aset = $this->db->select('id_aset')->where('id_hapus', $data['hapus']->id)->from('aset_a_temp')->get()->result_array();
-        $aset = array_column($aset, 'id_aset');
-        if (count($aset))
-            $result = $this->kib->where_not_in('id', $aset)->get_data($filter);
-        else
-            $result = $this->kib->get_data($filter);
-        $data['aset'] = $aset;
+        $result = $this->kib->where_not_in('id', !empty($where_not_in) ? $where_not_in : "")->get_data($filter);
 
         $data['filter'] = $filter;
         $data['kib'] = $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
+        $data['terpilih_count'] = count($where_not_in);
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this) . '/add_penghapusan');
         $this->render('modules/penghapusan/kiba', $data);
     }
 
@@ -239,17 +236,15 @@ class Kiba extends MY_Controller
 
     public function insert_penghapusan()
     {
-        $input = $this->input->get();
-        $kib = $this->kib->get($input['id_aset']);
-        $kib->id_aset = $kib->id;
-        $kib->id_hapus = $input['id'];
-        unset($kib->id);
-        if ($this->db->insert('aset_a_temp', $kib)) {
-            $this->message('Data berhasil disimpan', 'success');
-            $this->go('aset/kiba/add_penghapusan/' . $input['id']);
-        } else {
-            $this->message('Data Gagal disimpan', 'danger');
-            $this->go('aset/kiba/add_penghapusan/' . $input['id']);
+        $input = $this->input->post();
+        $kib = $this->kib->as_array()->get($input['id_aset']);
+        $kib['id_hapus'] = $input['id_hapus'];
+        $kib['id_aset']  = $input['id_aset'];
+        unset($kib['id']);
+        $sukses = $this->kib_temp->insert($kib);
+        if($sukses) {
+            $terpilih_count = $this->kib_temp->count_by('id_hapus', $input['id_hapus']);
+            echo json_encode(array('status'=>'sukses', 'terpilih_count'=> $terpilih_count));
         }
     }
 

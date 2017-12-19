@@ -3,7 +3,8 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('penghapusan')}}">Penghapusan Aset</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('penghapusan?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan
+            Aset</a></li>
     <li class="breadcrumb-item active">Rincian Aset</li>
     @end4
 
@@ -18,23 +19,25 @@
                 <div class="card-header form-inline">
                     <span class="mr-auto">Detail Kontrak</span>
                     <div class="btn-group btn-group-sm">
+                        @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                         <button class="btn btn-primary" data-toggle="modal"
                                 data-target="#modal-add"><i
                                     class="fa fa-plus"></i> Tambah
                         </button>
+                        @endif
                         <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
                     </div>
                 </div>
                 <div class="card-body row">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="row">
-                            <div class="col">UPB</div>
-                            <div class="col"> : {{ $org->nama }}</div>
+                            <div class="col-4">UPB</div>
+                            <div class="col"> : {{ $hapus->id_organisasi->nama }}</div>
                             <div class="w-100"></div>
-                            <div class="col">No. Jurnal</div>
+                            <div class="col-4">No. Jurnal</div>
                             <div class="col"> : {{ $hapus->no_jurnal }}</div>
                             <div class="w-100"></div>
-                            <div class="col">SK. Penghapusan</div>
+                            <div class="col-4">SK. Penghapusan</div>
                             <div class="col"> : {{ $hapus->no_sk }}</div>
                             <div class="w-100"></div>
                         </div>
@@ -98,12 +101,14 @@
                                 @foreach($kiba AS $item)
                                     <tr>
                                         <td class="text-nowrap text-center">
+                                            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kiba/delete_penghapusan/'.$item->id)}}"
                                                    class="btn btn-sm btn-danger"
                                                    onclick="return confirm('Apakah anda yakin?')"><i
                                                             class="fa fa-trash"></i></a>
                                             </div>
+                                            @endif
                                         </td>
                                         <td class="text-nowrap text-center">
                                             {{zerofy($item->id_kategori->kd_golongan)}} .
@@ -170,12 +175,14 @@
                                 @foreach($kibb AS $item)
                                     <tr>
                                         <td class="text-nowrap text-center">
+                                            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibb/delete_penghapusan/'.$item->id)}}"
                                                    class="btn btn-sm btn-danger"
                                                    onclick="return confirm('Apakah anda yakin?')"><i
                                                             class="fa fa-trash"></i></a>
                                             </div>
+                                            @endif
                                         </td>
                                         <td class="text-nowrap text-center">
                                             {{zerofy($item->id_kategori->kd_golongan)}} .
@@ -248,12 +255,14 @@
                                 @foreach($kibc AS $item)
                                     <tr>
                                         <td class="text-nowrap text-center">
+                                            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibc/delete_penghapusan/'.$item->id)}}"
                                                    class="btn btn-sm btn-danger"
                                                    onclick="return confirm('Apakah anda yakin?')"><i
                                                             class="fa fa-trash"></i></a>
                                             </div>
+                                            @endif
                                         </td>
                                         <td class="text-nowrap text-center">
                                             {{zerofy($item->id_kategori->kd_golongan)}} .
@@ -276,7 +285,7 @@
                                         <td class="text-nowrap">{{$item->asal_usul}}</td>
                                         <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
                                         <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai + $item->nilai_sisa):'0'}}</td>
                                         <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                         <td class="text-nowrap">{{$item->keterangan}}</td>
                                         <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
@@ -324,12 +333,14 @@
                                 @foreach($kibd AS $item)
                                     <tr>
                                         <td class="text-nowrap text-center">
+                                            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibd/delete_penghapusan/'.$item->id)}}"
                                                    class="btn btn-sm btn-danger"
                                                    onclick="return confirm('Apakah anda yakin?')"><i
                                                             class="fa fa-trash"></i></a>
                                             </div>
+                                            @endif
                                         </td>
                                         <td class="text-nowrap text-center">
                                             {{zerofy($item->id_kategori->kd_golongan)}} .
@@ -353,7 +364,7 @@
                                         <td class="text-nowrap">{{$item->asal_usul}}</td>
                                         <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
                                         <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                        <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai + $item->nilai_sisa):'0'}}</td>
                                         <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                         <td class="text-nowrap">{{$item->keterangan}}</td>
                                         <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
@@ -397,12 +408,14 @@
                                 @foreach($kibe AS $item)
                                     <tr>
                                         <td class="text-nowrap text-center">
+                                            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
                                                 <a href="{{site_url('aset/kibe/delete_penghapusan/'.$item->id)}}"
                                                    class="btn btn-sm btn-danger"
                                                    onclick="return confirm('Apakah anda yakin?')"><i
                                                             class="fa fa-trash"></i></a>
                                             </div>
+                                            @endif
                                         </td>
                                         <td class="text-nowrap text-center">
                                             {{zerofy($item->id_kategori->kd_golongan)}} .
