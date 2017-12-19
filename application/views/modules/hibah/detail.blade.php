@@ -40,7 +40,8 @@
                                         <option value="0" {{ $hibah->asal_penerimaan == 0 ? 'selected' : ''}}>Pusat</option>
                                         <option value="1" {{ $hibah->asal_penerimaan == 1 ? 'selected' : ''}}>Provinsi</option>
                                         <option value="2" {{ $hibah->asal_penerimaan == 2 ? 'selected' : ''}}>Pemerintah Daerah</option>
-                                        <option value="3" {{ $hibah->asal_penerimaan == 3 ? 'selected' : ''}}>Pemerintah Lainnya</option>
+                                        <option value="2" {{ $hibah->asal_penerimaan == 3 ? 'selected' : ''}}>Pemerintah Daerah Lainnya</option>
+                                        <option value="3" {{ $hibah->asal_penerimaan == 4 ? 'selected' : ''}}>Penerimaan Lainnya</option>
                                     </select>
                                 </div>
                             </div>

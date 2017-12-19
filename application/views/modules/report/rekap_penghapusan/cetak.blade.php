@@ -21,7 +21,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="title bold mb-4">
-			LAPORAN HIBAH<br>
+			LAPORAN PENGHAPUSAN<br>
 			{{datify($detail['periode_start'])}} s.d. {{datify($detail['periode_end'])}}
 		</div>
 		<div class="header">
@@ -58,19 +58,19 @@
 						$no  = 1; 
 						$row = $sub_rincian = $sub_sp2d = $tot_rincian = $tot_sp2d = 0;
 					?>
-					@foreach($rekap AS $hibah)
+					@foreach($rekap AS $penghapusan)
 					<tr>
 						<td colspan="8" class="small">
-							<span class="ml-3">No. Jurnal: {{$hibah->no_jurnal}}</span>
-							<span class="ml-3">Tgl. Jurnal: {{datify($hibah->tgl_jurnal)}}</span>
-							<span class="ml-3">No. BAST: {{$hibah->no_serah_terima}}</span>
-							<span class="ml-3">Tgl. BAST: {{datify($hibah->tgl_serah_terima)}}</span>
-							<span class="ml-3">Asal Penerimaan: {{$hibah->asal_penerimaan}}</span>
-							<span class="ml-3">Keterangan: {{$hibah->keterangan}}</span>
+							<span class="ml-3">No. Jurnal: {{$penghapusan->no_jurnal}}</span>
+							<span class="ml-3">Tgl. Jurnal: {{datify($penghapusan->tgl_jurnal)}}</span>
+							<span class="ml-3">No. SK: {{$penghapusan->no_sk}}</span>
+							<span class="ml-3">Tgl. SK: {{datify($penghapusan->tgl_sk)}}</span>
+							<span class="ml-3">Keterangan: {{$penghapusan->keterangan}}</span>
+							<span class="ml-3">Alasan: {{$penghapusan->alasan}}</span>
 						</td>
 					</tr>
 					<!-- ASET -->
-					@foreach($hibah->rincian->aset AS $aset)
+					@foreach($penghapusan->rincian->aset AS $aset)
 					<tr class="small">
 						<td class="text-center">{{$no++}}</td>
 						<td class="text-center">{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}</td>
@@ -82,40 +82,6 @@
 						<td class="text-right">{{monefy($aset->nilai)}}</td>
 						<?php
 							$sub_rincian += $aset->nilai;
-							$row++;
-						?>
-					</tr>
-					@endforeach
-					<!-- NON ASET -->
-					@foreach($hibah->rincian->non_aset AS $non_aset)
-					<tr class="small">
-						<td class="text-center">{{$no++}}</td>
-						<td class="text-center">-</td>
-						<td>-</td>
-						<td>{{$non_aset->nama}}</td>
-						<td class="text-center">{{$non_aset->merk}}</td>
-                        <td class="text-center">{{($aset->kondisi==1)?'B':(($aset->kondisi==2)?'KB':'RB')}}</td>
-                        <td class="text-center">1 unit</td>
-						<td class="text-right">{{monefy($non_aset->nilai)}}</td>
-						<?php
-							$sub_rincian += $non_aset->nilai;
-							$row++;
-						?>
-					</tr>
-					@endforeach
-					<!-- KAPITALISASI -->
-					@foreach($hibah->rincian->kapitalisasi AS $kap)
-					<tr class="small">
-						<td class="text-center">{{$no++}}</td>
-						<td class="text-center">{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok}}</td>
-						<td class="text-center">{{$aset->reg_induk}}</td>
-						<td>{{$kap->judul}}</td>
-						<td class="text-center">{{$kap->merk}}</td>
-                        <td class="text-center">{{($aset->kondisi==1)?'B':(($aset->kondisi==2)?'KB':'RB')}}</td>
-                        <td class="text-center">{{$kap->jumlah}} unit</td>
-						<td class="text-right">{{monefy($kap->nilai)}}</td>
-						<?php
-							$sub_rincian += $kap->nilai;
 							$row++;
 						?>
 					</tr>

@@ -100,10 +100,11 @@
                                 <label>Asal Penerimaan</label>
 								<select name="asal_penerimaan" id="asal_penerimaan" class="form-control" required >
                                     <option value="">Pilih Salah Satu</option>
-                                    <option value="0">Pusat</option>
-									<option value="1">Provinsi</option>
+                                    <option value="0">Pemerintah Pusat</option>
+									<option value="1">Pemerintah Provinsi</option>
 									<option value="2">Pemerintah Daerah</option>
-									<option value="3">Pemerintah Lainnya</option>
+									<option value="3">Pemerintah Daerah Lainnya</option>
+									<option value="4">Penerimaan Lainnya</option>
 								</select>
                             </div>
 						</div>
