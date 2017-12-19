@@ -3,39 +3,36 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar')}}">Transfer Keluar</a></li>
-<li class="breadcrumb-item active">Rincian</li>
+<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
+<li class="breadcrumb-item active">Detail</li>
 @end
 
 @section('content')
 <div class="btn-group mb-3">
 	<a href="#" class="btn btn-primary active">01. Detail Transfer Keluar</a>
-	<a href="{{ site_url('transfer/rincian/'.$id_organisasi) }}" class="btn btn-primary">02. Rincian Aset</a>
+	<a href="{{site_url('transfer/keluar_rincian/'.$transfer->id)}}" class="btn btn-primary">02. Rincian Aset</a>
 </div>
 <div class="row">
 	<div class="col">
 		<div class="card">
 			<div class="card-header">Detail Transfer Keluar</div>
 			<div class="card-body">
-				<form action="{{isset($transfer)?site_url('aset/kiba/update'):site_url('aset/kiba/insert')}}"
-                          method="POST">
-                        <input type="hidden" name="id" value="{{isset($transfer)?$transfer->id:''}}">
-                        <input type="hidden" name="id_organisasi" value="">
+				<form action="{{site_url('transfer/update')}}" method="POST">
+                        <input type="hidden" name="id" value="{{$transfer->id}}">
 
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Asal</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" value="" disabled/>
+                                <input type="text" class="form-control" value="{{$transfer->id_organisasi->nama}}" disabled/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tujuan</label>
                             <div class="col-md-4">
-                                <select name="id_tujuan" class="select-chosen form-control"
-                                        data-placeholder="Pilih UPB...">
+                                <select name="id_tujuan" class="select-chosen form-control" data-placeholder="Pilih UPB...">
                                     <option></option>
                                     @foreach($organisasi AS $org)
-                                        <option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
+                                        <option value="{{$org->id}}" {{$org->id === $transfer->id_tujuan->id ? 'selected' : ''}}>{{$org->nama}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -50,19 +47,19 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Jenis Surat</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="surat_jenis" value="{{$transfer->surat_jenis}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Surat</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="surat_no" value="{{$transfer->surat_no}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tanggal Surat</label>
                             <div class="col-md-4">
-                                <input type="date" class="form-control"/>
+                                <input type="date" name="surat_tgl" value="{{datify($transfer->surat_tgl, 'Y-m-d')}}" class="form-control"/>
                             </div>
                         </div>
                         <hr>
@@ -75,13 +72,13 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="jurnal_no" value="{{$transfer->jurnal_no}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tanggal Jurnal</label>
                             <div class="col-md-4">
-                                <input type="date" class="form-control"/>
+                                <input type="date" name="jurnal_tgl" value="{{datify($transfer->jurnal_tgl,'Y-m-d')}}" class="form-control"/>
                             </div>
                         </div>
                         <hr>
@@ -94,13 +91,13 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Serah Terima</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="serah_terima_no" value="{{$transfer->serah_terima_no}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tanggal Serah Terima</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="serah_terima_tgl" value="{{datify($transfer->serah_terima_tgl, 'Y-m-d')}}" class="form-control"/>
                             </div>
                         </div>
                         <hr>
@@ -113,25 +110,25 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nama Personil</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penerima_nama" value="{{$transfer->penerima_nama}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Jabatan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penerima_jabatan" value="{{$transfer->penerima_jabatan}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">NIP</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penerima_nip" value="{{$transfer->penerima_nip}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Pangkat Golongan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penerima_golongan" value="{{$transfer->penerima_golongan}}" class="form-control"/>
                             </div>
                         </div>
                         <hr>
@@ -144,25 +141,25 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nama Personil</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penyerah_nama" value="{{$transfer->penyerah_nama}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Jabatan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penyerah_jabatan" value="{{$transfer->penyerah_jabatan}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">NIP</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penyerah_nip" value="{{$transfer->penyerah_nip}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Pangkat Golongan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="penyerah_golongan" value="{{$transfer->penyerah_golongan}}" class="form-control"/>
                             </div>
                         </div>
                         <hr>
@@ -175,25 +172,25 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nama Personil</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="atasan_nama" value="{{$transfer->atasan_nama}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Jabatan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="atasan_jabatan" value="{{$transfer->atasan_jabatan}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">NIP</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="atasan_nip" value="{{$transfer->atasan_nip}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Pangkat Golongan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"/>
+                                <input type="text" name="atasan_golongan" value="{{$transfer->atasan_golongan}}" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -201,7 +198,7 @@
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <button type="reset" class="btn btn-secondary">Bersihkan</button>
-                                <a href="{{site_url('aset/kiba')}}" class="btn btn-warning">Kembali</a>
+                                <a href="{{site_url('pengadaan/keluar?id_organisasi='.$transfer->id_organisasi->id)}}" class="btn btn-warning">Kembali</a>
                             </div>
                         </div>
                     </form>

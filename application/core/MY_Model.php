@@ -114,17 +114,41 @@ class MY_Model extends MY_Base_model {
 
     public function subtitute($data)
     {
+        $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Ruangan_model', 'ruangan');
 
-        foreach ($data as $key => $value) {
-            if (isset($value->id_kategori)) {
-                $value->id_kategori = $this->kategori->get($value->id_kategori);
+        if (is_array($data))
+        {
+            foreach ($data as $key => $value)
+            {
+                $value = $this->do_substitute($value);
             }
+        }
+        else
+        {
+            $data = $this->do_substitute($data);
+        }
 
-            if (isset($value->id_ruangan)) {
-                $value->id_ruangan = $this->ruangan->get($value->id_ruangan);
-            }
+        return $data;
+    }
+
+    private function do_substitute($data)
+    {
+        if (isset($data->id_kategori)) {
+            $data->id_kategori = $this->kategori->get($data->id_kategori);
+        }
+
+        if (isset($data->id_organisasi)) {
+            $data->id_organisasi = $this->organisasi->get($data->id_organisasi);
+        }
+
+        if (isset($data->id_tujuan)) {
+            $data->id_tujuan = $this->organisasi->get($data->id_tujuan);
+        }
+
+        if (isset($data->id_ruangan)) {
+            $data->id_ruangan = $this->ruangan->get($data->id_ruangan);
         }
 
         return $data;
@@ -144,63 +168,63 @@ class MY_Model extends MY_Base_model {
 
         if ($result->num_rows() > 1) {
            return $result->result()[0]->reg + 1;
-        } else {
-            return (empty($result->result()[0]->reg)) ? 1 : $result->result()[0]->reg + 1;
+       } else {
+        return (empty($result->result()[0]->reg)) ? 1 : $result->result()[0]->reg + 1;
+    }
+}
+
+public function get_reg_induk()
+{
+    while (true) {
+        $reg = strtoupper(uniqid().'.'.date('dmYhis'));
+
+        $qa = "SELECT id FROM aset_a WHERE reg_induk = '{$reg}'";
+        $qb = "SELECT id FROM aset_b WHERE reg_induk = '{$reg}'";
+        $qc = "SELECT id FROM aset_c WHERE reg_induk = '{$reg}'";
+        $qd = "SELECT id FROM aset_d WHERE reg_induk = '{$reg}'";
+        $qe = "SELECT id FROM aset_e WHERE reg_induk = '{$reg}'";
+        $qf = "SELECT id FROM aset_f WHERE reg_induk = '{$reg}'";
+        $qk = "SELECT id FROM kapitalisasi WHERE reg_induk = '{$reg}'";
+        $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qf} UNION {$qk}) AS q";
+        $result = $this->db->query($query);
+
+        if ($result->num_rows() < 1) {
+            break;
         }
     }
 
-    public function get_reg_induk()
-    {
-        while (true) {
-            $reg = strtoupper(uniqid().'.'.date('dmYhis'));
+    return $reg;
+}
 
-            $qa = "SELECT id FROM aset_a WHERE reg_induk = '{$reg}'";
-            $qb = "SELECT id FROM aset_b WHERE reg_induk = '{$reg}'";
-            $qc = "SELECT id FROM aset_c WHERE reg_induk = '{$reg}'";
-            $qd = "SELECT id FROM aset_d WHERE reg_induk = '{$reg}'";
-            $qe = "SELECT id FROM aset_e WHERE reg_induk = '{$reg}'";
-            $qf = "SELECT id FROM aset_f WHERE reg_induk = '{$reg}'";
-            $qk = "SELECT id FROM kapitalisasi WHERE reg_induk = '{$reg}'";
-            $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qf} UNION {$qk}) AS q";
-            $result = $this->db->query($query);
-            
-            if ($result->num_rows() < 1) {
-                break;
-            }
-        }
-
-        return $reg;
-    }
-
-    public function get_data_pengajuan($id_spk, $is_kdp = FALSE)
-    {
+public function get_data_pengajuan($id_spk, $is_kdp = FALSE)
+{
         # SELAIN ASET NON
-        if ($this->_table !== 'aset_non') {
-            
-            $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-            $this->select("{$this->_table}.*");
+    if ($this->_table !== 'aset_non') {
 
-            if ($is_kdp) {
-                $this->where('kd_golongan', '6');
-            } else {
-                $this->where('kd_golongan<>', '6');
-            }
-        }
-
-        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_spk'=>$id_spk));
-        $result = $this->subtitute($result);
-        $result = $this->fill_empty_data($result);
-
-        return $result;
-    }
-    public function get_data_hibah($id_hibah, $is_kdp = FALSE)
-    {
-        $this->select("{$this->_table}.*");
         $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-        $this->where('kd_golongan<>', '6');
-        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah));
-        $result = $this->subtitute($result);
-        $result = $this->fill_empty_data($result);
+        $this->select("{$this->_table}.*");
+
+        if ($is_kdp) {
+            $this->where('kd_golongan', '6');
+        } else {
+            $this->where('kd_golongan<>', '6');
+        }
+    }
+
+    $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_spk'=>$id_spk));
+    $result = $this->subtitute($result);
+    $result = $this->fill_empty_data($result);
+
+    return $result;
+}
+public function get_data_hibah($id_hibah, $is_kdp = FALSE)
+{
+    $this->select("{$this->_table}.*");
+    $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
+    $this->where('kd_golongan<>', '6');
+    $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah));
+    $result = $this->subtitute($result);
+    $result = $this->fill_empty_data($result);
 
         return $result;
     }
@@ -215,6 +239,6 @@ class MY_Model extends MY_Base_model {
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);
 
-        return $result;
-    }
+    return $result;
+}
 }
