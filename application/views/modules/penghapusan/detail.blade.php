@@ -53,13 +53,13 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" value="{{ $hapus->no_jurnal }}"/>
+                                <input type="text" class="form-control form-control-sm" name="no_jurnal" value="{{ $hapus->no_jurnal }}"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tanggal Jurnal</label>
                             <div class="col-md-4">
-                                <input type="date" class="form-control form-control-sm" value="{{ datify($hapus->tgl_jurnal, 'Y-m-d')}}"/>
+                                <input type="date" class="form-control form-control-sm" name="tgl_jurnal" value="{{ datify($hapus->tgl_jurnal, 'Y-m-d')}}"/>
                             </div>
                         </div>
                         <hr>
@@ -72,13 +72,13 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">SK Penghapusan</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" value="{{ $hapus->no_sk }}"/>
+                                <input type="text" class="form-control form-control-sm" name="no_sk" value="{{ $hapus->no_sk }}"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Tgl Penghapusan</label>
                             <div class="col-md-4">
-                                <input type="date" class="form-control form-control-sm" value="{{datify($hapus->tgl_sk, 'Y-m-d')}}"/>
+                                <input type="date" class="form-control form-control-sm" name="tgl_sk" value="{{datify($hapus->tgl_sk, 'Y-m-d')}}"/>
                             </div>
                         </div>
                         <div class="form-group row">

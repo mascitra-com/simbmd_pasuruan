@@ -107,7 +107,7 @@
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <label>No. Jurnal</label>
-                                        <input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="Nomor Jurnal" required />
+                                        <input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="(Otomatis)" disabled />
                                     </div>
                                     <div class="form-group col">
                                         <label>Tgl. Jurnal</label>

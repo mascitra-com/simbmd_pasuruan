@@ -43,10 +43,12 @@ class Penghapusan extends MY_Controller
             $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
         }
 
-        $sukses = $this->hapus->insert($data);
-        if($sukses) {
+        $id_insert = $this->hapus->insert($data);
+        $data_update = array('no_jurnal' => zerofy($id_insert, 5));
+        $this->hapus->update($id_insert, $data_update);
+        if($id_insert) {
             $this->message('Data berhasil disimpan','success');
-            $this->go('penghapusan/detail/'.$sukses);
+            $this->go('penghapusan/detail/'.$id_insert);
         } else {
             $this->message('Terjadi kesalahan','danger');
             $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
@@ -64,10 +66,10 @@ class Penghapusan extends MY_Controller
         $sukses = $this->hapus->update($data['id'], $data);
         if($sukses) {
             $this->message('Data berhasil disimpan','success');
-            $this->go('penghapusan/detail/'.$sukses);
+            $this->go('penghapusan/detail/'.$data['id']);
         } else {
             $this->message('Terjadi kesalahan','danger');
-            $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
+            $this->go('penghapusan?id_organisasi='.$data['id']);
         }
     }
 
