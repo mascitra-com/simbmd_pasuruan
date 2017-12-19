@@ -36,7 +36,7 @@
 			<li class="nav nav-title">PERSETUJUAN</li>
 			<li class="nav nav-persetujuan-hibah"><a href="{{site_url('persetujuan_hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
 			<li class="nav nav-persetujuan-transfer"><a href="{{site_url('persetujuan_transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-persetujuan-hapus"><a href="{{site_url('persetujuan_hapus')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-persetujuan-hapus"><a href="{{site_url('persetujuan_penghapusan')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
 			@endif
 
 			<li class="nav nav-title">LAPORAN</li>
