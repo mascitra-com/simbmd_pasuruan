@@ -70,13 +70,14 @@ class Kiba extends MY_Controller
     public function add_transfer($id_transfer = NULL)
     {
         $this->load->model('Transfer_model', 'transfer');
+        $this->load->model('aset/Kibd_temp_model', 'kib_temp');
 
         if (empty($id_transfer))
             show_404();
 
-        $data['transfer']       = $this->transfer->get($id_transfer);
-        $where_not_in           = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_transfer', $id_transfer);
-        $where_not_in           = array_column($where_not_in, 'id_aset');
+        $data['transfer'] = $this->transfer->get($id_transfer);
+        $where_not_in     = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_transfer', $id_transfer);
+        $where_not_in     = array_column($where_not_in, 'id_aset');
         
         # FILTER
         $filter = $this->input->get();
@@ -88,7 +89,7 @@ class Kiba extends MY_Controller
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
         $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
-        $this->render('modules/transfer/kiba', $data);
+        $this->render('modules/transfer/kibb', $data);
     }
 
     public function add_penghapusan($id_hapus = NULL)
@@ -264,8 +265,6 @@ class Kiba extends MY_Controller
         if($sukses) {
             $terpilih_count = $this->kib_temp->count_by('id_transfer', $data['id_transfer']);
             echo json_encode(array('status'=>'sukses', 'terpilih_count'=> $terpilih_count));
-        } else {
-
         }
     }
 
@@ -403,6 +402,22 @@ class Kiba extends MY_Controller
         } else {
             $this->message('Data gagal dihapus', 'danger');
             $this->go('penghapusan/rincian/' . $id_hapus);
+        }
+    }
+
+    public function delete_transfer($id = NULL)
+    {
+        if (empty($id))
+            show_404();
+
+        $id_transfer = $this->kib_temp->get($id)->id_transfer;
+        $sukses = $this->kib_temp->delete($id);
+        if ($sukses) {
+            $this->message("Data berhasil dihapus", 'success');
+            $this->go('transfer/keluar_rincian/' . $id_transfer);
+        } else {
+            $this->message('Data gagal dihapus', 'danger');
+            $this->go('transfer/keluar_rincian/' . $id_transfer);
         }
     }
 

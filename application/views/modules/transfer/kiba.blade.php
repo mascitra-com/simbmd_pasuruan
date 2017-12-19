@@ -1,10 +1,10 @@
 @layout('commons/index')
-@section('title')KIB-A@end
+@section('title')Transfer Keluar - KIB-A@end
 
 @section('breadcrump')
 	<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar')}}">Transfer Keluar</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/rincian/172')}}">Rincian Aset</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi)}}">Transfer Keluar</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar_rincian/'.$transfer->id)}}">Rincian Aset</a></li>
 	<li class="breadcrumb-item active">Tambah Aset KIB-A</li>
 @end
 
@@ -47,9 +47,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<div class="btn-group">
-									<button data-id-transfer="{{$transfer->id}}" data-id-aset="{{$item->id}}" data-id- class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
-								</div>
+								<button data-id-transfer="{{$transfer->id}}" data-id-aset="{{$item->id}}" data-id- class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -183,7 +181,7 @@
 <script type="text/javascript">
 	var kib = (function(){
 
-		theme.activeMenu('.nav-invent');
+		theme.activeMenu('.nav-transfer-keluar');
 		$(document).ajaxError(function(){alert('Terjadi kesalahan')});
 		$("[data-id-transfer]").on('click', fungsiTambah);
 

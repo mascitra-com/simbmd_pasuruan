@@ -85,7 +85,8 @@ class Pengadaan extends MY_Controller {
 		if(empty($id))
 			show_404();
 
-		$sukses = $this->spk->delete($id);
+		$id_organisasi = $this->spk->get($id)->id_organisasi;
+		$sukses 	   = $this->spk->delete($id);
 		if($sukses) {
 			$this->kiba->delete_by(array('id_spk'=>$id));
 			$this->kibb->delete_by(array('id_spk'=>$id));
@@ -97,10 +98,10 @@ class Pengadaan extends MY_Controller {
 			$this->sp2d->delete_by(array('id_spk'=>$id));
 
 			$this->message('Data berhasil dihapus','success');
-			$this->go('pengadaan');
+			$this->go('pengadaan?id_organisasi='.$id_organisasi);
 		} else {
 			$this->message('Data gagal dihapus','danger');
-			$this->go('pengadaan');
+			$this->go('pengadaan?id_organisasi='.$id_organisasi);
 		}
 
 	}

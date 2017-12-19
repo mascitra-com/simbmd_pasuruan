@@ -39,7 +39,6 @@
 						<th class="text-center">Tanggal Jurnal</th>
 						<th class="text-center">No Serah Terima</th>
 						<th class="text-center">Tanggal Serah Terima</th>
-						<th class="text-nowrap">Pengajuan</th>
                         <th class="text-center">Tanggal Verifikasi</th>
                         <th class="text-nowrap">Status</th>
                         <th class="text-center">Aksi</th>
@@ -52,15 +51,14 @@
 					
 					@foreach($transfer AS $item)
 					<tr class="small">
-						<td>{{$item->id}}</td>
+						<td class="text-center">{{$item->id}}</td>
 						<td>{{$item->id_tujuan->nama}}</td>
-						<td>{{$item->surat_no}}</td>
-						<td>{{datify($item->surat_tgl)}}</td>
-						<td>{{$item->serah_terima_no}}</td>
-						<td>{{datify($item->serah_terima_tgl)}}</td>
-						<td></td>
-						<td>{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
-						<td>
+						<td class="text-center">{{$item->surat_no}}</td>
+						<td class="text-center">{{datify($item->surat_tgl)}}</td>
+						<td class="text-center">{{$item->serah_terima_no}}</td>
+						<td class="text-center">{{datify($item->serah_terima_tgl)}}</td>
+						<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
+						<td class="text-center">
 							@if($item->status_pengajuan === '0')
 							<span class="badge badge-secondary">draf</span>
 							@elseif($item->status_pengajuan === '1')
@@ -73,11 +71,11 @@
 							ERROR
 							@endif
 						</td>
-						<td>
+						<td class="text-center">
 							<div class="btn-group">
 								<a href="{{ site_url('transfer/keluar_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
 								@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
-								<button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
 								@endif
 							</div>
 						</td>
@@ -91,6 +89,26 @@
 </div>
 @end
 
+@section('modal')
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-hapus">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Apakah anda yakin?</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<h3>Menghapus data pengajuan juga akan menghapus semua rincian yang diajukan.</h3>
+			</div>
+			<div class="modal-footer">
+				<a href="" class="btn btn-warning" id="btn-hapus-confirm">Tetap hapus</a>
+				<button class="btn btn-primary" data-dismiss="modal">Batal</button>
+			</div>
+		</div>
+	</div>
+</div>
+@endsection
+
 @section('style')
 <style>
 .text-sm {font-size: smaller;}
@@ -99,6 +117,11 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-transfer-keluar')
+	theme.activeMenu('.nav-transfer-keluar');
+	$("[data-id]").on('click', function(){
+		var id = $(this).data('id');
+		$("#btn-hapus-confirm").attr("href", "{{site_url('transfer/delete/')}}"+id);
+		$("#modal-hapus").modal('show');
+	});
 </script>
 @end

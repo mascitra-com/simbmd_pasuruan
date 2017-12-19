@@ -285,7 +285,7 @@
 								<td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
 								<td class="text-nowrap">{{$item->asal_usul}}</td>
 								<td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-								<td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+								<td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
 								<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 								<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 								<td class="text-nowrap">{{$item->keterangan}}</td>
@@ -359,7 +359,7 @@
 								<td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
 								<td class="text-nowrap">{{$item->asal_usul}}</td>
 								<td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-								<td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+								<td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
 								<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 								<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 								<td class="text-nowrap">{{$item->keterangan}}</td>
