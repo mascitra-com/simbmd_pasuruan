@@ -54,8 +54,8 @@
 						<td class="text-nowrap">{{ datify($list->tgl_serah_terima, 'd-m-Y') }}</td>
 						<td class="text-center">
 							<div class="btn-group btn-group-sm">
-								<a href="{{ base_url('hibah/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
-								<button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+								<a href="{{ site_url('hibah/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
+								<a href="{{ site_url('hibah/delete/'.$list->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							</div>
 						</td>
 					</tr>

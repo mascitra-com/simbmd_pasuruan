@@ -112,6 +112,27 @@ class Hibah extends MY_Controller
         $this->render('modules/hibah/rincian', $data);
     }
 
+    public function delete($id = null)
+    {
+        if(empty($id))
+            show_404();
+
+        $sukses = $this->hibah->delete($id);
+        if($sukses) {
+            $this->kiba->delete_by(array('id_hibah'=>$id));
+            $this->kibb->delete_by(array('id_hibah'=>$id));
+            $this->kibc->delete_by(array('id_hibah'=>$id));
+            $this->kibd->delete_by(array('id_hibah'=>$id));
+            $this->kibe->delete_by(array('id_hibah'=>$id));
+
+            $this->message('Data berhasil dihapus','success');
+            $this->go('hibah');
+        } else {
+            $this->message('Data gagal dihapus','danger');
+            $this->go('hibah');
+        }
+    }
+
     public function rincian_redirect($id = null)
     {
         if (empty($id))
@@ -145,6 +166,38 @@ class Hibah extends MY_Controller
             default:
                 show_404();
                 break;
+        }
+    }
+
+    public function finish_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>1);
+        $sukses = $this->hibah->update($id, $data);
+        if($sukses) {
+            $this->message('Pengajuan Berhasil','success');
+            $this->go('hibah/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('hibah/detail/'.$id);
+        }
+    }
+
+    public function cancel_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>0);
+        $sukses = $this->hibah->update($id, $data);
+        if($sukses) {
+            $this->message('Pengajuan Berhasil dibatalkan','success');
+            $this->go('hibah/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('hibah/detail/'.$id);
         }
     }
 }
