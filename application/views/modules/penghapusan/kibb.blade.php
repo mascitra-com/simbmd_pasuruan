@@ -4,7 +4,7 @@
 @section('breadcrump')
 	<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 	<li class="breadcrumb-item"><a href="{{site_url('penghapusan')}}">Penghapusan Aset</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('penghapusan/rincian/172')}}">Rincian Aset</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('penghapusan/rincian/'.$hapus->id)}}">Rincian Aset</a></li>
 	<li class="breadcrumb-item active">Tambah Aset KIB-B</li>
 @end
 
@@ -12,6 +12,16 @@
 <div class="row">
 	<div class="col">
 		<div class="card">
+			<div class="card-header form-inline">
+				<div class="btn-group">
+					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i
+								class="fa fa-filter mr-2"></i>Filter
+					</button>
+					<button class="btn btn-primary"><i class="fa fa-check mr-2"></i>Terpilih <span
+								class="badge badge-secondary">{{ isset($aset) ? count($aset) : '' }}</span></button>
+				</div>
+			</div>
 			<div class="card-body table-responsive table-scroll px-0 py-0">
 				<table class="table table-hover table-striped table-bordered">
 					<thead>
@@ -48,8 +58,8 @@
 						<tr>
 							<td class="text-nowrap text-center">
 								<div class="btn-group">
-									<a href="{{ site_url('penghapusan/rincian/'.$filter['id_organisasi']) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
-								</div>
+                                    <a href="{{ site_url('aset/kibb/insert_penghapusan?id_aset='.$item->id.'&id='.$hapus->id) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+                                </div>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .

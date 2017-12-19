@@ -8,10 +8,12 @@ class Kibc extends MY_Controller
     {
         parent::__construct();
         $this->load->model('aset/Kibc_model', 'kib');
+        $this->load->model('aset/Kibc_temp_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Spk_model', 'spk');
         $this->load->model('Hibah_model', 'hibah');
+        $this->load->model('Penghapusan_model', 'hapus');
         $this->load->library('pagination');
     }
 
@@ -105,16 +107,25 @@ class Kibc extends MY_Controller
         $this->render('modules/transfer/kibc', $data);
     }
 
-    public function add_penghapusan($id_organisasi = NULL)
+    public function add_penghapusan($id = NULL)
     {
-        if (empty($id_organisasi))
+        if (empty($id))
             show_404();
 
         $filter = $this->input->get();
-        $filter['is_kdp'] = false;
-        $filter['id_organisasi'] = $id_organisasi;
 
-        $result = $this->kib->get_data($filter);
+        $data['hapus'] = $this->hapus->get($id);
+        $filter['id_organisasi'] = $data['hapus']->id_organisasi;
+        $filter['is_kdp'] = false;
+
+        $aset = $this->db->select('id_aset')->where('id_hapus', $data['hapus']->id)->from('aset_c_temp')->get()->result_array();
+        $aset = array_column($aset, 'id_aset');
+        if (count($aset))
+            $result = $this->kib->where_not_in('aset_c.id', $aset)->get_data($filter);
+        else
+            $result = $this->kib->get_data($filter);
+        $data['aset'] = $aset;
+
         $data['filter'] = $filter;
         $data['kib'] = $result['data'];
         $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
@@ -245,6 +256,22 @@ class Kibc extends MY_Controller
         }
     }
 
+    public function insert_penghapusan()
+    {
+        $input = $this->input->get();
+        $kib = $this->kib->get($input['id_aset']);
+        $kib->id_aset = $kib->id;
+        $kib->id_hapus = $input['id'];
+        unset($kib->id);
+        if ($this->db->insert('aset_c_temp', $kib)) {
+            $this->message('Data berhasil disimpan', 'success');
+            $this->go('aset/kibc/add_penghapusan/' . $input['id']);
+        } else {
+            $this->message('Data Gagal disimpan', 'danger');
+            $this->go('aset/kibc/add_penghapusan/' . $input['id']);
+        }
+    }
+
     public function update()
     {
         $data = $this->input->post();
@@ -363,6 +390,22 @@ class Kibc extends MY_Controller
         } else {
             $this->message('Data gagal dihapus', 'danger');
             $this->go('hibah/rincian/' . $data->id_hibah);
+        }
+    }
+
+    public function delete_penghapusan($id = NULL)
+    {
+        if (empty($id))
+            show_404();
+
+        $id_hapus = $this->kib_temp->get($id)->id_hapus;
+        $sukses = $this->kib_temp->delete($id);
+        if ($sukses) {
+            $this->message("Data berhasil dihapus", 'success');
+            $this->go('penghapusan/rincian/' . $id_hapus);
+        } else {
+            $this->message('Data gagal dihapus', 'danger');
+            $this->go('penghapusan/rincian/' . $id_hapus);
         }
     }
 

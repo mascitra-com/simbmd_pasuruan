@@ -54,7 +54,7 @@
                             <td class="text-nowrap">{{ $list->keterangan }}</td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ base_url('hibah/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
+                                    <a href="{{ base_url('penghapusan/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
                                     <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
@@ -112,6 +112,12 @@
                             <div class="form-group col">
                                 <label>Keterangan</label>
                                 <input type="text" class="form-control form-control-sm" name="keterangan" placeholder="Keterangan" required/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label>Alasan</label>
+                                <textarea name="alasan" id="alasan" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
                         <hr>
