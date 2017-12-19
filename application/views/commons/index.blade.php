@@ -45,10 +45,9 @@
 <script type="text/javascript" src="{{base_url('res/plugins/chosen/chosen.jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/scripts/theme.js')}}"></script>
 @yield('script')
-<script !src="">
+<script>
     $(document).ready(function() {
-        $("input[name^='nilai']").attr('type', 'text');
-        $("input[name^='addendum_nilai']").attr('type', 'text');
+        $("input[name^='nilai'], input[name^='addendum_nilai']").attr('type', 'text');
         @if(isset($kib->nilai))
         $("input[name='nilai']").val($.number({{ $kib->nilai }}, 2, ',', '.'));
         @endif
@@ -67,8 +66,7 @@
         @if(isset($spk->addendum_nilai))
         $("input[name='addendum_nilai']").val($.number({{ $spk->addendum_nilai }}, 2, ',', '.'));
         @endif
-        $("input[name^='nilai']").number(true, 2, ',', '.');
-        $("input[name^='addendum_nilai']").number(true, 2, ',', '.');
+        $("input[name^='nilai'], input[name^='addendum_nilai']").number(true, 2, ',', '.');
     });
 </script>
 </body>
