@@ -148,4 +148,35 @@ class Penghapusan extends MY_Controller
                 break;
         }
     }
+    public function finish_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>1);
+        $sukses = $this->hapus->update($id, $data);
+        if($sukses) {
+            $this->message('Data berhasil diajukan','success');
+            $this->go('penghapusan/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('penghapusan/detail/'.$id);
+        }
+    }
+
+    public function cancel_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>0);
+        $sukses = $this->hapus->update($id, $data);
+        if($sukses) {
+            $this->message('Data berhasil dibatalkan','success');
+            $this->go('penghapusan/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('penghapusan/detail/'.$id);
+        }
+    }
 }
