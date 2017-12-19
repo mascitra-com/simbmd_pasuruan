@@ -90,7 +90,11 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Alasan</label>
                             <div class="col-md-4">
-                                <textarea name="alasan" id="alasan" class="form-control form-control-sm" rows="3">{{ $hapus->alasan }}</textarea>
+                                <select name="alasan" id="alasan" class="form-control form-control-sm">
+                                    <option value="Dijual">Dijual</option>
+                                    <option value="Dimusnahkan">Dimusnahkan</option>
+                                    <option value="Dihibahkan">Dihibahkan</option>
+                                </select>
                             </div>
                         </div>
                         <hr>

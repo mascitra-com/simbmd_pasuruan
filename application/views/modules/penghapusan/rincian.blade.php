@@ -26,6 +26,13 @@
                     Batalkan Transaksi
                 </a>
             @endif
+            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
+                <button class="btn btn-primary" data-toggle="modal"
+                        data-target="#modal-add"><i
+                            class="fa fa-plus"></i> Tambah
+                </button>
+            @endif
+            <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
         </div>
     </div>
     <div class="row mb-3">
@@ -33,15 +40,6 @@
             <div class="card">
                 <div class="card-header form-inline">
                     <span class="mr-auto">Detail Kontrak</span>
-                    <div class="btn-group btn-group-sm">
-                        @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
-                        <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#modal-add"><i
-                                    class="fa fa-plus"></i> Tambah
-                        </button>
-                        @endif
-                        <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
-                    </div>
                 </div>
                 <div class="card-body row">
                     <div class="col-6">

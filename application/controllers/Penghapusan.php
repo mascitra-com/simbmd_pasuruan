@@ -156,7 +156,7 @@ class Penghapusan extends MY_Controller
         $data   = array('status_pengajuan'=>1);
         $sukses = $this->hapus->update($id, $data);
         if($sukses) {
-            $this->message('Data berhasil diajukan','success');
+            $this->message('Pengajuan Berhasil','success');
             $this->go('penghapusan/detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
@@ -172,7 +172,7 @@ class Penghapusan extends MY_Controller
         $data   = array('status_pengajuan'=>0);
         $sukses = $this->hapus->update($id, $data);
         if($sukses) {
-            $this->message('Data berhasil dibatalkan','success');
+            $this->message('Pengajuan Berhasil dibatalkan','success');
             $this->go('penghapusan/detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');

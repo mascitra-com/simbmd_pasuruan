@@ -133,7 +133,11 @@
                         <div class="form-row">
                             <div class="form-group col">
                                 <label>Alasan</label>
-                                <textarea name="alasan" id="alasan" class="form-control" rows="3"></textarea>
+                                <select name="alasan" id="alasan" class="form-control form-control-sm">
+                                    <option value="Dijual">Dijual</option>
+                                    <option value="Dimusnahkan">Dimusnahkan</option>
+                                    <option value="Dihibahkan">Dihibahkan</option>
+                                </select>
                             </div>
                         </div>
                         <hr>
