@@ -9,9 +9,24 @@
     @end4
 
 @section('content')
-    <div class="btn-group mb-3">
-        <a href="{{site_url('penghapusan/detail/'.$hapus->id)}}" class="btn btn-primary">01. Penghapusan Aset</a>
-        <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
+    <div class="form-inline">
+        <div class="btn-group mb-3">
+            <a href="{{site_url('penghapusan/detail/'.$hapus->id)}}" class="btn btn-primary">01. Penghapusan Aset</a>
+            <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
+        </div>
+        <div class="btn-group mb-3 ml-auto">
+            @if($hapus->status_pengajuan === '0')
+                <a href="{{ site_url('penghapusan/finish_transaction/'.$hapus->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
+                    <i class="fa fa-check mr-2"></i>
+                    Selesaikan Transaksi
+                </a>
+            @elseif($hapus->status_pengajuan === '1')
+                <a href="{{ site_url('penghapusan/cancel_transaction/'.$hapus->id) }}" class="btn btn-warning" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
+                    <i class="fa fa-check mr-2"></i>
+                    Batalkan Transaksi
+                </a>
+            @endif
+        </div>
     </div>
     <div class="row mb-3">
         <div class="col">

@@ -8,7 +8,7 @@
 @end
 
 @section('content')
-    <div class="form-inline">
+<div class="form-inline">
     <div class="btn-group mb-3">
         <a href="#" class="btn btn-primary active">01. Detail Penghapusan Aset</a>
         <a href="{{ site_url('penghapusan/rincian/'.$hapus->id) }}" class="btn btn-primary">02. Rincian Aset</a>
