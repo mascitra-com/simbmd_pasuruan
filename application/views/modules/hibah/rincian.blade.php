@@ -14,17 +14,6 @@
             <a href="#" class="btn btn-primary active">02. Rincian Hibah</a>
         </div>
         <div class="btn-group mb-3 ml-auto">
-            @if($hibah->status_pengajuan === '0')
-                <a href="{{ site_url('hibah/finish_transaction/'.$hibah->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
-                    <i class="fa fa-check mr-2"></i>
-                    Selesaikan Transaksi
-                </a>
-            @elseif($hibah->status_pengajuan === '1')
-                <a href="{{ site_url('hibah/cancel_transaction/'.$hibah->id) }}" class="btn btn-warning" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
-                    <i class="fa fa-check mr-2"></i>
-                    Batalkan Transaksi
-                </a>
-            @endif
             @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                 <button class="btn btn-primary" data-toggle="modal"
                         data-target="#modal-add"><i

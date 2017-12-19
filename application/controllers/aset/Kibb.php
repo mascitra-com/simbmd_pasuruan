@@ -388,8 +388,8 @@ class Kibb extends MY_Controller
         if (empty($id))
             show_404();
 
-        $id_hibah = $this->kib_temp->get($id)->id_hibah;
-        $sukses = $this->kib_temp->delete($id);
+        $id_hibah = $this->kib->get($id)->id_hibah;
+        $sukses = $this->kib->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
             $this->go('hibah/rincian/' . $id_hibah);

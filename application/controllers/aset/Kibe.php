@@ -150,7 +150,7 @@ class Kibe extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data['kib'] = $this->kib_temp->get($id);
+        $data['kib'] = $this->kib->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['hibah'] = $this->hibah->get($data['kib']->id_hibah);
         $this->render('modules/hibah/form_kibe', $data);
@@ -219,7 +219,7 @@ class Kibe extends MY_Controller
         $data['nilai'] 	= unmonefy($data['nilai']);
         $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
-        if (!$this->kib_temp->form_verify($data)) {
+        if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
             $this->go('aset/kibe/add_hibah/' . $data['id_hibah']);
         }
@@ -235,7 +235,7 @@ class Kibe extends MY_Controller
             $data_final[$i]['id_hibah'] = $data['id_hibah'];
         }
 
-        $sukses = $this->kib_temp->batch_insert($data_final);
+        $sukses = $this->kib->batch_insert($data_final);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
             $this->go('hibah/rincian/' . $data['id_hibah']);
@@ -321,12 +321,12 @@ class Kibe extends MY_Controller
         $id = $data['id'];
         unset($data['id']);
 
-        if (!$this->kib_temp->form_verify($data)) {
+        if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
             $this->go('aset/kibe/edit_hibah/' . $id);
         }
 
-        $sukses = $this->kib_temp->update($id, $data);
+        $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disunting', 'success');
             $this->go('hibah/rincian/' . $data['id_hibah']);
@@ -388,8 +388,8 @@ class Kibe extends MY_Controller
         if (empty($id))
             show_404();
 
-        $id_hibah = $this->kib_temp->get($id)->id_hibah;
-        $sukses = $this->kib_temp->delete($id);
+        $id_hibah = $this->kib->get($id)->id_hibah;
+        $sukses = $this->kib->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
             $this->go('hibah/rincian/' . $id_hibah);
