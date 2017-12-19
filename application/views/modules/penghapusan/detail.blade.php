@@ -14,7 +14,7 @@
         <a href="{{ site_url('penghapusan/rincian/'.$hapus->id) }}" class="btn btn-primary">02. Rincian Aset</a>
     </div>
     <div class="btn-group mb-3 ml-auto">
-        @if($hapus->status_pengajuan === '0')
+        @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
         <a href="{{ site_url('penghapusan/finish_transaction/'.$hapus->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
             <i class="fa fa-check mr-2"></i>
             Selesaikan Transaksi

@@ -67,7 +67,7 @@
                                     ERROR
                                 @endif
                             </td>
-                            <td class="text-nowrap">{{ $list->tanggal_verifikasi }}</td>
+                            <td class="text-nowrap">{{ $list->status_pengajuan > 1 ? datify($list->tanggal_verifikasi, 'd-m-Y') : "-" }}</td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{ base_url('penghapusan/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>

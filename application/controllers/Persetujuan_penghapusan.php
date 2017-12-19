@@ -71,7 +71,7 @@ class Persetujuan_penghapusan extends MY_Controller {
             if($data['status'] === '2') {
                 $this->hapus($data['id_hapus']);
             }
-            $sukses2 = $this->hapus->update($data['id_hapus'], array('status_pengajuan'=>$data['status']));
+            $sukses2 = $this->hapus->update($data['id_hapus'], array('status_pengajuan'=>$data['status'], 'tanggal_verifikasi' => date('Y-m-d h:i')));
 			if ($sukses2) {
 				$this->message('Data berhasil diverifikasi','success');
 				$this->go('persetujuan_penghapusan');
