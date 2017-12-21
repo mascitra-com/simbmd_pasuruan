@@ -11,11 +11,11 @@ class Penghapusan extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/Kiba_temp_model', 'kiba');
-        $this->load->model('aset/Kibb_temp_model', 'kibb');
-        $this->load->model('aset/Kibc_temp_model', 'kibc');
-        $this->load->model('aset/Kibd_temp_model', 'kibd');
-        $this->load->model('aset/Kibe_temp_model', 'kibe');
+        $this->load->model('aset/Temp_kiba_model', 'kiba');
+        $this->load->model('aset/Temp_kibb_model', 'kibb');
+        $this->load->model('aset/Temp_kibc_model', 'kibc');
+        $this->load->model('aset/Temp_kibd_model', 'kibd');
+        $this->load->model('aset/Temp_kibe_model', 'kibe');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Penghapusan_model', 'hapus');
     }

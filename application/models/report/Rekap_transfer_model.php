@@ -41,11 +41,11 @@ class Rekap_transfer_model extends MY_Model {
 			foreach ($value->transfer as $item) {
 				$item = $this->subtitute($item);
 
-				$qa = "SELECT {$select},nama,reg_barang,reg_induk,nilai,CONCAT('-') AS keterangan FROM aset_a_temp ast JOIN {$join} WHERE id_transfer = {$item->id}";
-				$qb = "SELECT {$select},CONCAT(nama,' ',merk,' ',tipe) AS nama,reg_barang,reg_induk,nilai,CONCAT(ukuran,' ',no_polisi,' ',no_rangka,' ',no_mesin) AS keterangan FROM aset_b_temp ast JOIN {$join} WHERE id_transfer = {$item->id}";
-				$qc = "SELECT {$select},nama,reg_barang,reg_induk,(nilai+nilai_tambah) AS nilai,CONCAT('-') AS keterangan FROM aset_c_temp ast JOIN {$join} WHERE id_transfer = {$item->id}";
-				$qd = "SELECT {$select},nama,reg_barang,reg_induk,(nilai+nilai_tambah) AS nilai,CONCAT('-') AS keterangan FROM aset_d_temp ast JOIN {$join} WHERE id_transfer = {$item->id}";
-				$qe = "SELECT {$select},CONCAT(nama,' ',judul) AS nama,reg_barang,reg_induk,nilai,CONCAT(ukuran) AS keterangan FROM aset_e_temp ast JOIN {$join} WHERE id_transfer = {$item->id}";
+				$qa = "SELECT {$select},nama,reg_barang,reg_induk,nilai,CONCAT('-') AS keterangan FROM temp_aset_a ast JOIN {$join} WHERE id_transfer = {$item->id}";
+				$qb = "SELECT {$select},CONCAT(nama,' ',merk,' ',tipe) AS nama,reg_barang,reg_induk,nilai,CONCAT(ukuran,' ',no_polisi,' ',no_rangka,' ',no_mesin) AS keterangan FROM temp_aset_b ast JOIN {$join} WHERE id_transfer = {$item->id}";
+				$qc = "SELECT {$select},nama,reg_barang,reg_induk,(nilai+nilai_tambah) AS nilai,CONCAT('-') AS keterangan FROM temp_aset_c ast JOIN {$join} WHERE id_transfer = {$item->id}";
+				$qd = "SELECT {$select},nama,reg_barang,reg_induk,(nilai+nilai_tambah) AS nilai,CONCAT('-') AS keterangan FROM temp_aset_d ast JOIN {$join} WHERE id_transfer = {$item->id}";
+				$qe = "SELECT {$select},CONCAT(nama,' ',judul) AS nama,reg_barang,reg_induk,nilai,CONCAT(ukuran) AS keterangan FROM temp_aset_e ast JOIN {$join} WHERE id_transfer = {$item->id}";
 				$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
 
 				$item->rincian = $this->db->query($query)->result();

@@ -8,7 +8,7 @@ class Kibb extends MY_Controller
     {
         parent::__construct();
         $this->load->model('aset/Kibb_model', 'kib');
-        $this->load->model('aset/Kibb_temp_model', 'kib_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Ruangan_model', 'ruangan');
@@ -75,7 +75,7 @@ class Kibb extends MY_Controller
     public function add_transfer($id_transfer = NULL)
     {
         $this->load->model('Transfer_model', 'transfer');
-        $this->load->model('aset/Kibd_temp_model', 'kib_temp');
+        $this->load->model('aset/Temp_kibd_model', 'kib_temp');
 
         if (empty($id_transfer))
             show_404();
@@ -261,7 +261,7 @@ class Kibb extends MY_Controller
 
     public function insert_transfer()
     {
-        $this->load->model('aset/Kibb_temp_model', 'kib_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kib_temp');
 
         $data = $this->input->post();
         $kib  = $this->kib->as_array()->get($data['id_aset']);
@@ -417,7 +417,7 @@ class Kibb extends MY_Controller
 
     public function delete_transfer($id = NULL)
     {
-        $this->load->model('aset/Kibb_temp_model', 'kib_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kib_temp');
 
         if (empty($id))
             show_404();

@@ -28,11 +28,11 @@ class Rekap_penghapusan_model extends MY_Model {
 		# Ambil aset
 		$kategori = "kd_golongan, kd_bidang, kd_kelompok, kd_subkelompok, kd_subsubkelompok, k.nama";
 		$where    = "WHERE id_hapus= {$id_hapus} AND status_pengajuan = '2'";
-		$qa = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_a_temp a JOIN kategori k ON a.id_kategori = k.id JOIN penghapusan p ON a.id_hapus = p.id {$where}";
-		$qb = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_b_temp b JOIN kategori k ON b.id_kategori = k.id JOIN penghapusan p ON b.id_hapus = p.id {$where}";
-		$qc = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM aset_c_temp c JOIN kategori k ON c.id_kategori = k.id JOIN penghapusan p ON c.id_hapus = p.id {$where}";
-		$qd = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM aset_d_temp d JOIN kategori k ON d.id_kategori = k.id JOIN penghapusan p ON d.id_hapus = p.id {$where}";
-		$qe = "SELECT reg_induk, reg_barang, kondisi, judul AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_e_temp e JOIN kategori k ON e.id_kategori = k.id JOIN penghapusan p ON e.id_hapus = p.id {$where}";
+		$qa = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_a a JOIN kategori k ON a.id_kategori = k.id JOIN penghapusan p ON a.id_hapus = p.id {$where}";
+		$qb = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_b b JOIN kategori k ON b.id_kategori = k.id JOIN penghapusan p ON b.id_hapus = p.id {$where}";
+		$qc = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_c c JOIN kategori k ON c.id_kategori = k.id JOIN penghapusan p ON c.id_hapus = p.id {$where}";
+		$qd = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_d d JOIN kategori k ON d.id_kategori = k.id JOIN penghapusan p ON d.id_hapus = p.id {$where}";
+		$qe = "SELECT reg_induk, reg_barang, kondisi, judul AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_e e JOIN kategori k ON e.id_kategori = k.id JOIN penghapusan p ON e.id_hapus = p.id {$where}";
 		$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
 		$final->aset = $this->db->query($query)->result();
 
