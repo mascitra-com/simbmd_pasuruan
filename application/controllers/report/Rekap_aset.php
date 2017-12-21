@@ -39,6 +39,11 @@ class Rekap_aset extends MY_Controller {
 		$input['upb']	= $this->organisasi->get($input['id_organisasi'])->nama;
 		$data['detail'] = $input;
 
+        if(empty($input['id_organisasi'])){
+            $this->message('Pilih Organisasi', 'danger');
+            $this->go('report/rekap_aset/index/'.$jenis);
+        }
+
 		switch ($jenis) {
 			case 17:
 				$data['rekap']  = $this->report->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi']);

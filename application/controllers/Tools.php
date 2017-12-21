@@ -32,7 +32,7 @@ class {$name}_model extends MY_Model {
         if ($name === null || $number === null) {
             exit('Isi nama');
         }
-        
+
         # prepare data
         // $timestamp  = date('YmdHis');
         $table_name = strtolower($name);
