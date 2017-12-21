@@ -14,7 +14,7 @@
 				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
 					<option></option>
 					@foreach($organisasi AS $org)
-						<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
+					<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
 					@endforeach
 				</select>
 				<span class="input-group-btn">
@@ -23,7 +23,7 @@
 			</div>
 		</form>
 		<div class="btn-group">
-            <a href="{{ site_url('transfer/add/'.$filter['id_organisasi']) }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Baru</a>
+			<a href="{{ site_url('transfer/add/'.$filter['id_organisasi']) }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Baru</a>
 			<!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button> -->
 			<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
 		</div>
@@ -39,16 +39,16 @@
 						<th class="text-center">Tanggal Jurnal</th>
 						<th class="text-center">No Serah Terima</th>
 						<th class="text-center">Tanggal Serah Terima</th>
-                        <th class="text-center">Tanggal Verifikasi</th>
-                        <th class="text-nowrap">Status</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
+						<th class="text-center">Tanggal Verifikasi</th>
+						<th class="text-nowrap">Status</th>
+						<th class="text-center">Aksi</th>
+					</tr>
 				</thead>
 				<tbody>
 					@if(empty($transfer))
 					<tr><td colspan="10" class="text-center">Tidak ada data</td></tr>
 					@endif
-					
+
 					@foreach($transfer AS $item)
 					<tr class="small">
 						<td class="text-center">{{$item->id}}</td>
@@ -60,13 +60,13 @@
 						<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
 						<td class="text-center">
 							@if($item->status_pengajuan === '0')
-							<span class="badge badge-secondary">draf</span>
+							<button class="btn btn-secondary btn-sm btn-block" id="btn-pesan">draf</button>
 							@elseif($item->status_pengajuan === '1')
-							<span class="badge badge-warning">menunggu</span>
+							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
 							@elseif($item->status_pengajuan === '2')
-							<span class="badge badge-success">disetujui</span>
+							<button class="btn btn-success btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
 							@elseif($item->status_pengajuan === '3')
-							<span class="badge badge-danger">ditolak</span>
+							<button class="btn btn-danger btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
 							@else
 							ERROR
 							@endif
@@ -81,7 +81,7 @@
 						</td>
 					</tr>
 					@endforeach
-                </tbody>
+				</tbody>
 			</thead>
 		</table>
 	</div>
@@ -107,11 +107,38 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-pesan">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+            <div class="modal-header">Detail Persetujuan</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="bold">Tanggal Verifikasi:</label>
+					<div id="span-tanggal"></div>
+				</div>
+				<div class="form-group">
+					<label class="bold">Status Verifikasi:</label>
+					<div id="span-status">Disetujui</div>
+				</div>
+				<div class="form-group">
+					<label class="bold">Pesan:</label>
+					<div id="span-pesan"></div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">Batal</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 @endsection
 
 @section('style')
 <style>
 .text-sm {font-size: smaller;}
+    .bold{font-weight: bold}
 </style>
 @endsection
 
@@ -122,6 +149,18 @@
 		var id = $(this).data('id');
 		$("#btn-hapus-confirm").attr("href", "{{site_url('transfer/delete/')}}"+id);
 		$("#modal-hapus").modal('show');
+	});
+
+	$("[data-id-transfer]").on('click', function(e){
+		var id = $(e.currentTarget).data('id-transfer');
+
+		$.getJSON("{{site_url('persetujuan_transfer/get_persetujuan/')}}"+id, function(result){
+			$("#span-tanggal").html(result.log_time);
+			$("#span-status").html(result.status);
+			$("#span-pesan").html(result.pesan);
+		});
+
+		$("#modal-pesan").modal('show');
 	});
 </script>
 @end

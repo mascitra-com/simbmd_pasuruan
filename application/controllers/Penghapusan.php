@@ -23,10 +23,15 @@ class Penghapusan extends MY_Controller
     public function index()
     {
         $this->load->library('Pagination');
-
         $filter = $this->input->get();
-        $result = $this->hapus->get_data($filter);
+        $data['organisasi'] 	 = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+
+        # Jika bukan superadmin
+        if (!$this->auth->get_super_access()) {
+            $filter['id_organisasi'] = $this->auth->get_id_organisasi();
+            $data['organisasi'] 	 = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
+        }
 
         $data['hapus'] = $result['data'];
         $data['filter'] = $filter;

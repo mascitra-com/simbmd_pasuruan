@@ -17,7 +17,6 @@ class Transfer extends MY_Controller {
         $this->load->model('aset/Kibc_temp_model', 'kibc');
         $this->load->model('aset/Kibd_temp_model', 'kibd');
         $this->load->model('aset/Kibe_temp_model', 'kibe');
-        $this->load->library('pagination');
     }
 
     public function index() {
@@ -25,6 +24,8 @@ class Transfer extends MY_Controller {
     }
 
     public function keluar() {
+        $this->load->library('pagination');
+
         $filter = $this->input->get();
         $data['organisasi'] 	 = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
@@ -43,6 +44,8 @@ class Transfer extends MY_Controller {
     }
 
     public function masuk() {
+        $this->load->library('pagination');
+
         $filter = $this->input->get();
         $data['organisasi']  = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_tujuan'] = isset($filter['id_tujuan']) ? $filter['id_tujuan'] : '';

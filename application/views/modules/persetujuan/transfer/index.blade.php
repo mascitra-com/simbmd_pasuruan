@@ -97,7 +97,7 @@
 					<input type="hidden" name="id_transfer">
 					<div class="form-group">
 						<label>Pesan/Alasan</label>
-						<textarea type="text" class="form-control" placeholder="Pesan verifikasi"></textarea>
+						<textarea type="text" name="pesan" class="form-control" placeholder="Pesan verifikasi"></textarea>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-secondary">Tolak</button>
@@ -119,7 +119,7 @@
 @section('script')
 <script>
 	theme.activeMenu('.nav-persetujuan-transfer');
-	
+
 	$("#btn-setuju").on('click', setuju);
 	$("#btn-tolak").on('click', tolak);
 

@@ -11,7 +11,7 @@
 			<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
             <li class="nav nav-title">MUTASI TAMBAH</li>
 			<li class="nav nav-inventarisasi">
-				<a href="#menu-inventarisasi" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Inventarisasi<i class="fa fa-angle-down ml-auto"></i></a>
+				<a href="#menu-inventarisasi" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Inventaris<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-inventarisasi">
 					<li class="nav"><a href="{{site_url('aset/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
 					<li class="nav"><a href="{{site_url('aset/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
