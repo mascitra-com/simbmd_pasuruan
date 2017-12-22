@@ -161,8 +161,7 @@ class MY_Model extends MY_Base_model {
         $qc = "SELECT MAX(reg_barang) AS reg FROM aset_c WHERE id_kategori = {$id}";
         $qd = "SELECT MAX(reg_barang) AS reg FROM aset_d WHERE id_kategori = {$id}";
         $qe = "SELECT MAX(reg_barang) AS reg FROM aset_e WHERE id_kategori = {$id}";
-        $qf = "SELECT MAX(reg_barang) AS reg FROM aset_f WHERE id_kategori = {$id}";
-        $query  = "SELECT MAX(reg) as reg FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qf}) AS q";
+        $query  = "SELECT MAX(reg) as reg FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
 
         $result = $this->db->query($query);
 
@@ -183,9 +182,8 @@ class MY_Model extends MY_Base_model {
             $qc = "SELECT id FROM aset_c WHERE reg_induk = '{$reg}'";
             $qd = "SELECT id FROM aset_d WHERE reg_induk = '{$reg}'";
             $qe = "SELECT id FROM aset_e WHERE reg_induk = '{$reg}'";
-            $qf = "SELECT id FROM aset_f WHERE reg_induk = '{$reg}'";
             $qk = "SELECT id FROM kapitalisasi WHERE reg_induk = '{$reg}'";
-            $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qf} UNION {$qk}) AS q";
+            $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qk}) AS q";
             $result = $this->db->query($query);
 
             if ($result->num_rows() < 1) {

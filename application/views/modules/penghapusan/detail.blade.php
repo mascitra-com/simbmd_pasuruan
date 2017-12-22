@@ -53,7 +53,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" name="no_jurnal" value="{{ $hapus->no_jurnal }}"/>
+                                <input type="text" class="form-control form-control-sm" value="{{ $hapus->no_jurnal }}" readonly/>
                             </div>
                         </div>
                         <div class="form-group row">

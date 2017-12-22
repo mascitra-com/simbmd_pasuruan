@@ -115,7 +115,7 @@
 @section('script')
 <script type="text/javascript">
 	var org = (function(){
-		theme.activeMenu('.nav-rekap-transfer');
+		theme.activeMenu('.nav-rekap-mutasi-kurang');
 	})();
 </script>
 @end

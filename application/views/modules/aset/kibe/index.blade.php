@@ -7,21 +7,6 @@
 <li class="breadcrumb-item active">KIB-E</li>
 @end
 
-@section('widget')
-<div class="row mb-4">
-	@foreach($statistic AS $stat)
-	<div class="col">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title">{{$stat['title']}}</h4>
-				<p class="card-text">{{$stat['value']}}</p>
-			</div>
-		</div>
-	</div>
-	@endforeach
-</div>
-@end
-
 @section('content')
 <div class="row">
 	<div class="col">
@@ -29,7 +14,7 @@
 			<div class="card-header form-inline">
 				<form action="{{site_url('aset/kibe')}}" method="GET" class="mr-auto">
 					<div class="input-group">
-						<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB..." required>
+						<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB..." >
 						<option value="">Pilih Organisasi....</option>
 							@foreach($organisasi AS $org)
 							<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
@@ -132,11 +117,11 @@
 						</div>
 						<div class="form-group col">
 							<label>Judul</label>
-							<input type="text" class="form-control" name="judul" value="{{isset($filter['judul'])?$filter['judul']:''}}" required />
+							<input type="text" class="form-control" name="judul" value="{{isset($filter['judul'])?$filter['judul']:''}}"  />
 						</div>
 						<div class="form-group col">
 							<label>Pencipta</label>
-							<input type="text" class="form-control" name="pencipta" value="{{isset($filter['pencipta'])?$filter['pencipta']:''}}" required/>
+							<input type="text" class="form-control" name="pencipta" value="{{isset($filter['pencipta'])?$filter['pencipta']:''}}" />
 						</div>
 					</div>
 					<div class="row">
@@ -146,21 +131,21 @@
 						</div>
 						<div class="form-group col">
 							<label>Ukuran</label>
-							<input type="text" class="form-control" name="ukuran" value="{{isset($filter['ukuran'])?$filter['ukuran']:''}}" required />
+							<input type="text" class="form-control" name="ukuran" value="{{isset($filter['ukuran'])?$filter['ukuran']:''}}"  />
 						</div>
 						<div class="form-group col">
 							<label>Tanggal Pembuatan</label>
-							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" required />
+							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}"  />
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label>Asal Usul</label>
-							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}" required />
+							<input type="text" class="form-control" name="asal_usul" value="{{isset($filter['asal_usul'])?$filter['asal_usul']:''}}"  />
 						</div>
 						<div class="form-group col">
 							<label>Kondisi</label>
-							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}" required />
+							<input type="text" class="form-control" name="kondisi" value="{{isset($filter['kondisi'])?$filter['kondisi']:''}}"  />
 						</div>
 						<div class="form-group col">
 							<label>Keterangan</label>
@@ -170,11 +155,11 @@
 					<div class="row">
 						<div class="form-group col">
 							<label>Nilai</label>
-							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}" required />
+							<input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}"  />
 						</div>
 						<div class="form-group col">
 							<label>Nilai Sisa</label>
-							<input type="text" class="form-control" name="nilai_sisa" value="{{isset($filter['nilai_sisa'])?$filter['nilai_sisa']:''}}" required />
+							<input type="text" class="form-control" name="nilai_sisa" value="{{isset($filter['nilai_sisa'])?$filter['nilai_sisa']:''}}"  />
 						</div>
 						<div class="form-group col">
 							<label>Masa Manfaat</label>

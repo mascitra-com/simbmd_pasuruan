@@ -3,7 +3,7 @@
 class Kibb_model extends MY_Model
 {
 	public $_table = 'aset_b';
-	public $required = array('id_organisasi','id_kategori','ukuran','no_pabrik','no_rangka','no_mesin','no_polisi','no_bpkb','tgl_perolehan','tgl_pembukuan','asal_usul','kondisi','nilai','masa_manfaat');
+	public $required = array('id_organisasi','id_kategori', 'tgl_perolehan','tgl_pembukuan','asal_usul','kondisi','nilai');
 
     public function __construct()
     {
@@ -47,30 +47,6 @@ class Kibb_model extends MY_Model
 		return $result;
     }
 
-    public function get_statistic($id_organisasi = NULL)
-    {
-        if (empty($id_organisasi)) {
-            return array();
-        }
-
-        # JUMLAH ASET
-        $val = $this->db->query("SELECT COUNT(id) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-        $result[0]['title'] = 'Jumlah Aset';
-        $result[0]['value'] = $val.' Buah';
-
-        # JUMLAH NILAI ASET
-        $val = $this->db->query("SELECT SUM(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-        $result[1]['title'] = 'Jumlah Nilai Aset';
-        $result[1]['value'] = 'Rp '.(monefy($val)).',-';
-
-        # JUMLAH NILAI ASET TERTINGGI
-        $val = $this->db->query("SELECT MAX(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-        $result[2]['title'] = 'Nilai Aset Tertinggi';
-        $result[2]['value'] = 'Rp '.(monefy($val)).',-';
-
-        return $result;
-    }
-
     public function fix_data_import($data)
     {
         $temp = $this->session->temp_import;
@@ -110,8 +86,8 @@ class Kibb_model extends MY_Model
             'no_bpkb' => $value[24],
             'asal_usul' => $value[25],
             'kondisi' => $value[26],
-            'nilai' => $value[27],
-            'nilai_sisa' => $value[29],
+            'nilai' => unmonefy($value[27]),
+            'nilai_sisa' => unmonefy($value[29]),
             'masa_manfaat' => $value[28],
             'keterangan' => $value[30],
             'tahun' => $value[31],

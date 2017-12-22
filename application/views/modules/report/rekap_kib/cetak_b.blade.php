@@ -104,7 +104,7 @@
 							<br>
 							{{$aset->reg_induk}}
 						</td>
-						<td class="text-nowrap">{{$aset->nama}}</td>
+						<td>{{$aset->nama}}</td>
 						<td class="text-center">{{$aset->merk.' '.$aset->tipe}}</td>
 						<td class="text-center">{{$aset->ukuran}}</td>
 						<td class="text-center">{{$aset->bahan}}</td>

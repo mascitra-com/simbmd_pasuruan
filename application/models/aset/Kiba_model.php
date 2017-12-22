@@ -3,7 +3,7 @@
 class Kiba_model extends MY_Model
 {
 	public $_table = 'aset_a';
-	public $required = array('id_organisasi','id_kategori','nilai','sertifikat_tgl','sertifikat_no','pengguna','tahun','alamat','hak','tgl_pembukuan','tgl_perolehan','luas','asal_usul');
+	public $required = array('id_organisasi','id_kategori','nilai','tgl_pembukuan','tgl_perolehan');
 
     public function __construct()
     {
@@ -47,30 +47,6 @@ class Kiba_model extends MY_Model
 		return $result;
     }
 
-    public function get_statistic($id_organisasi = NULL)
-    {
-    	if (empty($id_organisasi)) {
-    		return array();
-    	}
-
-    	# JUMLAH ASET
-    	$val = $this->db->query("SELECT COUNT(id) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-    	$result[0]['title'] = 'Jumlah Aset';
-    	$result[0]['value'] = $val.' Buah';
-
-    	# JUMLAH NILAI ASET
-    	$val = $this->db->query("SELECT SUM(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-    	$result[1]['title'] = 'Jumlah Nilai Aset';
-    	$result[1]['value'] = 'Rp '.(monefy($val)).',-';
-
-    	# JUMLAH NILAI ASET TERTINGGI
-    	$val = $this->db->query("SELECT MAX(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-    	$result[2]['title'] = 'Nilai Aset Tertinggi';
-    	$result[2]['value'] = 'Rp '.(monefy($val)).',-';
-
-    	return $result;
-    }
-
     public function fix_data_import($data)
     {
         $temp = $this->session->temp_import;
@@ -107,7 +83,7 @@ class Kiba_model extends MY_Model
             'tgl_pembukuan'     => $value[27],
             'tahun'             => $value[24],
             'asal_usul'         => unnullify($value[21]),
-            'nilai'             => $value[22],
+            'nilai'             => unmonefy($value[22]),
             'keterangan'        => unnullify($value[23]),
             'kd_pemilik'        => $value[13],
             'id_kategori'       => $result_kat->id,

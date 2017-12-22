@@ -46,28 +46,4 @@ class Kibnon_model extends MY_Model
 
 		return $result;
     }
-
-    public function get_statistic($id_organisasi = NULL)
-    {
-    	if (empty($id_organisasi)) {
-    		return array();
-    	}
-
-    	# JUMLAH ASET
-    	$val = $this->db->query("SELECT COUNT(id) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-    	$result[0]['title'] = 'Jumlah Aset';
-    	$result[0]['value'] = $val.' Buah';
-
-    	# JUMLAH NILAI ASET
-    	$val = $this->db->query("SELECT SUM(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-    	$result[1]['title'] = 'Jumlah Nilai Aset';
-    	$result[1]['value'] = 'Rp '.(monefy($val)).',-';
-
-    	# JUMLAH NILAI ASET TERTINGGI
-    	$val = $this->db->query("SELECT MAX(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-    	$result[2]['title'] = 'Nilai Aset Tertinggi';
-    	$result[2]['value'] = 'Rp '.(monefy($val)).',-';
-
-    	return $result;
-    }
 }

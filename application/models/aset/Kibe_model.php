@@ -3,7 +3,7 @@
 class Kibe_model extends MY_Model
 {
 	public $_table = 'aset_e';
-	public $required = array('id_organisasi','id_kategori','nilai','nilai_sisa','judul','pencipta','ukuran','tgl_perolehan','tgl_pembukuan','asal_usul','kondisi','kategori');
+	public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan','kondisi','kategori');
 
     public function __construct()
     {
@@ -46,30 +46,6 @@ class Kibe_model extends MY_Model
 		return $result;
     }
 
-    public function get_statistic($id_organisasi = NULL)
-    {
-        if (empty($id_organisasi)) {
-            return array();
-        }
-
-        # JUMLAH ASET
-        $val = $this->db->query("SELECT COUNT(id) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-        $result[0]['title'] = 'Jumlah Aset';
-        $result[0]['value'] = $val.' Buah';
-
-        # JUMLAH NILAI ASET
-        $val = $this->db->query("SELECT SUM(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-        $result[1]['title'] = 'Jumlah Nilai Aset';
-        $result[1]['value'] = 'Rp '.(monefy($val)).',-';
-
-        # JUMLAH NILAI ASET TERTINGGI
-        $val = $this->db->query("SELECT MAX(nilai) AS jumlah FROM {$this->_table} WHERE id_organisasi='{$id_organisasi}' AND is_deleted = 0")->result()[0]->jumlah;
-        $result[2]['title'] = 'Nilai Aset Tertinggi';
-        $result[2]['value'] = 'Rp '.(monefy($val)).',-';
-
-        return $result;
-    }
-
     public function fix_data_import($data)
     {
         $temp = $this->session->temp_import;
@@ -104,8 +80,8 @@ class Kibe_model extends MY_Model
             'ukuran' => $value[19],
             'asal_usul' => $value[20],
             'kondisi' => $value[21],
-            'nilai' => $value[22],
-            'nilai_sisa' => $value[24],
+            'nilai' => unmonefy($value[22]),
+            'nilai_sisa' => unmonefy($value[24]),
             'masa_manfaat' => $value[23],
             'keterangan' => $value[25],
             'tahun' => $value[26],

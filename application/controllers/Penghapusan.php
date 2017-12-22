@@ -33,6 +33,8 @@ class Penghapusan extends MY_Controller
             $data['organisasi'] 	 = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
         }
 
+        $result = $this->hapus->get_data($filter);
+
         $data['hapus'] = $result['data'];
         $data['filter'] = $filter;
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
@@ -49,8 +51,6 @@ class Penghapusan extends MY_Controller
         }
 
         $id_insert = $this->hapus->insert($data);
-        $data_update = array('no_jurnal' => zerofy($id_insert, 5));
-        $this->hapus->update($id_insert, $data_update);
         if($id_insert) {
             $this->message('Data berhasil disimpan','success');
             $this->go('penghapusan/detail/'.$id_insert);

@@ -129,7 +129,7 @@
 									{{zerofy($item->id_kategori->kd_subsubkelompok)}} .
 									{{zerofy($item->reg_barang,4)}}
 								</td>
-								<td class="text-nowrap">{{$item->luas}}</td>
+								<td class="text-nowrap">{{monefy($item->luas)}}</td>
 								<td class="text-nowrap">{{$item->alamat}}</td>
 								<td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
 								<td class="text-nowrap">{{$item->sertifikat_no}}</td>
@@ -216,7 +216,7 @@
 								<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 								<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 								<td class="text-nowrap">{{$item->keterangan}}</td>
-								<td class="text-nowrap">{{$item->id_ruangan}}</td>
+								<td class="text-nowrap">{{$item->id_ruangan->nama}}</td>
 								<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 							</tr>
 							@endforeach
@@ -349,7 +349,7 @@
 								<td class="text-nowrap">{{$item->kontruksi}}</td>
 								<td class="text-nowrap">{{$item->panjang}}</td>
 								<td class="text-nowrap">{{$item->lebar}}</td>
-								<td class="text-nowrap">{{$item->luas}}</td>
+								<td class="text-nowrap">{{monefy($item->luas)}}</td>
 								<td class="text-nowrap">{{$item->lokasi}}</td>
 								<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 								<td class="text-nowrap">{{$item->dokumen_no}}</td>
@@ -653,7 +653,7 @@
 								<td class="text-nowrap">{{$item->kontruksi}}</td>
 								<td class="text-nowrap">{{$item->panjang}}</td>
 								<td class="text-nowrap">{{$item->lebar}}</td>
-								<td class="text-nowrap">{{$item->luas}}</td>
+								<td class="text-nowrap">{{monefy($item->luas)}}</td>
 								<td class="text-nowrap">{{$item->lokasi}}</td>
 								<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 								<td class="text-nowrap">{{$item->dokumen_no}}</td>

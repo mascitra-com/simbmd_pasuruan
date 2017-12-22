@@ -121,7 +121,7 @@
 @section('script')
 <script type="text/javascript">
 	var org = (function(){
-		theme.activeMenu('.nav-rekap-penerimaan');
+		theme.activeMenu('.nav-rekap-mutasi-tambah');
 	})();
 </script>
 @end

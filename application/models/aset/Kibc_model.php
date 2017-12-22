@@ -3,7 +3,7 @@
 class Kibc_model extends MY_Model
 {
 	public $_table = 'aset_c';
-	public $required = array('id_organisasi','id_kategori','nilai','tingkat','beton','luas_lantai','dokumen_tgl','status_tanah','tgl_pembukuan','tgl_perolehan','asal_usul','kondisi','nilai','kategori');
+	public $required = array('id_organisasi','id_kategori','nilai','tgl_pembukuan','tgl_perolehan','kondisi','nilai');
 
     public function __construct()
     {
@@ -54,35 +54,6 @@ class Kibc_model extends MY_Model
 		return $result;
     }
 
-    public function get_statistic($id_organisasi = NULL, $is_kdp = false)
-    {
-        if (empty($id_organisasi)) {
-            return array();
-        }
-
-        # JUMLAH ASET
-        $query = "AND kd_golongan <> 6";
-        if ($is_kdp) {
-            $query = "AND kd_golongan = 6";
-        }
-
-        $val = $this->db->query("SELECT COUNT({$this->_table}.id) AS jumlah FROM {$this->_table} JOIN kategori ON {$this->_table}.id_kategori = kategori.id WHERE id_organisasi='{$id_organisasi}' AND {$this->_table}.is_deleted = 0 {$query}")->result()[0]->jumlah;
-        $result[0]['title'] = 'Jumlah Aset';
-        $result[0]['value'] = $val.' Buah';
-
-        # JUMLAH NILAI ASET
-        $val = $this->db->query("SELECT SUM(nilai) AS jumlah FROM {$this->_table} JOIN kategori ON {$this->_table}.id_kategori = kategori.id WHERE id_organisasi='{$id_organisasi}' AND {$this->_table}.is_deleted = 0 {$query}")->result()[0]->jumlah;
-        $result[1]['title'] = 'Jumlah Nilai Aset';
-        $result[1]['value'] = 'Rp '.(monefy($val)).',-';
-
-        # JUMLAH NILAI ASET TERTINGGI
-        $val = $this->db->query("SELECT MAX(nilai) AS jumlah FROM {$this->_table} JOIN kategori ON {$this->_table}.id_kategori = kategori.id WHERE id_organisasi='{$id_organisasi}' AND {$this->_table}.is_deleted = 0 {$query}")->result()[0]->jumlah;
-        $result[2]['title'] = 'Nilai Aset Tertinggi';
-        $result[2]['value'] = 'Rp '.(monefy($val)).',-';
-
-        return $result;
-    }
-
     public function fix_data_import($data)
     {
         $temp = $this->session->temp_import;
@@ -121,7 +92,7 @@ class Kibc_model extends MY_Model
             'kode_tanah' => $value[27],
             'asal_usul' => $value[28],
             'kondisi' => $value[29],
-            'nilai' => $value[30],
+            'nilai' => unmonefy($value[30]),
             'keterangan' => $value[33],
             'tahun' => $value[34],
             'kd_pemilik' => $value[13],

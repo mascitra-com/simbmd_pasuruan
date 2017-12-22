@@ -38,7 +38,7 @@ class Import extends MY_Controller
 			$config['upload_path']   = realpath(FCPATH.'/res/docs/temp/');
 			$config['file_name']	 = date('Ymdhis').uniqid();
 			$config['allowed_types'] = 'xls|xlsx';
-			$config['max_size']      = 9000;
+			$config['max_size']      = 16000;
 			$config['overwrite']     = TRUE;
 
 			$this->load->library('upload', $config);

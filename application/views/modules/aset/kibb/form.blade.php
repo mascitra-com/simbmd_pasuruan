@@ -99,7 +99,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Ukuran/CC</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="ukuran" placeholder="ukuran" value="{{isset($kib)?$kib->ukuran:''}}"/>
+							<input type="text" class="form-control" name="ukuran" placeholder="ukuran" value="{{isset($kib)?$kib->ukuran:''}}"/>
 						</div>
 					</div>
 					<div class="form-group row">

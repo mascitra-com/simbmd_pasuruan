@@ -49,7 +49,7 @@
                     @foreach($hapus as $item)
                         <tr class="small">
                             <td class="text-center">{{ $item->id }}</td>
-                            <td>{{ $item->no_jurnal }}</td>
+                            <td>{{ zerofy($item->id, 5) }}</td>
                             <td class="text-nowrap">{{ datify($item->tgl_jurnal, 'd-m-Y') }}</td>
                             <td class="text-nowrap">{{ $item->no_sk }}</td>
                             <td class="text-nowrap">{{ datify($item->tgl_sk, 'd-m-Y') }}</td>
@@ -107,7 +107,7 @@
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <label>No. Jurnal</label>
-                                        <input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="(Otomatis)" disabled />
+                                        <input type="number" class="form-control form-control-sm" placeholder="(Otomatis)" disabled />
                                     </div>
                                     <div class="form-group col">
                                         <label>Tgl. Jurnal</label>
@@ -119,7 +119,7 @@
                         <div class="form-row">
                             <div class="form-group col">
                                 <label>No. SK</label>
-                                <input type="number" class="form-control form-control-sm" name="no_sk" placeholder="No. SK" required />
+                                <input type="text" class="form-control form-control-sm" name="no_sk" placeholder="No. SK" required />
                             </div>
                             <div class="form-group col">
                                 <label>Tanggal SK</label>

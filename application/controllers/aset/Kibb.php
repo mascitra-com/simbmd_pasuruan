@@ -32,7 +32,6 @@ class Kibb extends MY_Controller
 
         $result = $this->kib->get_data($filter);
         $data['kib'] = $result['data'];
-        $data['statistic'] = $this->kib->get_statistic($filter['id_organisasi']);
         $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
         $data['filter'] = (!empty($filter) ? $filter : array('id_organisasi' => ''));
 
