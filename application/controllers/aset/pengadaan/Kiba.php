@@ -1,0 +1,105 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Kiba extends MY_Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('aset/pengadaan/Temp_kiba_model', 'kib_temp');
+        $this->load->model('Kategori_model', 'kategori');
+        $this->load->library('pagination');
+    }
+
+    public function add($id_spk = NULL)
+    {
+        if (empty($id_spk))
+            show_404();
+
+        $data['spk'] = $this->spk->get($id_spk);
+        $this->render('modules/pengadaan/form_kiba', $data);
+    }
+
+    public function edit($id = NULL)
+    {
+        if (empty($id))
+            show_404();
+
+        $data['kib'] = $this->kib_temp->get($id);
+        $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
+        $data['spk'] = $this->spk->get($data['kib']->id_spk);
+        $this->render('modules/pengadaan/form_kiba', $data);
+    }
+
+    public function insert()
+    {
+        $data = $this->input->post();
+        $data['nilai'] = unmonefy($data['nilai']);
+        $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
+
+        if (!$this->kib_temp->form_verify($data)) {
+            $this->message('Isi data yang wajib diisi', 'danger');
+            $this->go('aset/pengadaan/kiba/add/' . $data['id_spk']);
+        }
+
+        $data_final = array();
+        $kuantitas = !empty($data['kuantitas']) ? $data['kuantitas'] : 1;
+        unset($data['kuantitas']);
+
+        for ($i = 0; $i < $kuantitas; $i++) {
+            $data_final[$i] = $data;
+            $data_final[$i]['reg_barang'] = $this->kib_temp->get_reg_barang($data['id_kategori']) + $i;
+            $data_final[$i]['reg_induk'] = $this->kib_temp->get_reg_induk();
+        }
+
+        $sukses = $this->kib_temp->batch_insert($data_final);
+        if ($sukses) {
+            $this->message('Data berhasil disimpan', 'success');
+            $this->go('pengadaan/rincian/' . $data['id_spk']);
+        } else {
+            $this->message('Data gagal disimpan', 'danger');
+            $this->go('aset/pengadaan/kiba/add/' . $data['id_spk']);
+        }
+    }
+
+    public function update()
+    {
+        $data = $this->input->post();
+        $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] = unmonefy($data['nilai']);
+        $data['nilai_sisa'] = unmonefy($data['nilai_sisa']);
+        $id = $data['id'];
+        unset($data['id']);
+
+        if (!$this->kib_temp->form_verify($data)) {
+            $this->message('Isi data yang wajib diisi', 'danger');
+            $this->go('aset/pengadaan/kiba/edit/' . $id);
+        }
+
+        $sukses = $this->kib_temp->update($id, $data);
+        if ($sukses) {
+            $this->message('Data berhasil disunting', 'success');
+            $this->go('pengadaan/rincian/' . $data['id_spk']);
+        } else {
+            $this->message('Data gagal disunting', 'danger');
+            $this->go('aset/pengadaan/kiba/edit/' . $id);
+        }
+    }
+
+    public function delete($id = NULL)
+    {
+        if (empty($id))
+            show_404();
+
+        $data = $this->kib_temp->get($id);
+        $sukses = $this->kib_temp->delete($id);
+        if ($sukses) {
+            $this->message("Data berhasil dihapus", 'success');
+            $this->go('pengadaan/rincian/' . $data->id_spk);
+        } else {
+            $this->message('Data gagal dihapus', 'danger');
+            $this->go('pengadaan/rincian/' . $data->id_spk);
+        }
+    }
+}
