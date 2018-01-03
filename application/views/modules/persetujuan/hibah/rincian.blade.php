@@ -3,46 +3,29 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('persetujuan_hibah?id_organisasi='.$hibah->id_organisasi->id)}}">Hibah</a></li>
     <li class="breadcrumb-item active">Rincian Hibah</li>
     @end
 
 @section('content')
     <div class="form-inline">
         <div class="btn-group mb-3">
-            <a href="{{ site_url('hibah/detail/'.$hibah->id) }}" class="btn btn-primary">01. Detail Hibah</a>
+            <a href="{{ site_url('persetujuan_hibah/detail/'.$hibah->id) }}" class="btn btn-primary">01. Detail Hibah</a>
             <a href="#" class="btn btn-primary active">02. Rincian Hibah</a>
-        </div>
-        <div class="btn-group mb-3 ml-auto">
-            @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                <a href="{{ site_url('hibah/finish_transaction/'.$hibah->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
-                    <i class="fa fa-check mr-2"></i>
-                    Selesaikan Transaksi
-                </a>
-            @elseif($hibah->status_pengajuan === '1')
-                <a href="{{ site_url('hibah/cancel_transaction/'.$hibah->id) }}" class="btn btn-warning" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
-                    <i class="fa fa-check mr-2"></i>
-                    Batalkan Transaksi
-                </a>
-            @endif
-            @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal-add"><i
-                            class="fa fa-plus"></i> Tambah
-                </button>
-            @endif
-            <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col">
             <div class="card">
                 <div class="card-header form-inline">
-                    <span class="mr-auto">Detail Kontrak</span>
+                    <span class="mr-auto">Detail Hibah</span>
                 </div>
                 <div class="card-body row">
                     <div class="col">
                         <div class="row">
+                            <div class="col">UPB</div>
+                            <div class="col"> : {{ $hibah->id_organisasi->nama }}</div>
+                            <div class="w-100"></div>
                             <div class="col">No. Jurnal</div>
                             <div class="col"> : {{ $hibah->no_jurnal }}</div>
                             <div class="w-100"></div>
@@ -87,7 +70,6 @@
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap">Luas (m2)</th>
                                 <th class="text-nowrap">Alamat</th>
@@ -110,14 +92,6 @@
 
                             @foreach($kiba AS $item)
                                 <tr>
-                                    <td class="text-nowrap text-center">
-                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                                            <div class="btn-group">
-                                                <a href="{{site_url('aset/kiba/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kiba/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        @endif
-                                    </td>
                                     <td class="text-nowrap text-center">
                                         {{zerofy($item->id_kategori->kd_golongan)}} .
                                         {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -149,7 +123,6 @@
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap">Merk</th>
                                 <th class="text-nowrap">Tipe</th>
@@ -179,14 +152,6 @@
 
                             @foreach($kibb AS $item)
                                 <tr>
-                                    <td class="text-nowrap text-center">
-                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                                            <div class="btn-group">
-                                                <a href="{{site_url('aset/kibb/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibb/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        @endif
-                                    </td>
                                     <td class="text-nowrap text-center">
                                         {{zerofy($item->id_kategori->kd_golongan)}} .
                                         {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -226,7 +191,6 @@
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap">Tingkat</th>
                                 <th class="text-nowrap">Beton</th>
@@ -254,14 +218,6 @@
 
                             @foreach($kibc AS $item)
                                 <tr>
-                                    <td class="text-nowrap text-center">
-                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                                            <div class="btn-group">
-                                                <a href="{{site_url('aset/kibc/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibc/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        @endif
-                                    </td>
                                     <td class="text-nowrap text-center">
                                         {{zerofy($item->id_kategori->kd_golongan)}} .
                                         {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -298,7 +254,6 @@
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap">Kontruksi</th>
                                 <th class="text-nowrap">Panjang</th>
@@ -327,14 +282,6 @@
 
                             @foreach($kibd AS $item)
                                 <tr>
-                                    <td class="text-nowrap text-center">
-                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                                            <div class="btn-group">
-                                                <a href="{{site_url('aset/kibd/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibd/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        @endif
-                                    </td>
                                     <td class="text-nowrap text-center">
                                         {{zerofy($item->id_kategori->kd_golongan)}} .
                                         {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -372,7 +319,6 @@
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap">Judul</th>
                                 <th class="text-nowrap">Pecipta</th>
@@ -397,14 +343,6 @@
 
                             @foreach($kibe AS $item)
                                 <tr>
-                                    <td class="text-nowrap text-center">
-                                        @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                                            <div class="btn-group">
-                                                <a href="{{site_url('aset/kibe/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibe/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        @endif
-                                    </td>
                                     <td class="text-nowrap text-center">
                                         {{zerofy($item->id_kategori->kd_golongan)}} .
                                         {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -438,7 +376,6 @@
                             <table class="table table-hover table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th class="text-nowrap text-center">Aksi</th>
                                     <th class="text-nowrap text-center">Kode Barang</th>
                                     <th class="text-nowrap">Nama</th>
                                     <th class="text-nowrap">Merk</th>
@@ -457,14 +394,6 @@
 
                                 @foreach($kpt AS $item)
                                     <tr>
-                                        <td class="text-nowrap text-center">
-                                            @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
-                                                <div class="btn-group">
-                                                    <a href="{{site_url('kapitalisasi/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('kapitalisasi/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-                                                </div>
-                                            @endif
-                                        </td>
                                         <td class="text-nowrap text-center">
                                             {{zerofy($item->id_kategori->kd_golongan)}} .
                                             {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -537,6 +466,6 @@
 
 @section('script')
     <script>
-        theme.activeMenu('.nav-hibah');
+        theme.activeMenu('.nav-persetujuan-hibah');
     </script>
     @end

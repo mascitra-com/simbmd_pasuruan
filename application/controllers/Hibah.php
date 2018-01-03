@@ -11,11 +11,11 @@ class Hibah extends MY_Controller
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kegiatan_model', 'kegiatan');
 
-        $this->load->model('aset/Kiba_model', 'kiba');
-        $this->load->model('aset/Kibb_model', 'kibb');
-        $this->load->model('aset/Kibc_model', 'kibc');
-        $this->load->model('aset/Kibd_model', 'kibd');
-        $this->load->model('aset/Kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kiba_model', 'kiba');
+        $this->load->model('aset/Temp_kibb_model', 'kibb');
+        $this->load->model('aset/Temp_kibc_model', 'kibc');
+        $this->load->model('aset/Temp_kibd_model', 'kibd');
+        $this->load->model('aset/Temp_kibe_model', 'kibe');
         $this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
     }
@@ -107,6 +107,7 @@ class Hibah extends MY_Controller
         $data['kibc'] = $this->kibc->get_data_hibah($data['hibah']->id);
         $data['kibd'] = $this->kibd->get_data_hibah($data['hibah']->id);
         $data['kibe'] = $this->kibe->get_data_hibah($data['hibah']->id);
+        // TODO Make this to temporary table
         $data['kpt'] = $this->kapitalisasi->get_data_hibah($data['hibah']->id);
 
         $this->render('modules/hibah/rincian', $data);
@@ -166,6 +167,38 @@ class Hibah extends MY_Controller
             default:
                 show_404();
                 break;
+        }
+    }
+
+    public function finish_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>1);
+        $sukses = $this->hibah->update($id, $data);
+        if($sukses) {
+            $this->message('Pengajuan Berhasil','success');
+            $this->go('hibah/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('hibah/detail/'.$id);
+        }
+    }
+
+    public function cancel_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>0);
+        $sukses = $this->hibah->update($id, $data);
+        if($sukses) {
+            $this->message('Pengajuan Berhasil dibatalkan','success');
+            $this->go('hibah/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('hibah/detail/'.$id);
         }
     }
 }

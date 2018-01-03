@@ -1,9 +1,9 @@
 @layout('commons/index')
-@section('title')Persetujuan Penghapusan@end
+@section('title')Persetujuan Hibah@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item active">Persetujuan Penghapusan</li>
+<li class="breadcrumb-item active">Persetujuan Hibah</li>
 @endsection
 
 @section('content')
@@ -22,8 +22,8 @@
 						<th>Asal</th>
 						<th class="text-nowrap">No. Jurnal</th>
 						<th class="text-center">Tanggal Jurnal</th>
-						<th class="text-center">No SK</th>
-						<th class="text-center">Tanggal SK</th>
+						<th class="text-center">No Serah Terima</th>
+						<th class="text-center">Tanggal <br>Serah Terima</th>
 						<th class="text-center">Waktu Pengajuan</th>
 						<th class="text-center">Aksi</th>
 					</tr>
@@ -39,12 +39,12 @@
 						<td>{{$item->id_organisasi->nama}}</td>
 						<td class="text-center">{{$item->no_jurnal}}</td>
 						<td class="text-center">{{datify($item->tgl_jurnal)}}</td>
-						<td class="text-center">{{$item->no_sk}}</td>
-						<td class="text-center">{{datify($item->tgl_sk)}}</td>
+						<td class="text-center">{{$item->no_serah_terima}}</td>
+						<td class="text-center">{{datify($item->tgl_serah_terima)}}</td>
 						<td class="text-center">{{datify($item->log_time, 'd-m-Y h:i')}}</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('persetujuan_penghapusan/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+								<a href="{{ site_url('persetujuan_hibah/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
 								<button class="btn btn-sm btn-success" id="btn-setuju" data-id="{{$item->id}}"><i class="fa fa-check mr-2"></i>Setuju</button>
 								<button class="btn btn-sm btn-danger" id="btn-tolak" data-id="{{$item->id}}"><i class="fa fa-times mr-2"></i>Tolak</button>
 							</div>
@@ -68,9 +68,9 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('persetujuan_penghapusan/verifikasi')}}" method="POST">
+				<form action="{{site_url('persetujuan_hibah/verifikasi')}}" method="POST">
 					<input type="hidden" name="status" value="2">
-					<input type="hidden" name="id_hapus">
+					<input type="hidden" name="id_hibah">
 					<div class="form-group">
 						<label>Pesan/Alasan</label>
 						<textarea type="text" class="form-control" placeholder="Pesan verifikasi"></textarea>
@@ -92,9 +92,9 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('persetujuan_penghapusan/verifikasi')}}" method="POST">
+				<form action="{{site_url('persetujuan_hibah/verifikasi')}}" method="POST">
 					<input type="hidden" name="status" value="3">
-					<input type="hidden" name="id_hapus">
+					<input type="hidden" name="id_hibah">
 					<div class="form-group">
 						<label>Pesan/Alasan</label>
 						<textarea type="text" class="form-control" placeholder="Pesan verifikasi"></textarea>
@@ -118,20 +118,20 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-persetujuan-hapus');
+	theme.activeMenu('.nav-persetujuan-hibah');
 	
 	$("#btn-setuju").on('click', setuju);
 	$("#btn-tolak").on('click', tolak);
 
 	function setuju(e) {
 		var id = $(e.currentTarget).data('id');
-		$("#modal-setuju [name='id_hapus']").val(id);
+		$("#modal-setuju [name='id_hibah']").val(id);
 		$("#modal-setuju").modal('show');
 	}
 
 	function tolak(e) {
 		var id = $(e.currentTarget).data('id');
-		$("#modal-tolak [name='id_hapus']").val(id);
+		$("#modal-tolak [name='id_hibah']").val(id);
 		$("#modal-tolak").modal('show');
 	}
 </script>

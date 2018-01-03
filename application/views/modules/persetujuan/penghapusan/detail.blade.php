@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Persetujuan Transfer Keluar@end
+@section('title')Persetujuan Penghapusan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
@@ -97,7 +97,7 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-transfer-masuk');
+	theme.activeMenu('.nav-transfer-hapus');
     $("input,select,textarea").prop('disabled', true);
 </script>
 @end

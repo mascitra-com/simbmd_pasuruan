@@ -1,9 +1,9 @@
 @layout('commons/index')
-@section('title')Persetujuan Transfer Keluar@end
+@section('title')Persetujuan Penghapusan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('persetujuan_penghapusan')}}">Persetujuan Transfer Keluar</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('persetujuan_penghapusan')}}">Persetujuan Penghapusan</a></li>
 <li class="breadcrumb-item active">Rincian Aset</li>
 @end
 
@@ -401,6 +401,6 @@ th, td {
 
 @section('script')
 <script>
-    theme.activeMenu('.nav-transfer-masuk');
+    theme.activeMenu('.nav-transfer-hapus');
 </script>
 @end
