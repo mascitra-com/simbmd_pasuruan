@@ -1,9 +1,12 @@
 <?php
 if ( ! function_exists('monefy'))
 {
-	function monefy($text="")
+	function monefy($text="", $is_decimal = TRUE)
 	{
-		return number_format($text,2,',','.');
+		if ($is_decimal) {
+			return number_format($text,2,',','.');
+		}
+		return number_format($text);
 	}
 }
 

@@ -24,7 +24,24 @@
                 <span class="mr-auto">Detail Kontrak</span>
             </div>
             <div class="card-body">
-                
+                <form action="#" class="form-row">
+                    <div class="form-group col-6">
+                        <label>No. Jurnal</label>
+                        <input type="text" class="form-control" placeholder="####" readonly/>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Tanggal Jurnal</label>
+                        <input type="date" class="form-control" value="{{date('Y-m-d')}}" placeholder="tanggal jurnal" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Keterangan</label>
+                        <textarea class="form-control" placeholder="keterangan"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-waring" data-dismiss="modal">Batal</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

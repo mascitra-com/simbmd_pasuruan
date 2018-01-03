@@ -25,6 +25,7 @@
 		</form>
 		<div class="btn-group">
 			<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus mr-2"></i>Tambah</button>
 		</div>
 	</div>
 	<div class="card-body table-responsive px-0 py-0">
@@ -65,6 +66,39 @@
 </div>
 @end
 
+@section('modal')
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Tambah Koreksi Kepemilikan</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<form action="#" class="form-row">
+					<div class="form-group col-6">
+						<label>No. Jurnal</label>
+						<input type="text" class="form-control" placeholder="####" readonly/>
+					</div>
+					<div class="form-group col-6">
+						<label>Tanggal Jurnal</label>
+						<input type="date" class="form-control" value="{{date('Y-m-d')}}" placeholder="tanggal jurnal" />
+					</div>
+					<div class="form-group col-12">
+						<label>Keterangan</label>
+						<textarea class="form-control" placeholder="keterangan"></textarea>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="button" class="btn btn-waring" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+@endsection
+
 @section('style')
 <style>
 .text-sm {font-size: smaller;}
@@ -73,6 +107,6 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-transfer-masuk');
+	theme.activeMenu('.nav-koreksi');
 </script>
 @end

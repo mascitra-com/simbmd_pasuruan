@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Persetujuan Penghapusan@end
+@section('title')Persetujuan Transfer Keluar@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
@@ -118,7 +118,7 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-persetujuan-hapus');
+	theme.activeMenu('.nav-persetujuan-transfer');
 	
 	$("#btn-setuju").on('click', setuju);
 	$("#btn-tolak").on('click', tolak);
