@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-header">{{isset($kib)?'Sunting':'Tambah'}} Aset</div>
 			<div class="card-body">
-				<form action="{{isset($kib)?site_url('aset/kib_non/update_hibah'):site_url('aset/kib_non/insert_hibah')}}" method="POST">
+				<form action="{{isset($kib)?site_url('aset/kibnon/update_hibah'):site_url('aset/kibnon/insert_hibah')}}" method="POST">
 					<input type="hidden" name="id" value="{{isset($kib)?$kib->id:''}}">
 					<input type="hidden" name="id_organisasi" value="{{$hibah->id_organisasi}}">
 					<input type="hidden" name="id_hibah" value="{{$hibah->id}}">

@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan/rincian/'.$spk->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Aset</li>
 @end
 
@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-header">{{isset($kib)?'Sunting':'Tambah'}} Aset Tanah</div>
 			<div class="card-body">
-				<form action="{{isset($kib)?site_url('aset/kiba/update_pengadaan'):site_url('aset/kiba/insert_pengadaan')}}" method="POST">
+				<form action="{{isset($kib)?site_url('pengadaan/kiba/update'):site_url('pengadaan/kiba/insert')}}" method="POST">
 					<input type="hidden" name="id" value="{{isset($kib)?$kib->id:''}}">
 					<input type="hidden" name="id_organisasi" value="{{$spk->id_organisasi}}">
 					<input type="hidden" name="id_spk" value="{{$spk->id}}">
@@ -23,6 +23,16 @@
 						<label class="col-md-3 col-form-label text-right">Nomor SPK/Kontrak</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" value="{{$spk->nomor}}" disabled />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-3 col-form-label text-right">Pilih SP2D</label>
+						<div class="col-md-4">
+							<select name="id_sp2d" class="form-control">
+								@foreach($sp2d AS $item)
+								<option value="{{$item->id}}">{{$item->nomor}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -128,7 +138,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" max="{{$spk->nilai}}" placeholder="Nilai" value="{{isset($spk)?$spk->nilai:''}}" required/>
+							<input type="number" class="form-control" name="nilai" max="{{$spk->nilai}}" placeholder="Nilai" value="{{isset($kib)?$kib->nilai:''}}" required/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -151,7 +161,7 @@
 						<div class="col-md-4">
 							<button type="submit" class="btn btn-primary">Simpan</button>
 							<button type="reset" class="btn btn-secondary">Bersihkan</button>
-							<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-warning">Kembali</a>
+							<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}" class="btn btn-warning">Kembali</a>
 						</div>
 					</div>
 				</form>

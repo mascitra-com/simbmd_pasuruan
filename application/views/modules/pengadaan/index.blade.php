@@ -9,7 +9,7 @@
 @section('content')
 <div class="card">
 	<div class="card-header form-inline">
-		<form action="{{site_url('pengadaan')}}" method="GET" class="mr-auto">
+		<form action="{{site_url('pengadaan/index')}}" method="GET" class="mr-auto">
 			<div class="input-group">
 				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
 					<option></option>
@@ -38,21 +38,37 @@
 						<th class="text-right">Nilai</th>
 						<th class="text-nowrap">Jangka Waktu</th>
 						<th>Keterangan</th>
-						<th class="text-center"></th>
+						<th class="text-center">Status Pengajuan</th>
+						<th class="text-center">Tanggal Verifikasi</th>
+						<th class="text-center">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($spks AS $spk)
+					@foreach($spks AS $item)
 					<tr>
-						<td class="text-center">{{$spk->nomor}}</td>
-						<td>{{datify($spk->tanggal, 'd/m/Y')}}</td>
-						<td class="text-right">{{(!empty($spk->nilai)) ? monefy($spk->nilai) : 00,00}}</td>
-						<td class="text-nowrap">{{$spk->jangka_waktu}}</td>
-						<td class="text-sm">{{$spk->keterangan}}</td>
+						<td class="text-center">{{$item->nomor}}</td>
+						<td>{{datify($item->tanggal, 'd/m/Y')}}</td>
+						<td class="text-right">{{(!empty($item->nilai)) ? monefy($item->nilai) : 00,00}}</td>
+						<td class="text-nowrap">{{$item->jangka_waktu}}</td>
+						<td class="text-sm">{{$item->keterangan}}</td>
+						<td class="text-center">
+							@if($item->status_pengajuan === '0')
+							<button class="btn btn-secondary btn-sm btn-block" id="btn-pesan">draf</button>
+							@elseif($item->status_pengajuan === '1')
+							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
+							@elseif($item->status_pengajuan === '2')
+							<button class="btn btn-success btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+							@elseif($item->status_pengajuan === '3')
+							<button class="btn btn-danger btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
+							@else
+							ERROR
+							@endif
+						</td>
+						<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
 						<td class="text-center">
 							<div class="btn-group btn-group-sm">
-								<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
-								<button class="btn btn-danger" data-id="{{$spk->id}}"><i class="fa fa-trash"></i></button>
+								<a href="{{site_url('pengadaan/index/detail/'.$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
+								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
 							</div>
 						</td>
 					</tr>
@@ -74,7 +90,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('pengadaan/insert_spk')}}" method="POST">
+				<form action="{{site_url('pengadaan/index/insert')}}" method="POST">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="col">
@@ -213,7 +229,7 @@
 	theme.activeMenu('.nav-pengadaan');
 	$("[data-id]").on('click', function(){
 		var id = $(this).data('id');
-		$("#btn-hapus-confirm").attr("href", "{{site_url('pengadaan/delete_spk/')}}"+id);
+		$("#btn-hapus-confirm").attr("href", "{{site_url('pengadaan/index/delete/')}}"+id);
 		$("#modal-hapus").modal('show');
 	});
 </script>

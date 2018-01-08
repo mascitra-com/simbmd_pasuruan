@@ -3,25 +3,32 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
 <li class="breadcrumb-item active">Rincian Aset</li>
 @end
 
 @section('content')
-<div class="btn-group mb-3">
-	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail Pengadaan</a>
-	<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary active">02. Rincian Aset</a>
-	<a href="{{site_url('pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary">03. SP2D</a>
+<div class="form-inline">
+	<div class="btn-group mb-3">
+		<a href="{{site_url('pengadaan/index/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail Pengadaan</a>
+		<a href="{{site_url('pengadaan/sp2d/index/'.$spk->id)}}" class="btn btn-primary">02. SP2D</a>
+		<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}" class="btn btn-primary active">03. Rincian Aset</a>
+	</div>
+	<div class="btn-group mb-3 ml-auto">
+		@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
+		<a href="{{site_url('pengadaan/index/finish_transaction/'.$spk->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+		<button class="btn btn-primary" data-toggle="modal" data-target="#modal-add" {{(empty($sp2d['data']))?'disabled':''}}><i class="fa fa-plus"></i> Tambah {{(empty($sp2d['data']))?'(sp2d kosong)':''}}</button>
+		@elseif($spk->status_pengajuan === '1')
+		<a href="{{site_url('pengadaan/index/cancel_transaction/'.$spk->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+		@endif
+		<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh"></i> Segarkan</button>
+	</div>
 </div>
 <div class="row mb-3">
 	<div class="col">
 		<div class="card">
 			<div class="card-header form-inline">
 				<span class="mr-auto">Detail Kontrak</span>
-				<div class="btn-group btn-group-sm">
-					<button class="btn btn-primary" data-toggle="modal" data-target="#modal-add" {{(!empty($sp2d['total']))?'disabled':''}}><i class="fa fa-plus"></i> Tambah</button>
-					<button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
-				</div>
 			</div>
 			<div class="card-body row">
 				<div class="col">
@@ -89,7 +96,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap text-center">Nama Barang</th>
 								<th class="text-nowrap">Luas (m2)</th>
@@ -103,24 +112,23 @@
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap text-right">Nilai</th>
 								<th class="text-nowrap">Keterangan</th>
-								<th class="text-nowrap">Kategori</th>
 							</tr>
 						</thead>
 						<tbody>
 							@if(empty($kiba))
-							<tr><td colspan="14" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="15" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
 							@foreach($kiba AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kiba/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kiba/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kiba/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kiba/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -129,6 +137,7 @@
 									{{zerofy($item->id_kategori->kd_subsubkelompok)}} .
 									{{zerofy($item->reg_barang,4)}}
 								</td>
+								<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 								<td class="text-nowrap">{{monefy($item->luas)}}</td>
 								<td class="text-nowrap">{{$item->alamat}}</td>
 								<td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
@@ -140,7 +149,6 @@
 								<td class="text-nowrap">{{$item->asal_usul}}</td>
 								<td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
 								<td class="text-nowrap">{{$item->keterangan}}</td>
-								<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 							</tr>
 							@endforeach
 						</tbody>
@@ -152,7 +160,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Merk</th>
 								<th class="text-nowrap">Tipe</th>
@@ -182,14 +192,14 @@
 
 							@foreach($kibb AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kibb/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kibb/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kibb/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kibb/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -216,7 +226,7 @@
 								<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 								<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 								<td class="text-nowrap">{{$item->keterangan}}</td>
-								<td class="text-nowrap">{{$item->id_ruangan->nama}}</td>
+								<td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
 								<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 							</tr>
 							@endforeach
@@ -229,7 +239,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Tingkat</th>
 								<th class="text-nowrap">Beton</th>
@@ -257,14 +269,14 @@
 
 							@foreach($kibc AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kibc/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kibc/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kibc/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kibc/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -301,7 +313,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Kontruksi</th>
 								<th class="text-nowrap">Panjang</th>
@@ -330,14 +344,14 @@
 
 							@foreach($kibd AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kibd/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kibd/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kibd/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kibd/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -375,7 +389,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Judul</th>
 								<th class="text-nowrap">Pecipta</th>
@@ -400,14 +416,14 @@
 
 							@foreach($kibe AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kibe/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kibe/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kibe/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kibe/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -441,7 +457,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap">Nama</th>
 								<th class="text-nowrap">Merk</th>
 								<th class="text-nowrap">Tipe</th>
@@ -456,14 +474,14 @@
 
 							@foreach($kibnon AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kib_non/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kib_non/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kibnon/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kibnon/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap">{{$item->nama}}</td>
 								<td class="text-nowrap">{{$item->merk}}</td>
 								<td class="text-nowrap">{{$item->tipe}}</td>
@@ -480,7 +498,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Nama</th>
 								<th class="text-nowrap">Merk</th>
@@ -499,14 +519,14 @@
 
 							@foreach($kpt AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('kapitalisasi/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('kapitalisasi/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kapitalisasi/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('kapitalisasi/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -533,7 +553,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Tingkat</th>
 								<th class="text-nowrap">Beton</th>
@@ -561,14 +583,14 @@
 
 							@foreach($kdpc AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kdpc/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kdpc/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('aset/kdpc/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('aset/kdpc/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -605,7 +627,9 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
+								@endif
 								<th class="text-nowrap text-center">Kode Barang</th>
 								<th class="text-nowrap">Kontruksi</th>
 								<th class="text-nowrap">Panjang</th>
@@ -634,14 +658,14 @@
 
 							@foreach($kdpd AS $item)
 							<tr>
+								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
-									@if(empty($sp2d['total']))
 									<div class="btn-group">
-										<a href="{{site_url('aset/kdpd/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kdpd/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('aset/kdpd/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('aset/kdpd/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
-									@endif
 								</td>
+								@endif
 								<td class="text-nowrap text-center">
 									{{zerofy($item->id_kategori->kd_golongan)}} .
 									{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -688,7 +712,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('pengadaan/rincian_redirect/'.$spk->id)}}" method="POST">
+				<form action="{{site_url('pengadaan/index/rincian_redirect/'.$spk->id)}}" method="POST">
 					<div class="modal-title"><b>Aset Tetap</b></div>
 					<ul style="list-style: none;">
 						<li><input type="radio" name="jenis" value="a"> A - Tanah</li>

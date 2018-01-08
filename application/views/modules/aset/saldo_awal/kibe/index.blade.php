@@ -12,7 +12,7 @@
 	<div class="col">
 		<div class="card">
 			<div class="card-header form-inline">
-				<form action="{{site_url('aset/saldo_awal/kibe')}}" method="GET" class="mr-auto">
+				<form action="{{site_url('saldo_awal/kibe')}}" method="GET" class="mr-auto">
 					<div class="input-group">
 						<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB..." >
 						<option value="">Pilih Organisasi....</option>
@@ -100,7 +100,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('aset/saldo_awal/kibe')}}" method="GET">
+				<form action="{{site_url('saldo_awal/kibe')}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">

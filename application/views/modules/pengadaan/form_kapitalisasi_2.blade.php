@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan/rincian/'.$spk->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Nilai Aset</li>
 @end
 
@@ -47,7 +47,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<a href="{{site_url('kapitalisasi/add_pengadaan/langkah_3/'.$spk->id.'?id_aset='.$item->id.'&golongan=3&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
+								<a href="{{site_url('pengadaan/kapitalisasi/add/langkah_3/'.$spk->id.'?id_aset='.$item->id.'&golongan=3&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -112,7 +112,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<a href="{{site_url('kapitalisasi/add_pengadaan/langkah_3/'.$spk->id.'?id_aset='.$item->id.'&golongan=4&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
+								<a href="{{site_url('pengadaan/kapitalisasi/add/langkah_3/'.$spk->id.'?id_aset='.$item->id.'&golongan=4&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -147,7 +147,7 @@
 				@endif
 			</div>
 		</div>
-		<a href="{{site_url('kapitalisasi/add_pengadaan/langkah_1/'.$spk->id)}}" class="btn btn-warning mt-3">Kembali</a>
+		<a href="{{site_url('pengadaan/kapitalisasi/add/langkah_1/'.$spk->id)}}" class="btn btn-warning mt-3">Kembali</a>
 	</div>
 </div>
 @end

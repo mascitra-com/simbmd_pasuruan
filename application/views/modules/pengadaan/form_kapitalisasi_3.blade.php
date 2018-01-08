@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan/rincian/'.$spk->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Nilai Aset</li>
 @end
 
@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-header">{{isset($kpt) ? 'Sunting Penambahan Nilai' : 'Tambah Nilai Aset (Langkah Terakhir)'}}</div>
 			<div class="card-body table-responsive">
-				<form action="{{isset($kpt) ? site_url('kapitalisasi/update_pengadaan') : site_url('kapitalisasi/insert_pengadaan')}}" method="POST">
+				<form action="{{isset($kpt) ? site_url('pengadaan/kapitalisasi/update') : site_url('pengadaan/kapitalisasi/insert')}}" method="POST">
 					
 					<input type="hidden" name="id" value="{{isset($kpt) ? $kpt->id : ''}}">
 					<input type="hidden" name="id_kategori" value="{{$kategori->id}}">
@@ -26,6 +26,16 @@
 						<label class="col-md-2 col-form-label text-right">Reg Induk Aset</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" value="{{$kib->reg_induk}}" readonly/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-3 col-form-label text-right">Pilih SP2D</label>
+						<div class="col-md-4">
+							<select name="id_sp2d" class="form-control">
+								@foreach($sp2d AS $item)
+								<option value="{{$item->id}}">{{$item->nomor}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -80,9 +90,9 @@
 						<label class="col-md-2 col-form-label text-right"></label>
 						<div class="col-md-4">
 							@if(isset($kpt))
-							<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-warning">Kembali</a>
+							<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}" class="btn btn-warning">Kembali</a>
 							@else
-							<a href="{{site_url('kapitalisasi/add_pengadaan/langkah_2/'.$spk->id.'?golongan='.$golongan.'&subsubkelompok='.$subsubkelompok)}}" class="btn btn-warning">Kembali</a>
+							<a href="{{site_url('pengadaan/kapitalisasi/add/langkah_2/'.$spk->id.'?golongan='.$golongan.'&subsubkelompok='.$subsubkelompok)}}" class="btn btn-warning">Kembali</a>
 							@endif
 							<button class="btn btn-primary">Simpan</button>
 						</div>

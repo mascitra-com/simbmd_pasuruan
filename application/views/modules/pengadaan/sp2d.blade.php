@@ -3,15 +3,24 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
 <li class="breadcrumb-item active">SP2D</li>
 @end
 
 @section('content')
-<div class="btn-group mb-3">
-	<a href="{{site_url('pengadaan/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail SPK</a>
-	<a href="{{site_url('pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary">02. Rincian Aset</a>
-	<a href="{{site_url('pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary active">03. SP2D</a>
+<div class="form-inline">
+	<div class="btn-group mb-3">
+		<a href="{{site_url('pengadaan/index/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail Pengadaan</a>
+		<a href="{{site_url('pengadaan/sp2d/index/'.$spk->id)}}" class="btn btn-primary active">02. SP2D</a>
+		<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}" class="btn btn-primary">03. Rincian Aset</a>
+	</div>
+	<div class="btn-group mb-3 ml-auto">
+        @if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
+        <a href="{{site_url('pengadaan/index/finish_transaction/'.$spk->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+        @elseif($spk->status_pengajuan === '1')
+        <a href="{{site_url('pengadaan/index/cancel_transaction/'.$spk->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+        @endif
+    </div>
 </div>
 <div class="row mb-3">
 	<div class="col">
@@ -71,7 +80,7 @@
 							<td>{{$data->keterangan}}</td>
 							<td class="text-center text-nowrap btn-group">
 								<button class="btn btn-warning btn-sm" data-id="{{$data->id}}"><i class="fa fa-pencil"></i></button>
-								<a href="{{site_url('pengadaan/delete_sp2d/'.$data->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+								<a href="{{site_url('pengadaan/sp2d/delete/'.$data->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
 						@endforeach
@@ -94,7 +103,7 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col">
-						<form action="{{site_url('pengadaan/insert_sp2d')}}" method="POST">
+						<form action="{{site_url('pengadaan/sp2d/insert')}}" method="POST">
 							<input type="hidden" name="id">
 							<input type="hidden" name="id_spk" value="{{$spk->id}}">
 							<div class="form-group">
@@ -103,7 +112,7 @@
 							</div>
 							<div class="form-group">
 								<label>Tanggal</label>
-								<input type="date" class="form-control form-control-sm" name="tanggal" placeholder="Tanggal" />
+								<input type="date" class="form-control form-control-sm" name="tanggal" value="{{date('Y-m-d')}}" placeholder="Tanggal"/>
 							</div>
 							<div class="form-group">
 								<label>Kode Rekening Belanja</label>
@@ -180,6 +189,7 @@
 			var key = $("#ip-search").val();
 			$.getJSON("{{site_url('rekening/get_data_search?key=')}}"+key, function(result){
 				$("#tbl-rekening > tbody").empty();
+				$("#tbl-rekening > tbody").append("<tr><td colspan='2' class='text-center'><b>menampilkan "+result.length+" data teratas</b></td></tr>");
 				$.each(result, function(key, value){
 					var html = "<tr>";
 					html += "<td>"+value.kode+"</td>";
@@ -194,9 +204,9 @@
 
 		function fungsiTombolEdit(e) {
 			var id = $(e.currentTarget).data('id');
-			$("#modal-tambah form").attr('action', "{{site_url('pengadaan/update_sp2d')}}");
+			$("#modal-tambah form").attr('action', "{{site_url('pengadaan/sp2d/update')}}");
 			$("#modal-tambah form input[name=id]").val(id);
-			$.getJSON("{{site_url('pengadaan/get_sp2d/')}}"+id, function(result){
+			$.getJSON("{{site_url('pengadaan/sp2d/get/')}}"+id, function(result){
 				if (result) {
 					$("[name=nomor]").val(result.nomor);
 					$("[name=tanggal]").val(result.tanggal);
@@ -210,7 +220,7 @@
 		}
 
 		function reset() {
-			$("#modal-tambah form").attr('action', "{{site_url('pengadaan/insert_sp2d')}}");
+			$("#modal-tambah form").attr('action', "{{site_url('pengadaan/sp2d/insert')}}");
 			$("#modal-tambah form").trigger('reset');
 			$("#tbl-rekening > tbody").empty();
 		}

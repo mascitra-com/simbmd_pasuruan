@@ -37,7 +37,7 @@ class Kib_non extends MY_Controller {
 	{
 		if(empty($id)) {
 			$this->message('Pilih organisasi terlebih dahulu', 'danger');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		}
 
 		$data['org'] = $this->organisasi->get($id);
@@ -66,7 +66,7 @@ class Kib_non extends MY_Controller {
 	{
 		if(empty($id)) {
 			$this->message('Pilih organisasi terlebih dahulu', 'danger');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		}
 
 		$data['kib'] = $this->kib->get($id);
@@ -91,16 +91,16 @@ class Kib_non extends MY_Controller {
         $data['nilai'] 	= unmonefy($data['nilai']);
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kib_non/add/'.$data['id_organisasi']);
+            $this->go('aset/kibnon/add/'.$data['id_organisasi']);
         }
 
 		$sukses = $this->kib->insert($data);
 		if($sukses) {
 			$this->message('Data berhasil disimpan','success');
-			$this->go('aset/kib_non/add/'.$data['id_organisasi']);
+			$this->go('aset/kibnon/add/'.$data['id_organisasi']);
 		} else {
 			$this->message('Data gagal disimpan','danger');
-			$this->go('aset/kib_non/add/'.$data['id_organisasi']);
+			$this->go('aset/kibnon/add/'.$data['id_organisasi']);
 		}
 	}
 
@@ -111,7 +111,7 @@ class Kib_non extends MY_Controller {
 
         if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('aset/kib_non/add_pengadaan/'.$data['id_spk']);
+			$this->go('aset/kibnon/add_pengadaan/'.$data['id_spk']);
 		}
 
 		$data_final = array();
@@ -128,7 +128,7 @@ class Kib_non extends MY_Controller {
 			$this->go('pengadaan/rincian/'.$data['id_spk']);
 		} else {
 			$this->message('Data gagal disimpan','danger');
-			$this->go('aset/kib_non/add_pengadaan/'.$data['id_spk']);
+			$this->go('aset/kibnon/add_pengadaan/'.$data['id_spk']);
 		}
 	}
 
@@ -141,16 +141,16 @@ class Kib_non extends MY_Controller {
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kib_non/edit/'.$id);
+            $this->go('aset/kibnon/edit/'.$id);
         }
 
 		$sukses = $this->kib->update($id, $data);
 		if($sukses) {
 			$this->message('Data berhasil disunting','success');
-			$this->go('aset/kib_non?id_organisasi='.$data['id_organisasi']);
+			$this->go('aset/kibnon?id_organisasi='.$data['id_organisasi']);
 		} else {
 			$this->message('Data gagal disunting','danger');
-			$this->go('aset/kib_non/edit/'.$id);
+			$this->go('aset/kibnon/edit/'.$id);
 		}
 	}
 
@@ -163,7 +163,7 @@ class Kib_non extends MY_Controller {
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('aset/kib_non/edit_pengadaan/'.$id);
+			$this->go('aset/kibnon/edit_pengadaan/'.$id);
 		}
 
 		$sukses = $this->kib->update($id, $data);
@@ -172,7 +172,7 @@ class Kib_non extends MY_Controller {
 			$this->go('pengadaan/rincian/'.$data['id_spk']);
 		} else {
 			$this->message('Data gagal disunting','danger');
-			$this->go('aset/kib_non/edit_pengadaan/'.$id);
+			$this->go('aset/kibnon/edit_pengadaan/'.$id);
 		}
 	}
 
@@ -180,16 +180,16 @@ class Kib_non extends MY_Controller {
 	{
 		if(empty($id)) {
 			$this->message('Pilih organisasi terlebih dahulu', 'danger');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		}
 
 		$sukses = $this->kib->update($id, array('is_deleted'=>1));
 		if($sukses) {
-			$this->message("Data berhasil dihapus, <a href='".site_url('aset/kib_non/undelete/'.$id)."'><b>Urungkan!</b></a>",'success');
-			$this->go('aset/kib_non');
+			$this->message("Data berhasil dihapus, <a href='".site_url('aset/kibnon/undelete/'.$id)."'><b>Urungkan!</b></a>",'success');
+			$this->go('aset/kibnon');
 		} else {
 			$this->message('Data gagal dihapus','danger');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		}
 	}
 
@@ -213,16 +213,16 @@ class Kib_non extends MY_Controller {
 	{
 		if(empty($id)) {
 			$this->message('Pilih organisasi terlebih dahulu', 'danger');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		}
 
 		$sukses = $this->kib->update($id, array('is_deleted'=>0));
 		if($sukses) {
 			$this->message("Data dihapus berhasil diurungkan.",'success');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		} else {
 			$this->message('Data dihapus gagal diurungkan','danger');
-			$this->go('aset/kib_non');
+			$this->go('aset/kibnon');
 		}
 	}
 }

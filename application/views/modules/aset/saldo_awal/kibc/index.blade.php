@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('aset/saldo_awal/kibc?id_organisasi='.$filter['id_organisasi'])}}">Aset Saldo Awal</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('saldo_awal/kibc?id_organisasi='.$filter['id_organisasi'])}}">Aset Saldo Awal</a></li>
 <li class="breadcrumb-item active">KIB-C</li>
 @end
 
@@ -12,7 +12,7 @@
 	<div class="col">
 		<div class="card">
 			<div class="card-header form-inline">
-				<form action="{{site_url('aset/saldo_awal/kibc')}}" method="GET" class="mr-auto">
+				<form action="{{site_url('saldo_awal/kibc')}}" method="GET" class="mr-auto">
 					<div class="input-group">
 						<select name="id_organisasi" class="form-control select-chosen">
 							<option value="">Pilih Organisasi....</option>
@@ -106,7 +106,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('aset/saldo_awal/kibc')}}" method="GET">
+				<form action="{{site_url('saldo_awal/kibc')}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">

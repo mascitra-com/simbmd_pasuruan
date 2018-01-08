@@ -12,12 +12,12 @@
 			<li class="nav nav-saldo-awal">
 				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
-					<li class="nav"><a href="{{site_url('aset/saldo_awal/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-					<li class="nav"><a href="{{site_url('aset/saldo_awal/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-					<li class="nav"><a href="{{site_url('aset/saldo_awal/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-					<li class="nav"><a href="{{site_url('aset/saldo_awal/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-					<li class="nav"><a href="{{site_url('aset/saldo_awal/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('aset/kib_non')}}"><i class="fa fa-cogs fa-fw icon"></i>Extracomtable</a></li>
+					<li class="nav"><a href="{{site_url('saldo_awal/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
+					<li class="nav"><a href="{{site_url('saldo_awal/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
+					<li class="nav"><a href="{{site_url('saldo_awal/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
+					<li class="nav"><a href="{{site_url('saldo_awal/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
+					<li class="nav"><a href="{{site_url('saldo_awal/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
+					<li class="nav"><a href="{{site_url('kibnon')}}"><i class="fa fa-cogs fa-fw icon"></i>Extracomtable</a></li>
 				</ul>
 			</li>
 
@@ -25,15 +25,15 @@
 			<li class="nav nav-invent">
 				<a href="#menu-invent" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Inventarisasi<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-invent">
-					<li class="nav"><a href="{{site_url('aset/inventarisasi/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-					<li class="nav"><a href="{{site_url('aset/inventarisasi/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-					<li class="nav"><a href="{{site_url('aset/inventarisasi/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-					<li class="nav"><a href="{{site_url('aset/inventarisasi/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-					<li class="nav"><a href="{{site_url('aset/inventarisasi/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('aset/inventarisasi/kib_non')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
+					<li class="nav"><a href="{{site_url('inventarisasi/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
+					<li class="nav"><a href="{{site_url('inventarisasi/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
+					<li class="nav"><a href="{{site_url('inventarisasi/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
+					<li class="nav"><a href="{{site_url('inventarisasi/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
+					<li class="nav"><a href="{{site_url('inventarisasi/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
+					<li class="nav"><a href="{{site_url('inventarisasi/kibnon')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
 				</ul>
 			</li>
-			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
+			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan/index')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
 			<li class="nav nav-hibah"><a href="{{site_url('hibah')}}"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
 			<li class="nav nav-transfer-masuk"><a href="{{ site_url('transfer/masuk') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
 			<li class="nav nav-koreksi-tambah">
