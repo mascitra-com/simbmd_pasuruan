@@ -57,9 +57,10 @@
 
 			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-title">PERSETUJUAN</li>
-			<li class="nav nav-persetujuan-hibah"><a href="{{site_url('persetujuan_hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
-			<li class="nav nav-persetujuan-transfer"><a href="{{site_url('persetujuan_transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-persetujuan-hapus"><a href="{{site_url('persetujuan_penghapusan')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-persetujuan-pengadaan"><a href="{{site_url('persetujuan/pengadaan')}}"><i class="fa fa-check fa-fw icon"></i>Pengadaan</a></li>
+			<li class="nav nav-persetujuan-hibah"><a href="{{site_url('persetujuan/hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
+			<li class="nav nav-persetujuan-transfer"><a href="{{site_url('persetujuan/transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
+			<li class="nav nav-persetujuan-hapus"><a href="{{site_url('persetujuan/penghapusan')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
 			@endif
 
 			<li class="nav nav-title">LAPORAN</li>
