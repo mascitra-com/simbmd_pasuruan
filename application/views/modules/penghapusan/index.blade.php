@@ -70,7 +70,7 @@
                             <td class="text-nowrap">{{ $item->status_pengajuan > 1 ? datify($item->tanggal_verifikasi, 'd-m-Y') : "-" }}</td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ base_url('penghapusan/detail/'.$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ base_url('penghapusan/index/detail/'.$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                     @if($item->status_pengajuan == '0' || $item->status_pengajuan == '3')
                                         <button data-id="{{ $item->id }}" class="btn btn-danger "><i class="fa fa-trash"></i></button>
                                     @endif
@@ -99,7 +99,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{site_url('penghapusan/insert')}}" method="POST">
+                    <form action="{{site_url('penghapusan/index/insert')}}" method="POST">
                         <input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
                         <div class="row">
                             <div class="col">
@@ -209,7 +209,7 @@
         theme.activeMenu('.nav-penghapusan');
         $("[data-id]").on('click', function(){
             var id = $(this).data('id');
-            $("#btn-hapus-confirm").attr("href", "{{site_url('penghapusan/delete/')}}"+id);
+            $("#btn-hapus-confirm").attr("href", "{{site_url('penghapusan/index/delete/')}}"+id);
             $("#modal-hapus").modal('show');
         });
 

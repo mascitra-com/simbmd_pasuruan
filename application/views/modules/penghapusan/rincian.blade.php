@@ -3,7 +3,7 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('penghapusan?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan
+    <li class="breadcrumb-item"><a href="{{site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan
             Aset</a></li>
     <li class="breadcrumb-item active">Rincian Aset</li>
     @end4
@@ -11,17 +11,17 @@
 @section('content')
     <div class="form-inline">
         <div class="btn-group mb-3">
-            <a href="{{site_url('penghapusan/detail/'.$hapus->id)}}" class="btn btn-primary">01. Penghapusan Aset</a>
+            <a href="{{site_url('penghapusan/index/detail/'.$hapus->id)}}" class="btn btn-primary">01. Penghapusan Aset</a>
             <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
         </div>
         <div class="btn-group mb-3 ml-auto">
             @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
-            <a href="{{ site_url('penghapusan/finish_transaction/'.$hapus->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
+            <a href="{{ site_url('penghapusan/index/finish_transaction/'.$hapus->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
                     <i class="fa fa-check mr-2"></i>
                     Selesaikan Transaksi
                 </a>
             @elseif($hapus->status_pengajuan === '1')
-                <a href="{{ site_url('penghapusan/cancel_transaction/'.$hapus->id) }}" class="btn btn-warning" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
+                <a href="{{ site_url('penghapusan/index/cancel_transaction/'.$hapus->id) }}" class="btn btn-warning" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
                     <i class="fa fa-check mr-2"></i>
                     Batalkan Transaksi
                 </a>
@@ -479,7 +479,7 @@
                                 aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ site_url('penghapusan/rincian_redirect/'.$hapus->id) }}" method="POST">
+                    <form action="{{ site_url('penghapusan/index/rincian_redirect/'.$hapus->id) }}" method="POST">
                         <div class="modal-title"><b>Aset Tetap</b></div>
                         <ul style="list-style: none;">
                             <li><input type="radio" name="jenis" value="a"> A - Tanah</li>

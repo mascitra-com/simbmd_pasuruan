@@ -3,7 +3,7 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('penghapusan')}}">Penghapusan Aset</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('penghapusan/index')}}">Penghapusan Aset</a></li>
     <li class="breadcrumb-item active">{{isset($hapus)?'Sunting':'Tambah'}}</li>
     @end
 
@@ -13,8 +13,7 @@
             <div class="card">
                 <div class="card-header">{{isset($hapus)?'Sunting':'Tambah'}} Penghapusan Aset</div>
                 <div class="card-body">
-                    <form action="#"
-                          method="POST">
+                    <form action="{{ site_url('penghapusan/index/update') }}" method="POST">
                         <input type="hidden" name="id" value="{{isset($hapus)?$hapus->id:''}}">
                         <input type="hidden" name="id_organisasi" value="{{$org->id}}">
 
@@ -73,9 +72,9 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right"></label>
                             <div class="col-md-4">
-                                <a href="{{ site_url('penghapusan/detail/172') }}" type="submit" class="btn btn-primary">Simpan</a>
+                                <a href="{{ site_url('penghapusan/index/detail/172') }}" type="submit" class="btn btn-primary">Simpan</a>
                                 <button type="reset" class="btn btn-secondary">Bersihkan</button>
-                                <a href="{{site_url('penghapusan')}}" class="btn btn-warning">Kembali</a>
+                                <a href="{{site_url('penghapusan/index')}}" class="btn btn-warning">Kembali</a>
                             </div>
                         </div>
                     </form>
