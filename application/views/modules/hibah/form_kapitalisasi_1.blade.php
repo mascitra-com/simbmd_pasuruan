@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah/rincian/'.$hibah->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Nilai Aset</li>
 @end
 
@@ -16,7 +16,7 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col">
-						<form action="{{site_url('kapitalisasi/add_hibah/langkah_2/'.$hibah->id)}}" method="GET" class="form-row">
+						<form action="{{site_url('hibah/kapitalisasi/add/langkah_2/'.$hibah->id)}}" method="GET" class="form-row">
 							<div class="form-group col-6">
 								<label>01. Golongan</label>
 								<select class="form-control" name="golongan" id="golongan">

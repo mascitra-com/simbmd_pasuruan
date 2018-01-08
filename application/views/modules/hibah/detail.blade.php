@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @end
 
@@ -11,7 +11,7 @@
     <div class="form-inline">
         <div class="btn-group mb-3">
             <a href="#" class="btn btn-primary active">01. Detail Hibah</a>
-            <a href="{{site_url('hibah/rincian/'.$hibah->id)}}" class="btn btn-primary">02. Rincian Aset</a>
+            <a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}" class="btn btn-primary">02. Rincian Aset</a>
         </div>
     </div>
     <div class="row">
@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-header">Detail Hibah</div>
                 <div class="card-body">
-                    <form action="{{ site_url('hibah/update_hibah') }}" method="POST">
+                    <form action="{{ site_url('hibah/index/update') }}" method="POST">
                         <input type="hidden" name="id" value="{{ $hibah->id }}">
                         <div class="row">
                             <div class="col">

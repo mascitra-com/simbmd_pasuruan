@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah/rincian/'.$hibah->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Nilai Aset</li>
 @end
 
@@ -47,7 +47,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<a href="{{site_url('kapitalisasi/add_hibah/langkah_3/'.$hibah->id.'?id_aset='.$item->id.'&golongan=3&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
+								<a href="{{site_url('hibah/kapitalisasi/add/langkah_3/'.$hibah->id.'?id_aset='.$item->id.'&golongan=3&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -112,7 +112,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<a href="{{site_url('kapitalisasi/add_hibah/langkah_3/'.$hibah->id.'?id_aset='.$item->id.'&golongan=4&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
+								<a href="{{site_url('hibah/kapitalisasi/add/langkah_3/'.$hibah->id.'?id_aset='.$item->id.'&golongan=4&subsubkelompok='.$subsubkelompok)}}" class="btn btn-primary btn-sm">Pilih</a>
 							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -147,7 +147,7 @@
 				@endif
 			</div>
 		</div>
-		<a href="{{site_url('kapitalisasi/add_hibah/langkah_1/'.$hibah->id)}}" class="btn btn-warning mt-3">Kembali</a>
+		<a href="{{site_url('hibah/kapitalisasi/add/langkah_1/'.$hibah->id)}}" class="btn btn-warning mt-3">Kembali</a>
 	</div>
 </div>
 @end

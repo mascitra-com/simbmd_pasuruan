@@ -9,7 +9,7 @@
 @section('content')
 <div class="card">
 	<div class="card-header form-inline">
-		<form action="{{site_url('hibah')}}" method="GET" class="mr-auto">
+		<form action="{{site_url('hibah/index')}}" method="GET" class="mr-auto">
 			<div class="input-group">
 				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
 					<option></option>
@@ -54,8 +54,8 @@
 						<td class="text-nowrap">{{ datify($list->tgl_serah_terima, 'd-m-Y') }}</td>
 						<td class="text-center">
 							<div class="btn-group btn-group-sm">
-								<a href="{{ site_url('hibah/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
-								<a href="{{ site_url('hibah/delete/'.$list->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+								<a href="{{ site_url('hibah/index/detail/'.$list->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> Rincian</a>
+								<a href="{{ site_url('hibah/index/delete/'.$list->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							</div>
 						</td>
 					</tr>
@@ -82,7 +82,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ site_url('hibah/insert_hibah') }}" method="POST">
+				<form action="{{ site_url('hibah/index/insert') }}" method="POST">
 					<div class="row">
 						<div class="col">
 							<input type="hidden" class="form-control form-control-sm" name="id_organisasi" required value="{{ $filter['id_organisasi'] }}"/>

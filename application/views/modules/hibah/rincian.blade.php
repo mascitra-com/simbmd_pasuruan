@@ -3,14 +3,14 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('hibah/index?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
     <li class="breadcrumb-item active">Rincian Hibah</li>
     @end
 
 @section('content')
     <div class="form-inline">
         <div class="btn-group mb-3">
-            <a href="{{ site_url('hibah/detail/'.$hibah->id) }}" class="btn btn-primary">01. Detail Hibah</a>
+            <a href="{{ site_url('hibah/index/detail/'.$hibah->id) }}" class="btn btn-primary">01. Detail Hibah</a>
             <a href="#" class="btn btn-primary active">02. Rincian Hibah</a>
         </div>
         <div class="btn-group mb-3 ml-auto">
@@ -102,8 +102,8 @@
                                     <td class="text-nowrap text-center">
                                         @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kiba/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kiba/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('hibah/kiba/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('hibah/kiba/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -171,8 +171,8 @@
                                     <td class="text-nowrap text-center">
                                         @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibb/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibb/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('hibah/kibb/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('hibah/kibb/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -246,8 +246,8 @@
                                     <td class="text-nowrap text-center">
                                         @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibc/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibc/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('hibah/kibc/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('hibah/kibc/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -319,8 +319,8 @@
                                     <td class="text-nowrap text-center">
                                         @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibd/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibd/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('hibah/kibd/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('hibah/kibd/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -389,8 +389,8 @@
                                     <td class="text-nowrap text-center">
                                         @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibe/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{site_url('aset/kibe/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('hibah/kibe/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{site_url('hibah/kibe/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                         @endif
                                     </td>
@@ -449,8 +449,8 @@
                                         <td class="text-nowrap text-center">
                                             @if($hibah->status_pengajuan === '0' || $hibah->status_pengajuan === '3')
                                                 <div class="btn-group">
-                                                    <a href="{{site_url('kapitalisasi/edit_hibah/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{site_url('kapitalisasi/delete_hibah/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                                    <a href="{{site_url('hibah/kapitalisasi/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                                                    <a href="{{site_url('hibah/kapitalisasi/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             @endif
                                         </td>
@@ -492,7 +492,7 @@
                                 aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ site_url('hibah/rincian_redirect/'.$hibah->id) }}" method="POST">
+                    <form action="{{ site_url('hibah/index/rincian_redirect/'.$hibah->id) }}" method="POST">
                         <div class="modal-title"><b>Aset Tetap</b></div>
                         <ul style="list-style: none;">
                             <li><input type="radio" name="jenis" value="a"> A - Tanah</li>

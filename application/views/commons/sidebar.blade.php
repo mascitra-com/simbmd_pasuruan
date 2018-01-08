@@ -34,7 +34,7 @@
 				</ul>
 			</li>
 			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan/index')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
-			<li class="nav nav-hibah"><a href="{{site_url('hibah')}}"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
+			<li class="nav nav-hibah"><a href="{{site_url('hibah/index')}}"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
 			<li class="nav nav-transfer-masuk"><a href="{{ site_url('transfer/masuk') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
 			<li class="nav nav-koreksi-tambah">
 				<a href="#menu-koreksi-tambah" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Tambah Lainnya<i class="fa fa-angle-down ml-auto"></i></a>

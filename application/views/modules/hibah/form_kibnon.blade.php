@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah/rincian/'.$hibah->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Aset</li>
 @end
 
@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-header">{{isset($kib)?'Sunting':'Tambah'}} Aset</div>
 			<div class="card-body">
-				<form action="{{isset($kib)?site_url('aset/kibnon/update_hibah'):site_url('aset/kibnon/insert_hibah')}}" method="POST">
+				<form action="{{isset($kib)?site_url('hibah/kibnon/update'):site_url('hibah/kibnon/insert')}}" method="POST">
 					<input type="hidden" name="id" value="{{isset($kib)?$kib->id:''}}">
 					<input type="hidden" name="id_organisasi" value="{{$hibah->id_organisasi}}">
 					<input type="hidden" name="id_hibah" value="{{$hibah->id}}">
@@ -69,7 +69,7 @@
 						<div class="col-md-4">
 							<button type="submit" class="btn btn-primary">Simpan</button>
 							<button type="reset" class="btn btn-secondary">Bersihkan</button>
-							<a href="{{site_url('hibah/rincian/'.$hibah->id)}}" class="btn btn-warning">Kembali</a>
+							<a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}" class="btn btn-warning">Kembali</a>
 						</div>
 					</div>
 				</form>

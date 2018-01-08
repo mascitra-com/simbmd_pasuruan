@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('hibah/rincian/'.$hibah->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index?id_organisasi='.$hibah->id_organisasi)}}">Hibah</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">Tambah Nilai Aset</li>
 @end
 
@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-header">{{isset($kpt) ? 'Sunting Penambahan Nilai' : 'Tambah Nilai Aset (Langkah Terakhir)'}}</div>
 			<div class="card-body table-responsive">
-				<form action="{{isset($kpt) ? site_url('kapitalisasi/update_hibah') : site_url('kapitalisasi/insert_hibah')}}" method="POST">
+				<form action="{{isset($kpt) ? site_url('hibah/kapitalisasi/update') : site_url('hibah/kapitalisasi/insert')}}" method="POST">
 					
 					<input type="hidden" name="id" value="{{isset($kpt) ? $kpt->id : ''}}">
 					<input type="hidden" name="id_kategori" value="{{$kategori->id}}">
@@ -80,9 +80,9 @@
 						<label class="col-md-2 col-form-label text-right"></label>
 						<div class="col-md-4">
 							@if(isset($kpt))
-							<a href="{{site_url('hibah/rincian/'.$hibah->id)}}" class="btn btn-warning">Kembali</a>
+							<a href="{{site_url('hibah/index/rincian/'.$hibah->id)}}" class="btn btn-warning">Kembali</a>
 							@else
-							<a href="{{site_url('kapitalisasi/add_hibah/langkah_2/'.$hibah->id.'?golongan='.$golongan.'&subsubkelompok='.$subsubkelompok)}}" class="btn btn-warning">Kembali</a>
+							<a href="{{site_url('hibah/kapitalisasi/add/langkah_2/'.$hibah->id.'?golongan='.$golongan.'&subsubkelompok='.$subsubkelompok)}}" class="btn btn-warning">Kembali</a>
 							@endif
 							<button class="btn btn-primary">Simpan</button>
 						</div>
