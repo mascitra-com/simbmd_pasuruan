@@ -15,15 +15,9 @@ class Kibe extends MY_Controller
     public function index()
     {
         $filter = $this->input->get();
-
-        $data['organisasi']      = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
 
-        # Jika bukan superadmin
-        if (!$this->auth->get_super_access()) {
-            $filter['id_organisasi'] = $this->auth->get_id_organisasi();
-            $data['organisasi']      = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
-        }
+        $data['organisasi'] = $this->organisasi->get_data_by_auth();
 
         $result = $this->kib->get_data($filter);
         $data['kib']        = $result['data'];

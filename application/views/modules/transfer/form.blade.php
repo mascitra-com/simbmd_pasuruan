@@ -3,7 +3,7 @@
 
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-    <li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$org->id)}}">Transfer Keluar</a></li>
+    <li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar?id_organisasi='.$org->id)}}">Transfer Keluar</a></li>
     <li class="breadcrumb-item active">Tambah Baru</li>
     @end
 
@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header">{{isset($transfer)?'Sunting':'Tambah'}} Aset</div>
                 <div class="card-body">
-                    <form action="{{site_url('transfer/insert')}}" method="POST">
+                    <form action="{{site_url('transfer/index/insert')}}" method="POST">
                         <input type="hidden" name="id_organisasi" value="{{$org->id}}">
 
                         <div class="form-group row">
@@ -28,7 +28,9 @@
                                 <select name="id_tujuan" class="select-chosen form-control" data-placeholder="Pilih UPB...">
                                     <option></option>
                                     @foreach($organisasi AS $item)
+                                        @if($item->id !== $org->id)
                                         <option value="{{$item->id}}" {{isset($filter['id_organisasi']) && $item->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$item->nama}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -194,7 +196,7 @@
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <button type="reset" class="btn btn-secondary">Bersihkan</button>
-                                <a href="{{site_url('transfer/keluar?id_organisasi='.$org->id)}}" class="btn btn-warning">Kembali</a>
+                                <a href="{{site_url('transfer/index/keluar?id_organisasi='.$org->id)}}" class="btn btn-warning">Kembali</a>
                             </div>
                         </div>
                     </form>

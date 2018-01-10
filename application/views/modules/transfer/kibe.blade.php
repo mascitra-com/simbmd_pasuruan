@@ -3,8 +3,8 @@
 
 @section('breadcrump')
 	<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi)}}">Transfer Keluar</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar_rincian/'.$transfer->id)}}">Rincian Aset</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi)}}">Transfer Keluar</a></li>
+	<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar_rincian/'.$transfer->id)}}">Rincian Aset</a></li>
 	<li class="breadcrumb-item active">Tambah Aset KIB-E</li>
 @end
 

@@ -21,7 +21,7 @@ class Transfer extends MY_Controller {
 		$result = $this->transfer->get_data_persetujuan($filter);
 
 		$data['transfer'] = $result['data'];
-		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan_transfer');
+		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan/transfer');
 		$data['filter'] = $filter;
 
 		$this->render('modules/persetujuan/transfer/index', $data);
@@ -74,7 +74,7 @@ class Transfer extends MY_Controller {
 			$sukses2 = $this->transfer->update($data['id_transfer'], array('status_pengajuan' => $data['status'], 'tanggal_verifikasi' => date('Y-m-d h:i')));
 			if ($sukses2) {
 				$this->message('Data berhasil diverifikasi', 'success');
-				$this->go('persetujuan_transfer');
+				$this->go('persetujuan/transfer');
 			} else {
 				# ROLL OUT
 				$this->persetujuan->delete($sukses);

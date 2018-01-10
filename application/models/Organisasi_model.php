@@ -49,8 +49,15 @@ class Organisasi_model extends MY_Model {
         
         # Jika bukan superadmin
         if (!$this->auth->get_super_access()) {
-            $id = $this->auth->get_id_organisasi();
-            $result = $this->organisasi->get_many_by('id', $id);
+           $id = $this->auth->get_id_organisasi();
+
+            # Jika kepala UPB
+            if ($this->auth->get_kepala_access()) {
+                $temp   = $this->get($id);
+                $result = $this->get_many_by(array('kd_bidang'=>$temp->kd_bidang, 'kd_unit'=>$temp->kd_unit, 'jenis'=>4));
+            } else {
+                $result = $this->get_many_by('id', $id);
+            }
         }
 
         return $result;

@@ -31,7 +31,7 @@ class Pegawai extends MY_Controller {
 
 	public function add()
 	{
-		$data['org_list']	= $this->organisasi->get_all();
+		$data['org_list'] = $this->organisasi->get_data_by_auth();
 		$this->render('modules/pegawai/form', $data);
 	}
 

@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
 <li class="breadcrumb-item active">Detail</li>
 @end
 
@@ -11,13 +11,13 @@
 <div class="form-inline">
     <div class="btn-group mb-3">
         <a href="#" class="btn btn-primary active">01. Detail Transfer Keluar</a>
-        <a href="{{site_url('transfer/keluar_rincian/'.$transfer->id)}}" class="btn btn-primary">02. Rincian Aset</a>
+        <a href="{{site_url('transfer/index/keluar_rincian/'.$transfer->id)}}" class="btn btn-primary">02. Rincian Aset</a>
     </div>
     <div class="btn-group mb-3 ml-auto">
         @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
-        <a href="{{site_url('transfer/finish_transaction/'.$transfer->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+        <a href="{{site_url('transfer/index/finish_transaction/'.$transfer->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
         @elseif($transfer->status_pengajuan === '1')
-        <a href="{{site_url('transfer/cancel_transaction/'.$transfer->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+        <a href="{{site_url('transfer/index/cancel_transaction/'.$transfer->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
         @endif
     </div>
 </div>
@@ -26,7 +26,7 @@
 		<div class="card">
 			<div class="card-header">Detail Transfer Keluar</div>
 			<div class="card-body">
-				<form action="{{site_url('transfer/update')}}" method="POST">
+				<form action="{{site_url('transfer/index/update')}}" method="POST">
                     <input type="hidden" name="id" value="{{$transfer->id}}">
 
                     <div class="form-group row">

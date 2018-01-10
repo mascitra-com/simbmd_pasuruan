@@ -13,12 +13,11 @@ class Rekap_hibah extends MY_Controller {
 
 	public function index()
 	{
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
-		
-		# Jika bukan superadmin
+		$data['organisasi'] = $this->organisasi->get_data_by_auth();
+        $data['id_organisasi'] = 0;
+        # Jika bukan superadmin
 		if (!$this->auth->get_super_access()) {
-			$id = $this->auth->get_id_organisasi();
-			$data['organisasi'] = $this->organisasi->get_many_by('id', $id);
+			$data['id_organisasi'] = $this->auth->get_id_organisasi();
 		}
 
 		$this->render('modules/report/rekap_hibah/index', $data);

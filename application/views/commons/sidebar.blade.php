@@ -35,7 +35,7 @@
 			</li>
 			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan/index')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
 			<li class="nav nav-hibah"><a href="{{site_url('hibah')}}"><i class="fa fa-cubes fa-fw icon"></i>Hibah</a></li>
-			<li class="nav nav-transfer-masuk"><a href="{{ site_url('transfer/masuk') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
+			<li class="nav nav-transfer-masuk"><a href="{{ site_url('transfer/index/masuk') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Masuk</a></li>
 			<li class="nav nav-koreksi-tambah">
 				<a href="#menu-koreksi-tambah" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Tambah Lainnya<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-koreksi-tambah">
@@ -46,7 +46,7 @@
 			</li>
 
 			<li class="nav nav-title">MUTASI KURANG</li>
-			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
+			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/index/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
 			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			<li class="nav nav-koreksi-kurang">
 				<a href="#menu-koreksi-kurang" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Kurang Lainnya<i class="fa fa-angle-down ml-auto"></i></a>

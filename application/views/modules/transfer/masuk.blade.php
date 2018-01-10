@@ -57,7 +57,7 @@
 						<td class="text-center">{{datify($item->tanggal_verifikasi)}}</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('transfer/masuk_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
+								<a href="{{ site_url('transfer/index/masuk_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
 							</div>
 						</td>
 					</tr>

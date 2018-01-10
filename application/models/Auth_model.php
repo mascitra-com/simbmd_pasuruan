@@ -69,6 +69,18 @@ class Auth_model extends MY_Model {
 		return '';
 	}
 
+	public function get_kepala_access()
+	{
+		if ($this->session->has_userdata('auth')) {
+			$data = $this->session->auth;
+			if (isset($data['is_kepala_upb']) && !empty($data['is_kepala_upb'])) {
+				return $data['is_kepala_upb'];
+			}
+		}
+
+		return '';
+	}
+
 	public function authenticate($username, $password)
 	{
 		$result = $this->get_by(array('username'=>$username));
@@ -100,7 +112,8 @@ class Auth_model extends MY_Model {
 			'name'=>$data->nama,
 			'id_organisasi'=>$data->id_organisasi,
 			'is_admin'=>$data->is_admin,
-			'is_superadmin'=>$data->is_superadmin
+			'is_superadmin'=>$data->is_superadmin,
+			'is_kepala_upb'=>$data->is_kepala_upb
 			);
 		$this->session->set_userdata('auth', $data);
 	}
