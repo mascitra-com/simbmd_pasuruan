@@ -3,16 +3,16 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item active">Hapus Data</li>
+<li class="breadcrumb-item active">Kosongkan Data</li>
 @end
 
 @section('content')
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Hapus Data SALDO AWAL</div>
+			<div class="card-header">Kosongkan Data SALDO AWAL</div>
 			<div class="card-body row">
-				<form action="{{site_url('peralatan/do_hapus')}}" class="col-6" method="POST" onsubmit="return confirm('Do you really want to submit the form?');">
+				<form action="{{site_url('peralatan/do_hapus')}}" class="col-6" method="POST" onsubmit="return confirm('Anda yakin ingin menghapus data?');">
 					<div class="form-group">
 						<label>Pilih Organisasi</label>
 						<select name="id_organisasi" class="form-control select-chosen" data-placeholder="Pilih Organisasi...">
@@ -24,7 +24,7 @@
 					</div>
 					<div class="form-group">
 						<label>PILIH KIB</label>
-						<select name="id_organisasi" class="form-control">
+						<select name="kib" class="form-control">
 							<option value="kiba">KIB-A</option>
 							<option value="kibb">KIB-B</option>
 							<option value="kibc">KIB-C</option>

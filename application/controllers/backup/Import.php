@@ -35,7 +35,7 @@ class Import extends MY_Controller
 
 		# BEGIN UPLOAD
 		if ($_FILES['berkas']['size'] > 0) {
-			$config['upload_path']   = realpath(FCPATH.'/res/docs/temp/');
+			$config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
 			$config['file_name']	 = date('Ymdhis').uniqid();
 			$config['allowed_types'] = 'xls|xlsx';
 			$config['max_size']      = 16000;
@@ -46,7 +46,7 @@ class Import extends MY_Controller
 			# Jika gagal
 			if (!$this->upload->do_upload('berkas')) {
 				$this->message($this->upload->display_errors(), 'danger');
-				$this->go('backup/on_process');
+				$this->go('backup/import/on_process');
 			}
 
 			$temp['file_name']     = $this->upload->data('file_name');

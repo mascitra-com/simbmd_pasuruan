@@ -16,4 +16,25 @@ class Peralatan extends MY_Controller {
 		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
 		$this->render('modules/peralatan/hapus_data', $data);
 	}
+
+	public function do_hapus()
+	{
+		$data = $this->input->post();
+
+		if (empty($data['id_organisasi']) OR empty($data['kib'])) {
+			$this->message('Pilih data yang diperlukan', 'danger');
+			$this->go('peralatan/hapus_data');
+		}
+
+		$this->load->model('aset/Saldo_'.$data['kib'].'_model', 'kib');
+		$sukses = $this->kib->delete_by('id_organisasi', $data['id_organisasi']);
+
+		if($sukses) {
+			$this->message('Data pada saldo awal berhasil dikosongkan','success');
+		} else {
+			$this->message('Data pada saldo awal gagal dikosongkan','danger');
+		}
+
+		$this->go('peralatan/hapus_data');
+	}
 }
