@@ -78,7 +78,7 @@
                             <td class="{{($detail['jenis']>1)?'bold':''}}">01.03.{{zerofy($rek->kd_golongan)}}</td>
                         @endif
                         <td class="{{($detail['jenis']>1)?'bold':''}}">{{$rek->kategori}}</td>
-                        <td class="text-center">{{monefy($rek->jumlah_aset)}}</td>
+                        <td class="text-center">{{monefy($rek->jumlah_aset, false)}}</td>
                         <td class="text-right {{($detail['jenis']>1)?'bold':''}}">{{monefy($rek->jumlah_nilai)}}</td>
                         <?php $jumlah += $rek->jumlah_nilai; ?>
                     </tr>
@@ -94,7 +94,7 @@
                                             .{{zerofy($rek2->kd_bidang)}}</td>
                                     @endif
                                     <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek2->kategori}}</td>
-                                    <td class="text-center">{{monefy($rek2->jumlah_aset)}}</td>
+                                    <td class="text-center">{{monefy($rek2->jumlah_aset, false)}}</td>
                                     <td class="text-right {{($detail['jenis']>2)?'bold':''}}">{{monefy($rek2->jumlah_nilai)}}</td>
                                 </tr>
                                 @if($detail['jenis'] > 2)
@@ -108,7 +108,7 @@
                                                         .{{zerofy($rek3->kd_bidang)}}</td>
                                                 @endif
                                                 <td>{{$rek3->kategori}}</td>
-                                                <td class="text-center">{{monefy($rek3->jumlah_aset)}}</td>
+                                                <td class="text-center">{{monefy($rek3->jumlah_aset, false)}}</td>
                                                 <td class="text-right">{{monefy($rek3->jumlah_nilai)}}</td>
                                             </tr>
                                         @endif

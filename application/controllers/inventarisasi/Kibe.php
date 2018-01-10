@@ -37,7 +37,7 @@ class Kibe extends MY_Controller
     {
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('aset/kibe');
+            $this->go('inventarisasi/kibe');
         }
 
         $data['org'] = $this->organisasi->get($id);
@@ -50,7 +50,7 @@ class Kibe extends MY_Controller
     {
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('aset/kibe');
+            $this->go('inventarisasi/kibe');
         }
 
         $data['kib'] = $this->kib->get($id);
@@ -70,7 +70,7 @@ class Kibe extends MY_Controller
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibe/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kibe/add/' . $data['id_organisasi']);
         }
         $data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
         $data['reg_induk'] = $this->kib->get_reg_induk();
@@ -78,10 +78,10 @@ class Kibe extends MY_Controller
         $sukses = $this->kib->insert($data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('aset/kibe/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kibe/add/' . $data['id_organisasi']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('aset/kibe/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kibe/add/' . $data['id_organisasi']);
         }
     }
 
@@ -96,7 +96,7 @@ class Kibe extends MY_Controller
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibe/edit/' . $id);
+            $this->go('inventarisasi/kibe/edit/' . $id);
         }
 
         $sukses = $this->kib->update($id, $data);
@@ -105,7 +105,7 @@ class Kibe extends MY_Controller
             $this->go('aset/kibd?id_organisasi='.$data['id_organisasi']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('aset/kibe/edit/' . $id);
+            $this->go('inventarisasi/kibe/edit/' . $id);
         }
     }
 
@@ -113,33 +113,16 @@ class Kibe extends MY_Controller
     {
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('aset/kibe');
+            $this->go('inventarisasi/kibe');
         }
 
         $sukses = $this->kib->delete($id);
         if ($sukses) {
-            $this->message("Data berhasil dihapus, <a href='" . site_url('aset/kibe/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
-            $this->go('aset/kibe');
+            $this->message("Data berhasil dihapus, <a href='" . site_url('inventarisasi/kibe/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
+            $this->go('inventarisasi/kibe');
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('aset/kibe');
+            $this->go('inventarisasi/kibe');
         }
     }
-
-    // public function undelete($id = NULL)
-    // {
-    //     if (empty($id)) {
-    //         $this->message('Pilih organisasi terlebih dahulu', 'danger');
-    //         $this->go('aset/kibe');
-    //     }
-
-    //     $sukses = $this->kib->update($id, array('is_deleted' => 0));
-    //     if ($sukses) {
-    //         $this->message("Data dihapus berhasil diurungkan.", 'success');
-    //         $this->go('aset/kibe');
-    //     } else {
-    //         $this->message('Data dihapus gagal diurungkan', 'danger');
-    //         $this->go('aset/kibe');
-    //     }
-    // }
 }
