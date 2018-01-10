@@ -50,7 +50,7 @@ class Index extends MY_Controller {
 		$sukses = $this->spk->insert($data);
 		if($sukses) {
 			$this->message('Data berhasil disimpan','success');
-			$this->go('pengadaan/detail/'.$sukses);
+			$this->go('pengadaan/index/detail/'.$sukses);
 		} else {
 			$this->message('Terjadi kesalahan','danger');
 			$this->go('pengadaan?id_organisasi='.$data['id_organisasi']);
@@ -67,16 +67,16 @@ class Index extends MY_Controller {
 
 		if (!$this->spk->form_verify($data)) {
 			$this->message('Isi data yang diperlukan', 'danger');
-			$this->go('pengadaan/detail/'.$id);
+			$this->go('pengadaan/index/detail/'.$id);
 		}
 
 		$sukses = $this->spk->update($id, $data);
 		if($sukses) {
 			$this->message('Data berhasil disunting','success');
-			$this->go('pengadaan/detail/'.$id);
+			$this->go('pengadaan/index/detail/'.$id);
 		} else {
 			$this->message('Terjadi kesalahan','danger');
-			$this->go('pengadaan/detail/'.$id);
+			$this->go('pengadaan/index/detail/'.$id);
 		}
 	}
 

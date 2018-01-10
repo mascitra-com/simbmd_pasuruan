@@ -143,6 +143,12 @@ class Organisasi extends MY_Controller {
 		}
 	}
 
+	public function cetak()
+	{
+		$data['upb'] = $this->organisasi->get_many_by('jenis',4);
+		$this->render('modules/organisasi/print', $data);
+	}
+
 	###### API
 	public function get($id)
 	{

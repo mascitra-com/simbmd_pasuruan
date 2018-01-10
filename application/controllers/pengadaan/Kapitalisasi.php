@@ -9,8 +9,8 @@ class Kapitalisasi extends MY_Controller {
 		$this->load->model('Kapitalisasi_model', 'kapitalisasi');
 		$this->load->model('Spk_model', 'spk');
 		$this->load->model('Sp2d_model', 'sp2d');
-        $this->load->model('Hibah_model', 'hibah');
-        $this->load->model('Kategori_model', 'kategori');
+		$this->load->model('Hibah_model', 'hibah');
+		$this->load->model('Kategori_model', 'kategori');
 		$this->load->model('aset/Kibc_model', 'kibc');
 		$this->load->model('aset/Kibd_model', 'kibd');
 	}
@@ -100,35 +100,27 @@ class Kapitalisasi extends MY_Controller {
 	{
 		$data = $this->input->post();
 		$data['reg_induk']  = $this->kapitalisasi->get_reg_induk();
-        $data['nilai'] 	= unmonefy($data['nilai']);
-        $data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
+		$data['nilai'] 	= unmonefy($data['nilai']);
+		$data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
 
 		if (!$this->kapitalisasi->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi');
 			$this->go('pengadaan/kapitalisasi/add/langkah_3/'.$data['id_spk'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
 		}
 
-		# Update data pada aset utama
-		$kib  = ($data['golongan']==='3') ? 'kibc' : 'kibd';
-		$temp = $this->{$kib}->get($data['id_aset']);
-		$nilai_tambah = ($this->nol($data['jumlah']) * $this->nol($data['nilai'])) + $this->nol($data['nilai_penunjang']);
-		$total 		  = $nilai_tambah + $temp->nilai_tambah;
-		$sukses 	  = $this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$total));
-
+		// # Update data pada aset utama
+		// $kib  = ($data['golongan']==='3') ? 'kibc' : 'kibd';
+		// $temp = $this->{$kib}->get($data['id_aset']);
+		// $nilai_tambah = ($this->nol($data['jumlah']) * $this->nol($data['nilai'])) + $this->nol($data['nilai_penunjang']);
+		// $total 		  = $nilai_tambah + $temp->nilai_tambah;
+		// $sukses 	  = $this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$total));
+		
+		$sukses = $this->kapitalisasi->insert($data);
 		if($sukses) {
-			# Insert kapitalisasi
-			$sukses = $this->kapitalisasi->insert($data);
-			if($sukses) {
-				$this->message('Data berhasil disimpan','success');
-				$this->go('pengadaan/index/rincian/'.$data['id_spk']);
-			} else {
-				# Rollback update
-				$this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$temp->nilai_tambah));
-				$this->message('Data gagal disimpan');
-				$this->go('pengadaan/kapitalisasi/add/langkah_3/'.$data['id_spk'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
-			}
+			$this->message('Data berhasil disimpan','success');
+			$this->go('pengadaan/index/rincian/'.$data['id_spk']);
 		} else {
-			$this->message('Terjadi kesalahan');
+			$this->message('Data gagal disimpan');
 			$this->go('pengadaan/kapitalisasi/add/langkah_3/'.$data['id_spk'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
 		}
 	}
@@ -136,8 +128,8 @@ class Kapitalisasi extends MY_Controller {
 	public function update()
 	{
 		$data = $this->input->post();
-        $data['nilai'] 	= unmonefy($data['nilai']);
-        $data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
+		$data['nilai'] 	= unmonefy($data['nilai']);
+		$data['nilai_penunjang'] 	= unmonefy($data['nilai_penunjang']);
 		$id   = $data['id'];
 		unset($data['id']);
 
@@ -147,28 +139,21 @@ class Kapitalisasi extends MY_Controller {
 		}
 
 		# Update data pada aset utama
-		$kib   = ($data['golongan']==='3') ? 'kibc' : 'kibd';
-		$temp1 = $this->kapitalisasi->get($id);
-		$temp2 = $this->{$kib}->get($data['id_aset']);
-		$nilai_kurang = ($this->nol($temp1->jumlah) * $this->nol($temp1->nilai)) + $this->nol($temp1->nilai_penunjang);
-		$nilai_tambah = ($this->nol($data['jumlah']) * $this->nol($data['nilai'])) + $this->nol($data['nilai_penunjang']);
-		$total 		  = ($temp2->nilai_tambah - $nilai_kurang) + $nilai_tambah;
-		$sukses 	  = $this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$total));
+		// $kib   = ($data['golongan']==='3') ? 'kibc' : 'kibd';
+		// $temp1 = $this->kapitalisasi->get($id);
+		// $temp2 = $this->{$kib}->get($data['id_aset']);
+		// $nilai_kurang = ($this->nol($temp1->jumlah) * $this->nol($temp1->nilai)) + $this->nol($temp1->nilai_penunjang);
+		// $nilai_tambah = ($this->nol($data['jumlah']) * $this->nol($data['nilai'])) + $this->nol($data['nilai_penunjang']);
+		// $total 		  = ($temp2->nilai_tambah - $nilai_kurang) + $nilai_tambah;
+		// $sukses 	  = $this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$total));
 
+		$sukses = $this->kapitalisasi->update($id, $data);
 		if($sukses) {
-			# update kapitalisasi
-			$sukses = $this->kapitalisasi->update($id, $data);
-			if($sukses) {
-				$this->message('Data berhasil disimpan','success');
-				$this->go('pengadaan/index/rincian/'.$data['id_spk']);
-			} else {
-				# Rollback update
-				$this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$temp2->nilai_tambah));
-				$this->message('Data gagal disimpan');
-				$this->go('pengadaan/kapitalisasi/edit_pengadaan/'.$id);
-			}
+			$this->message('Data berhasil disimpan','success');
+			$this->go('pengadaan/index/rincian/'.$data['id_spk']);
 		} else {
-			$this->message('Terjadi kesalahan');
+			# Rollback update
+			$this->message('Data gagal disimpan');
 			$this->go('pengadaan/kapitalisasi/edit_pengadaan/'.$id);
 		}
 	}
@@ -180,32 +165,22 @@ class Kapitalisasi extends MY_Controller {
 
 		$kpt = $this->kapitalisasi->get($id);
 		
-		# Update data aset
-		$kib  = ($kpt->golongan==='3') ? 'kibc' : 'kibd';
-		$temp = $this->{$kib}->get($kpt->id_aset);
-		$nilai_kurang = ($kpt->jumlah * $kpt->nilai) + $kpt->nilai_penunjang;
-		$total		  = $temp->nilai_tambah - $nilai_kurang;
-		$sukses 	  = $this->{$kib}->update($kpt->id_aset, array('nilai_tambah'=>$total));
+		// # Update data aset
+		// $kib  = ($kpt->golongan==='3') ? 'kibc' : 'kibd';
+		// $temp = $this->{$kib}->get($kpt->id_aset);
+		// $nilai_kurang = ($kpt->jumlah * $kpt->nilai) + $kpt->nilai_penunjang;
+		// $total		  = $temp->nilai_tambah - $nilai_kurang;
+		// $sukses 	  = $this->{$kib}->update($kpt->id_aset, array('nilai_tambah'=>$total));
 
+		$sukses = $this->kapitalisasi->delete($id);
 		if($sukses) {
-			$sukses = $this->kapitalisasi->delete($id);
-			if($sukses) {
-				$this->message('Data berhasil dihapus','success');
-				$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
-			} else {
-				# Rollback
-				$this->{$kib}->update($kpt->id_aset, array('nilai_tambah'=>$temp->nilai_tambah));
-				$this->message('Data gagal dihapus','danger');
-				$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
-			}
+			$this->message('Data berhasil dihapus','success');
+			$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
 		} else {
+				# Rollback
+			$this->{$kib}->update($kpt->id_aset, array('nilai_tambah'=>$temp->nilai_tambah));
 			$this->message('Data gagal dihapus','danger');
 			$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
 		}
-	}
-
-	private function nol($var)
-	{
-		return (empty($var)) ? 0 : $var;
 	}
 }

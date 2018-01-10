@@ -18,7 +18,7 @@
 				<form action="{{site_url('backup/import/upload')}}" method="POST" enctype="multipart/form-data">
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right">Jenis Aset</label>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<select name="kib" class="form-control">
 								<option value="">Pilih Jenis KIB...</option>
 								<option value="a">KIB-A</option>
@@ -32,30 +32,35 @@
 					</div>
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right">UPB</label>
-						<div class="col-md-4">
-							<select class="select-chosen" name="kd_upb">
+						<div class="col-md-6">
+							<select class="select-chosen form-control" name="kd_upb">
 								<option></option>
+								<option value="all"><b>DATA CAMPUR</b></option>
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}">{{$org->nama}}</option>
 								@endforeach
 							</select>
+							<p class="form-text hidden">
+								<b class="text-danger">Perhatian!</b> Upload data campur mengharuskan <b>ID UPB telah dicantumkan dalam file excel</b>.
+								<a href="{{site_url('backup/import/unduh')}}">Klik disini</a>  untuk melihat contoh format excel. Daftar ID UPB bisa <a href="{{site_url('organisasi/cetak')}}" target="_BLANK">diunduh disni</a>.
+							</p>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right">Pilih Berkas</label>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<input type="file" class="form-control" name="berkas" accept=".xls, .xlsx" required/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right"></label>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<p class="help-text">* Maksimal ukuran file adalah 1,5MB</p>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right"></label>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<button type="submit" class="btn btn-primary"><i class="fa fa-upload mr-2"></i> Unggah</button>
 							<button type="reset" class="btn btn-warning"><i class="fa fa-refresh mr-2"></i> Batal</button>
 						</div>
@@ -67,6 +72,12 @@
 </div>
 @end
 
+@section('style')
+<style>
+	.hidden{display: none;}
+</style>
+@endsection
+
 @section('script')
 <script>
 	var imports = (function(){
@@ -77,6 +88,7 @@
 		$("[name=kd_bidang]").on('change', fungsiBidang);
 		$("[name=kd_unit]").on('change', fungsiUnit);
 		$("[name=kd_subunit]").on('change', fungsiSubunit);
+		$("[name=kd_upb]").on('change', fungsiUpb);
 
 		function fungsiBidang(e) {
 			var id = $(e.currentTarget).find('option:selected').val();
@@ -106,6 +118,14 @@
 					$("[name=kd_upb]").append("<option value='"+item.id+"'>"+(index+1)+". "+item.nama+"</option>");
 				});
 			});
+		}
+
+		function fungsiUpb(e) {
+			if ($(e.currentTarget).val()==='all') {
+				$('.form-text').removeClass('hidden');
+			} else {
+				$('.form-text').removeClass('hidden').addClass('hidden');
+			}
 		}
 	})();
 </script>

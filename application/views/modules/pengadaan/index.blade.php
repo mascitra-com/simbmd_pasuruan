@@ -57,9 +57,9 @@
 							@elseif($item->status_pengajuan === '1')
 							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
 							@elseif($item->status_pengajuan === '2')
-							<button class="btn btn-success btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+							<button class="btn btn-success btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
 							@elseif($item->status_pengajuan === '3')
-							<button class="btn btn-danger btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
+							<button class="btn btn-danger btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
 							@else
 							ERROR
 							@endif
@@ -68,7 +68,9 @@
 						<td class="text-center">
 							<div class="btn-group btn-group-sm">
 								<a href="{{site_url('pengadaan/index/detail/'.$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
+								@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
 								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
+								@endif
 							</div>
 						</td>
 					</tr>
@@ -216,6 +218,31 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-pesan">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">Detail Persetujuan</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="bold">Tanggal Verifikasi:</label>
+					<div id="span-tanggal"></div>
+				</div>
+				<div class="form-group">
+					<label class="bold">Status Verifikasi:</label>
+					<div id="span-status">Disetujui</div>
+				</div>
+				<div class="form-group">
+					<label class="bold">Pesan:</label>
+					<div id="span-pesan"></div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" data-dismiss="modal">Batal</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 @end
 
 @section('style')
@@ -231,6 +258,18 @@
 		var id = $(this).data('id');
 		$("#btn-hapus-confirm").attr("href", "{{site_url('pengadaan/index/delete/')}}"+id);
 		$("#modal-hapus").modal('show');
+	});
+
+	$("[data-id-spk]").on('click', function(e){
+		var id = $(e.currentTarget).data('id-spk');
+
+		$.getJSON("{{site_url('persetujuan/pengadaan/get_pengadaan/')}}"+id, function(result){
+			$("#span-tanggal").html(result.log_time);
+			$("#span-status").html(result.status);
+			$("#span-pesan").html(result.pesan);
+		});
+
+		$("#modal-pesan").modal('show');
 	});
 </script>
 @end

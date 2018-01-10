@@ -56,7 +56,9 @@
 		<div class="card">
 			<div class="card-header form-inline">
 				<span class="mr-auto">SP2D</span>
+				@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 				<button class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus"></i> Tambah SP2D</button>
+				@endif
 			</div>
 			<div class="card-body table-responsive px-0 py-0">
 				<table class="table table-striped table-bordered table-hover">
@@ -67,7 +69,9 @@
 							<th>No. Rekening</th>
 							<th class="text-right" width="20%">Nilai</th>
 							<th>Keterangan</th>
+							@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 							<th class="text-center">Aksi</th>
+							@endif
 						</tr>
 					</thead>
 					<tbody>
@@ -78,10 +82,12 @@
 							<td>{{$data->kode_rekening}}</td>
 							<td class="text-right">{{monefy($data->nilai)}}</td>
 							<td>{{$data->keterangan}}</td>
+							@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 							<td class="text-center text-nowrap btn-group">
 								<button class="btn btn-warning btn-sm" data-id="{{$data->id}}"><i class="fa fa-pencil"></i></button>
 								<a href="{{site_url('pengadaan/sp2d/delete/'.$data->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 							</td>
+							@endif
 						</tr>
 						@endforeach
 					</tbody>

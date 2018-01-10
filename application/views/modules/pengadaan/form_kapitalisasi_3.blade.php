@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Pilih SP2D</label>
+						<label class="col-md-2 col-form-label text-right">Pilih SP2D</label>
 						<div class="col-md-4">
 							<select name="id_sp2d" class="form-control">
 								@foreach($sp2d AS $item)

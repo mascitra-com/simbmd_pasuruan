@@ -99,7 +99,7 @@ class Import extends MY_Controller
 		}
 
 		# Ubah format siap insert
-		$kib = 'aset/kib'.$this->session->temp_import['kib'].'_model';
+		$kib = 'aset/Saldo_kib'.$this->session->temp_import['kib'].'_model';
 		$this->load->model($kib, 'kib');
 		$this->kib->fix_data_import($result);
 		
@@ -120,7 +120,7 @@ class Import extends MY_Controller
 			$this->go('backup/import/has_error');
 		}
 
-		$kib = 'aset/kib'.$this->session->temp_import['kib'].'_model';
+		$kib = 'aset/Saldo_kib'.$this->session->temp_import['kib'].'_model';
 		$this->load->model($kib, 'kib');
 		$sukses = $this->kib->batch_insert($this->session->temp_import['data']);
 		
@@ -168,5 +168,11 @@ class Import extends MY_Controller
 	private function reset_temp()
 	{
 		$this->session->unset_userdata('temp_import');
+	}
+
+	public function unduh()
+	{
+		$this->load->helper('download');
+		force_download(FCPATH.'res\docs\CONTOH_FORMAT_IMPORT_CAMPURAN.xlsx', null);
 	}
 }
