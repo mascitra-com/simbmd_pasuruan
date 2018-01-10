@@ -7,7 +7,7 @@ class Kibd extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/saldo_awal/Saldo_kibd_model', 'kib');
+        $this->load->model('aset/Saldo_kibd_model', 'kib');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->library('pagination');
     }
