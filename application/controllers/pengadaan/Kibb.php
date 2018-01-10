@@ -33,7 +33,7 @@ class Kibb extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data['kib'] = $this->kib->get($id);
+        $data['kib'] = $this->kib_temp->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['spk'] = $this->spk->get($data['kib']->id_spk);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kib']->id_spk);
@@ -47,7 +47,7 @@ class Kibb extends MY_Controller
         $data['nilai'] 	= unmonefy($data['nilai']);
         $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
-        if (!$this->kib->form_verify($data)) {
+        if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
             $this->go('pengadaan/kibb/add/' . $data['id_spk']);
         }
@@ -58,11 +58,11 @@ class Kibb extends MY_Controller
 
         for ($i = 0; $i < $kuantitas; $i++) {
             $data_final[$i] = $data;
-            $data_final[$i]['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']) + $i;
-            $data_final[$i]['reg_induk'] = $this->kib->get_reg_induk();
+            $data_final[$i]['reg_barang'] = $this->kib_temp->get_reg_barang($data['id_kategori']) + $i;
+            $data_final[$i]['reg_induk'] = $this->kib_temp->get_reg_induk();
         }
 
-        $sukses = $this->kib->batch_insert($data_final);
+        $sukses = $this->kib_temp->batch_insert($data_final);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
             $this->go('pengadaan/index/rincian/' . $data['id_spk']);
@@ -81,12 +81,12 @@ class Kibb extends MY_Controller
         $id = $data['id'];
         unset($data['id']);
 
-        if (!$this->kib->form_verify($data)) {
+        if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
             $this->go('pengadaan/kibb/edit/' . $id);
         }
 
-        $sukses = $this->kib->update($id, $data);
+        $sukses = $this->kib_temp->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disunting', 'success');
             $this->go('pengadaan/index/rincian/' . $data['id_spk']);
@@ -101,8 +101,8 @@ class Kibb extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data = $this->kib->get($id);
-        $sukses = $this->kib->delete($id);
+        $data = $this->kib_temp->get($id);
+        $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
             $this->go('pengadaan/index/rincian/' . $data->id_spk);

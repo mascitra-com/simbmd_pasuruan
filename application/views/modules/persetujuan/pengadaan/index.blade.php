@@ -42,9 +42,9 @@
 							@elseif($item->status_pengajuan === '1')
 							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
 							@elseif($item->status_pengajuan === '2')
-							<button class="btn btn-success btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+							<button class="btn btn-success btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
 							@elseif($item->status_pengajuan === '3')
-							<button class="btn btn-danger btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
+							<button class="btn btn-danger btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
 							@else
 							ERROR
 							@endif
@@ -52,7 +52,7 @@
 						<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('persetujuan_transfer/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+								<a href="{{ site_url('persetujuan/Pengadaan/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
 								<button class="btn btn-sm btn-success" id="btn-setuju" data-id="{{$item->id}}"><i class="fa fa-check mr-2"></i>Setuju</button>
 								<button class="btn btn-sm btn-danger" id="btn-tolak" data-id="{{$item->id}}"><i class="fa fa-times mr-2"></i>Tolak</button>
 							</div>
@@ -76,12 +76,12 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('persetujuan_transfer/verifikasi')}}" method="POST">
+				<form action="{{site_url('persetujuan/Pengadaan/verifikasi')}}" method="POST">
 					<input type="hidden" name="status" value="2">
-					<input type="hidden" name="id_transfer">
+					<input type="hidden" name="id_spk">
 					<div class="form-group">
 						<label>Pesan/Alasan</label>
-						<textarea type="text" class="form-control" placeholder="Pesan verifikasi"></textarea>
+						<textarea type="text" name="pesan" class="form-control" placeholder="Pesan verifikasi"></textarea>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-secondary">Setujui</button>
@@ -100,9 +100,9 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('persetujuan_transfer/verifikasi')}}" method="POST">
+				<form action="{{site_url('persetujuan/Pengadaan/verifikasi')}}" method="POST">
 					<input type="hidden" name="status" value="3">
-					<input type="hidden" name="id_transfer">
+					<input type="hidden" name="id_spk">
 					<div class="form-group">
 						<label>Pesan/Alasan</label>
 						<textarea type="text" name="pesan" class="form-control" placeholder="Pesan verifikasi"></textarea>
@@ -127,19 +127,19 @@
 @section('script')
 <script>
 	theme.activeMenu('.nav-persetujuan-pengadaan');
-	
+
 	$("#btn-setuju").on('click', setuju);
 	$("#btn-tolak").on('click', tolak);
 
 	function setuju(e) {
 		var id = $(e.currentTarget).data('id');
-		$("#modal-setuju [name='id_transfer']").val(id);
+		$("#modal-setuju [name='id_spk']").val(id);
 		$("#modal-setuju").modal('show');
 	}
 
 	function tolak(e) {
 		var id = $(e.currentTarget).data('id');
-		$("#modal-tolak [name='id_transfer']").val(id);
+		$("#modal-tolak [name='id_spk']").val(id);
 		$("#modal-tolak").modal('show');
 	}
 </script>
