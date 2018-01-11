@@ -23,7 +23,7 @@
 			</div>
 		</form>
 		<div class="btn-group">
-			<a href="{{ site_url('transfer/add/'.$filter['id_organisasi']) }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Baru</a>
+			<a href="{{ site_url('transfer/index/add/'.$filter['id_organisasi']) }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Baru</a>
 			<!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button> -->
 			<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
 		</div>
@@ -73,7 +73,7 @@
 						</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('transfer/keluar_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
+								<a href="{{ site_url('transfer/index/keluar_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
 								@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
 								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
 								@endif
@@ -147,7 +147,7 @@
 	theme.activeMenu('.nav-transfer-keluar');
 	$("[data-id]").on('click', function(){
 		var id = $(this).data('id');
-		$("#btn-hapus-confirm").attr("href", "{{site_url('transfer/delete/')}}"+id);
+		$("#btn-hapus-confirm").attr("href", "{{site_url('transfer/index/delete/')}}"+id);
 		$("#modal-hapus").modal('show');
 	});
 

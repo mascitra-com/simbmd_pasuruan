@@ -30,6 +30,7 @@
 							@if($this->session->auth['is_superadmin'])
 							<th class="text-center">Super Admin</th>
 							@endif
+							<th class="text-center">Kepala UPB</th>
 							<th class="text-center">Terakhir Masuk</th>
 							<th>Aksi</th>
 						</tr>
@@ -51,6 +52,8 @@
 							@if($this->session->auth['is_superadmin'])
 							<td class="text-center">{{!empty($peg->is_superadmin) ? '<i class="fa fa-2x fa-check text-success"></i>' : '<i class="fa fa-2x fa-ban text-danger"></i>'}}</td>
 							@endif
+
+							<td class="text-center">{{!empty($peg->is_kepala_upb) ? '<i class="fa fa-2x fa-check text-success"></i>' : '<i class="fa fa-2x fa-ban text-danger"></i>'}}</td>
 							
 							<td class="text-center">{{date('d/m/Y - H:i', strtotime($peg->last_login))}}</td>
 							<td>

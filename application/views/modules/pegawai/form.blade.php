@@ -15,13 +15,13 @@
 			<div class="card-body">
 				<form action="{{isset($peg) ? site_url('pegawai/update') : site_url('pegawai/insert')}}" method="POST">
 					<input type="hidden" name="id" value="{{isset($peg) ? $peg->id : ''}}">
-					@if($this->session->auth['is_superadmin'])
+					@if($this->session->auth['is_superadmin'] OR $this->session->auth['is_kepala_upb'])
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right">Organisasi</label>
 						<div class="col-md-4">
-							<select name="id_organisasi" class="form-control">
+							<select name="id_organisasi" class="form-control select-chosen">
 								@foreach($org_list AS $org)
-								<option value="{{$org->id}}" {{isset($peg) && $org->id === $peg->id_organisasi ? 'selected' : ''}}>{{$org->id.' - '.$org->nama}}</option>
+								<option value="{{$org->id}}" {{isset($peg) && $org->id === $peg->id_organisasi ? 'selected' : ''}}>{{$org->nama}}</option>
 								@endforeach
 							</select>
 						</div>
@@ -72,6 +72,16 @@
 							<div class="form-check form-check-inline">
 								<label class="form-check-label">
 									<input class="form-check-input" type="checkbox" name="is_superadmin" value="1" {{isset($peg) && $peg->is_superadmin === '1' ? 'checked' : ''}}> Super Admin
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right">Kepala UPB</label>
+						<div class="col-md-4">
+							<div class="form-check form-check-inline">
+								<label class="form-check-label">
+								<input class="form-check-input" type="checkbox" name="is_kepala_upb" value="1" {{isset($peg) && $peg->is_kepala_upb === '1' ? 'checked' : ''}}> Ya
 								</label>
 							</div>
 						</div>

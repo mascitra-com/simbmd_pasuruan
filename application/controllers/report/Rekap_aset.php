@@ -13,12 +13,11 @@ class Rekap_aset extends MY_Controller {
 	
 	public function index($jenis = null)
 	{
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
+        $data['organisasi'] = $this->organisasi->get_data_by_auth();
         $data['id_organisasi'] = 0;
         # Jika bukan superadmin
 		if (!$this->auth->get_super_access()) {
 			$data['id_organisasi'] = $this->auth->get_id_organisasi();
-			$data['organisasi'] = $this->organisasi->get_many_by('id', $data['id_organisasi']);
 		}
 
 		switch ($jenis) {
@@ -37,14 +36,15 @@ class Rekap_aset extends MY_Controller {
 	public function cetak($jenis = null)
 	{
 		$input = $this->input->post();
-		$input['upb']	= $this->organisasi->get($input['id_organisasi'])->nama;
-		$data['detail'] = $input;
 
         if(empty($input['id_organisasi'])){
             $this->message('Pilih Organisasi', 'danger');
             $this->go('report/rekap_aset/index/'.$jenis);
         }
 
+		$input['upb']	= $input['id_organisasi']==='all' ? 'Kabupaten' :$this->organisasi->get($input['id_organisasi'])->nama;
+		$data['detail'] = $input;
+		
 		switch ($jenis) {
 			case 17:
 				$data['rekap']  = $this->report->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi']);

@@ -16,14 +16,9 @@ class Kiba extends MY_Controller
     public function index()
     {
         $filter = $this->input->get();
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
 
-        # Jika bukan superadmin
-        if (!$this->auth->get_super_access()) {
-            $filter['id_organisasi'] = $this->auth->get_id_organisasi();
-            $data['organisasi'] = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
-        }
+        $data['organisasi'] = $this->organisasi->get_data_by_auth();
 
         $result = $this->kib->get_data($filter);
         $data['kib'] = $result['data'];
@@ -37,7 +32,7 @@ class Kiba extends MY_Controller
     {
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('aset/kiba');
+            $this->go('inventarisasi/kiba');
         }
 
         $data['org'] = $this->organisasi->get($id);
@@ -49,7 +44,7 @@ class Kiba extends MY_Controller
     {
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('aset/kiba');
+            $this->go('inventarisasi/kiba');
         }
 
         $data['kib'] = $this->kib->get($id);
@@ -89,7 +84,7 @@ class Kiba extends MY_Controller
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kiba/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kiba/add/' . $data['id_organisasi']);
         }
         $data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
         $data['reg_induk'] = $this->kib->get_reg_induk();
@@ -97,10 +92,10 @@ class Kiba extends MY_Controller
         $sukses = $this->kib->insert($data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('aset/kiba/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kiba/add/' . $data['id_organisasi']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('aset/kiba/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kiba/add/' . $data['id_organisasi']);
         }
     }
 
@@ -114,17 +109,17 @@ class Kiba extends MY_Controller
 
         if (!$this->kib->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kiba/edit/' . $id);
+            $this->go('inventarisasi/kiba/edit/' . $id);
         }
 
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('aset/kiba?id_organisasi=' . $data['id_organisasi']);
+            $this->go('inventarisasi/kiba?id_organisasi=' . $data['id_organisasi']);
 
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('aset/kiba/edit/' . $id);
+            $this->go('inventarisasi/kiba/edit/' . $id);
         }
     }
 
@@ -132,33 +127,17 @@ class Kiba extends MY_Controller
     {
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('aset/kiba');
+            $this->go('inventarisasi/kiba');
         }
 
         $sukses = $this->kib->delete($id);
         if ($sukses) {
-            $this->message("Data berhasil dihapus, <a href='" . site_url('aset/kiba/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
-            $this->go('aset/kiba');
+            $this->message("Data berhasil dihapus, <a href='" . site_url('inventarisasi/kiba/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
+            $this->go('inventarisasi/kiba');
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('aset/kiba');
+            $this->go('inventarisasi/kiba');
         }
     }
 
-    // public function undelete($id = NULL)
-    // {
-    //     if (empty($id)) {
-    //         $this->message('Pilih organisasi terlebih dahulu', 'danger');
-    //         $this->go('aset/kiba');
-    //     }
-
-    //     $sukses = $this->kib->update($id, array('is_deleted' => 0));
-    //     if ($sukses) {
-    //         $this->message("Data dihapus berhasil diurungkan.", 'success');
-    //         $this->go('aset/kiba');
-    //     } else {
-    //         $this->message('Data dihapus gagal diurungkan', 'danger');
-    //         $this->go('aset/kiba');
-    //     }
-    // }
 }

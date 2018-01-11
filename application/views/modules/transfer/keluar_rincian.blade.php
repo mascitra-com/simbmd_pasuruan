@@ -3,23 +3,23 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('transfer/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi->id)}}">Transfer Keluar</a></li>
 <li class="breadcrumb-item active">Rincian Aset</li>
 @end
 
 @section('content')
 <div class="form-inline">
     <div class="btn-group mb-3">
-        <a href="{{site_url('transfer/keluar_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('transfer/index/keluar_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="btn-group mb-3 ml-auto">
         <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
         @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
         <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
-        <a href="{{site_url('transfer/finish_transaction/'.$transfer->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+        <a href="{{site_url('transfer/index/finish_transaction/'.$transfer->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
         @elseif($transfer->status_pengajuan === '1')
-        <a href="{{site_url('transfer/cancel_transaction/'.$transfer->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+        <a href="{{site_url('transfer/index/cancel_transaction/'.$transfer->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
         @endif
     </div>
 </div>
@@ -444,7 +444,7 @@
                     aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{site_url('transfer/rincian_redirect/'.$transfer->id)}}" method="POST">
+                    <form action="{{site_url('transfer/index/rincian_redirect/'.$transfer->id)}}" method="POST">
                         <div class="modal-title"><b>Aset Tetap</b></div>
                         <ul style="list-style: none;">
                             <li><input type="radio" name="jenis" value="a"> A - Tanah</li>

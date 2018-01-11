@@ -27,14 +27,9 @@ class Index extends MY_Controller {
         $this->load->library('pagination');
 
         $filter = $this->input->get();
-        $data['organisasi'] 	 = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
 
-        # Jika bukan superadmin
-        if (!$this->auth->get_super_access()) {
-            $filter['id_organisasi'] = $this->auth->get_id_organisasi();
-            $data['organisasi'] 	 = $this->organisasi->get_many_by('id', $filter['id_organisasi']);
-        }
+        $data['organisasi'] = $this->organisasi->get_data_by_auth();
 
         $result = $this->transfer->get_data($filter);
         $data['transfer'] 	= $result['data'];
@@ -66,7 +61,7 @@ class Index extends MY_Controller {
     public function add($id = null) {
         if (empty($id)) {
             $this->message('Pilih UPB Terlebih Dahulu', 'warning');
-            $this->go('transfer/keluar');
+            $this->go('transfer/index/keluar');
         }
 
         $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
@@ -161,16 +156,16 @@ class Index extends MY_Controller {
 
         if (!$this->transfer->form_verify($data)) {
             $this->message('Isi data yang perlu diisi', 'danger');
-            $this->go('transfer/add/'.$data['idanisasi']);
+            $this->go('transfer/index/add/'.$data['idanisasi']);
         }
 
         $sukses = $this->transfer->insert($data);
         if($sukses) {
             $this->message('Data berhasil ditambah','success');
-            $this->go('transfer/keluar_detail/'.$sukses);
+            $this->go('transfer/index/keluar_detail/'.$sukses);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/add/'.$data['id_organisasi']);
+            $this->go('transfer/index/add/'.$data['id_organisasi']);
         }
     }
 
@@ -182,16 +177,16 @@ class Index extends MY_Controller {
 
         if (!$this->transfer->form_verify($data)) {
             $this->message('Isi data yang perlu diisi', 'danger');
-            $this->go('transfer/add/'.$data['id_organisasi']);
+            $this->go('transfer/index/add/'.$data['id_organisasi']);
         }
 
         $sukses = $this->transfer->update($id, $data);
         if($sukses) {
             $this->message('Data berhasil ditambah','success');
-            $this->go('transfer/keluar_detail/'.$id);
+            $this->go('transfer/index/keluar_detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/keluar_detail/'.$id);
+            $this->go('transfer/index/keluar_detail/'.$id);
         }
     }
 
@@ -210,10 +205,10 @@ class Index extends MY_Controller {
             $this->kibe->delete_by(array('id_transfer'=>$id));
 
             $this->message('Data berhasil dihapus','success');
-            $this->go('transfer/keluar?id_organisasi='.$id_organisasi);
+            $this->go('transfer/index/keluar?id_organisasi='.$id_organisasi);
         } else {
             $this->message('Data gagal dihapus','danger');
-            $this->go('transfer/keluar?id_organisasi='.$id_organisasi);
+            $this->go('transfer/index/keluar?id_organisasi='.$id_organisasi);
         }
 
     }
@@ -227,10 +222,10 @@ class Index extends MY_Controller {
         $sukses = $this->transfer->update($id, $data);
         if($sukses) {
             $this->message('Data berhasil diajukan','success');
-            $this->go('transfer/keluar_detail/'.$id);
+            $this->go('transfer/index/keluar_detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/keluar_detail/'.$id);
+            $this->go('transfer/index/keluar_detail/'.$id);
         }
     }
 
@@ -243,10 +238,10 @@ class Index extends MY_Controller {
         $sukses = $this->transfer->update($id, $data);
         if($sukses) {
             $this->message('Data berhasil dibatalkan','success');
-            $this->go('transfer/keluar_detail/'.$id);
+            $this->go('transfer/index/keluar_detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/keluar_detail/'.$id);
+            $this->go('transfer/index/keluar_detail/'.$id);
         }
     }
 }

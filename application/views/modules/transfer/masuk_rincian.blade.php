@@ -3,14 +3,14 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('transfer/masuk?id_tujuan='.$transfer->id_tujuan->id)}}">Transfer Masuk</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('transfer/index/masuk?id_tujuan='.$transfer->id_tujuan->id)}}">Transfer Masuk</a></li>
 <li class="breadcrumb-item active">Rincian Aset</li>
 @end
 
 @section('content')
 <div class="form-inline">
     <div class="btn-group mb-3">
-        <a href="{{site_url('transfer/masuk_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('transfer/index/masuk_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="btn-group mb-3 ml-auto">

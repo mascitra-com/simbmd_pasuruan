@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('persetujuan_transfer')}}">Persetujuan Transfer Keluar</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('persetujuan/transfer')}}">Persetujuan Transfer Keluar</a></li>
 <li class="breadcrumb-item active">Detail</li>
 @end
 
@@ -11,7 +11,7 @@
 <div class="form-inline">
     <div class="btn-group mb-3">
         <a href="#" class="btn btn-primary active">01. Detail Transfer Masuk</a>
-        <a href="{{site_url('persetujuan_transfer/rincian/'.$transfer->id)}}" class="btn btn-primary">02. Rincian Aset</a>
+        <a href="{{site_url('persetujuan/transfer/rincian/'.$transfer->id)}}" class="btn btn-primary">02. Rincian Aset</a>
     </div>
 </div>
 <div class="row">
@@ -193,7 +193,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-right"></label>
                         <div class="col-md-4">
-                            <a href="{{site_url('persetujuan_transfer')}}" class="btn btn-warning">Kembali</a>
+                            <a href="{{site_url('persetujuan/transfer')}}" class="btn btn-warning">Kembali</a>
                         </div>
                     </div>
                 </form>
