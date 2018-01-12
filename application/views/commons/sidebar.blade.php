@@ -17,7 +17,7 @@
 					<li class="nav"><a href="{{site_url('saldo_awal/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('kibnon')}}"><i class="fa fa-cogs fa-fw icon"></i>Extracomtable</a></li>
+					<li class="nav"><a href="#"><i class="fa fa-cogs fa-fw icon"></i>Extracomtable</a></li>
 				</ul>
 			</li>
 
@@ -46,8 +46,8 @@
 			</li>
 
 			<li class="nav nav-title">MUTASI KURANG</li>
-			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/index/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
+			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan/index') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			<li class="nav nav-koreksi-kurang">
 				<a href="#menu-koreksi-kurang" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Kurang Lainnya<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-koreksi-kurang">

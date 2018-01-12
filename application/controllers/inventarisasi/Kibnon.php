@@ -37,6 +37,7 @@ class Kibnon extends MY_Controller {
 		$data['org'] = $this->organisasi->get($id);
 		$this->render('modules/aset/saldo_berjalan/kibnon/form', $data);
 	}
+
 	public function edit($id = NULL)
 	{
 		if(empty($id)) {

@@ -98,10 +98,10 @@ class Index extends MY_Controller {
 			$this->sp2d->delete_by(array('id_spk'=>$id));
 
 			$this->message('Data berhasil dihapus','success');
-			$this->go('pengadaan?id_organisasi='.$id_organisasi);
+			$this->go('pengadaan/index?id_organisasi='.$id_organisasi);
 		} else {
 			$this->message('Data gagal dihapus','danger');
-			$this->go('pengadaan?id_organisasi='.$id_organisasi);
+			$this->go('pengadaan/index?id_organisasi='.$id_organisasi);
 		}
 
 	}

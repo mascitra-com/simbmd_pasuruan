@@ -36,7 +36,7 @@ class Index extends MY_Controller
         $this->render('modules/hibah/index', $data);
     }
 
-    public function add_hibah()
+    public function add()
     {
         $data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
         $filter['id_organisasi'] = isset($filter['id_organisasi'])?$filter['id_organisasi']:'';
@@ -49,7 +49,7 @@ class Index extends MY_Controller
         $this->render('modules/hibah/form', $data);
     }
 
-    public function insert_hibah()
+    public function insert()
     {
         $data = $this->input->post();
         if (!$this->hibah->form_verify($data)) {
@@ -59,14 +59,14 @@ class Index extends MY_Controller
         $sukses = $this->hibah->insert($data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('hibah/detail/' . $sukses);
+            $this->go('hibah/index/detail/' . $sukses);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('hibah?id_organisasi=' . $data['id_organisasi']);
+            $this->go('hibah/index?id_organisasi=' . $data['id_organisasi']);
         }
     }
 
-    public function update_hibah()
+    public function update()
     {
         $data = $this->input->post();
         $id = $data['id'];
