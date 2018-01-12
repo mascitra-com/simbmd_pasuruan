@@ -29,7 +29,8 @@
 			<table style="width:50%">
 				<tr class="small"><td class="bold" width="15%">Provinsi</td><td width="5%">:</td><td>JAWA TIMUR</td></tr>
 				<tr class="small"><td class="bold" width="15%">Kabupaten</td><td width="5%">:</td><td>{{strtoupper($detail['nama_kota'])}}</td></tr>
-				<tr class="small"><td class="bold" width="15%">Ruangan</td><td width="5%">:</td><td>{{$ruangan['nama']}}</td></tr>
+				<tr class="small"><td class="bold" width="15%">UPB</td><td width="5%">:</td><td>{{$upb['nama']}}</td></tr>
+				<tr class="small"><td class="bold" width="15%">Ruangan</td><td width="5%">:</td><td>{{strtoupper($ruangan['nama'])}}</td></tr>
 			</table>
 		</div>
 		<div class="mt-3">

@@ -137,4 +137,19 @@ class Pegawai extends MY_Controller {
 			$this->go('pegawai');
 		}
 	}
+
+    public function get_data_search()
+    {
+        $key = $this->input->get('key');
+        $result = $this->pegawai->like('nip', $key)->or_like('nama', $key)->or_like('jabatan', $key)->limit(50)->get_all();
+
+        echo json_encode($result);
+    }
+
+    public function save_cookie()
+    {
+        $data = $this->input->get();
+        set_cookie("{$data['name']}", $data['id'], time() + (10 * 365 * 24 * 60 * 60));
+        echo json_encode(array('sukses' => TRUE, 'cookie'=> get_cookie("{$data['name']}")));
+    }
 }

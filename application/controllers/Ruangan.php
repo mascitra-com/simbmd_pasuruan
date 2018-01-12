@@ -107,4 +107,11 @@ class Ruangan extends MY_Controller {
 			$this->go('ruangan');
 		}
 	}
+
+    public function get_by()
+    {
+        $input = $this->input->get('id_org');
+        $result = $this->ruangan->where('id_organisasi', $input)->get_all();
+        echo json_encode($result);
+	}
 }
