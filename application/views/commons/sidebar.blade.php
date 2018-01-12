@@ -50,9 +50,11 @@
 			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan/index') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
 			<li class="nav nav-koreksi-kurang">
 				<a href="#menu-koreksi-kurang" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Kurang Lainnya<i class="fa fa-angle-down ml-auto"></i></a>
+				@if($this->session->auth['is_admin'] == 1)
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-koreksi-kurang">
 					<li class="nav"><a href="{{site_url('koreksi/koreksi_hapus')}}"><i class="fa fa-trash fa-fw icon"></i>Koreksi Hapus</a></li>
 				</ul>
+				@endif
 			</li>
 
 			@if($this->session->auth['is_superadmin'] == 1)
@@ -87,6 +89,7 @@
 			</li>
 			{{--<li class="nav nav-report2"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Barang</a></li>--}}
 			<li class="nav nav-rekap-kib"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
+			<li class="nav nav-rekap-ruangan"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
 
 
 			@if($this->session->auth['is_admin'] == 1)

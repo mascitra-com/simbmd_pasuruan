@@ -172,7 +172,7 @@ class Import extends MY_Controller
 
 	public function unduh()
 	{
-		$this->load->helper('download');
-		force_download(FCPATH.'res\docs\CONTOH_FORMAT_IMPORT_CAMPURAN.xlsx', null);
-	}
+        $this->load->helper('download');
+        force_download(FCPATH.'res/docs/CONTOH_FORMAT_IMPORT_CAMPURAN.xlsx', NULL,TRUE);
+    }
 }
