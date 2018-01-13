@@ -20,7 +20,7 @@ class Rekap_transfer extends MY_Controller {
 		if (!$this->auth->get_super_access()) {
 			$data['id_organisasi'] = $this->auth->get_id_organisasi();
 		}
-        $data = $this->pegawai->get_cookie_pegawai(array('melaporkan_transfer', 'mengetahui_transfer'));
+        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_transfer', 'mengetahui_transfer')));
 
 		$this->render('modules/report/rekap_transfer/index', $data);
 	}

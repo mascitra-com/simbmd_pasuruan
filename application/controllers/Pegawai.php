@@ -152,4 +152,5 @@ class Pegawai extends MY_Controller {
         set_cookie("{$data['name']}", $data['id'], time() + (10 * 365 * 24 * 60 * 60));
         echo json_encode(array('sukses' => TRUE, 'cookie'=> get_cookie("{$data['name']}")));
     }
+
 }

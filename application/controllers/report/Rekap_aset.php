@@ -23,11 +23,11 @@ class Rekap_aset extends MY_Controller {
 
 		switch ($jenis) {
 			case 17:
-                $data = $this->pegawai->get_cookie_pegawai(array('melaporkan_aset17', 'mengetahui_aset17'));
+                $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_aset17', 'mengetahui_aset17')));
                 $this->render('modules/report/rekap_aset/index_17', $data);
 				break;
 			case 13:
-                $data = $this->pegawai->get_cookie_pegawai(array('melaporkan_aset13', 'mengetahui_aset13'));
+                $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_aset13', 'mengetahui_aset13')));
                 $this->render('modules/report/rekap_aset/index_13', $data);
 				break;
 			default:

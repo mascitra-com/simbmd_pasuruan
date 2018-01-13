@@ -20,7 +20,7 @@ class Rekap_penghapusan extends MY_Controller {
 		if (!$this->auth->get_super_access()) {
 			$data['id_organisasi'] = $this->auth->get_id_organisasi();
 		}
-        $data = $this->pegawai->get_cookie_pegawai(array('melaporkan_penghapusan', 'mengetahui_penghapusan'));
+        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_penghapusan', 'mengetahui_penghapusan')));
 
 		$this->render('modules/report/rekap_penghapusan/index', $data);
 	}

@@ -20,7 +20,7 @@ class Rekap_pengadaan extends MY_Controller {
 		if (!$this->auth->get_super_access()) {
 			$data['id_organisasi'] = $this->auth->get_id_organisasi();
 		}
-        $data = $this->pegawai->get_cookie_pegawai(array('melaporkan_pengadaan', 'mengetahui_pengadaan'));
+        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_pengadaan', 'mengetahui_pengadaan')));
 
 		$this->render('modules/report/rekap_pengadaan/index', $data);
 	}

@@ -56,4 +56,29 @@ class Pegawai_model extends MY_Model
 
 		return $result;
 	}
+
+    public function get_cookie_pegawai($name)
+    {
+        $data = array();
+        if(is_array($name)){
+            foreach ($name as $list){
+                $data["{$list}"] = $this->get_pegawai($list);
+            }
+        }else{
+            $data["{$name}"] = $this->get_pegawai($name);
+        }
+        return $data;
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    private function get_pegawai($name)
+    {
+        if ($id = get_cookie("{$name}"))
+            return $this->pegawai->get($id);
+        else
+            return $this->pegawai->get($this->auth->get_id());
+    }
 }
