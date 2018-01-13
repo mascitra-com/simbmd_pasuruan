@@ -35,7 +35,7 @@
 					<div class="card-body">
 						<form action="{{site_url('authentication/do_login')}}" method="POST">
 						    <div class="mb-4 text-bigger text-center">
-						    <img src="http://pkmpurwosari.pasuruankab.go.id/mod/download/dokumen/logo_kab-pasuruan.jpg"
+						    <img src="{{ site_url('res/img/logo_kab-pasuruan.jpg') }}"
                              alt="Logo Kabupaten Lumajang" class="img-responsive" width="100px">
                             </div>
 							<div class="mb-4 text-bigger text-center">

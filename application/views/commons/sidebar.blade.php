@@ -90,6 +90,7 @@
 			{{--<li class="nav nav-report2"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Barang</a></li>--}}
 			<li class="nav nav-rekap-kib"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
 			<li class="nav nav-rekap-ruangan"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
+			<li class="nav nav-label"><a href="{{site_url('label')}}"><i class="fa fa-file-o fa-fw icon"></i>Labelisasi Barang</a></li>
 
 
 			@if($this->session->auth['is_admin'] == 1)

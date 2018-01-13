@@ -23,6 +23,18 @@ class MY_Model extends MY_Base_model {
         return $this;
     }
 
+    public function group_start()
+    {
+        $this->_database->group_start();
+        return $this;
+    }
+
+    public function group_end()
+    {
+        $this->_database->group_end();
+        return $this;
+    }
+
     public function like($field, $match = '', $side = 'both', $escape = NULL) {
         $this->_database->like($field, $match, $side, $escape);
         return $this;

@@ -45,7 +45,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Jenis KIB</label>
 						<div class="col-md-4">
-							<select name="kib" class="form-control form-control-sm">
+							<select name="kib" class="form-control form-control-sm" id="kib">
 								<option value="">Pilih Jenis KIB...</option>
 								<option value="a">A - Tanah</option>
 								<option value="b">B - Peralatan &amp Mesin</option>
@@ -63,6 +63,17 @@
 							<select name="urut" class="form-control form-control-sm">
 								<option value="1">Urut Kode Barang</option>
 								<option value="2">Urut Tahun Perolehan</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row" id="kondisi">
+						<label class="col-md-3 col-form-label text-right">Kondisi</label>
+						<div class="col-md-4">
+							<select name="kondisi" class="form-control form-control-sm">
+                                <option value="">Semua</option>
+								<option value="1">Baik</option>
+								<option value="2">Kurang Baik</option>
+								<option value="0">Rusak Berat</option>
 							</select>
 						</div>
 					</div>
@@ -244,6 +255,16 @@
 	@end
 @section('script')
 <script type="text/javascript">
+
+    $('#kondisi').hide();
+    $("#kib").on('change', function () {
+        var kib = this.value;
+        if (kib !== 'a') {
+            $('#kondisi').show();
+        } else {
+            $('#kondisi').hide();
+        }
+    });
 	var org = (function(){
 		theme.activeMenu('.nav-rekap-kib');
 	})();

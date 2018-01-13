@@ -141,7 +141,24 @@ class Pegawai extends MY_Controller {
     public function get_data_search()
     {
         $key = $this->input->get('key');
-        $result = $this->pegawai->like('nip', $key)->or_like('nama', $key)->or_like('jabatan', $key)->limit(50)->get_all();
+
+        $this->load->model('Auth_model', 'auth');
+        # Jika bukan superadmin
+        if (!$this->auth->get_super_access()) {
+            $id_org = $this->auth->get_id_organisasi();
+
+            # Jika kepala UPB
+            if ($this->auth->get_kepala_access()) {
+                $temp = $this->organisasi->get($id_org);
+                $orgs = $this->organisasi->as_array()->get_many_by(array('kd_bidang' => $temp->kd_bidang, 'kd_unit' => $temp->kd_unit, 'jenis' => 4));
+            } else {
+                $orgs = $this->organisasi->as_array()->get_many_by('id', $id_org);
+            }
+            $id_orgs = array_column($orgs, 'id');
+            $result = $this->pegawai->where_in('id_organisasi', $id_orgs)->group_start()->like('nip', $key)->or_like('nama', $key)->or_like('jabatan', $key)->group_end()->limit(50)->get_all();
+        } else {
+            $result = $this->pegawai->like('nip', $key)->or_like('nama', $key)->or_like('jabatan', $key)->limit(50)->get_all();
+        }
 
         echo json_encode($result);
     }
