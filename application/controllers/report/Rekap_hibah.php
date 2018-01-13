@@ -8,7 +8,8 @@ class Rekap_hibah extends MY_Controller {
 		parent::__construct();
 		$this->load->model('report/Rekap_hibah_model', 'report');
 		$this->load->model('organisasi_model', 'organisasi');
-		$this->load->model('Auth_model', 'auth');
+        $this->load->model('pegawai_model', 'pegawai');
+        $this->load->model('Auth_model', 'auth');
 	}
 
 	public function index()
@@ -19,6 +20,7 @@ class Rekap_hibah extends MY_Controller {
 		if (!$this->auth->get_super_access()) {
 			$data['id_organisasi'] = $this->auth->get_id_organisasi();
 		}
+        $data = $this->pegawai->get_cookie_pegawai(array('melaporkan_hibah', 'mengetahui_hibah'));
 
 		$this->render('modules/report/rekap_hibah/index', $data);
 	}
