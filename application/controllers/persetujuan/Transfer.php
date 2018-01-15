@@ -1,17 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Transfer extends MY_Controller {
+class Transfer extends MY_Controller 
+{
 
 	public $is_superadmin = 1;
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->model('Transfer_model', 'transfer');
 		$this->load->model('Persetujuan_model', 'persetujuan');
 	}
 
-	public function index() {
+	public function index()
+	{
 		$this->load->library('Pagination');
 
 		$filter = $this->input->get();
@@ -27,7 +30,8 @@ class Transfer extends MY_Controller {
 		$this->render('modules/persetujuan/transfer/index', $data);
 	}
 
-	public function detail($id = null) {
+	public function detail($id = null)
+	{
 		if (empty($id)) {
 			show_404();
 		}
@@ -38,7 +42,8 @@ class Transfer extends MY_Controller {
 		$this->render('modules/persetujuan/transfer/detail', $data);
 	}
 
-	public function rincian($id = null) {
+	public function rincian($id = null)
+	{
 		$this->load->model('aset/Temp_kiba_model', 'kiba');
 		$this->load->model('aset/Temp_kibb_model', 'kibb');
 		$this->load->model('aset/Temp_kibc_model', 'kibc');
@@ -60,7 +65,8 @@ class Transfer extends MY_Controller {
 		$this->render('modules/persetujuan/transfer/rincian', $data);
 	}
 
-	public function verifikasi() {
+	public function verifikasi() 
+	{
 		$data = $this->input->post();
 		$sukses = $this->persetujuan->insert($data);
 
@@ -81,12 +87,13 @@ class Transfer extends MY_Controller {
 			}
 
 		} else {
-			$this->message('', 'danger');
-			$this->go('');
+			$this->message('Gagal verifikasi', 'danger');
+			$this->go('persetujuan/transfer');
 		}
 	}
 
-	private function transfer($id) {
+	private function transfer($id) 
+	{
 		$this->load->model("aset/Temp_kiba_model", "kiba");
 		$this->load->model("aset/Temp_kibb_model", "kibb");
 		$this->load->model("aset/Temp_kibc_model", "kibc");
@@ -110,7 +117,8 @@ class Transfer extends MY_Controller {
 		return 1;
 	}
 
-	public function get_persetujuan($id) {
+	public function get_persetujuan($id) 
+	{
 
 		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_transfer', $id);
 

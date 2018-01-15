@@ -101,7 +101,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('aset/kibd/add_transfer/'.$transfer->id)}}" method="GET">
+				<form action="{{site_url('transfer/kibd/add/'.$transfer->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">
@@ -208,7 +208,7 @@
 				'id_aset':$(e.currentTarget).data('id-aset')
 			};
 
-			$.post("{{site_url('aset/kibd/insert_transfer')}}",
+			$.post("{{site_url('transfer/kibd/insert')}}",
 				data,
 				function(result){
 					if (result.status === 'sukses') {

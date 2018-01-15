@@ -10,7 +10,7 @@
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
 			{{--<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>--}}
 			<li class="nav nav-saldo-awal">
-				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
+				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
 					<li class="nav"><a href="{{site_url('saldo_awal/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
@@ -23,7 +23,7 @@
 
 			<li class="nav nav-title">MUTASI TAMBAH</li>
 			<li class="nav nav-invent">
-				<a href="#menu-invent" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Inventarisasi<i class="fa fa-angle-down ml-auto"></i></a>
+				<a href="#menu-invent" data-toggle="collapse"><i class="fa fa-cloud-upload fa-fw icon"></i>Inventarisasi<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-invent">
 					<li class="nav"><a href="{{site_url('inventarisasi/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
 					<li class="nav"><a href="{{site_url('inventarisasi/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
@@ -39,30 +39,49 @@
 			<li class="nav nav-koreksi-tambah">
 				<a href="#menu-koreksi-tambah" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Tambah Lainnya<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-koreksi-tambah">
-					<li class="nav"><a href="{{site_url('koreksi/koreksi_nilai')}}"><i class="fa fa-money fa-fw icon"></i>Koreksi Nilai</a></li>
-					<li class="nav"><a href="{{site_url('koreksi/koreksi_kepemilikan')}}"><i class="fa fa-user fa-fw icon"></i>Koreksi Kepemilikan</a></li>
-					<li class="nav"><a href="{{site_url('koreksi/koreksi_kode')}}"><i class="fa fa-tag fa-fw icon"></i>Reklas Kode</a></li>
+					<li class="nav"><a href="{{site_url('koreksi/nilai')}}"><i class="fa fa-money fa-fw icon"></i>1. Koreksi Nilai</a></li>
+					<li class="nav"><a href="{{site_url('koreksi/kepemilikan')}}"><i class="fa fa-user fa-fw icon"></i>2. Koreksi Kepemilikan</a></li>
+					<li class="nav"><a href="{{site_url('koreksi/kode')}}"><i class="fa fa-tag fa-fw icon"></i>3. Reklas Kode</a></li>
 				</ul>
 			</li>
 
 			<li class="nav nav-title">MUTASI KURANG</li>
 			<li class="nav nav-transfer-keluar"><a href="{{ site_url('transfer/index/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar</a></li>
 			<li class="nav nav-penghapusan"><a href="{{ site_url('penghapusan/index') }}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset</a></li>
+			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-koreksi-kurang">
 				<a href="#menu-koreksi-kurang" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Kurang Lainnya<i class="fa fa-angle-down ml-auto"></i></a>
-				@if($this->session->auth['is_admin'] == 1)
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-koreksi-kurang">
-					<li class="nav"><a href="{{site_url('koreksi/koreksi_hapus')}}"><i class="fa fa-trash fa-fw icon"></i>Koreksi Hapus</a></li>
+					<li class="nav"><a href="{{site_url('koreksi/hapus')}}"><i class="fa fa-trash fa-fw icon"></i>4. Koreksi Hapus</a></li>
 				</ul>
-				@endif
 			</li>
+			@endif
 
 			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-title">PERSETUJUAN</li>
-			<li class="nav nav-persetujuan-pengadaan"><a href="{{site_url('persetujuan/pengadaan')}}"><i class="fa fa-check fa-fw icon"></i>Pengadaan</a></li>
-			<li class="nav nav-persetujuan-hibah"><a href="{{site_url('persetujuan/hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
-			<li class="nav nav-persetujuan-transfer"><a href="{{site_url('persetujuan/transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
-			<li class="nav nav-persetujuan-hapus"><a href="{{site_url('persetujuan/penghapusan')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
+			<li class="nav nav-persetujuan-pengadaan nav-persetujuan-hibah">
+				<a href="#persetujuan-tambah" data-toggle="collapse"><i class="fa fa-download fa-fw icon"></i>Mutasi Tambah<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="persetujuan-tambah">
+					<li class="nav"><a href="{{site_url('persetujuan/pengadaan')}}"><i class="fa fa-check fa-fw icon"></i>Pengadaan</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
+				</ul>
+			</li>
+			<li class="nav nav-persetujuan-transfer nav-persetujuan-hapus">
+				<a href="#persetujuan-kurang" data-toggle="collapse"><i class="fa fa-upload fa-fw icon"></i>Mutasi Kurang<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="persetujuan-kurang">
+					<li class="nav"><a href="{{site_url('persetujuan/transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/penghapusan')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
+				</ul>
+			</li>
+			<li class="nav nav-persetujuan-koreksi">
+				<a href="#persetujuan-koreksi" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Koreksi<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="persetujuan-koreksi">
+					<li class="nav"><a href="{{site_url('persetujuan/koreksi_nilai')}}"><i class="fa fa-money fa-fw icon"></i>1. Koreksi Nilai</a></li>
+					<li class="nav"><a href="{{site_url('')}}"><i class="fa fa-user fa-fw icon"></i>2. Koreksi Kepemilikan</a></li>
+					<li class="nav"><a href="{{site_url('')}}"><i class="fa fa-tag fa-fw icon"></i>3. Reklas Kode</a></li>
+					<li class="nav"><a href="{{site_url('')}}"><i class="fa fa-trash fa-fw icon"></i>4. Koreksi Hapus</a></li>
+				</ul>
+			</li>
 			@endif
 
 			<li class="nav nav-title">LAPORAN</li>
@@ -87,7 +106,6 @@
 					<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
 				</ul>
 			</li>
-			{{--<li class="nav nav-report2"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Barang</a></li>--}}
 			<li class="nav nav-rekap-kib"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
 			<li class="nav nav-rekap-ruangan"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
 

@@ -109,7 +109,7 @@
                             <tr>
                                 <td class="text-nowrap text-center">
                                     @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
-                                    <a href="{{site_url('aset/kiba/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    <a href="{{site_url('transfer/kiba/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -178,7 +178,7 @@
                             <tr>
                                 <td class="text-nowrap text-center">
                                     @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
-                                    <a href="{{site_url('aset/kibb/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    <a href="{{site_url('transfer/kibb/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -253,7 +253,7 @@
                             <tr>
                                 <td class="text-nowrap text-center">
                                     @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
-                                    <a href="{{site_url('aset/kibc/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    <a href="{{site_url('transfer/kibc/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -295,6 +295,7 @@
                             <tr>
                                 <th class="text-nowrap text-center">Aksi</th>
                                 <th class="text-nowrap text-center">Kode Barang</th>
+                                <th class="text-nowrap text-right">Nilai</th>
                                 <th class="text-nowrap">Kontruksi</th>
                                 <th class="text-nowrap">Panjang</th>
                                 <th class="text-nowrap">Lebar</th>
@@ -308,7 +309,6 @@
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
-                                <th class="text-nowrap text-right">Nilai</th>
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
                                 <th>Keterangan</th>
@@ -326,7 +326,7 @@
                             <tr>
                                 <td class="text-nowrap text-center">
                                     @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
-                                    <a href="{{site_url('aset/kibd/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    <a href="{{site_url('transfer/kibd/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">
@@ -396,7 +396,7 @@
                             <tr>
                                 <td class="text-nowrap text-center">
                                     @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
-                                    <a href="{{site_url('aset/kibe/delete_transfer/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    <a href="{{site_url('transfer/kibe/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-nowrap text-center">

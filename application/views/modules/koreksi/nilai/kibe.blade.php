@@ -1,12 +1,13 @@
 @layout('commons/index')
-@section('title')Transfer Keluar - KIB-E@end
+@section('title')Koreksi Nilai@end
 
 @section('breadcrump')
-	<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi)}}">Transfer Keluar</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar_rincian/'.$transfer->id)}}">Rincian Aset</a></li>
-	<li class="breadcrumb-item active">Tambah Aset KIB-E</li>
-@end
+<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai/rincian/'.$koreksi->id)}}">Rincian</a></li>
+<li class="breadcrumb-item active">KIB-E</li>
+@endsection
 
 @section('content')
 <div class="row">
@@ -49,8 +50,8 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<button data-id-transfer="{{$transfer->id}}" data-id-aset="{{$item->id}}" data-id- class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
-							</td>
+                                <button class="btn btn-primary" data-id="{{$item->id}}" data-nilai="{{monefy($item->nilai)}}"><i class="fa fa-plus"></i></button>
+                            </td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
 								{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -85,6 +86,35 @@
 @end
 
 @section('modal')
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Koreksi Nilai</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{site_url('koreksi/aset/kibe/insert_nilai')}}" method="POST">
+                    <input type="hidden" name="id_aset">
+                    <input type="hidden" name="id_koreksi" value="{{$koreksi->id}}">
+                    <div class="form-group">
+                        <label>Nilai Lama</label>
+                        <input type="text" name="original_value" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Nilai baru</label>
+                        <input type="number" name="corrected_value" class="form-control" placeholder="nilai baru" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-filter">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -93,7 +123,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('transfer/kibe/add/'.$transfer->id)}}" method="GET">
+				<form action="{{site_url('koreksi/aset/kibe/koreksi_nilai/'.$koreksi->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">
@@ -182,27 +212,17 @@
 @section('script')
 <script type="text/javascript">
 	var kib = (function(){
-		theme.activeMenu('.nav-transfer-keluar');
-		$(document).ajaxError(function(){alert('Terjadi kesalahan')});
-		$("[data-id-transfer]").on('click', fungsiTambah);
+		theme.activeMenu('.nav-koreksi-tambah');
 
-		function fungsiTambah(e) {
-			var data = {
-				'id_transfer':$(e.currentTarget).data('id-transfer'),
-				'id_aset':$(e.currentTarget).data('id-aset')
-			};
+        $("[data-id]").on('click', function(e){
+            var id = $(e.currentTarget).data('id');
+            var nilai = $(e.currentTarget).data('nilai');
 
-			$.post("{{site_url('transfer/kibe/insert')}}",
-				data,
-				function(result){
-					if (result.status === 'sukses') {
-						$(e.currentTarget).closest('tr').remove();
-						$("#terpilih_count").empty().text(result.terpilih_count);
-					} else {
-						alert('terjadi kesalahan');
-					}
-			}, 'json');
-		}
+            $("[name=id_aset]").val(id);
+            $("[name=original_value]").val(nilai);
+
+            $("#modal-tambah").modal('show');
+        });
 	})();
 </script>
 @end

@@ -1,33 +1,35 @@
 @layout('commons/index')
-@section('title')Transfer Keluar - KIB-C@end
+@section('title')Koreksi Nilai@end
 
 @section('breadcrump')
-	<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi)}}">Transfer Keluar</a></li>
-	<li class="breadcrumb-item"><a href="{{site_url('transfer/index/keluar_rincian/'.$transfer->id)}}">Rincian Aset</a></li>
-	<li class="breadcrumb-item active">Tambah Aset KIB-C</li>
-@end
+<li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai/rincian/'.$koreksi->id)}}">Rincian</a></li>
+<li class="breadcrumb-item active">KIB-D</li>
+@endsection
 
 @section('content')
 <div class="row">
 	<div class="col">
 		<div class="card">
 			<div class="card-header form-inline">
-				<div class="btn-group">
-					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button>
-					<button class="btn btn-primary">Terpilih <span class="badge badge-warning" id="terpilih_count">{{$terpilih_count}}</span></button>
-				</div>
-			</div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button>
+                    <button class="btn btn-primary">Terpilih <span class="badge badge-warning" id="terpilih_count">{{$terpilih_count}}</span></button>
+                </div>
+            </div>
 			<div class="card-body table-responsive table-scroll px-0 py-0">
 				<table class="table table-hover table-striped table-bordered">
 					<thead>
 						<tr>
 							<th class="text-nowrap text-center">Aksi</th>
 							<th class="text-nowrap text-center">Kode Barang</th>
-							<th class="text-nowrap">Tingkat</th>
-							<th class="text-nowrap">Beton</th>
-							<th class="text-nowrap">Luas Lantai</th>
+							<th class="text-nowrap">Kontruksi</th>
+							<th class="text-nowrap">Panjang</th>
+							<th class="text-nowrap">Lebar</th>
+							<th class="text-nowrap">Luas</th>
 							<th class="text-nowrap">Lokasi</th>
 							<th class="text-nowrap">Tgl.Dokumen</th>
 							<th class="text-nowrap">No.Dokumen</th>
@@ -46,14 +48,14 @@
 					</thead>
 					<tbody>
 						@if(empty($kib))
-						<tr><td colspan="19" class="text-center"><b><i>Data kosong</i></b></td></tr>
+						<tr><td colspan="20" class="text-center"><b><i>Data kosong</i></b></td></tr>
 						@endif
 
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-								<button data-id-transfer="{{$transfer->id}}" data-id-aset="{{$item->id}}" data-id- class="btn btn-sm btn-success"><i class="fa fa-plus"></i></button>
-							</td>
+                                <button class="btn btn-primary" data-id="{{$item->id}}" data-nilai="{{monefy($item->nilai)}}"><i class="fa fa-plus"></i></button>
+                            </td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
 								{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -62,9 +64,10 @@
 								{{zerofy($item->id_kategori->kd_subsubkelompok)}} .
 								{{zerofy($item->reg_barang,4)}}
 							</td>
-							<td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-							<td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-							<td class="text-nowrap">{{$item->luas_lantai}}</td>
+							<td class="text-nowrap">{{$item->kontruksi}}</td>
+							<td class="text-nowrap">{{$item->panjang}}</td>
+							<td class="text-nowrap">{{$item->lebar}}</td>
+							<td class="text-nowrap">{{monefy($item->luas)}}</td>
 							<td class="text-nowrap">{{$item->lokasi}}</td>
 							<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 							<td class="text-nowrap">{{$item->dokumen_no}}</td>
@@ -91,6 +94,35 @@
 @end
 
 @section('modal')
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Koreksi Nilai</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{site_url('koreksi/aset/kibd/insert_nilai')}}" method="POST">
+                    <input type="hidden" name="id_aset">
+                    <input type="hidden" name="id_koreksi" value="{{$koreksi->id}}">
+                    <div class="form-group">
+                        <label>Nilai Lama</label>
+                        <input type="text" name="original_value" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Nilai baru</label>
+                        <input type="number" name="corrected_value" class="form-control" placeholder="nilai baru" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-filter">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -99,7 +131,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('transfer/kibc/add/'.$transfer->id)}}" method="GET">
+				<form action="{{site_url('koreksi/aset/kibd/koreksi_nilai/'.$koreksi->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">
@@ -107,27 +139,23 @@
 							<input type="text" class="form-control" name="reg_barang" value="{{isset($filter['reg_barang'])?$filter['reg_barang']:''}}" />
 						</div>
 						<div class="form-group col">
-							<label>Tingkat</label>
-							<select name="tingkat" class="form-control">
-								<option value="">Semua</option>
-								<option value="1" {{isset($filter['tingkat'])&&$filter['tingkat']==1?'selected':''}}>Ya</option>
-								<option value="0" {{isset($filter['tingkat'])&&$filter['tingkat']==0?'selected':''}}>Tidak</option>
-							</select>
+							<label>Panjang</label>
+							<input type="text" class="form-control" name="panjang" value="{{isset($filter['panjang'])?$filter['panjang']:''}}" />
 						</div>
 						<div class="form-group col">
-							<label>Beton</label>
-							<select name="beton" class="form-control">
-								<option value="">Semua</option>
-								<option value="1" {{isset($filter['tingkat'])&&$filter['tingkat']==1?'selected':''}}>Ya</option>
-								<option value="0" {{isset($filter['tingkat'])&&$filter['tingkat']==0?'selected':''}}>Tidak</option>
-							</select>
+							<label>Lebar</label>
+							<input type="text" class="form-control" name="lebar" value="{{isset($filter['lebar'])?$filter['lebar']:''}}" />
 						</div>
 						<div class="form-group col">
-							<label>Luas Lantai</label>
-							<input type="text" class="form-control" name="luas_lantai" value="{{isset($filter['luas_lantai'])?$filter['luas_lantai']:''}}" />
+							<label>Luas</label>
+							<input type="text" class="form-control" name="luas" value="{{isset($filter['luas'])?$filter['luas']:''}}" />
 						</div>
 					</div>
 					<div class="row">
+						<div class="form-group col">
+							<label>Kontruksi</label>
+							<input type="text" class="form-control" name="kontruksi" value="{{isset($filter['kontruksi'])?$filter['kontruksi']:''}}" />
+						</div>
 						<div class="form-group col">
 							<label>Lokasi</label>
 							<input type="text" class="form-control" name="lokasi" value="{{isset($filter['lokasi'])?$filter['lokasi']:''}}" />
@@ -182,7 +210,7 @@
 						<div class="form-group col">
 							<label>Urutkan Berdasar</label>
 							<select name="ord_by" class="form-control">
-								<option value="reg_barang">NReg Barang</option>
+								<option value="reg_barang">Reg Barang</option>
 							</select>
 						</div>
 					</div>
@@ -200,27 +228,17 @@
 @section('script')
 <script type="text/javascript">
 	var kib = (function(){
-		theme.activeMenu('.nav-transfer-keluar');
-		$(document).ajaxError(function(){alert('Terjadi kesalahan')});
-		$("[data-id-transfer]").on('click', fungsiTambah);
+		theme.activeMenu('.nav-koreksi-tambah');
 
-		function fungsiTambah(e) {
-			var data = {
-				'id_transfer':$(e.currentTarget).data('id-transfer'),
-				'id_aset':$(e.currentTarget).data('id-aset')
-			};
+        $("[data-id]").on('click', function(e){
+            var id = $(e.currentTarget).data('id');
+            var nilai = $(e.currentTarget).data('nilai');
 
-			$.post("{{site_url('transfer/kibc/insert')}}",
-				data,
-				function(result){
-					if (result.status === 'sukses') {
-						$(e.currentTarget).closest('tr').remove();
-						$("#terpilih_count").empty().text(result.terpilih_count);
-					} else {
-						alert('terjadi kesalahan');
-					}
-			}, 'json');
-		}
+            $("[name=id_aset]").val(id);
+            $("[name=original_value]").val(nilai);
+
+            $("#modal-tambah").modal('show');
+        });
 	})();
 </script>
 @end

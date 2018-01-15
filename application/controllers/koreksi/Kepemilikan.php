@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Koreksi_nilai extends MY_Controller {
+class Kepemilikan extends MY_Controller {
 
 	public function __construct()
 	{
@@ -13,12 +13,12 @@ class Koreksi_nilai extends MY_Controller {
 	public function index()
 	{
 		$data['organisasi'] = $this->organisasi->get_many_by(array('jenis'=>4));
-		$this->render('modules/koreksi/nilai/index', $data);
+		$this->render('modules/koreksi/kepemilikan/index', $data);
 	}
 
 	public function rincian()
 	{
-		$this->render('modules/koreksi/nilai/rincian');
+		$this->render('modules/koreksi/kepemilikan/rincian');
 	}
 
 	public function rincian_redirect()
@@ -31,7 +31,7 @@ class Koreksi_nilai extends MY_Controller {
 
         switch ($jenis) {
             case 'a':
-            $this->go('koreksi/koreksi_nilai/add_kiba/'.$id);
+            $this->go('koreksi/koreksi_kepemilikan/add_kiba/'.$id);
             break;
 
             default:
@@ -42,6 +42,7 @@ class Koreksi_nilai extends MY_Controller {
 
     public function add_kiba()
     {
-		$this->render('modules/koreksi/nilai/kiba');
+    	$data['organisasi'] = $this->organisasi->get_many_by(array('jenis'=>4));
+		$this->render('modules/koreksi/kepemilikan/kiba', $data);
     }
 }

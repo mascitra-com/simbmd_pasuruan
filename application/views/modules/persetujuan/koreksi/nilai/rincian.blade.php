@@ -1,10 +1,9 @@
 @layout('commons/index')
-@section('title')Koreksi Nilai@end
+@section('title')Persetujuan Koreksi Nilai@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('persetujuan/koreksi_nilai')}}">Beranda</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @endsection
 
@@ -12,12 +11,6 @@
 <div class="form-inline">
     <div class="btn-group mb-3 ml-auto">
         <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
-        @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
-        <a href="{{site_url('koreksi/nilai/finish_transaction/'.$koreksi->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
-        @elseif($koreksi->status_pengajuan === '1')
-        <a href="{{site_url('koreksi/nilai/cancel_transaction/'.$koreksi->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
-        @endif
     </div>
 </div>
 <div class="row mb-3">
@@ -40,12 +33,6 @@
                     <div class="form-group col-12">
                         <label>Keterangan</label>
                         <textarea class="form-control" name="keterangan" placeholder="keterangan">{{$koreksi->keterangan}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        @endif
-                        <button type="button" class="btn btn-waring" data-dismiss="modal">Batal</button>
                     </div>
                 </form>
             </div>
@@ -81,9 +68,6 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <th class="text-nowrap text-center">Aksi</th>
-                                @endif
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap text-right text-danger">Nilai Lama</th>
                                 <th class="text-nowrap text-right text-success">Nilai Baru</th>
@@ -108,11 +92,6 @@
                             @endif
                             @foreach($rincian['kiba'] AS $item)
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <td class="text-nowrap text-center">
-                                    <a href="{{site_url('koreksi/aset/kiba/delete_nilai/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
-                                </td>
-                                @endif
                                 <td class="text-nowrap text-center">
                                     {{zerofy($item->id_kategori->kd_golongan)}} .
                                     {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -145,9 +124,6 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <th class="text-nowrap text-center">Aksi</th>
-                                @endif
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap text-right text-danger">Nilai Lama</th>
                                 <th class="text-nowrap text-right text-success">Nilai Baru</th>
@@ -179,11 +155,6 @@
                             @endif
                             @foreach($rincian['kibb'] AS $item)
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <td class="text-nowrap text-center">
-                                    <a href="{{site_url('koreksi/aset/kibb/delete_nilai/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
-                                </td>
-                                @endif
                                 <td class="text-nowrap text-center">
                                     {{zerofy($item->id_kategori->kd_golongan)}} .
                                     {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -223,9 +194,6 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <th class="text-nowrap text-center">Aksi</th>
-                                @endif
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap text-right text-danger">Nilai Lama</th>
                                 <th class="text-nowrap text-right text-success">Nilai Baru</th>
@@ -255,11 +223,6 @@
                             @endif
                             @foreach($rincian['kibc'] AS $item)
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <td class="text-nowrap text-center">
-                                    <a href="{{site_url('koreksi/aset/kibc/delete_nilai/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
-                                </td>
-                                @endif
                                 <td class="text-nowrap text-center">
                                     {{zerofy($item->id_kategori->kd_golongan)}} .
                                     {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -297,9 +260,6 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <th class="text-nowrap text-center">Aksi</th>
-                                @endif
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap text-right text-danger">Nilai Lama</th>
                                 <th class="text-nowrap text-right text-success">Nilai Baru</th>
@@ -330,11 +290,6 @@
                             @endif
                             @foreach($rincian['kibd'] AS $item)
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <td class="text-nowrap text-center">
-                                    <a href="{{site_url('koreksi/aset/kibd/delete_nilai/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
-                                </td>
-                                @endif
                                 <td class="text-nowrap text-center">
                                     {{zerofy($item->id_kategori->kd_golongan)}} .
                                     {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -373,9 +328,6 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <th class="text-nowrap text-center">Aksi</th>
-                                @endif
                                 <th class="text-nowrap text-center">Kode Barang</th>
                                 <th class="text-nowrap text-right text-danger">Nilai Lama</th>
                                 <th class="text-nowrap text-right text-success">Nilai Baru</th>
@@ -402,11 +354,6 @@
                             @endif
                             @foreach($rincian['kibe'] AS $item)
                             <tr>
-                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
-                                <td class="text-nowrap text-center">
-                                    <a href="{{site_url('koreksi/aset/kibe/delete_nilai/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
-                                </td>
-                                @endif
                                 <td class="text-nowrap text-center">
                                     {{zerofy($item->id_kategori->kd_golongan)}} .
                                     {{zerofy($item->id_kategori->kd_bidang)}} .
@@ -439,49 +386,13 @@
         </div>
     </div>
 </div>
-
 @end
 
-@section('modal')
-<div class="modal fade" tabindex="-1" role="dialog" id="modal-add">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Aset</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{site_url('koreksi/nilai/rincian_redirect')}}" method="POST">
-                        <input type="hidden" name="id" value="{{$koreksi->id}}">
-                        
-                        <div class="modal-title"><b>Aset Tetap</b></div>
-                        <ul style="list-style: none;">
-                            <li><input type="radio" name="jenis" value="a"> A - Tanah</li>
-                            <li><input type="radio" name="jenis" value="b"> B - Peralatan Dan Mesin</li>
-                            <li><input type="radio" name="jenis" value="c"> C - Gedung Dan Bangunan</li>
-                            <li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
-                            <li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
-                        </ul>
-                        <hr>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Pilih</button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i
-                                class="fa fa-times"></i> Batal
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endsection
-
-    @section('style')
-    <style>
-    th, td {
-        font-size: smaller !important;
-    }
+@section('style')
+<style>
+th, td {
+    font-size: smaller !important;
+}
 </style>
 @endsection
 
