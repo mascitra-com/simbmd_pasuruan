@@ -18,7 +18,7 @@
                     <p>Sistem ini dibangun untuk mempermudah, mempercepat proses-proses pengelolaan barang dan aset,
                         memperkecil kesalahan data dan pemrosesan dengan cara mengurangi hal-hal yang bersifat manual,
                         diganti dengan berbasis mesin elektronik.</p>
-                    <img src="http://pkmpurwosari.pasuruankab.go.id/mod/download/dokumen/logo_kab-pasuruan.jpg"
+                    <img src="{{ base_url('res/img/logo_kab-pasuruan.jpg') }}"
                          alt="Logo Kabupaten Lumajang" class="img-responsive" width="200px"></br></br>
                     <p>Badan Keuangan Daerah (BKD) </br>Pemerintah Kabupaten Pasuruan</br>Jl. Hayam Wuruk No. 14
                         Pasuruan - Jawa Timur - Indonesia</p>

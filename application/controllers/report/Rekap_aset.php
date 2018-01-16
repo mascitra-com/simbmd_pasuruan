@@ -8,7 +8,8 @@ class Rekap_aset extends MY_Controller {
 		parent::__construct();
 		$this->load->model('report/Rekap_aset_model', 'report');
 		$this->load->model('organisasi_model', 'organisasi');
-		$this->load->model('Auth_model', 'auth');
+        $this->load->model('pegawai_model', 'pegawai');
+        $this->load->model('Auth_model', 'auth');
 	}
 	
 	public function index($jenis = null)
@@ -22,10 +23,12 @@ class Rekap_aset extends MY_Controller {
 
 		switch ($jenis) {
 			case 17:
-				$this->render('modules/report/rekap_aset/index_17', $data);
+                $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_aset17', 'mengetahui_aset17')));
+                $this->render('modules/report/rekap_aset/index_17', $data);
 				break;
 			case 13:
-				$this->render('modules/report/rekap_aset/index_13', $data);
+                $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_aset13', 'mengetahui_aset13')));
+                $this->render('modules/report/rekap_aset/index_13', $data);
 				break;
 			default:
 				show_404();

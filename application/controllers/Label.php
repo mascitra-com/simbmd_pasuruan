@@ -1,14 +1,18 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * Created by PhpStorm.
+ * User: Rizki Herdatullah
+ * Date: 1/13/2018
+ * Time: 3:21 PM
+ */
 
-class Rekap_ruangan extends MY_Controller
+class Label extends MY_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('report/Rekap_ruangan_model', 'report');
-        $this->load->model('Ruangan_model', 'ruangan');
+        $this->load->model('Label_model', 'label');
         $this->load->model('organisasi_model', 'organisasi');
         $this->load->model('pegawai_model', 'pegawai');
         $this->load->model('Auth_model', 'auth');
@@ -22,8 +26,7 @@ class Rekap_ruangan extends MY_Controller
         if (!$this->auth->get_super_access()) {
             $data['id_organisasi'] = $this->auth->get_id_organisasi();
         }
-        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('mengetahui_ruangan')));
-        $this->render('modules/report/rekap_ruangan/index', $data);
+        $this->render('modules/labelisasi/index', $data);
     }
 
     public function cetak()
@@ -35,10 +38,8 @@ class Rekap_ruangan extends MY_Controller
             $this->go('report/rekap_ruangan');
         }
 
-        $data['ruangan'] = $this->ruangan->as_array()->get($input['id_ruangan']);
-        $data['upb'] = $this->organisasi->as_array()->get($input['id_organisasi']);
         $data['detail'] = $input;
-        $data['rekap'] = $this->report->get_rekapitulasi($input['id_ruangan']);
-        $this->render("modules/report/rekap_ruangan/cetak", $data);
+        $data['labels'] = $this->label->get_data_label($input['id_ruangan']);
+        $this->render("modules/labelisasi/cetak", $data);
     }
 }

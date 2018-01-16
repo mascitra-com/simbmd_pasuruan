@@ -64,7 +64,7 @@
                             <div class="col-md-4">
                                 <div class="input-group">
                                     <input type="text" name="penanggung_nama" class="form-control form-control-sm"
-                                           value="{{ $pegawai->nama }}" placeholder="Nama"/>
+                                           value="{{ $mengetahui_ruangan->nama }}" placeholder="Nama"/>
                                     <span class="input-group-btn">
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#modal-tambah">Pilih</button>
@@ -76,14 +76,14 @@
                             <label class="col-md-3 col-form-label text-right">NIP</label>
                             <div class="col-md-4">
                                 <input type="text" name="penanggung_nip" class="form-control form-control-sm"
-                                       value="{{ $pegawai->nip }}" placeholder="NIP"/>
+                                       value="{{ $mengetahui_ruangan->nip }}" placeholder="NIP"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Jabatan</label>
                             <div class="col-md-4">
                                 <input type="text" name="penanggung_jabatan" class="form-control form-control-sm"
-                                       value="{{ $pegawai->jabatan }}" placeholder="Jabatan"/>
+                                       value="{{ $mengetahui_ruangan->jabatan }}" placeholder="Jabatan"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -189,7 +189,7 @@
         }
 
         function fungsiTombolPegawai(e) {
-            $.getJSON("{{site_url('pegawai/save_cookie?name=default_pegawai_ruangan&id=')}}" + $(e.currentTarget).data('id'), function (result) {
+            $.getJSON("{{site_url('pegawai/save_cookie?name=mengetahui_ruangan&id=')}}" + $(e.currentTarget).data('id'), function (result) {
                 $('[name=penanggung_nip]').val($(e.currentTarget).data('nip'));
                 $('[name=penanggung_nama]').val($(e.currentTarget).data('nama'));
                 $('[name=penanggung_jabatan]').val($(e.currentTarget).data('jabatan'));
