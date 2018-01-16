@@ -1,11 +1,11 @@
 @layout('commons/index')
-@section('title')Koreksi Nilai@end
+@section('title')Koreksi Kepemilikan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai/rincian/'.$koreksi->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi->id)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi->id)}}">Koreksi Kepemilikan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan/rincian/'.$koreksi->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">KIB-C</li>
 @endsection
 
@@ -26,7 +26,6 @@
                         <tr>
                             <th class="text-nowrap text-center">Aksi</th>
                             <th class="text-nowrap text-center">Kode Barang</th>
-                            <th class="text-nowrap text-right text-danger">Nilai</th>
                             <th class="text-nowrap">Tingkat</th>
                             <th class="text-nowrap">Beton</th>
                             <th class="text-nowrap">Luas Lantai</th>
@@ -39,6 +38,7 @@
                             <th class="text-nowrap">Tgl. Pembukuan</th>
                             <th class="text-nowrap">Asal Usul</th>
                             <th class="text-nowrap">Kondisi</th>
+                            <th class="text-nowrap text-right">Nilai</th>
                             <th class="text-nowrap text-right">Nilai Sisa</th>
                             <th class="text-nowrap">Masa Manfaat</th>
                             <th class="text-nowrap">Keterangan</th>
@@ -63,7 +63,6 @@
                                 {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
                                 {{zerofy($item->reg_barang,4)}}
                             </td>
-                            <td class="text-nowrap text-right text-danger">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
                             <td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
                             <td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
                             <td class="text-nowrap">{{$item->luas_lantai}}</td>
@@ -76,6 +75,7 @@
                             <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
                             <td class="text-nowrap">{{$item->asal_usul}}</td>
                             <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                            <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
                             <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
                             <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                             <td class="text-nowrap">{{$item->keterangan}}</td>
@@ -96,20 +96,25 @@
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Koreksi Nilai</h4>
+                <h4 class="modal-title">Koreksi Kepemilikan</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{site_url('koreksi/aset/kibc/insert_nilai')}}" method="POST">
+                <form action="{{site_url('koreksi/aset/kibc/insert_kepemilikan')}}" method="POST">
                     <input type="hidden" name="id_aset">
                     <input type="hidden" name="id_koreksi" value="{{$koreksi->id}}">
+                    <input type="hidden" name="original_value" value="{{$koreksi->id_organisasi->id}}"/>
                     <div class="form-group">
-                        <label>Nilai Lama</label>
-                        <input type="text" name="original_value" class="form-control" readonly />
+                        <label>Kepemilikan Lama</label>
+                        <input type="text" class="form-control form-control-sm" value="{{$koreksi->id_organisasi->nama}}" readonly/>
                     </div>
                     <div class="form-group">
-                        <label>Nilai baru</label>
-                        <input type="number" name="corrected_value" class="form-control" placeholder="nilai baru" />
+                        <label>Kepemilikan baru</label>
+                        <select name="corrected_value" class="form-control">
+                            @foreach($organisasi AS $item)
+                                <option value="{{$item->id}}">{{$item->nama}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Simpan</button>

@@ -77,9 +77,9 @@
 				<a href="#persetujuan-koreksi" data-toggle="collapse"><i class="fa fa-refresh fa-fw icon"></i>Koreksi<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="persetujuan-koreksi">
 					<li class="nav"><a href="{{site_url('persetujuan/koreksi_nilai')}}"><i class="fa fa-money fa-fw icon"></i>1. Koreksi Nilai</a></li>
-					<li class="nav"><a href="{{site_url('')}}"><i class="fa fa-user fa-fw icon"></i>2. Koreksi Kepemilikan</a></li>
-					<li class="nav"><a href="{{site_url('')}}"><i class="fa fa-tag fa-fw icon"></i>3. Reklas Kode</a></li>
-					<li class="nav"><a href="{{site_url('')}}"><i class="fa fa-trash fa-fw icon"></i>4. Koreksi Hapus</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/koreksi_kepemilikan')}}"><i class="fa fa-user fa-fw icon"></i>2. Koreksi Kepemilikan</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/koreksi_kode')}}"><i class="fa fa-tag fa-fw icon"></i>3. Reklas Kode</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/koreksi_hapus')}}"><i class="fa fa-trash fa-fw icon"></i>4. Koreksi Hapus</a></li>
 				</ul>
 			</li>
 			@endif
