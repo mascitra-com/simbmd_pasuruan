@@ -8,7 +8,7 @@
 			<li class="nav nav-title">UTAMA</li>
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
-			{{--<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>--}}
+			<li class="nav nav-notifikasi"><a href="{{site_url('notifikasi')}}"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
 			<li class="nav nav-saldo-awal">
 				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
