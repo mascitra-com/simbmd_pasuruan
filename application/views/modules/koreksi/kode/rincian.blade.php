@@ -1,10 +1,10 @@
-@layout('commons/index')
+a@layout('commons/index')
 @section('title')Koreksi Kode@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="#">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="#">Koreksi Kode</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kode?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kode?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Kode</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @endsection
 
@@ -12,9 +12,12 @@
 <div class="form-inline">
     <div class="btn-group mb-3 ml-auto">
         <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
+        @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
         <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"></i> Tambah</button>
-        <a href="{{site_url()}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
-        <!-- <a href="{{site_url()}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a> -->
+        <a href="{{site_url('koreksi/kode/finish_transaction/'.$koreksi->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+        @elseif($koreksi->status_pengajuan === '1')
+        <a href="{{site_url('koreksi/kode/cancel_transaction/'.$koreksi->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+        @endif
     </div>
 </div>
 <div class="row mb-3">
@@ -24,21 +27,24 @@
                 <span class="mr-auto">Detail Kontrak</span>
             </div>
             <div class="card-body">
-                <form action="#" class="form-row">
+                <form action="{{site_url('koreksi/kode/update')}}" method="POST" class="form-row">
+                    <input type="hidden" name="id" value="{{$koreksi->id}}">
                     <div class="form-group col-6">
                         <label>No. Jurnal</label>
-                        <input type="text" class="form-control" placeholder="####" readonly/>
+                        <input type="text" class="form-control" value="{{zerofy($koreksi->id, 4)}}" readonly/>
                     </div>
                     <div class="form-group col-6">
                         <label>Tanggal Jurnal</label>
-                        <input type="date" class="form-control" value="{{date('Y-m-d')}}" placeholder="tanggal jurnal" />
+                        <input type="date" class="form-control" name="tgl_jurnal" value="{{datify($koreksi->tgl_jurnal, 'Y-m-d')}}" placeholder="tanggal jurnal" />
                     </div>
                     <div class="form-group col-12">
                         <label>Keterangan</label>
-                        <textarea class="form-control" placeholder="keterangan"></textarea>
+                        <textarea class="form-control" name="keterangan" placeholder="keterangan">{{$koreksi->keterangan}}</textarea>
                     </div>
                     <div class="form-group">
+                        @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
                         <button type="submit" class="btn btn-primary">Simpan</button>
+                        @endif
                         <button type="button" class="btn btn-waring" data-dismiss="modal">Batal</button>
                     </div>
                 </form>
@@ -75,8 +81,11 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
                                 <th class="text-nowrap text-center">Aksi</th>
-                                <th class="text-nowrap text-center">Kode Barang</th>
+                                @endif
+                                <th class="text-nowrap text-center text-danger">Kode Lama</th>
+                                <th class="text-nowrap text-center text-success">Kode Baru</th>
                                 <th class="text-nowrap">Luas (m2)</th>
                                 <th class="text-nowrap">Alamat</th>
                                 <th class="text-nowrap">Tgl. Sertifikat</th>
@@ -88,13 +97,54 @@
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap text-right">Nilai</th>
                                 <th>Keterangan</th>
-                                <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(empty($rincian) OR empty($rincian['kiba']))
                             <tr>
-                                <td colspan="14" class="text-center"><b><i>Data kosong</i></b></td>
+                                <td colspan="16" class="text-center"><b><i>Data kosong</i></b></td>
                             </tr>
+                            @endif
+                            @foreach($rincian['kiba'] AS $item)
+                            <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
+                                <td class="text-nowrap text-center">
+                                    <a href="{{site_url('koreksi/aset/kiba/delete_kode/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
+                                </td>
+                                @endif
+                                <td class="text-nowrap text-center text-danger">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->id_kategori->nama}}
+                                </td>
+                                <td class="text-nowrap text-center text-success">
+                                    {{zerofy($item->corrected_value->kd_golongan)}} .
+                                    {{zerofy($item->corrected_value->kd_bidang)}} .
+                                    {{zerofy($item->corrected_value->kd_kelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subkelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->corrected_value->nama}}
+                                </td>
+                                <td class="text-nowrap">{{monefy($item->luas)}}</td>
+                                <td class="text-nowrap">{{$item->alamat}}</td>
+                                <td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
+                                <td class="text-nowrap">{{$item->sertifikat_no}}</td>
+                                <td class="text-nowrap">{{$item->hak}}</td>
+                                <td class="text-nowrap">{{$item->pengguna}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd/m/Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd/m/Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -104,8 +154,11 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
                                 <th class="text-nowrap text-center">Aksi</th>
-                                <th class="text-nowrap text-center">Kode Barang</th>
+                                @endif
+                                <th class="text-nowrap text-center text-danger">Kode Lama</th>
+                                <th class="text-nowrap text-center text-success">Kode Baru</th>
                                 <th class="text-nowrap">Merk</th>
                                 <th class="text-nowrap">Tipe</th>
                                 <th class="text-nowrap">Ukuran/CC</th>
@@ -124,13 +177,61 @@
                                 <th class="text-nowrap">Masa Manfaat</th>
                                 <th>Keterangan</th>
                                 <th class="text-nowrap">Ruang</th>
-                                <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(empty($rincian) OR empty($rincian['kibb']))
                             <tr>
-                                <td colspan="21" class="text-center"><b><i>Data kosong</i></b></td>
+                                <td colspan="23" class="text-center"><b><i>Data kosong</i></b></td>
                             </tr>
+                            @endif
+                            @foreach($rincian['kibb'] AS $item)
+                            <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
+                                <td class="text-nowrap text-center">
+                                    <a href="{{site_url('koreksi/aset/kibb/delete_kode/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
+                                </td>
+                                @endif
+                                <td class="text-nowrap text-center text-danger">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->id_kategori->nama}}
+                                </td>
+                                <td class="text-nowrap text-center text-success">
+                                    {{zerofy($item->corrected_value->kd_golongan)}} .
+                                    {{zerofy($item->corrected_value->kd_bidang)}} .
+                                    {{zerofy($item->corrected_value->kd_kelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subkelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->corrected_value->nama}}
+                                </td>
+                                <td class="text-nowrap">{{$item->merk}}</td>
+                                <td class="text-nowrap">{{$item->tipe}}</td>
+                                <td class="text-nowrap">{{$item->ukuran}}</td>
+                                <td class="text-nowrap">{{$item->bahan}}</td>
+                                <td class="text-nowrap">{{$item->no_pabrik}}</td>
+                                <td class="text-nowrap">{{$item->no_rangka}}</td>
+                                <td class="text-nowrap">{{$item->no_mesin}}</td>
+                                <td class="text-nowrap">{{$item->no_polisi}}</td>
+                                <td class="text-nowrap">{{$item->no_bpkb}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -140,8 +241,11 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
                                 <th class="text-nowrap text-center">Aksi</th>
-                                <th class="text-nowrap text-center">Kode Barang</th>
+                                @endif
+                                <th class="text-nowrap text-center text-danger">Kode Lama</th>
+                                <th class="text-nowrap text-center text-success">Kode Baru</th>
                                 <th class="text-nowrap">Tingkat</th>
                                 <th class="text-nowrap">Beton</th>
                                 <th class="text-nowrap">Luas Lantai</th>
@@ -158,13 +262,59 @@
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
                                 <th>Keterangan</th>
-                                <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(empty($rincian) OR empty($rincian['kibc']))
                             <tr>
-                                <td colspan="19" class="text-center"><b><i>Data kosong</i></b></td>
+                                <td colspan="21" class="text-center"><b><i>Data kosong</i></b></td>
                             </tr>
+                            @endif
+                            @foreach($rincian['kibc'] AS $item)
+                            <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
+                                <td class="text-nowrap text-center">
+                                    <a href="{{site_url('koreksi/aset/kibc/delete_kode/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
+                                </td>
+                                @endif
+                                <td class="text-nowrap text-center text-danger">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->id_kategori->nama}}
+                                </td>
+                                <td class="text-nowrap text-center text-success">
+                                    {{zerofy($item->corrected_value->kd_golongan)}} .
+                                    {{zerofy($item->corrected_value->kd_bidang)}} .
+                                    {{zerofy($item->corrected_value->kd_kelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subkelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->corrected_value->nama}}
+                                </td>
+                                <td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
+                                <td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
+                                <td class="text-nowrap">{{$item->luas_lantai}}</td>
+                                <td class="text-nowrap">{{$item->lokasi}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
+                                <td class="text-nowrap">{{$item->status_tanah}}</td>
+                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-danger">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -174,8 +324,11 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
                                 <th class="text-nowrap text-center">Aksi</th>
-                                <th class="text-nowrap text-center">Kode Barang</th>
+                                @endif
+                                <th class="text-nowrap text-center text-danger">Kode Lama</th>
+                                <th class="text-nowrap text-center text-success">Kode Baru</th>
                                 <th class="text-nowrap">Kontruksi</th>
                                 <th class="text-nowrap">Panjang</th>
                                 <th class="text-nowrap">Lebar</th>
@@ -193,13 +346,60 @@
                                 <th class="text-nowrap text-right">Nilai Sisa</th>
                                 <th class="text-nowrap">Masa Manfaat</th>
                                 <th>Keterangan</th>
-                                <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(empty($rincian) OR empty($rincian['kibd']))
                             <tr>
-                                <td colspan="20" class="text-center"><b><i>Data kosong</i></b></td>
+                                <td colspan="22" class="text-center"><b><i>Data kosong</i></b></td>
                             </tr>
+                            @endif
+                            @foreach($rincian['kibd'] AS $item)
+                            <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
+                                <td class="text-nowrap text-center">
+                                    <a href="{{site_url('koreksi/aset/kibd/delete_kode/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
+                                </td>
+                                @endif
+                                <td class="text-nowrap text-center text-danger">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->id_kategori->nama}}
+                                </td>
+                                <td class="text-nowrap text-center text-success">
+                                    {{zerofy($item->corrected_value->kd_golongan)}} .
+                                    {{zerofy($item->corrected_value->kd_bidang)}} .
+                                    {{zerofy($item->corrected_value->kd_kelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subkelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->corrected_value->nama}}
+                                </td>
+                                <td class="text-nowrap">{{$item->kontruksi}}</td>
+                                <td class="text-nowrap">{{$item->panjang}}</td>
+                                <td class="text-nowrap">{{$item->lebar}}</td>
+                                <td class="text-nowrap">{{monefy($item->luas)}}</td>
+                                <td class="text-nowrap">{{$item->lokasi}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
+                                <td class="text-nowrap">{{$item->status_tanah}}</td>
+                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-danger">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -209,8 +409,11 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
                                 <th class="text-nowrap text-center">Aksi</th>
-                                <th class="text-nowrap text-center">Kode Barang</th>
+                                @endif
+                                <th class="text-nowrap text-center text-danger">Kode Lama</th>
+                                <th class="text-nowrap text-center text-success">Kode Baru</th>
                                 <th class="text-nowrap">Judul</th>
                                 <th class="text-nowrap">Pecipta</th>
                                 <th class="text-nowrap">Bahan</th>
@@ -224,13 +427,56 @@
                                 <th class="text-nowrap">Masa Manfaat</th>
                                 <th>Keterangan</th>
                                 <th class="text-nowrap">Ruang</th>
-                                <th class="text-nowrap">Kategori</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(empty($rincian) OR empty($rincian['kibe']))
                             <tr>
-                                <td colspan="16" class="text-center"><b><i>Data kosong</i></b></td>
+                                <td colspan="18" class="text-center"><b><i>Data kosong</i></b></td>
                             </tr>
+                            @endif
+                            @foreach($rincian['kibe'] AS $item)
+                            <tr>
+                                @if($koreksi->status_pengajuan === '0' OR $koreksi->status_pengajuan === '3')
+                                <td class="text-nowrap text-center">
+                                    <a href="{{site_url('koreksi/aset/kibe/delete_kode/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-times"></i></a>
+                                </td>
+                                @endif
+                                <td class="text-nowrap text-center text-danger">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->id_kategori->nama}}
+                                </td>
+                                <td class="text-nowrap text-center text-success">
+                                    {{zerofy($item->corrected_value->kd_golongan)}} .
+                                    {{zerofy($item->corrected_value->kd_bidang)}} .
+                                    {{zerofy($item->corrected_value->kd_kelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subkelompok)}} .
+                                    {{zerofy($item->corrected_value->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                    <br>
+                                    {{$item->corrected_value->nama}}
+                                </td>
+                                <td class="text-nowrap">{{$item->judul}}</td>
+                                <td class="text-nowrap">{{$item->pencipta}}</td>
+                                <td class="text-nowrap">{{$item->bahan}}</td>
+                                <td class="text-nowrap">{{$item->ukuran}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-danger">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -251,8 +497,8 @@
                     aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{site_url('koreksi/koreksi_kode/rincian_redirect')}}" method="POST">
-                        <input type="hidden" name="id" value="1">
+                    <form action="{{site_url('koreksi/kode/rincian_redirect')}}" method="POST">
+                        <input type="hidden" name="id" value="{{$koreksi->id}}">
                         
                         <div class="modal-title"><b>Aset Tetap</b></div>
                         <ul style="list-style: none;">
@@ -286,6 +532,6 @@
 
 @section('script')
 <script>
-    theme.activeMenu('.nav-transfer-keluar');
+    theme.activeMenu('.nav-koreksi-tambah');
 </script>
 @end

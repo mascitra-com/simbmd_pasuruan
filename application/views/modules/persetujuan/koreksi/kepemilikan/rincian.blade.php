@@ -434,6 +434,6 @@ th, td {
 
 @section('script')
 <script>
-    theme.activeMenu('.nav-persetujuan-transfer');
+    theme.activeMenu('.nav-persetujuan-koreksi');
 </script>
 @end
