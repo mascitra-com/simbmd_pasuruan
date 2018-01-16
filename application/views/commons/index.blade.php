@@ -71,7 +71,7 @@
         numeral.locale('in');
 
         var num;
-        $("input[name^='nilai'],input[name^='addendum_nilai']").attr('type', 'text').on('blur', function(){
+        $("input[name^='nilai'], input[name^='addendum_nilai'], input[name='corrected_value']").attr('type', 'text').on('blur', function(){
             num = numeral($(this).val()).format('0,0.00');
             $(this).val(num);
         }).on('focus', function(){

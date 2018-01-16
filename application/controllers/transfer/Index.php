@@ -130,19 +130,19 @@ class Index extends MY_Controller {
 
         switch ($jenis) {
             case 'a':
-            $this->go('aset/kiba/add_transfer/'.$id);
+            $this->go('transfer/kiba/add/'.$id);
             break;
             case 'b':
-            $this->go('aset/kibb/add_transfer/'.$id);
+            $this->go('transfer/kibb/add/'.$id);
             break;
             case 'c':
-            $this->go('aset/kibc/add_transfer/'.$id);
+            $this->go('transfer/kibc/add/'.$id);
             break;
             case 'd':
-            $this->go('aset/kibd/add_transfer/'.$id);
+            $this->go('transfer/kibd/add/'.$id);
             break;
             case 'e':
-            $this->go('aset/kibe/add_transfer/'.$id);
+            $this->go('transfer/kibe/add/'.$id);
             break;
             default:
             show_404();

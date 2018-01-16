@@ -50,6 +50,11 @@ class MY_Model extends MY_Base_model {
         return $this;
     }
 
+    public function or_where($field, $match = '') {
+        $this->_database->or_where($field, $match);
+        return $this;
+    }
+
     public function where_in($field, $match = '') {
         $this->_database->where_in($field, $match);
         return $this;
