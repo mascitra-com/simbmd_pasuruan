@@ -103,7 +103,7 @@
 								</div>
 								<div class="form-group col">
 									<label>Tgl. Kontrak</label>
-									<input type="date" class="form-control form-control-sm" name="tanggal" placeholder="Tanggal kontrak" required/>
+									<input type="date" class="form-control form-control-sm" name="tanggal" value="{{date('Y-m-d')}}" placeholder="Tanggal kontrak" required/>
 								</div>
 							</div>
 							<div class="form-row">
@@ -113,7 +113,7 @@
 								</div>
 								<div class="form-group col">
 									<label>Tgl. BA Serah Terima</label>
-									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" placeholder="Tanggal Berita Acara Serah Terima" required />
+									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" value="{{date('Y-m-d')}}" placeholder="Tanggal Berita Acara Serah Terima" required />
 								</div>
 							</div>
 							<div class="form-row">
