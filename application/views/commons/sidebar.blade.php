@@ -104,6 +104,7 @@
 					<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
 				</ul>
 			</li>
+			<li class="nav nav-rekap-excom"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Extracomtable</a></li>
 			<li class="nav nav-rekap-kib"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
 			<li class="nav nav-rekap-ruangan"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
 			<li class="nav nav-label"><a href="{{site_url('label')}}"><i class="fa fa-file-o fa-fw icon"></i>Labelisasi Barang</a></li>

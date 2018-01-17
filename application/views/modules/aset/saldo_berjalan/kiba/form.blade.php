@@ -55,7 +55,7 @@
 									@endif
 								</select>
 								<span class="input-group-btn">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori">pilih</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" {{isset($kib)?'disbaled':''}}>pilih</button>
 								</span>
 							</div>
 						</div>
