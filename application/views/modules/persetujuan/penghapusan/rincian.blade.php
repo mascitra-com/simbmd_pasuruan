@@ -30,7 +30,7 @@
                         <div class="col"> : {{ $hapus->id_organisasi->nama }}</div>
                         <div class="w-100"></div>
                         <div class="col-4">No. Jurnal</div>
-                        <div class="col"> : {{ $hapus->no_jurnal }}</div>
+                        <div class="col"> : {{ zerofy($hapus->id, 5) }}</div>
                         <div class="w-100"></div>
                         <div class="col-4">SK. Penghapusan</div>
                         <div class="col"> : {{ $hapus->no_sk }}</div>

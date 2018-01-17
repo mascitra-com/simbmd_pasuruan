@@ -47,7 +47,7 @@
                     @foreach($hibah as $list)
 					<tr>
 						<td class="text-center">{{ $list->id }}</td>
-						<td>{{ $list->no_jurnal }}</td>
+						<td>{{ zerofy($list->id) }}</td>
 						<td class="text-nowrap">{{ datify($list->tgl_jurnal, 'd-m-Y') }}</td>
 						<td class="text-sm">{{ $list->asal_penerimaan }}</td>
 						<td class="text-nowrap">{{ $list->no_serah_terima }}</td>
@@ -89,7 +89,7 @@
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. Jurnal</label>
-									<input type="number" class="form-control form-control-sm" name="no_jurnal" placeholder="Nomor Jurnal" required />
+									<input type="number" class="form-control form-control-sm" placeholder="(Otomatis)" required disabled/>
 								</div>
                                 <div class="form-group col">
                                     <label>Tgl. Jurnal</label>

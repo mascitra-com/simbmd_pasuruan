@@ -31,7 +31,7 @@ class Index extends MY_Controller {
 		$data['spks'] 		= $result['data'];
 		$data['filter']  	= $filter;
 		$data['organisasi'] = $this->organisasi->get_data_by_auth();
-		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
+		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'pengadaan/' . get_class($this));
 		$data['kegiatan']   = $this->kegiatan->get_data_by_organisasi($filter['id_organisasi']);
 
 		$this->render('modules/pengadaan/index', $data);

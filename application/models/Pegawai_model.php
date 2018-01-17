@@ -28,6 +28,7 @@ class Pegawai_model extends MY_Model
 
         # Begin filter
         $this->where('id<>', $this->auth->get_id());
+        $this->order_by('is_superadmin', 'DESC');
         # If not a super admin
         if (!$this->auth->get_super_access()) {
             $this->where('id_organisasi', $this->auth->get_id_organisasi());
@@ -59,6 +60,7 @@ class Pegawai_model extends MY_Model
 
     public function get_cookie_pegawai($name)
     {
+        $this->load->helper('cookie');
         $data = array();
         if (is_array($name)) {
             foreach ($name as $list) {

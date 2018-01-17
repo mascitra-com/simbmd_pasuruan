@@ -31,7 +31,7 @@ class Index extends MY_Controller
         $data['hapus'] = $result['data'];
         $data['filter'] = $filter;
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'penghapusan/' . get_class($this));
         $this->render('modules/penghapusan/index', $data);
     }
 

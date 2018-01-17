@@ -27,7 +27,7 @@
                             <div class="col"> : {{ $hibah->id_organisasi->nama }}</div>
                             <div class="w-100"></div>
                             <div class="col">No. Jurnal</div>
-                            <div class="col"> : {{ $hibah->no_jurnal }}</div>
+                            <div class="col"> : {{ zerofy($hibah->id, 5) }}</div>
                             <div class="w-100"></div>
                             <div class="col">No. Serah Terima</div>
                             <div class="col"> : {{ $hibah->no_serah_terima }}</div>

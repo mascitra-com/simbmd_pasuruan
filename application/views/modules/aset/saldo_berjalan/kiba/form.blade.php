@@ -112,7 +112,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Pembukuan</label>
 						<div class="col-md-4">
-							<input type="date" class="form-control" name="tgl_pembukuan" placeholder="Tanggal pembukuan" value="{{isset($kib)?datify($kib->tgl_pembukuan, 'Y-m-d'):date('Y-m-d')}}"/>
+							<input type="date" class="form-control" name="tgl_pembukuan" placeholder="Tanggal pembukuan" value="{{isset($kib)?datify($kib->tgl_pembukuan, 'Y-m-d'):date('Y-m-d')}}" required/>
 						</div>
 					</div>
 					<div class="form-group row">

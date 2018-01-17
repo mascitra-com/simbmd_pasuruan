@@ -132,7 +132,7 @@
 							</div>
 							<div class="form-group">
 								<label>Tgl. Pembukuan</label>
-								<input type="text" class="form-control" name="tgl_pembukuan" value="{{isset($filter['tgl_pembukuan'])?$filter['tgl_pembukuan']:''}}"  />
+								<input type="text" class="form-control" name="tgl_pembukuan" value="{{isset($filter['tgl_pembukuan'])?$filter['tgl_pembukuan']:''}}" required />
 							</div>
 							<div class="form-group">
 								<label>Nilai</label>
@@ -156,7 +156,7 @@
 							</div>
 							<div class="form-group">
 								<label>Tgl. Perolehan</label>
-								<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}"  />
+								<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" required />
 							</div>
 							<div class="form-group">
 								<label>Asal Usul</label>

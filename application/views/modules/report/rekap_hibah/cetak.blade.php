@@ -61,7 +61,7 @@
 					@foreach($rekap AS $hibah)
 					<tr>
 						<td colspan="8" class="small">
-							<span class="ml-3">No. Jurnal: {{$hibah->no_jurnal}}</span>
+							<span class="ml-3">No. Jurnal: {{zerofy($hapus->id, 5) }}</span>
 							<span class="ml-3">Tgl. Jurnal: {{datify($hibah->tgl_jurnal)}}</span>
 							<span class="ml-3">No. BAST: {{$hibah->no_serah_terima}}</span>
 							<span class="ml-3">Tgl. BAST: {{datify($hibah->tgl_serah_terima)}}</span>

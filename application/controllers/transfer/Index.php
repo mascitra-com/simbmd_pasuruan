@@ -63,9 +63,10 @@ class Index extends MY_Controller {
             $this->message('Pilih UPB Terlebih Dahulu', 'warning');
             $this->go('transfer/index/keluar');
         }
-
         $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
         $data['org'] = $this->organisasi->get($id);
+        $this->load->model('pegawai_model', 'pegawai');
+        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('penerima_transfer', 'penyerah_transfer', 'atasan_transfer')));
         $this->render('modules/transfer/form', $data);
     }
 

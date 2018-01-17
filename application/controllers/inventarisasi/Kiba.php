@@ -17,6 +17,10 @@ class Kiba extends MY_Controller
     {
         $filter = $this->input->get();
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+        if(isset($filter['page']))
+            $this->session->set_userdata('inv_page', $filter['page']);
+        else
+            $this->session->set_userdata('inv_page', '1');
 
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
 
@@ -115,7 +119,8 @@ class Kiba extends MY_Controller
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('inventarisasi/kiba?id_organisasi=' . $data['id_organisasi']);
+            $page = $this->session->userdata('inv_b_page');
+            $this->go('inventarisasi/kiba?id_organisasi='.$data['id_organisasi'].'&page='.$page);
 
         } else {
             $this->message('Data gagal disimpan', 'danger');

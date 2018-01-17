@@ -118,7 +118,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tgl.Dokumen</label>
 						<div class="col-md-4">
-							<input type="date" class="form-control" name="dokumen_tgl" placeholder="tanggal dokumen" value="{{isset($kib)?datify($kib->dokumen_tgl, 'Y-m-d'):''}}"/>
+							<input type="date" class="form-control" name="dokumen_tgl" placeholder="tanggal dokumen" value="{{isset($kib)?datify($kib->dokumen_tgl, 'Y-m-d'):''}}" required/>
 						</div>
 					</div>
 					<div class="form-group row">

@@ -164,7 +164,7 @@
 						</div>
 						<div class="form-group col">
 							<label>Tgl.Dokumen</label>
-							<input type="text" class="form-control" name="dokumen_tgl" value="{{isset($filter['dokumen_tgl'])?$filter['dokumen_tgl']:''}}" />
+							<input type="text" class="form-control" name="dokumen_tgl" value="{{isset($filter['dokumen_tgl'])?$filter['dokumen_tgl']:''}}" required />
 						</div>
 						<div class="form-group col">
 							<label>No.Dokumen</label>

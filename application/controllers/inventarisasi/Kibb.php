@@ -18,7 +18,10 @@ class Kibb extends MY_Controller
     {
         $filter = $this->input->get();
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
-
+        if(isset($filter['page']))
+            $this->session->set_userdata('inv_page', $filter['page']);
+        else
+            $this->session->set_userdata('inv_page', '1');
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
 
         $result = $this->kib->get_data($filter);
@@ -94,11 +97,11 @@ class Kibb extends MY_Controller
             $this->message('Isi data yang wajib diisi', 'danger');
             $this->go('inventarisasi/kibb/edit/' . $id);
         }
-
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('inventarisasi/kibb?id_organisasi='.$data['id_organisasi']);
+            $page = $this->session->userdata('inv_page');
+            $this->go('inventarisasi/kibb?id_organisasi='.$data['id_organisasi'].'&page='.$page);
         } else {
             $this->message('Data gagal disimpan', 'danger');
             $this->go('inventarisasi/kibb/edit/' . $id);

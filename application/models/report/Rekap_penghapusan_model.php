@@ -13,6 +13,8 @@ class Rekap_penghapusan_model extends MY_Model {
 		$select 	 = "id,no_jurnal,tgl_jurnal,no_sk, tgl_sk,keterangan,alasan";
 		$where 		 = array('is_deleted'=>0,'id_organisasi'=>$config['id_organisasi']);
 		$where_query = "tgl_sk BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = '2'";
+		if(!empty($config['alasan']))
+		    $where_query .= " AND alasan " . $config['alasan'];
 		$final 		 = $this->db->select($select)->where($where)->where($where_query)->get('penghapusan')->result();
 
         foreach ($final as $key => $value) {

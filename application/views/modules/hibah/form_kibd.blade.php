@@ -23,7 +23,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nomor Jurnal Hibah</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" value="{{$hibah->no_jurnal}}" disabled />
+							<input type="text" class="form-control" value="{{zerofy($hibah->id, 5)}}" disabled />
 						</div>
 					</div>
 					<div class="form-group row">

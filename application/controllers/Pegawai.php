@@ -166,6 +166,7 @@ class Pegawai extends MY_Controller {
     public function save_cookie()
     {
         $data = $this->input->get();
+        $this->load->helper('cookie');
         set_cookie("{$data['name']}", $data['id'], time() + (10 * 365 * 24 * 60 * 60));
         echo json_encode(array('sukses' => TRUE, 'cookie'=> get_cookie("{$data['name']}")));
     }

@@ -37,6 +37,17 @@
 						</div>
 					</div>
 					<div class="form-group row">
+						<label class="col-md-3 col-form-label text-right">Alasan</label>
+						<div class="col-md-4">
+                            <select name="alasan" id="alasan" class="form-control form-control-sm">
+								<option value="">Semua</option>
+								<option value="Dijual">Dijual</option>
+								<option value="Dimusnahkan">Dimusnahkan</option>
+								<option value="Dihibahkan">Dihibahkan</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Jurnal</label>
 						<div class="col-md-4">
 							<input type="date" name="tanggal" class="form-control form-control-sm" value="{{date('Y-m-d')}}" placeholder="Tanggal Laporan" />

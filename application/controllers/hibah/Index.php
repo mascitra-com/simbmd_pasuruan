@@ -27,11 +27,15 @@ class Index extends MY_Controller
         $filter = $this->input->get();
         $result = $this->hibah->get_data($filter);
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+        if(isset($filter['page']))
+            $this->session->set_userdata('hibah_page', $filter['page']);
+        else
+            $this->session->set_userdata('hibah_page', '1');
 
         $data['hibah'] = $result['data'];
         $data['filter'] = $filter;
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'hibah/'.get_class($this));
         $data['kegiatan'] = $this->kegiatan->get_data_by_organisasi($filter['id_organisasi']);
         $this->render('modules/hibah/index', $data);
     }
