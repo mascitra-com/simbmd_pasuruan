@@ -10,6 +10,7 @@ class Kibb extends MY_Controller
         $this->load->model('aset/Kibb_model', 'kib');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
+        $this->load->model('Ruangan_model', 'ruangan');
         $this->load->library('pagination');
     }
 

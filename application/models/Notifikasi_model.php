@@ -6,8 +6,10 @@
  * Time: 6:04 PM
  */
 
-class Notifikasi_model extends MY_Controller
+class Notifikasi_model extends MY_Model
 {
+    public $_table = 'notifikasi';
+    public $required = array('title', 'to', 'type');
     public function __construct()
     {
         parent::__construct();

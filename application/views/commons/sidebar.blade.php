@@ -17,7 +17,6 @@
 					<li class="nav"><a href="{{site_url('saldo_awal/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="#"><i class="fa fa-cogs fa-fw icon"></i>Extracomtable</a></li>
 				</ul>
 			</li>
 
@@ -30,7 +29,6 @@
 					<li class="nav"><a href="{{site_url('inventarisasi/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
 					<li class="nav"><a href="{{site_url('inventarisasi/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
 					<li class="nav"><a href="{{site_url('inventarisasi/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibnon')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan/index')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>

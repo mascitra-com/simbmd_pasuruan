@@ -7,21 +7,6 @@
 <li class="breadcrumb-item active">Tidak Diakui Aset</li>
 @end
 
-@section('widget')
-<div class="row mb-4">
-	@foreach($statistic AS $stat)
-	<div class="col">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title">{{$stat['title']}}</h4>
-				<p class="card-text">{{$stat['value']}}</p>
-			</div>
-		</div>
-	</div>
-	@endforeach
-</div>
-@end
-
 @section('content')
 <div class="row">
 	<div class="col">

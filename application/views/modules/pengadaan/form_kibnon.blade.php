@@ -56,7 +56,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?$kib->nilai:''}}" required/>
+							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}" required/>
 						</div>
 					</div>
 					<div class="form-group row">
