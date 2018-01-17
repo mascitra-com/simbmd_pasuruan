@@ -185,9 +185,9 @@
 					</div>
 					@if(!isset($kib))
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Kuantitas*</label>
+						<label class="col-md-3 col-form-label text-right">Jumlah Barang*</label>
 						<div class="col-md-4">
-							<input type="number" min="1" class="form-control" name="kuantitas" value="1" placeholder="Kuantitas"/>
+							<input type="number" min="1" class="form-control" name="kuantitas" value="1" placeholder="Jumlah Barang"/>
 							<p class="form-text text-muted">* Banyak data yang diinputkan akan sesuai dengan jumlah kuantitas</p>
 						</div>
 					</div>

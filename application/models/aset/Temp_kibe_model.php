@@ -3,7 +3,7 @@
 class Temp_kibe_model extends MY_Model
 {
 	public $_table = 'temp_aset_e';
-	public $required = array('id_organisasi','id_kategori','nilai','nilai_sisa','judul','pencipta','ukuran','tgl_perolehan','tgl_pembukuan','asal_usul','kondisi','kategori');
+    public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan','kondisi','kategori');
 
     public function __construct()
     {

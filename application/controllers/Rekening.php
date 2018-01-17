@@ -12,7 +12,7 @@ class Rekening extends MY_Controller
 	public function get_data_search()
 	{
 		$key = $this->input->get('key');
-		$result = $this->rekening->like('kode', $key)->or_like('uraian', $key)->limit(50)->get_all();
+		$result = $this->rekening->like('kode', $key)->or_like('uraian', $key)->get_all();
 
 		echo json_encode($result);
 	}
