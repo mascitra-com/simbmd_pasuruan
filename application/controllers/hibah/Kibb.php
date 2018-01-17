@@ -22,7 +22,7 @@ class Kibb extends MY_Controller
         $this->load->library('pagination');
     }
 
-    public function add_hibah($id_hibah = NULL)
+    public function add($id_hibah = NULL)
     {
         if (empty($id_hibah))
             show_404();

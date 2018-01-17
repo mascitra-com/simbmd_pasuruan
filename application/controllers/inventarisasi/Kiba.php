@@ -22,7 +22,7 @@ class Kiba extends MY_Controller
 
         $result = $this->kib->get_data($filter);
         $data['kib'] = $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'aset/' . get_class($this));
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'inventarisasi/' . get_class($this));
         $data['filter'] = (!empty($filter) ? $filter : array('id_organisasi' => ''));
 
         $this->render('modules/aset/saldo_berjalan/kiba/index', $data);

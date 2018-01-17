@@ -29,7 +29,6 @@
 				<tr><td class="bold">PROVINSI</td><td>:</td><td>JAWA TIMUR</td></tr>
 				<tr><td class="bold">KABUPATEN</td><td>:</td><td>{{strtoupper($detail['nama_kota'])}}</td></tr>
 				<tr><td class="bold">UPB</td><td>:</td><td>{{$detail['upb']}}</td></tr>
-				<tr><td class="bold">KETERANGAN</td><td>:</td><td>{{isset($detail['keterangan']) ? $detail['keterangan'] : '-'}}</td></tr>
 			</table>
 		</div>
 		<div class="mt-3">
@@ -61,7 +60,7 @@
 					@foreach($rekap AS $penghapusan)
 					<tr>
 						<td colspan="8" class="small">
-							<span class="ml-3">No. Jurnal: {{$penghapusan->no_jurnal}}</span>
+							<span class="ml-3">No. Jurnal: {{zerofy($penghapusan->id, 5)}}</span>
 							<span class="ml-3">Tgl. Jurnal: {{datify($penghapusan->tgl_jurnal)}}</span>
 							<span class="ml-3">No. SK: {{$penghapusan->no_sk}}</span>
 							<span class="ml-3">Tgl. SK: {{datify($penghapusan->tgl_sk)}}</span>

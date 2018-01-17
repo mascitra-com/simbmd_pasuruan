@@ -66,7 +66,6 @@
 							<td class="text-nowrap text-center">
 								<div class="btn-group">
 									<a href="{{site_url('inventarisasi/kibc/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-									<a href="{{site_url('inventarisasi/kibc/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 								</div>
 							</td>
 							<td class="text-nowrap text-center">

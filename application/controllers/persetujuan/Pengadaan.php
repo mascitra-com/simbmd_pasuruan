@@ -135,7 +135,7 @@ class Pengadaan extends MY_Controller {
 
 			if (!empty($data)) {
 				foreach ($data as $key => $value) {
-					unset($value->id, $value->id_aset, $value->id_hapus, $value->id_transfer);
+					unset($value->id, $value->id_aset, $value->id_hapus, $value->id_transfer, $value->id_koreksi, $value->id_koreksi_detail);
 				}
 
 				$this->{$kib}->batch_insert($data);

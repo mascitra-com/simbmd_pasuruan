@@ -45,17 +45,17 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Jenis Surat</label>
                             <div class="col-md-4">
-                                <input type="text" name="surat_jenis" class="form-control"/>
+                                <input type="text" name="surat_jenis" value="SK Pengelola Barang" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Nomor Surat</label>
+                            <label class="col-md-3 col-form-label text-right">Nomor SK</label>
                             <div class="col-md-4">
                                 <input type="text" name="surat_no" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Tanggal Surat</label>
+                            <label class="col-md-3 col-form-label text-right">Tanggal SK</label>
                             <div class="col-md-4">
                                 <input type="date" name="surat_tgl" class="form-control"/>
                             </div>

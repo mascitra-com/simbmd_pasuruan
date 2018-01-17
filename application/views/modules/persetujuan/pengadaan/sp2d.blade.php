@@ -49,7 +49,6 @@
 		<div class="card">
 			<div class="card-header form-inline">
 				<span class="mr-auto">SP2D</span>
-				<button class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus"></i> Tambah SP2D</button>
 			</div>
 			<div class="card-body table-responsive px-0 py-0">
 				<table class="table table-striped table-bordered table-hover">

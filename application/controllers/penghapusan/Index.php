@@ -46,10 +46,10 @@ class Index extends MY_Controller
         $id_insert = $this->hapus->insert($data);
         if($id_insert) {
             $this->message('Data berhasil disimpan','success');
-            $this->go('penghapusan/detail/'.$id_insert);
+            $this->go('penghapusan/index/detail/'.$id_insert);
         } else {
             $this->message('Terjadi kesalahan','danger');
-            $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
+            $this->go('penghapusan/index?id_organisasi='.$data['id_organisasi']);
         }
     }
 
@@ -58,16 +58,16 @@ class Index extends MY_Controller
         $data = $this->input->post();
         if (!$this->hapus->form_verify($data)) {
             $this->message('Isi data yang diperlukan', 'danger');
-            $this->go('penghapusan?id_organisasi='.$data['id_organisasi']);
+            $this->go('penghapusan/index?id_organisasi='.$data['id_organisasi']);
         }
 
         $sukses = $this->hapus->update($data['id'], $data);
         if($sukses) {
             $this->message('Data berhasil disimpan','success');
-            $this->go('penghapusan/detail/'.$data['id']);
+            $this->go('penghapusan/index/detail/'.$data['id']);
         } else {
             $this->message('Terjadi kesalahan','danger');
-            $this->go('penghapusan?id_organisasi='.$data['id']);
+            $this->go('penghapusan/index?id_organisasi='.$data['id']);
         }
     }
 
@@ -129,19 +129,19 @@ class Index extends MY_Controller
 
         switch ($jenis) {
             case 'a':
-                $this->go('aset/kiba/add_penghapusan/'.$id_hapus);
+                $this->go('penghapusan/kiba/add/'.$id_hapus);
                 break;
             case 'b':
-                $this->go('aset/kibb/add_penghapusan/'.$id_hapus);
+                $this->go('penghapusan/kibb/add/'.$id_hapus);
                 break;
             case 'c':
-                $this->go('aset/kibc/add_penghapusan/'.$id_hapus);
+                $this->go('penghapusan/kibc/add/'.$id_hapus);
                 break;
             case 'd':
-                $this->go('aset/kibd/add_penghapusan/'.$id_hapus);
+                $this->go('penghapusan/kibd/add/'.$id_hapus);
                 break;
             case 'e':
-                $this->go('aset/kibe/add_penghapusan/'.$id_hapus);
+                $this->go('penghapusan/kibe/add/'.$id_hapus);
                 break;
             default:
                 show_404();
@@ -157,10 +157,10 @@ class Index extends MY_Controller
         $sukses = $this->hapus->update($id, $data);
         if($sukses) {
             $this->message('Pengajuan Berhasil','success');
-            $this->go('penghapusan/detail/'.$id);
+            $this->go('penghapusan/index/detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('penghapusan/detail/'.$id);
+            $this->go('penghapusan/index/detail/'.$id);
         }
     }
 
@@ -173,10 +173,10 @@ class Index extends MY_Controller
         $sukses = $this->hapus->update($id, $data);
         if($sukses) {
             $this->message('Pengajuan Berhasil dibatalkan','success');
-            $this->go('penghapusan/detail/'.$id);
+            $this->go('penghapusan/index/detail/'.$id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('penghapusan/detail/'.$id);
+            $this->go('penghapusan/index/detail/'.$id);
         }
     }
 }

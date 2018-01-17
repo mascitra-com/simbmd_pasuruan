@@ -63,13 +63,6 @@
                         </div>
                         <hr>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Keterangan</label>
-                            <div class="col-md-4">
-                                <textarea name="" id="" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right"></label>
                             <div class="col-md-4">
                                 <a href="{{ site_url('penghapusan/index/detail/172') }}" type="submit" class="btn btn-primary">Simpan</a>

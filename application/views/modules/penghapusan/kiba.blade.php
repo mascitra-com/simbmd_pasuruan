@@ -16,10 +16,11 @@
                     <div class="btn-group">
                         <button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
                         <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i
-                                    class="fa fa-filter mr-2"></i>Filter
+                            class="fa fa-filter mr-2"></i>Filter
                         </button>
                         <button class="btn btn-primary"><i class="fa fa-check mr-2"></i>Terpilih <span
-                                    class="badge badge-warning" id="terpilih_count">{{ $terpilih_count }}</span></button>
+                            class="badge badge-warning" id="terpilih_count">{{ $terpilih_count }}</span></button>
+                        <a href="{{site_url('penghapusan/index/rincian/'.$hapus->id)}}" class="btn btn-success">Kembali</a>
                     </div>
                 </div>
                 <div class="card-body table-responsive table-scroll px-0 py-0">
@@ -213,7 +214,7 @@
                     'id_aset':$(e.currentTarget).data('id-aset')
                 };
 
-                $.post("{{site_url('aset/kiba/insert_penghapusan')}}",
+                $.post("{{site_url('penghapusan/kiba/insert')}}",
                     data,
                     function(result){
                         if (result.status === 'sukses') {

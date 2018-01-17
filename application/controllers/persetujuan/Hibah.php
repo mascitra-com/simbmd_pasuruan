@@ -21,8 +21,8 @@ class Hibah extends MY_Controller {
 		$filter['ord_pos'] = 'DESC';
 		$result = $this->hibah->get_data_persetujuan($filter);
 
-		$data['hapus'] = $result['data'];
-		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan_penghapusan');
+		$data['hibah'] = $result['data'];
+		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan/hibah');
 		$data['filter'] = $filter;
 
 		$this->render('modules/persetujuan/hibah/index', $data);
@@ -71,13 +71,12 @@ class Hibah extends MY_Controller {
 		if ($sukses) {
 			# BEGIN TRANSFER
 			if ($data['status'] === '2') {
-			    // TODO ID Organisasi
 				$this->hibah($data['id_hibah']);
 			}
-			$sukses2 = $this->hibah->update($data['id_hapus'], array('status_pengajuan' => $data['status'], 'tanggal_verifikasi' => date('Y-m-d h:i')));
+			$sukses2 = $this->hibah->update($data['id_hibah'], array('status_pengajuan' => $data['status'], 'tanggal_verifikasi' => date('Y-m-d h:i')));
 			if ($sukses2) {
 				$this->message('Data berhasil diverifikasi', 'success');
-				$this->go('persetujuan_penghapusan');
+				$this->go('persetujuan/hibah');
 			} else {
 				# ROLL OUT
 				$this->transfer->delete($sukses);
@@ -104,14 +103,17 @@ class Hibah extends MY_Controller {
 		$alfabet = array('a', 'b', 'c', 'd', 'e');
 
 		foreach ($alfabet as $item) {
-			$kib = "kib{$item}_temp";
+            $kib = "kib{$item}";
+            $kib_temp = "kib{$item}_temp";
 
-			$where_in = $this->{$kib}->as_array()->get_many_by('id_hapus', $id);
-			$where_in = array_column($where_in, 'id_aset');
+            $data = $this->{$kib_temp}->get_many_by('id_hibah', $id);
 
-			if (!empty($where_in)) {
-				$data = $this->db->where_in('id', $where_in)->get("temp_aset_{$item}");
-                $this->kib->batch_insert($data);
+            if (!empty($data)) {
+                foreach ($data as $key => $value) {
+                    unset($value->id, $value->id_aset, $value->id_hapus, $value->id_transfer, $value->id_koreksi, $value->id_koreksi_detail);
+                }
+
+                $this->{$kib}->batch_insert($data);
             }
 		}
 

@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Hapus extends MY_Controller {
 
-    protected $is_superadmin = 1;
-    protected $jenis_koreksi = 4;
+    public $is_superadmin = 1;
+    public $jenis_koreksi = 4;
 
     public function __construct()
     {

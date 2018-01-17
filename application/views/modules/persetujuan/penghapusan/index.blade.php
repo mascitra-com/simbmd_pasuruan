@@ -44,7 +44,7 @@
 						<td class="text-center">{{datify($item->log_time, 'd-m-Y h:i')}}</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('persetujuan_penghapusan/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+								<a href="{{ site_url('persetujuan/penghapusan/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
 								<button class="btn btn-sm btn-success" id="btn-setuju" data-id="{{$item->id}}"><i class="fa fa-check mr-2"></i>Setuju</button>
 								<button class="btn btn-sm btn-danger" id="btn-tolak" data-id="{{$item->id}}"><i class="fa fa-times mr-2"></i>Tolak</button>
 							</div>
@@ -68,7 +68,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('persetujuan_penghapusan/verifikasi')}}" method="POST">
+				<form action="{{site_url('persetujuan/penghapusan/verifikasi')}}" method="POST">
 					<input type="hidden" name="status" value="2">
 					<input type="hidden" name="id_hapus">
 					<div class="form-group">
@@ -92,7 +92,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('persetujuan_penghapusan/verifikasi')}}" method="POST">
+				<form action="{{site_url('persetujuan/penghapusan/verifikasi')}}" method="POST">
 					<input type="hidden" name="status" value="3">
 					<input type="hidden" name="id_hapus">
 					<div class="form-group">

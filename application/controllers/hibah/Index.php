@@ -11,11 +11,11 @@ class Index extends MY_Controller
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kegiatan_model', 'kegiatan');
 
-        $this->load->model('aset/Kiba_model', 'kiba');
-        $this->load->model('aset/Kibb_model', 'kibb');
-        $this->load->model('aset/Kibc_model', 'kibc');
-        $this->load->model('aset/Kibd_model', 'kibd');
-        $this->load->model('aset/Kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kiba_model', 'kiba');
+        $this->load->model('aset/Temp_kibb_model', 'kibb');
+        $this->load->model('aset/Temp_kibc_model', 'kibc');
+        $this->load->model('aset/Temp_kibd_model', 'kibd');
+        $this->load->model('aset/Temp_kibe_model', 'kibe');
         $this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
     }
@@ -75,16 +75,16 @@ class Index extends MY_Controller
 
         if (!$this->hibah->form_verify($data)) {
             $this->message('Isi data yang diperlukan', 'danger');
-            $this->go('hibah/detail/' . $id);
+            $this->go('hibah/index/detail/' . $id);
         }
 
         $sukses = $this->hibah->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disunting', 'success');
-            $this->go('hibah/detail/' . $id);
+            $this->go('hibah/index/detail/' . $id);
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('hibah/detail/' . $id);
+            $this->go('hibah/index/detail/' . $id);
         }
     }
 
@@ -126,10 +126,10 @@ class Index extends MY_Controller
             $this->kibe->delete_by(array('id_hibah'=>$id));
 
             $this->message('Data berhasil dihapus','success');
-            $this->go('hibah');
+            $this->go('hibah/index');
         } else {
             $this->message('Data gagal dihapus','danger');
-            $this->go('hibah');
+            $this->go('hibah/index');
         }
     }
 
@@ -142,30 +142,59 @@ class Index extends MY_Controller
 
         switch ($jenis) {
             case 'a':
-                $this->go('aset/kiba/add_hibah/' . $id);
+                $this->go('hibah/kiba/add/' . $id);
                 break;
             case 'b':
-                $this->go('aset/kibb/add_hibah/' . $id);
+                $this->go('hibah/kibb/add/' . $id);
                 break;
             case 'c':
-                $this->go('aset/kibc/add_hibah/' . $id);
+                $this->go('hibah/kibc/add' . $id);
                 break;
             case 'd':
-                $this->go('aset/kibd/add_hibah/' . $id);
+                $this->go('hibah/kibd/add' . $id);
                 break;
             case 'e':
-                $this->go('aset/kibe/add_hibah/' . $id);
-                break;
-            case 'non':
-                $this->go('aset/kibnon/add_hibah/' . $id);
+                $this->go('hibah/kibe/add' . $id);
                 break;
             case 'tambah':
-                $this->go('kapitalisasi/add_hibah/langkah_1/' . $id);
+                $this->go('hibah/kapitalisasi/add' . $id);
                 break;
 
             default:
                 show_404();
                 break;
+        }
+    }
+
+    public function finish_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>1);
+        $sukses = $this->hibah->update($id, $data);
+        if($sukses) {
+            $this->message('Pengajuan Berhasil','success');
+            $this->go('hibah/index/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('hibah/index/detail/'.$id);
+        }
+    }
+
+    public function cancel_transaction($id = NULL)
+    {
+        if(empty($id))
+            show_404();
+
+        $data   = array('status_pengajuan'=>0);
+        $sukses = $this->hibah->update($id, $data);
+        if($sukses) {
+            $this->message('Pengajuan Berhasil dibatalkan','success');
+            $this->go('hibah/index/detail/'.$id);
+        } else {
+            $this->message('Terjadi kesalahan', 'danger');
+            $this->go('hibah/index/detail/'.$id);
         }
     }
 }

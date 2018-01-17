@@ -72,7 +72,7 @@ class Penghapusan extends MY_Controller {
 			$sukses2 = $this->hapus->update($data['id_hapus'], array('status_pengajuan' => $data['status'], 'tanggal_verifikasi' => date('Y-m-d h:i')));
 			if ($sukses2) {
 				$this->message('Data berhasil diverifikasi', 'success');
-				$this->go('persetujuan_penghapusan');
+				$this->go('persetujuan/penghapusan');
 			} else {
 				# ROLL OUT
 				$this->transfer->delete($sukses);
