@@ -1,11 +1,11 @@
 @layout('commons/index')
-@section('title')Koreksi Nilai@end
+@section('title')Koreksi Kode@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai/rincian/'.$koreksi->id)}}">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kode?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kode?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Kode</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kode/rincian/'.$koreksi->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">KIB-D</li>
 @endsection
 
@@ -26,7 +26,6 @@
 						<tr>
 							<th class="text-nowrap text-center">Aksi</th>
 							<th class="text-nowrap text-center">Kode Barang</th>
-							<th class="text-nowrap text-right text-danger">Nilai</th>
 							<th class="text-nowrap">Kontruksi</th>
 							<th class="text-nowrap">Panjang</th>
 							<th class="text-nowrap">Lebar</th>
@@ -40,6 +39,7 @@
 							<th class="text-nowrap">Tgl. Pembukuan</th>
 							<th class="text-nowrap">Asal Usul</th>
 							<th class="text-nowrap">Kondisi</th>
+							<th class="text-nowrap text-right">Nilai</th>
 							<th class="text-nowrap text-right">Nilai Sisa</th>
 							<th class="text-nowrap">Masa Manfaat</th>
 							<th class="text-nowrap">Keterangan</th>
@@ -54,7 +54,7 @@
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-                                <button class="btn btn-primary" data-id="{{$item->id}}" data-nilai="{{monefy($item->nilai)}}"><i class="fa fa-plus"></i></button>
+                                <button class="btn btn-primary" data-id="{{$item->id}}" data-kategori-id="{{$item->id_kategori->id}}" data-kategori-nama="{{$item->id_kategori->nama}}"><i class="fa fa-plus"></i></button>
                             </td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
@@ -64,7 +64,6 @@
 								{{zerofy($item->id_kategori->kd_subsubkelompok)}} .
 								{{zerofy($item->reg_barang,4)}}
 							</td>
-							<td class="text-nowrap text-right text-danger">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
 							<td class="text-nowrap">{{$item->kontruksi}}</td>
 							<td class="text-nowrap">{{$item->panjang}}</td>
 							<td class="text-nowrap">{{$item->lebar}}</td>
@@ -78,6 +77,7 @@
 							<td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
 							<td class="text-nowrap">{{$item->asal_usul}}</td>
 							<td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+							<td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
 							<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 							<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 							<td class="text-nowrap">{{$item->keterangan}}</td>
@@ -95,25 +95,51 @@
 
 @section('modal')
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Koreksi Nilai</h4>
+                <h4 class="modal-title">Koreksi Kode</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{site_url('koreksi/aset/kibd/insert_nilai')}}" method="POST">
-                    <input type="hidden" name="id_aset">
+                <form action="{{site_url('koreksi/aset/kibd/insert_kode')}}" class="form-row" method="POST">
                     <input type="hidden" name="id_koreksi" value="{{$koreksi->id}}">
-                    <div class="form-group">
-                        <label>Nilai Lama</label>
-                        <input type="text" name="original_value" class="form-control" readonly />
+                    <input type="hidden" name="id_aset">
+                    <input type="hidden" name="original_value">
+                    <div class="form-group col-12">
+                        <label>Kode Lama</label>
+                        <input type="text" class="form-control" id="kategori_nama" readonly />
                     </div>
-                    <div class="form-group">
-                        <label>Nilai baru</label>
-                        <input type="number" name="corrected_value" class="form-control" placeholder="nilai baru" />
+                    <div class="form-group col-6">
+                        <label>Golongan</label>
+                        <select class="form-control" id="select-golongan">
+                            <option value="">Pilih Golongan</option>
+                            <option value="1">01. Tanah</option>
+                            <option value="2">02. Peralatan &amp Mesin</option>
+                            <option value="3">03. Gedung &amp Bangunan</option>
+                            <option value="4">04. Jalan, Irigasi &amp Jaringan</option>
+                            <option value="5">05. Aset Tetap Lainnya</option>
+                            <option value="6">06. Kontruksi Dalam Pengerjaan</option>
+                            <option value="7">07. Aset Lainnya</option>
+                        </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-6">
+                        <label>Bidang</label>
+                        <select class="form-control" id="select-bidang"></select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Kelompok</label>
+                        <select class="form-control" id="select-kelompok"></select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Sub Kelompok</label>
+                        <select class="form-control" id="select-subkelompok"></select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Sub Sub-Kelompok</label>
+                        <select class="form-control" id="select-subsubkelompok" name="corrected_value"></select>
+                    </div>
+                    <div class="form-group col-12">
                         <button type="submit" class="btn btn-primary">Simpan</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
                     </div>
@@ -131,7 +157,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('koreksi/aset/kibd/koreksi_nilai/'.$koreksi->id)}}" method="GET">
+				<form action="{{site_url('koreksi/aset/kibd/koreksi_kode/'.$koreksi->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">
@@ -232,12 +258,65 @@
 
         $("[data-id]").on('click', function(e){
             var id = $(e.currentTarget).data('id');
-            var nilai = $(e.currentTarget).data('nilai');
+            var kategori_id = $(e.currentTarget).data('kategori-id');
+            var kategori_nama = $(e.currentTarget).data('kategori-nama');
 
             $("[name=id_aset]").val(id);
-            $("[name=original_value]").val(nilai);
+            $("[name=original_value]").val(kategori_id);
+            $("[id=kategori_nama]").val(kategori_nama);
 
             $("#modal-tambah").modal('show');
+        });
+
+        $("#select-golongan").on("change", fungsiGolongan);
+        $("#select-bidang").on("change", fungsiBidang);
+        $("#select-kelompok").on("change", fungsiKelompok);
+        $("#select-subkelompok").on("change", fungsiSubKelompok);
+
+        function fungsiGolongan(e) {
+            var id = $("#select-golongan option:selected").val();
+            $.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=2", function(result){
+                $("#select-bidang").empty().append("<option value=''>Pilih Bidang...</option>");
+                $.each(result, function(key, value){
+                    $("#select-bidang").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
+                });
+            });
+        }
+
+        function fungsiBidang(e) {
+            var id = $("#select-bidang option:selected").val();
+            $.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=3", function(result){
+                $("#select-kelompok").empty().append("<option value=''>Pilih kelompok...</option>");
+                $.each(result, function(key, value){
+                    $("#select-kelompok").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
+                });
+            });
+        }
+
+        function fungsiKelompok(e) {
+            var id = $("#select-kelompok option:selected").val();
+            $.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=4", function(result){
+                $("#select-subkelompok").empty().append("<option value=''>Pilih sub-kelompok...</option>");
+                $.each(result, function(key, value){
+                    $("#select-subkelompok").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
+                });
+            });
+        }
+
+        function fungsiSubKelompok(e) {
+            var id = $("#select-subkelompok option:selected").val();
+            $.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=5", function(result){
+                $("#select-subsubkelompok").empty().append("<option value=''>Pilih sub sub-kelompok...</option>");
+                $.each(result, function(key, value){
+                    $("#select-subsubkelompok").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
+                });
+            });
+        }
+
+        $("[data-dismiss]").click(function(){
+            var id  = $("#select-subsubkelompok option:selected").val();
+            var txt = $("#select-subsubkelompok option:selected").text();
+            $("[name=id_kategori]").empty().append("<option value='"+id+"' selected>"+txt+"</option>");
         });
 	})();
 </script>

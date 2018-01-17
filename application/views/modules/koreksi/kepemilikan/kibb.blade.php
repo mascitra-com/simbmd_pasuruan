@@ -1,12 +1,12 @@
 @layout('commons/index')
-@section('title')Koreksi Nilai@end
+@section('title')Koreksi Kepemilikan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai/rincian/'.$koreksi->id)}}">Rincian</a></li>
-<li class="breadcrumb-item active">KIB-E</li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi->id)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi->id)}}">Koreksi Kepemilikan</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan/rincian/'.$koreksi->id)}}">Rincian</a></li>
+<li class="breadcrumb-item active">KIB-B</li>
 @endsection
 
 @section('content')
@@ -26,15 +26,20 @@
 						<tr>
 							<th class="text-nowrap text-center">Aksi</th>
 							<th class="text-nowrap text-center">Kode Barang</th>
-							<th class="text-nowrap text-right text-danger">Nilai</th>
-							<th class="text-nowrap">Judul</th>
-							<th class="text-nowrap">Pecipta</th>
+							<th class="text-nowrap">Merk</th>
+							<th class="text-nowrap">Tipe</th>
+							<th class="text-nowrap">Ukuran/CC</th>
 							<th class="text-nowrap">Bahan</th>
-							<th class="text-nowrap">Ukuran</th>
+							<th class="text-nowrap">No.Pabrik</th>
+							<th class="text-nowrap">No.Rangka</th>
+							<th class="text-nowrap">No.Mesin</th>
+							<th class="text-nowrap">No.Polisi</th>
+							<th class="text-nowrap">No.BPKB</th>
 							<th class="text-nowrap">Tgl. Pembuatan</th>
 							<th class="text-nowrap">Tgl. Pembukuan</th>
 							<th class="text-nowrap">Asal Usul</th>
 							<th class="text-nowrap">Kondisi</th>
+							<th class="text-nowrap text-right">Nilai</th>
 							<th class="text-nowrap text-right">Nilai Sisa</th>
 							<th class="text-nowrap">Masa Manfaat</th>
 							<th class="text-nowrap">Keterangan</th>
@@ -44,14 +49,14 @@
 					</thead>
 					<tbody>
 						@if(empty($kib))
-						<tr><td colspan="16" class="text-center"><b><i>Data kosong</i></b></td></tr>
+						<tr><td colspan="21" class="text-center"><b><i>Data kosong</i></b></td></tr>
 						@endif
 
 						@foreach($kib AS $item)
 						<tr>
 							<td class="text-nowrap text-center">
-                                <button class="btn btn-primary" data-id="{{$item->id}}" data-nilai="{{monefy($item->nilai)}}"><i class="fa fa-plus"></i></button>
-                            </td>
+								<button class="btn btn-primary" data-id="{{$item->id}}" data-nilai="{{monefy($item->nilai)}}"><i class="fa fa-plus"></i></button>
+							</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
 								{{zerofy($item->id_kategori->kd_bidang)}} .
@@ -60,15 +65,20 @@
 								{{zerofy($item->id_kategori->kd_subsubkelompok)}} .
 								{{zerofy($item->reg_barang,4)}}
 							</td>
-							<td class="text-nowrap text-right text-danger">{{monefy($item->nilai)}}</td>
-							<td class="text-nowrap">{{$item->judul}}</td>
-							<td class="text-nowrap">{{$item->pencipta}}</td>
-							<td class="text-nowrap">{{$item->bahan}}</td>
+							<td class="text-nowrap">{{$item->merk}}</td>
+							<td class="text-nowrap">{{$item->tipe}}</td>
 							<td class="text-nowrap">{{$item->ukuran}}</td>
+							<td class="text-nowrap">{{$item->bahan}}</td>
+							<td class="text-nowrap">{{$item->no_pabrik}}</td>
+							<td class="text-nowrap">{{$item->no_rangka}}</td>
+							<td class="text-nowrap">{{$item->no_mesin}}</td>
+							<td class="text-nowrap">{{$item->no_polisi}}</td>
+							<td class="text-nowrap">{{$item->no_bpkb}}</td>
 							<td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
 							<td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
 							<td class="text-nowrap">{{$item->asal_usul}}</td>
 							<td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+							<td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
 							<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 							<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 							<td class="text-nowrap">{{$item->keterangan}}</td>
@@ -87,32 +97,37 @@
 
 @section('modal')
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Koreksi Nilai</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{site_url('koreksi/aset/kibe/insert_nilai')}}" method="POST">
-                    <input type="hidden" name="id_aset">
-                    <input type="hidden" name="id_koreksi" value="{{$koreksi->id}}">
-                    <div class="form-group">
-                        <label>Nilai Lama</label>
-                        <input type="text" name="original_value" class="form-control" readonly />
-                    </div>
-                    <div class="form-group">
-                        <label>Nilai baru</label>
-                        <input type="number" name="corrected_value" class="form-control" placeholder="nilai baru" />
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Koreksi Kepemilikan</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<form action="{{site_url('koreksi/aset/kibb/insert_kepemilikan')}}" method="POST">
+					<input type="hidden" name="id_aset">
+					<input type="hidden" name="id_koreksi" value="{{$koreksi->id}}">
+					<input type="hidden" name="original_value" value="{{$koreksi->id_organisasi->id}}"/>
+					<div class="form-group">
+						<label>Kepemilikan Lama</label>
+						<input type="text" class="form-control form-control-sm" value="{{$koreksi->id_organisasi->nama}}" readonly/>
+					</div>
+					<div class="form-group">
+						<label>Kepemilikan baru</label>
+						<select name="corrected_value" class="form-control">
+							@foreach($organisasi AS $item)
+								<option value="{{$item->id}}">{{$item->nama}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-filter">
@@ -123,7 +138,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('koreksi/aset/kibe/koreksi_nilai/'.$koreksi->id)}}" method="GET">
+				<form action="{{site_url('koreksi/aset/kibb/koreksi_kepemilikan/'.$koreksi->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="form-group col">
@@ -131,26 +146,44 @@
 							<input type="text" class="form-control" name="reg_barang" value="{{isset($filter['reg_barang'])?$filter['reg_barang']:''}}" />
 						</div>
 						<div class="form-group col">
-							<label>Judul</label>
-							<input type="text" class="form-control" name="judul" value="{{isset($filter['judul'])?$filter['judul']:''}}" />
+							<label>Merk</label>
+							<input type="text" class="form-control" name="merk" value="{{isset($filter['merk'])?$filter['merk']:''}}" />
 						</div>
 						<div class="form-group col">
-							<label>Pencipta</label>
-							<input type="text" class="form-control" name="pencipta" value="{{isset($filter['pencipta'])?$filter['pencipta']:''}}" />
+							<label>Tipe</label>
+							<input type="text" class="form-control" name="tipe" value="{{isset($filter['tipe'])?$filter['tipe']:''}}" />
 						</div>
 					</div>
 					<div class="row">
-						<div class="form-group col">
-							<label>Bahan</label>
-							<input type="text" class="form-control" name="bahan" value="{{isset($filter['bahan'])?$filter['bahan']:''}}" />
-						</div>
 						<div class="form-group col">
 							<label>Ukuran</label>
 							<input type="text" class="form-control" name="ukuran" value="{{isset($filter['ukuran'])?$filter['ukuran']:''}}" />
 						</div>
 						<div class="form-group col">
-							<label>Tanggal Pembuatan</label>
-							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" />
+							<label>Bahan</label>
+							<input type="text" class="form-control" name="bahan" value="{{isset($filter['bahan'])?$filter['bahan']:''}}" />
+						</div>
+						<div class="form-group col">
+							<label>No. Pabrik</label>
+							<input type="text" class="form-control" name="no_pabrik" value="{{isset($filter['no_pabrik'])?$filter['no_pabrik']:''}}" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col">
+							<label>No.Rangka</label>
+							<input type="text" class="form-control" name="no_rangka" value="{{isset($filter['no_rangka'])?$filter['no_rangka']:''}}" />
+						</div>
+						<div class="form-group col">
+							<label>No.Mesin</label>
+							<input type="text" class="form-control" name="no_mesin" value="{{isset($filter['no_mesin'])?$filter['no_mesin']:''}}" />
+						</div>
+						<div class="form-group col">
+							<label>No.Polisi</label>
+							<input type="text" class="form-control" name="no_polisi" value="{{isset($filter['no_polisi'])?$filter['no_polisi']:''}}" />
+						</div>
+						<div class="form-group col">
+							<label>No.BPKB</label>
+							<input type="text" class="form-control" name="no_bpkb" value="{{isset($filter['no_bpkb'])?$filter['no_bpkb']:''}}" />
 						</div>
 					</div>
 					<div class="row">
@@ -183,6 +216,10 @@
 					</div>
 					<div class="row">
 						<div class="form-group col">
+							<label>Tanggal Pembuatan</label>
+							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" />
+						</div>
+						<div class="form-group col">
 							<label>Jumlah Tampilan Data</label>
 							<select name="limit" class="form-control">
 								<option value="20">20</option>
@@ -214,15 +251,15 @@
 	var kib = (function(){
 		theme.activeMenu('.nav-koreksi-tambah');
 
-        $("[data-id]").on('click', function(e){
-            var id = $(e.currentTarget).data('id');
-            var nilai = $(e.currentTarget).data('nilai');
+		$("[data-id]").on('click', function(e){
+			var id = $(e.currentTarget).data('id');
+			var nilai = $(e.currentTarget).data('nilai');
 
-            $("[name=id_aset]").val(id);
-            $("[name=original_value]").val(nilai);
+			$("[name=id_aset]").val(id);
+			$("[name=original_value]").val(nilai);
 
-            $("#modal-tambah").modal('show');
-        });
+			$("#modal-tambah").modal('show');
+		});
 	})();
 </script>
 @end

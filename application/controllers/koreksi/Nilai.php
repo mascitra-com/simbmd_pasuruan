@@ -86,7 +86,7 @@ class Nilai extends MY_Controller {
             $this->go('koreksi/nilai?id_organisasi='.$data['id_organisasi']);
         }
 
-        $data['jenis_koreksi'] = 1;
+        $data['jenis_koreksi'] = $this->jenis_koreksi;
         $sukses = $this->koreksi->insert($data);
 
         if($sukses) {
