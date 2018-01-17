@@ -73,4 +73,38 @@ if ( ! function_exists('unmonefy'))
 		return str_replace(',', '.', $string);
 	}
 }
+
+
+if ( ! function_exists('notif'))
+{
+    function notif($string)
+    {
+        switch ($string) {
+            case '1':
+                return 'Pengadaan';
+                break;
+            case '2':
+                return 'Hibah';
+                break;
+            case '3':
+                return 'Transfer';
+                break;
+            case '4':
+                return 'Penghapusan';
+                break;
+            case '51':
+                return 'Koreksi Nilai';
+                break;
+            case '52':
+                return 'Koreksi Kepemilikan';
+                break;
+            case '53':
+                return 'Koreksi Kode';
+                break;
+            case '54':
+                return 'Koreksi Hapus';
+                break;
+        }
+    }
+}
 ?>

@@ -8,7 +8,7 @@
 			<li class="nav nav-title">UTAMA</li>
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
-			{{--<li class="nav nav-notifikasi"><a href="#"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>--}}
+			<li class="nav nav-notifikasi"><a href="{{site_url('notifikasi')}}"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
 			<li class="nav nav-saldo-awal">
 				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
@@ -17,7 +17,6 @@
 					<li class="nav"><a href="{{site_url('saldo_awal/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
 					<li class="nav"><a href="{{site_url('saldo_awal/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="#"><i class="fa fa-cogs fa-fw icon"></i>Extracomtable</a></li>
 				</ul>
 			</li>
 
@@ -30,7 +29,6 @@
 					<li class="nav"><a href="{{site_url('inventarisasi/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
 					<li class="nav"><a href="{{site_url('inventarisasi/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
 					<li class="nav"><a href="{{site_url('inventarisasi/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibnon')}}"><i class="fa fa-cogs fa-fw icon"></i>Tidak Diakui Aset</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-pengadaan"><a href="{{site_url('pengadaan/index')}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan</a></li>
