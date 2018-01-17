@@ -3,9 +3,9 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="#">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="#">Koreksi Hapus</a></li>
-<li class="breadcrumb-item"><a href="#">Rincian</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/hapus?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/hapus?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Hapus</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('koreksi/hapus/rincian/'.$koreksi->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">KIB-A</li>
 @endsection
 
@@ -17,7 +17,7 @@
 				<div class="btn-group">
 					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
 					<button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button>
-					<button class="btn btn-primary">Terpilih <span class="badge badge-warning" id="terpilih_count">{{'10'}}</span></button>
+					<button class="btn btn-primary">Terpilih <span class="badge badge-warning" id="terpilih_count">{{$terpilih_count}}</span></button>
 				</div>
 			</div>
 			<div class="card-body table-responsive table-scroll px-0 py-0">
@@ -41,7 +41,33 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr><td colspan="14" class="text-center"><b><i>Data kosong</i></b></td></tr>
+						@foreach($kib AS $item)
+						<tr>
+							<td class="text-nowrap text-center">
+								<a href="{{site_url('koreksi/aset/kiba/insert_hapus?id_aset='.$item->id.'&id_koreksi='.$koreksi->id)}}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+							</td>
+							<td class="text-nowrap text-center">
+								{{zerofy($item->id_kategori->kd_golongan)}} .
+								{{zerofy($item->id_kategori->kd_bidang)}} .
+								{{zerofy($item->id_kategori->kd_kelompok)}} .
+								{{zerofy($item->id_kategori->kd_subkelompok)}} .
+								{{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+								{{zerofy($item->reg_barang,4)}}
+							</td>
+							<td class="text-nowrap">{{monefy($item->luas)}}</td>
+							<td class="text-nowrap">{{$item->alamat}}</td>
+							<td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
+							<td class="text-nowrap">{{$item->sertifikat_no}}</td>
+							<td class="text-nowrap">{{$item->hak}}</td>
+							<td class="text-nowrap">{{$item->pengguna}}</td>
+							<td class="text-nowrap">{{datify($item->tgl_perolehan, 'd/m/Y')}}</td>
+							<td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd/m/Y')}}</td>
+							<td class="text-nowrap">{{$item->asal_usul}}</td>
+							<td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+							<td class="text-nowrap">{{$item->keterangan}}</td>
+							<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>
@@ -51,7 +77,7 @@
 </div>
 @end
 
-<!-- @section('modal')
+@section('modal')
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-filter">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -60,7 +86,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('aset/kiba/add_transfer/'.$transfer->id)}}" method="GET">
+				<form action="{{site_url('koreksi/aset/kiba/koreksi_hapus/'.$koreksi->id)}}" method="GET">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="col-md-4">
@@ -146,33 +172,12 @@
 		</div>
 	</div>
 </div>
-@end -->
+@end
 
-<!-- @section('script')
+@section('script')
 <script type="text/javascript">
 	var kib = (function(){
-
-		theme.activeMenu('.nav-transfer-keluar');
-		$(document).ajaxError(function(){alert('Terjadi kesalahan')});
-		$("[data-id-transfer]").on('click', fungsiTambah);
-
-		function fungsiTambah(e) {
-			var data = {
-				'id_transfer':$(e.currentTarget).data('id-transfer'),
-				'id_aset':$(e.currentTarget).data('id-aset')
-			};
-
-			$.post("{{site_url('aset/kiba/insert_transfer')}}",
-				data,
-				function(result){
-					if (result.status === 'sukses') {
-						$(e.currentTarget).closest('tr').remove();
-						$("#terpilih_count").empty().text(result.terpilih_count);
-					} else {
-						alert('terjadi kesalahan');
-					}
-			}, 'json');
-		}
+		theme.activeMenu('.nav-koreksi-tambah');
 	})();
 </script>
-@end -->
+@end
