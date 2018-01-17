@@ -16,7 +16,6 @@ class Notifikasi extends MY_Controller
 
     public function index()
     {
-        $data['notifikasi'] = $this->notifikasi->get_notifikasi();
-        $this->render('modules/notifikasi/index', $data);
+        $this->render('modules/notifikasi/index');
     }
 }
