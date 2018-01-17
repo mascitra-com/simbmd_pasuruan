@@ -8,7 +8,7 @@ class Rekap_aset_model extends MY_Model {
 
 	public function get_rekapitulasi_aset_17($level = 1, $org = "")
 	{
-		$where = ($org==='all') ? "id_organisasi '%%'" : "id_organisasi = {$org}";
+		$where = ($org==='all') ? "id_organisasi like '%%'" : "id_organisasi = {$org}";
 
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id WHERE {$where} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id WHERE {$where} GROUP BY kd_golongan";
@@ -83,7 +83,7 @@ class Rekap_aset_model extends MY_Model {
 
 	public function get_rekapitulasi_aset_13($level = 1, $org = "")
 	{
-		$where = ($org==='all') ? "id_organisasi '%%'" : "id_organisasi = {$org}";
+		$where = ($org==='all') ? "id_organisasi like '%%'" : "id_organisasi = {$org}";
 		
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id WHERE {$where} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id WHERE {$where} AND kondisi < 3 GROUP BY kd_golongan";
