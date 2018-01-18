@@ -29,7 +29,7 @@
 			<div class="card-body row">
 				<div class="col-6">
 					<div class="row">
-						<?php $nilai_kontrak = (!empty($spk->addendum_nilai)) ? $spk->addendum_nilai : $spk->nilai ?>
+						<?php $nilai_kontrak = !empty($spk->addendum_nilai) ? $spk->addendum_nilai : $spk->nilai ?>
 						<div class="col">Nilai Kontrak</div><div class="col"> : {{monefy($nilai_kontrak)}}</div>
 						<div class="w-100"></div>
 						<div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}}</div>
@@ -79,7 +79,7 @@
 								</div>
 								<div class="form-group col">
 									<label>Nilai</label>
-									<input type="number" class="form-control form-control-sm" name="nilai" placeholder="Nilai" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="nilai" placeholder="Nilai" value="{{monefy($spk->nilai)}}" required {{(!empty($sp2d['total']))?'readonly':''}}/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -133,7 +133,7 @@
 					<div class="form-row">
 						<div class="form-group col">
 							<label>Addendum Nilai</label>
-							<input type="number" class="form-control form-control-sm" name="addendum_nilai" placeholder="Addendum Nilai" {{(!empty($sp2d['total']))?'readonly':''}}/>
+							<input type="number" class="form-control form-control-sm" name="addendum_nilai" placeholder="Addendum Nilai" value="{{$spk->addendum_nilai}}" {{(!empty($sp2d['total']))?'readonly':''}}/>
 						</div>
 						<div class="form-group col">
 							<label>Kegiatan</label>

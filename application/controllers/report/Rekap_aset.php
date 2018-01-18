@@ -7,6 +7,7 @@ class Rekap_aset extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('report/Rekap_aset_model', 'report');
+		$this->load->model('report/Rekap_aset_saldo_model', 'report_saldo');
 		$this->load->model('organisasi_model', 'organisasi');
         $this->load->model('pegawai_model', 'pegawai');
         $this->load->model('Auth_model', 'auth');
@@ -16,6 +17,7 @@ class Rekap_aset extends MY_Controller {
 	{
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
         $data['id_organisasi'] = 0;
+
         # Jika bukan superadmin
 		if (!$this->auth->get_super_access()) {
 			$data['id_organisasi'] = $this->auth->get_id_organisasi();
@@ -50,10 +52,18 @@ class Rekap_aset extends MY_Controller {
 		
 		switch ($jenis) {
 			case 17:
-				$data['rekap']  = $this->report->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi']);
+				if ($input['sumber_data']==1) {
+					$data['rekap'] = $this->report->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi']);
+				} else {
+					$data['rekap'] = $this->report_saldo->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi']);
+				}
 				break;
 			case 13:
-				$data['rekap']  = $this->report->get_rekapitulasi_aset_13($input['jenis'], $input['id_organisasi']);
+				if ($input['sumber_data']==1) {
+					$data['rekap'] = $this->report->get_rekapitulasi_aset_13($input['jenis'], $input['id_organisasi']);
+				} else {
+					$data['rekap'] = $this->report_saldo->get_rekapitulasi_aset_13($input['jenis'], $input['id_organisasi']);
+				}
 				break;
 			default:
 				show_404();

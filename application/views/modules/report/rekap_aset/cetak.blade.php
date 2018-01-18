@@ -46,6 +46,11 @@
                 <td>:</td>
                 <td>{{$detail['upb']}}</td>
             </tr>
+            <tr>
+                <td class="bold">SUMBER DATA:</td>
+                <td>:</td>
+                <td>{{$detail['sumber_data']==1?'SALDO BERJALAN':'SALDO AWAL'}}</td>
+            </tr>
         </table>
     </div>
     <div class="title bold mt-4">
