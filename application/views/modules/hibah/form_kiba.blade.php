@@ -56,7 +56,7 @@
 									@endif
 								</select>
 								<span class="input-group-btn">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" {{isset($kib)?'disabled':''}}>pilih</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" >pilih</button>
 								</span>
 							</div>
 						</div>
@@ -107,7 +107,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Serah Terima</label>
 						<div class="col-md-4">
-							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):''}}" {{isset($kib)?'readonly':''}}/>
+							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):''}}" />
 						</div>
 					</div>
 					<div class="form-group row">
@@ -128,7 +128,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}" {{isset($kib)?'readonly':''}} required/>
+							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}"  required/>
 						</div>
 					</div>
 					<div class="form-group row">
