@@ -17,6 +17,9 @@ class Kategori extends MY_Controller {
 
 	public function bidang($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>2,'sub_dari'=>$id));
 		$data['induk'] 	  = $this->kategori->get($id);
 		$this->render('modules/kategori/index_bidang', $data);
@@ -24,6 +27,9 @@ class Kategori extends MY_Controller {
 
 	public function kelompok($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>3,'sub_dari'=>$id));
 		$data['induk'] 	  = $this->kategori->get($id);
 		$this->render('modules/kategori/index_kelompok', $data);
@@ -31,6 +37,9 @@ class Kategori extends MY_Controller {
 
 	public function subkelompok($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>4,'sub_dari'=>$id));
 		$data['induk'] 	  = $this->kategori->get($id);
 		$this->render('modules/kategori/index_subkelompok', $data);
@@ -38,6 +47,9 @@ class Kategori extends MY_Controller {
 
 	public function subsubkelompok($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>5,'sub_dari'=>$id));
 		$data['induk'] 	  = $this->kategori->get($id);
 		$this->render('modules/kategori/index_subsubkelompok', $data);

@@ -71,7 +71,7 @@ class Saldo_kibc_model extends MY_Model
 
             $result_kat = $this->kategori->get_by($kode);
 
-            # Jika id organisasi tidak ada
+            # Jika id organisasi tidak ada & Data Teraljor tidak kosong
             if ($id_organisasi==='all' && empty($value[count($value) - 1])) {
                 $temp['data_error'][] = array('baris_ke'=>$key+1, 'data'=>$value);
                 continue;
