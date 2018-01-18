@@ -67,7 +67,7 @@
 									@endif
 								</select>
 								<span class="input-group-btn">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" {{isset($kib)?'disabled':''}}>pilih</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" >pilih</button>
 								</span>
 							</div>
 						</div>
@@ -122,7 +122,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Perolehan</label>
 						<div class="col-md-4">
-							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):datify($spk->tgl_serah_terima,'Y-m-d')}}" {{isset($kib)?'readonly':''}}/>
+							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):datify($spk->tgl_serah_terima,'Y-m-d')}}" />
 						</div>
 					</div>
 					<div class="form-group row">
@@ -153,19 +153,19 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}" {{isset($kib)?'readonly':''}} required/>
+							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}"  required/>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai Sisa</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?$kib->nilai_sisa:''}}" />
+							<input type="text" class="form-control" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?monefy($kib->nilai_sisa):''}}" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Masa Manfaat</label>
 						<div class="col-md-4">
-							<input type="number" class="form-control" name="masa_manfaat" placeholder="masa_manfaat" value="{{isset($kib)?$kib->masa_manfaat:''}}"/>
+							<input type="text" class="form-control" name="masa_manfaat" placeholder="masa_manfaat" value="{{isset($kib)?$kib->masa_manfaat:''}}"/>
 						</div>
 					</div>
 					<div class="form-group row">

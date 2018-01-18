@@ -19,6 +19,9 @@ class Organisasi extends MY_Controller {
 
 	public function unit($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>2,'sub_dari'=>$id));
 		$data['induk'] 	  	= $this->organisasi->get($id);
 		$this->render('modules/organisasi/index_unit', $data);
@@ -26,6 +29,9 @@ class Organisasi extends MY_Controller {
 
 	public function subunit($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>3,'sub_dari'=>$id));
 		$data['induk'] 	  	= $this->organisasi->get($id);
 		$this->render('modules/organisasi/index_subunit', $data);
@@ -33,6 +39,9 @@ class Organisasi extends MY_Controller {
 
 	public function upb($id = null)
 	{
+		if(empty($id))
+			show_404();
+		
 		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4,'sub_dari'=>$id));
 		$data['induk'] 	  	= $this->organisasi->get($id);
 		$this->render('modules/organisasi/index_upb', $data);
