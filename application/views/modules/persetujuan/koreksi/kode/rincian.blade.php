@@ -29,7 +29,7 @@ a@layout('commons/index')
                     </div>
                     <div class="form-group col-6">
                         <label>Tanggal Jurnal</label>
-                        <input type="date" class="form-control" name="tgl_jurnal" value="{{datify($koreksi->tgl_jurnal, 'Y-m-d')}}" placeholder="tanggal jurnal" />
+                        <input type="date" class="form-control" name="tgl_jurnal" value="{{datify($koreksi->tgl_jurnal, 'Y-m-d')}}" placeholder="tanggal jurnal" required />
                     </div>
                     <div class="form-group col-12">
                         <label>Keterangan</label>
