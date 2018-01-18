@@ -125,7 +125,7 @@
 							<td class="text-nowrap">{{$item->kontruksi}}</td>
 							<td class="text-nowrap">{{$item->panjang}}</td>
 							<td class="text-nowrap">{{$item->lebar}}</td>
-							<td class="text-nowrap">{{monefy($item->luas)}}</td>
+							<td class="text-nowrap">{{$item->luas}}</td>
 							<td class="text-nowrap">{{$item->lokasi}}</td>
 							<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 							<td class="text-nowrap">{{$item->dokumen_no}}</td>

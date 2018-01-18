@@ -151,7 +151,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Nilai</label>
+						<label class="col-md-3 col-form-label text-right">Harga Satuan</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}"  required/>
 						</div>

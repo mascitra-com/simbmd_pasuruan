@@ -110,7 +110,7 @@
 								<th class="text-nowrap">Tgl. Perolehan</th>
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap">Keterangan</th>
 							</tr>
 						</thead>
@@ -138,7 +138,7 @@
 									{{zerofy($item->reg_barang,4)}}
 								</td>
 								<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-								<td class="text-nowrap">{{monefy($item->luas)}}</td>
+								<td class="text-nowrap">{{$item->luas}}</td>
 								<td class="text-nowrap">{{$item->alamat}}</td>
 								<td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
 								<td class="text-nowrap">{{$item->sertifikat_no}}</td>
@@ -177,7 +177,7 @@
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap">Kondisi</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap text-right">Nilai Sisa</th>
 								<th class="text-nowrap">Masa Manfaat</th>
 								<th class="text-nowrap">Keterangan</th>
@@ -255,7 +255,7 @@
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap">Kondisi</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap text-right">Nilai Sisa</th>
 								<th class="text-nowrap">Masa Manfaat</th>
 								<th class="text-nowrap">Keterangan</th>
@@ -330,7 +330,7 @@
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap">Kondisi</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap text-right">Nilai Sisa</th>
 								<th class="text-nowrap">Masa Manfaat</th>
 								<th class="text-nowrap">Keterangan</th>
@@ -363,7 +363,7 @@
 								<td class="text-nowrap">{{$item->kontruksi}}</td>
 								<td class="text-nowrap">{{$item->panjang}}</td>
 								<td class="text-nowrap">{{$item->lebar}}</td>
-								<td class="text-nowrap">{{monefy($item->luas)}}</td>
+								<td class="text-nowrap">{{$item->luas}}</td>
 								<td class="text-nowrap">{{$item->lokasi}}</td>
 								<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 								<td class="text-nowrap">{{$item->dokumen_no}}</td>
@@ -401,7 +401,7 @@
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap">Kondisi</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap text-right">Nilai Sisa</th>
 								<th class="text-nowrap">Masa Manfaat</th>
 								<th class="text-nowrap">Keterangan</th>
@@ -463,7 +463,7 @@
 								<th class="text-nowrap">Nama</th>
 								<th class="text-nowrap">Merk</th>
 								<th class="text-nowrap">Tipe</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap">Keterangan</th>
 							</tr>
 						</thead>
@@ -507,7 +507,7 @@
 								<th class="text-nowrap">Alamat</th>
 								<th class="text-nowrap">Tipe</th>
 								<th class="text-nowrap">Jumlah</th>
-								<th class="text-nowrap">Nilai</th>
+								<th class="text-nowrap">Harga Satuan</th>
 								<th class="text-nowrap">Nilai Penunjang</th>
 								<th class="text-nowrap">Kategori</th>
 							</tr>
@@ -569,7 +569,7 @@
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap">Kondisi</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap text-right">Nilai Sisa</th>
 								<th class="text-nowrap">Masa Manfaat</th>
 								<th class="text-nowrap">Keterangan</th>
@@ -644,7 +644,7 @@
 								<th class="text-nowrap">Tgl. Pembukuan</th>
 								<th class="text-nowrap">Asal Usul</th>
 								<th class="text-nowrap">Kondisi</th>
-								<th class="text-nowrap text-right">Nilai</th>
+								<th class="text-nowrap text-right">Harga Satuan</th>
 								<th class="text-nowrap text-right">Nilai Sisa</th>
 								<th class="text-nowrap">Masa Manfaat</th>
 								<th class="text-nowrap">Keterangan</th>
@@ -677,7 +677,7 @@
 								<td class="text-nowrap">{{$item->kontruksi}}</td>
 								<td class="text-nowrap">{{$item->panjang}}</td>
 								<td class="text-nowrap">{{$item->lebar}}</td>
-								<td class="text-nowrap">{{monefy($item->luas)}}</td>
+								<td class="text-nowrap">{{$item->luas}}</td>
 								<td class="text-nowrap">{{$item->lokasi}}</td>
 								<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 								<td class="text-nowrap">{{$item->dokumen_no}}</td>

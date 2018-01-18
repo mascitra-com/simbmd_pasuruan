@@ -55,77 +55,77 @@
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. Kontrak</label>
-									<input type="text" class="form-control form-control-sm" name="nomor" value="{{$spk->nomor}}" placeholder="No. SPK/Kontrak/Perjanjian" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="nomor" value="{{$spk->nomor}}" placeholder="No. SPK/Kontrak/Perjanjian" required/>
 								</div>
 								<div class="form-group col">
 									<label>Tgl. Kontrak</label>
-									<input type="date" class="form-control form-control-sm" name="tanggal" value="{{datify($spk->tanggal, 'Y-m-d')}}" placeholder="Tanggal kontrak" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="date" class="form-control form-control-sm" name="tanggal" value="{{datify($spk->tanggal, 'Y-m-d')}}" placeholder="Tanggal kontrak" required />
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col">
 									<label>No. BA Serah Terima</label>
-									<input type="text" class="form-control form-control-sm" name="no_serah_terima" value="{{isset($spk->no_serah_terima) ? $spk->no_serah_terima : ''}}" placeholder="No. Berita Acara Serah Terima" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="no_serah_terima" value="{{isset($spk->no_serah_terima) ? $spk->no_serah_terima : ''}}" placeholder="No. Berita Acara Serah Terima"/>
 								</div>
 								<div class="form-group col">
 									<label>Tgl. BA Serah Terima</label>
-									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" value="{{isset($spk->tgl_serah_terima) ? datify($spk->tgl_serah_terima, 'Y-m-d') : ''}}" placeholder="Tanggal Berita Acara Serah Terima"  {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="date" class="form-control form-control-sm" name="tgl_serah_terima" value="{{isset($spk->tgl_serah_terima) ? datify($spk->tgl_serah_terima, 'Y-m-d') : ''}}" placeholder="Tanggal Berita Acara Serah Terima" />
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col">
 									<label>Jangka Waktu</label>
-									<input type="number" class="form-control form-control-sm" name="jangka_waktu" value="{{$spk->jangka_waktu}}" placeholder="Jangka waktu" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="number" class="form-control form-control-sm" name="jangka_waktu" value="{{$spk->jangka_waktu}}" placeholder="Jangka waktu"/>
 								</div>
 								<div class="form-group col">
 									<label>Nilai</label>
-									<input type="number" class="form-control form-control-sm" name="nilai" placeholder="Nilai" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="nilai" placeholder="Nilai" value="{{monefy($spk->nilai)}}" required {{(!empty($sp2d['total']))?'readonly':''}}/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Keterangan</label>
-								<textarea class="form-control form-control-sm" rows="5" name="keterangan" value="{{$spk->keterangan}}" placeholder="Keterangan" {{(!empty($sp2d['total']))?'readonly':''}}></textarea>
+								<textarea class="form-control form-control-sm" rows="5" name="keterangan" value="{{$spk->keterangan}}" placeholder="Keterangan"></textarea>
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-row">
 								<div class="form-group col">
 									<label>Nama Perusahaan</label>
-									<input type="text" class="form-control form-control-sm" name="nama_perusahaan" value="{{$spk->nama_perusahaan}}" placeholder="Nama perusahaan" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="nama_perusahaan" value="{{$spk->nama_perusahaan}}" placeholder="Nama perusahaan"/>
 								</div>
 								<div class="form-group col">
 									<label>Bentuk</label>
-									<input type="text" class="form-control form-control-sm" name="bentuk" value="{{$spk->bentuk}}" placeholder="Bentuk" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="bentuk" value="{{$spk->bentuk}}" placeholder="Bentuk"/>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col">
 									<label>Alamat</label>
-									<input type="text" class="form-control form-control-sm" name="alamat" value="{{$spk->alamat}}" placeholder="Alamat" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="alamat" value="{{$spk->alamat}}" placeholder="Alamat"/>
 								</div>
 								<div class="form-group col">
 									<label>Pimpinan</label>
-									<input type="text" class="form-control form-control-sm" name="pimpinan" value="{{$spk->pimpinan}}" placeholder="Pimpinan" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="pimpinan" value="{{$spk->pimpinan}}" placeholder="Pimpinan"/>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col">
 									<label>NPWP</label>
-									<input type="text" class="form-control form-control-sm" name="npwp" value="{{$spk->npwp}}" placeholder="NPWP" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="npwp" value="{{$spk->npwp}}" placeholder="NPWP"/>
 								</div>
 								<div class="form-group col">
 									<label>Bank</label>
-									<input type="text" class="form-control form-control-sm" name="bank" value="{{$spk->bank}}" placeholder="Bank" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="bank" value="{{$spk->bank}}" placeholder="Bank"/>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col">
 									<label>Atas Nama</label>
-									<input type="text" class="form-control form-control-sm" name="atas_nama" value="{{$spk->atas_nama}}" placeholder="Atas Nama" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="atas_nama" value="{{$spk->atas_nama}}" placeholder="Atas Nama" />
 								</div>
 								<div class="form-group col">
 									<label>No. Rekening</label>
-									<input type="text" class="form-control form-control-sm" name="no_rek" value="{{$spk->no_rek}}" placeholder="No. Rekening" {{(!empty($sp2d['total']))?'readonly':''}}/>
+									<input type="text" class="form-control form-control-sm" name="no_rek" value="{{$spk->no_rek}}" placeholder="No. Rekening" />
 								</div>
 							</div>
 						</div>
@@ -133,11 +133,11 @@
 					<div class="form-row">
 						<div class="form-group col">
 							<label>Addendum Nilai</label>
-							<input type="number" class="form-control form-control-sm" name="addendum_nilai" placeholder="Addendum Nilai" {{(!empty($sp2d['total']))?'readonly':''}}/>
+							<input type="number" class="form-control form-control-sm" name="addendum_nilai" value="{{monefy($spk->addendum_nilai)}}" placeholder="Addendum Nilai" {{(!empty($sp2d['total']))?'readonly':''}}/>
 						</div>
 						<div class="form-group col">
 							<label>Kegiatan</label>
-							<select name="id_kegiatan" class="form-control form-control-sm" {{(!empty($sp2d['total']))?'disabled':''}}>
+							<select name="id_kegiatan" class="form-control form-control-sm">
 								<option>Pilih Kegiatan....</option>
 								@foreach($kegiatan AS $data)
 								<option value="{{$data->id}}" {{$spk->id_kegiatan===$data->id?'selected':''}}>{{$data->kode.' - '.$data->nama}}</option>
@@ -149,7 +149,7 @@
 					<div class="form-row">
 						<div class="col text-right">
 							@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
-							<button type="submit" class="btn btn-primary" {{(!empty($sp2d['total']))?'disabled':''}}><i class="fa fa-save"></i> Simpan</button>
+							<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
 							@endif
 							<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
 						</div>
