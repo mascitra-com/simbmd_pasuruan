@@ -1,19 +1,19 @@
 @layout('commons/index')
-@section('title')Rekapitulasi Kartu Inventaris Barang@end
+@section('title')Rekapitulasi Non-Aset@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="#">Laporan</a></li>
-<li class="breadcrumb-item active">Rekapitulasi Kartu Inventaris Barang</li>
+<li class="breadcrumb-item active">Rekapitulasi Non-Aset</li>
 @end
 
 @section('content')
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Rekapitulasi Kartu Inventaris Barang</div>
+			<div class="card-header">Rekapitulasi Non-Aset</div>
 			<div class="card-body">
-				<form action="{{site_url('report/rekap_kib/cetak')}}" method="POST">
+				<form action="{{site_url('report/rekap_kib_non/cetak')}}" method="POST">
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Pilih UPB</label>
 						<div class="col-md-4">
@@ -22,58 +22,6 @@
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
 								@endforeach
-							</select>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Kode Kepemilikan</label>
-						<div class="col-md-4">
-							<select name="kd_pemilik" class="form-control form-control-sm">
-								<option value="">Pilih Kode Pemilik...</option>
-								<option value="00">00 - Pemerintah Pusat</option>
-								<option value="01">01 - Departemen Dalam Negeri</option>
-								<option value="11">11 - Pemerintah Provinsi</option>
-								<option value="12">12 - Pemerintah Kabupaten/Kota</option>
-								<option value="22">22 - Desa</option>
-								<option value="33">33 - BOT/BTO/BT</option>
-								<option value="44">44 - Instansi Lainnya</option>
-								<option value="98">98 - Extracomtable</option>
-								<option value="99">99 - Lainnya</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Jenis KIB</label>
-						<div class="col-md-4">
-							<select name="kib" class="form-control form-control-sm" id="kib">
-								<option value="">Pilih Jenis KIB...</option>
-								<option value="a">A - Tanah</option>
-								<option value="b">B - Peralatan &amp Mesin</option>
-								<option value="c">C - Gedung &amp Bangunan</option>
-								<option value="d">D - Jalan, Irigasi dan Jaringan</option>
-								<option value="e">E - Aset Tetap Lainya</option>
-								<option value="f">F - Konstruksi Dalam Pengerjaan</option>
-								<!-- <option value="g">G - Aset Tidak Berwujud</option> -->
-							</select>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Cetak Berdasar</label>
-						<div class="col-md-4">
-							<select name="urut" class="form-control form-control-sm">
-								<option value="1">Urut Kode Barang</option>
-								<option value="2">Urut Tahun Perolehan</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group row" id="kondisi">
-						<label class="col-md-3 col-form-label text-right">Kondisi</label>
-						<div class="col-md-4">
-							<select name="kondisi" class="form-control form-control-sm">
-                                <option value="">Semua</option>
-								<option value="1">Baik</option>
-								<option value="2">Kurang Baik</option>
-								<option value="0">Rusak Berat</option>
 							</select>
 						</div>
 					</div>

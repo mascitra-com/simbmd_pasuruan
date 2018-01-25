@@ -28,6 +28,7 @@
 							<th colspan="5">Kode</th>
 							<th rowspan="2" class="text-left">Nama</th>
 							<th rowspan="2">Umur Ekonomis</th>
+							<th rowspan="2">Batas Nilai Kapitalisasi</th>
 							<th rowspan="2">Aksi</th>
 						</tr>
 						<tr>
@@ -52,6 +53,7 @@
 							<td>{{!empty($kat->kd_subsubkelompok) ? zerofy($kat->kd_subsubkelompok) : '-'}}</td>
 							<td class="text-left">{{$kat->nama}}</td>
 							<td>{{$kat->umur_ekonomis}}</td>
+							<td>{{monefy($kat->batas_nilai)}}</td>
 							<td>
 								<div class="btn-group btn-group-sm">
 									<a href="{{site_url('kategori/edit/'.$kat->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Sunting</a>

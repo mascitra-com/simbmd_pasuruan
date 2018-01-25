@@ -117,7 +117,7 @@
 					@endforeach
 
 					<!-- CETAK SUB TOTAL-->
-					@if($index > 0 && $detail['urut']==='2')
+					@if(!empty($rekap) && $detail['urut']==='2')
 						@if(@tahun !== datify($aset->tgl_perolehan, 'Y'))
 						<tr class="small bold">
 							<td class="text-right pr-3" colspan="4">SUB TOTAL TAHUN {{$tahun_now}}</td>

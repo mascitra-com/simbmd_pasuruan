@@ -49,7 +49,7 @@
 @section('script')
     <script type="text/javascript">
         var org = (function () {
-            theme.activeMenu('.nav-label');
+            theme.activeMenu('.nav-rekap-lainnya');
         })();
         $("#organisasi").on("change", fungsiUpb);
         function fungsiUpb(e) {

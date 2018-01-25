@@ -1,19 +1,19 @@
 @layout('commons/index')
-@section('title')Rekapitulasi Kartu Inventaris Barang@end
+@section('title')Rekapitulasi Ekstrakomtabel@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="#">Laporan</a></li>
-<li class="breadcrumb-item active">Rekapitulasi Kartu Inventaris Barang</li>
+<li class="breadcrumb-item active">Rekapitulasi Ekstrakomtabel</li>
 @end
 
 @section('content')
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Rekapitulasi Kartu Inventaris Barang</div>
+			<div class="card-header">Rekapitulasi Ekstrakomtabel</div>
 			<div class="card-body">
-				<form action="{{site_url('report/rekap_kib/cetak')}}" method="POST">
+				<form action="{{site_url('report/rekap_ekstrakomtabel/cetak')}}" method="POST">
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Pilih UPB</label>
 						<div class="col-md-4">
@@ -47,13 +47,9 @@
 						<div class="col-md-4">
 							<select name="kib" class="form-control form-control-sm" id="kib">
 								<option value="">Pilih Jenis KIB...</option>
-								<option value="a">A - Tanah</option>
 								<option value="b">B - Peralatan &amp Mesin</option>
 								<option value="c">C - Gedung &amp Bangunan</option>
-								<option value="d">D - Jalan, Irigasi dan Jaringan</option>
 								<option value="e">E - Aset Tetap Lainya</option>
-								<option value="f">F - Konstruksi Dalam Pengerjaan</option>
-								<!-- <option value="g">G - Aset Tidak Berwujud</option> -->
 							</select>
 						</div>
 					</div>

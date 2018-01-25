@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Rekapitulasi Kartu Inventaris Barang</title>
+	<title>Rekapitulasi Ekstrakomtabel</title>
 	<link rel="stylesheet" href="{{base_url('res/plugins/bootstrap/css/bootstrap.min.css')}}">
 	<style type="text/css">
 	.container{
@@ -32,8 +32,8 @@
 <body>
 	<div class="container-fluid">
 		<div class="title bold mt-4">
-			KARTU INVENTARIS BARANG KIB - {{strtoupper($detail['kib'])}}<br>
-			PERALATAN &amp MESIN
+			EKSTRAKOMTABEL KIB - {{strtoupper($detail['kib'])}}<br>
+			GEDUNG &amp BANGUNAN
 			<br>
 			{{$detail['header']}}
 		</div>
@@ -49,30 +49,26 @@
 			<table class="table table-bordered table-sm">
 				<thead>
 					<tr class="small">
-						<th rowspan="2" class="text-center">No.</th>
-						<th rowspan="2" class="text-center">Kode Barang/Reg Induk</th>
-						<th rowspan="2" class="text-center">Jenis/Nama</th>
-						<th rowspan="2" class="text-center">Merk/Tipe</th>
-						<th rowspan="2" class="text-center">Ukuran/CC</th>
-						<th rowspan="2" class="text-center">Bahan</th>
-						<th rowspan="2" class="text-center">Tahun Pengadaan</th>
-						<th rowspan="2" class="text-center">No. Rangka</th>
-						<th rowspan="2" class="text-center">No. Mesin</th>
-						<th rowspan="2" class="text-center">No. Polisi</th>
-						<th rowspan="2" class="text-center">No. BPKB</th>
-						<th colspan="3" class="text-center">Kondisi</th>
-						<th rowspan="2" class="text-center">Jumlah</th>
-						<th rowspan="2" class="text-center">Asal-Usul</th>
-						<th rowspan="2" class="text-center">Nilai (Rp.)</th>
-						<th rowspan="2" class="text-center">Keterangan</th>
-					</tr>
-					<tr class="small">
-						<th class="text-center">Baik</th>
-						<th class="text-center">Kurang Baik</th>
-						<th class="text-center">Rusak Berat</th>
+						<th class="text-center">No.</th>
+						<th class="text-center">Jenis/Nama</th>
+						<th class="text-center">Kode Barang</th>
+						<th class="text-center">Reg Induk</th>
+						<th class="text-center">Kondisi</th>
+						<th class="text-center">Bertingkat</th>
+						<th class="text-center">Bahan Beton</th>
+						<th class="text-center">Luas Lantai(M2)</th>
+						<th class="text-center">Alamat/Lokasi</th>
+						<th class="text-center">No. Dokumen</th>
+						<th class="text-center">Tgl. Dokumen</th>
+						<!-- <th class="text-center">Luas Bangunan</th> -->
+						<th class="text-center">Status Tanah</th>
+						<th class="text-center">Reg. Tanah</th>
+						<th class="text-center">Asal-Usul &amp Tahun</th>
+						<th class="text-center">Nilai (Rp.)</th>
+						<th class="text-center">Keterangan</th>
 					</tr>
 					<tr>
-						@for($i=1;$i <= 18; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
+						@for($i=1;$i <= 16; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
 					</tr>
 				</thead>
 				<tbody>
@@ -86,7 +82,7 @@
 					@if($detail['urut']==='2')
 						@if($tahun_now !== datify($aset->tgl_perolehan, 'Y'))
 						<tr class="small bold">
-							<td class="text-right pr-3" colspan="16">SUB TOTAL TAHUN {{$tahun_now}}</td>
+							<td class="text-right pr-3" colspan="14">SUB TOTAL TAHUN {{$tahun_now}}</td>
 							<td class="text-right">{{monefy($sub_jumlah)}}</td>
 							<td></td>
 						</tr>
@@ -99,31 +95,25 @@
 
 					<tr class="small">
 						<td class="text-center">{{++$no}}</td>
-						<td class="text-center">
-							{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}
-							<br>
-							{{$aset->reg_induk}}
-						</td>
-						<td>{{$aset->nama}}</td>
-						<td class="text-center">{{$aset->merk.' '.$aset->tipe}}</td>
-						<td class="text-center">{{$aset->ukuran}}</td>
-						<td class="text-center">{{$aset->bahan}}</td>
-						<td class="text-center">{{datify($aset->tgl_perolehan, 'Y')}}</td>
-						<td class="text-center">{{$aset->no_rangka}}</td>
-						<td class="text-center">{{$aset->no_mesin}}</td>
-						<td class="text-center">{{$aset->no_polisi}}</td>
-						<td class="text-center">{{$aset->no_bpkb}}</td>
-						<td class="text-center">{{$aset->kb}}</td>
-						<td class="text-center">{{$aset->kkb}}</td>
-						<td class="text-center">{{$aset->krb}}</td>
-						<td class="text-center">{{$aset->jumlah}}</td>
-						<td class="text-center">{{$aset->asal_usul}}</td>
-						<td class="text-right">{{monefy($aset->nilai_total)}}</td>
+						<td class="text-nowrap">{{$aset->nama}}</td>
+						<td class="text-center">{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}</td>
+						<td class="text-center">{{$aset->reg_induk}}</td>
+						<td class="text-center">{{$aset->kondisi==='1'?'B':($aset->kondisi==='2'?'KB':'RB')}}</td>
+						<td class="text-center">{{$aset->tingkat==='1'?'Iya': 'Tidak'}}</td>
+						<td class="text-center">{{$aset->beton==='1'?'Iya': 'Tidak'}}</td>
+						<td class="text-center">{{$aset->luas_lantai}}</td>
+						<td class="text-center">{{$aset->lokasi}}</td>
+						<td class="text-center">{{$aset->dokumen_no}}</td>
+						<td class="text-center text-nowrap">{{datify($aset->dokumen_tgl,'d-m-Y')}}</td>
+						<td class="text-center">{{$aset->status_tanah}}</td>
+						<td class="text-center">{{$aset->kode_tanah}}</td>
+						<td class="text-center">{{$aset->asal_usul}}<br>{{datify($aset->tgl_perolehan, 'Y')}}</td>
+						<td class="text-right">{{monefy($aset->nilai + $aset->nilai_tambah)}}</td>
 						<td>{{$aset->keterangan}}</td>
 					</tr>
 					<?php
-						$jumlah += $aset->nilai_total;
-						$sub_jumlah += $aset->nilai_total;
+						$jumlah += $aset->nilai + $aset->nilai_tambah;
+						$sub_jumlah += $aset->nilai + $aset->nilai_tambah;
 					?>
 					@endforeach
 
@@ -131,7 +121,7 @@
 					@if(!empty($rekap) && $detail['urut']==='2')
 						@if(@tahun !== datify($aset->tgl_perolehan, 'Y'))
 						<tr class="small bold">
-							<td class="text-right pr-3" colspan="16">SUB TOTAL TAHUN {{$tahun_now}}</td>
+							<td class="text-right pr-3" colspan="14">SUB TOTAL TAHUN {{$tahun_now}}</td>
 							<td class="text-right">{{monefy($sub_jumlah)}}</td>
 							<td></td>
 						</tr>
@@ -144,7 +134,7 @@
 
 					<!-- CETAK TOTAL -->
 					<tr class="small bold">
-						<td class="text-right pr-3" colspan="16">TOTAL</td>
+						<td class="text-right pr-3" colspan="14">TOTAL</td>
 						<td class="text-right">{{monefy($jumlah)}}</td>
 						<td></td>
 					</tr>

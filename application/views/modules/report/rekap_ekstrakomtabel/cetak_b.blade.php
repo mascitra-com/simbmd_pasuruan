@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Rekapitulasi Kartu Inventaris Barang</title>
+	<title>Rekapitulasi Ekstrakomtabel</title>
 	<link rel="stylesheet" href="{{base_url('res/plugins/bootstrap/css/bootstrap.min.css')}}">
 	<style type="text/css">
 	.container{
@@ -32,7 +32,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="title bold mt-4">
-			KARTU INVENTARIS BARANG KIB - {{strtoupper($detail['kib'])}}<br>
+			EKSTRAKOMTABEL KIB - {{strtoupper($detail['kib'])}}<br>
 			PERALATAN &amp MESIN
 			<br>
 			{{$detail['header']}}

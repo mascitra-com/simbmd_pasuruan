@@ -146,7 +146,7 @@
 @section('script')
     <script type="text/javascript">
         var org = (function () {
-            theme.activeMenu('.nav-rekap-ruangan');
+            theme.activeMenu('.nav-rekap-lainnya');
         })();
         $("#tb-search").on("click", fungsiTombolCari);
         $("#ip-search").on("keyup", fungsiEnterCari);
