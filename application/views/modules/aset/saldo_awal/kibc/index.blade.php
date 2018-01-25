@@ -72,7 +72,7 @@
 							<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 							<td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
 							<td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-							<td class="text-nowrap">{{monefy($item->luas_lantai,false)}}</td>
+							<td class="text-nowrap">{{$item->luas_lantai}}</td>
 							<td class="text-nowrap">{{$item->lokasi}}</td>
 							<td class="text-nowrap">{{$item->dokumen_tgl}}</td>
 							<td class="text-nowrap">{{$item->dokumen_no}}</td>

@@ -11,6 +11,7 @@ class Kibe extends MY_Controller
         $this->load->model('aset/Temp_kibe_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
+        $this->load->model('Ruangan_model', 'ruangan');
         $this->load->model('Spk_model', 'spk');
         $this->load->model('Sp2d_model', 'sp2d');
         $this->load->model('Ruangan_model', 'ruangan');

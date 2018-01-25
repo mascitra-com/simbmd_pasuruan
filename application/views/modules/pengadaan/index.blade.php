@@ -48,7 +48,7 @@
 					<tr>
 						<td class="text-center">{{$item->nomor}}</td>
 						<td>{{datify($item->tanggal, 'd/m/Y')}}</td>
-						<td class="text-right">{{(!empty($item->nilai)) ? monefy($item->nilai) : 00,00}}</td>
+						<td class="text-right">{{(!empty($item->nilai)) ? monefy($item->nilai) : '00,00'}}</td>
 						<td class="text-nowrap">{{$item->jangka_waktu}}</td>
 						<td class="text-sm">{{$item->keterangan}}</td>
 						<td class="text-center">
