@@ -63,7 +63,6 @@
 
 						@foreach($kib AS $item)
 						<tr>
-							<td>{{ $item->id }}</td>
 							<td class="text-nowrap text-center">
 								{{zerofy($item->id_kategori->kd_golongan)}} .
 								{{zerofy($item->id_kategori->kd_bidang)}} .

@@ -45,7 +45,7 @@
 						<label class="col-md-3 col-form-label text-right">Kode Barang</label>
 						<div class="col-md-4">
 							<div class="input-group">
-								<select class="form-control" name="id_kategori">
+								<select class="form-control" name="id_kategori" {{isset($kib) ? 'disabled' : ''}}>
 									@if(isset($kib->id_kategori))
 									<?php
 									$kt = $kib->id_kategori;

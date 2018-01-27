@@ -26,6 +26,7 @@ class Kibb extends MY_Controller
 
         $result = $this->kib->get_data($filter);
         $data['kib'] = $result['data'];
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['kib']->id_organisasi);
         $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'inventarisasi/' . get_class($this));
         $data['filter'] = (!empty($filter) ? $filter : array('id_organisasi' => ''));
 
@@ -56,7 +57,7 @@ class Kibb extends MY_Controller
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['org'] = $this->organisasi->get($data['kib']->id_organisasi);
         $data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
-        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $id);
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['kib']->id_organisasi);
         $this->render('modules/aset/saldo_berjalan/kibb/form', $data);
     }
 

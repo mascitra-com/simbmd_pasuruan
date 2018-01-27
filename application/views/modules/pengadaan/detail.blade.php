@@ -163,6 +163,10 @@
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-pengadaan')
+    theme.activeMenu('.nav-pengadaan');
+
+    @if($spk->status_pengajuan === '1' OR $spk->status_pengajuan === '2')
+    $(':input').prop('disabled', true);
+    @endif
 </script>
 @end
