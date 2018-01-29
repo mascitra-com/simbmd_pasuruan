@@ -84,14 +84,14 @@
 
 			<li class="nav nav-title">LAPORAN</li>
 			<li class="nav nav-rekap-aset">
-				<a href="#menu-rekap-aset" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Aset Tetap<i class="fa fa-angle-down ml-auto"></i></a>
+				<a href="#menu-rekap-aset" data-toggle="collapse"><i class="fa fa-cubes fa-fw icon"></i>Rekap Aset Tetap<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-aset">
 					<li class="nav"><a href="{{site_url('report/rekap_aset/index/17')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.17 thn 2007</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_aset/index/13')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.13 thn 2006</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-rekap-mutasi-tambah">
-				<a href="#menu-rekap-mutasi-tambah" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Tambah<i class="fa fa-angle-down ml-auto"></i></a>
+				<a href="#menu-rekap-mutasi-tambah" data-toggle="collapse"><i class="fa fa-download fa-fw icon"></i>Rekap Mutasi Tambah<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-tambah">
 					<li class="nav"><a href="#"><i class="fa fa-file-o fa-fw icon"></i> Inventarisasi</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
@@ -99,18 +99,22 @@
 				</ul>
 			</li>
 			<li class="nav nav-rekap-mutasi-kurang">
-				<a href="#menu-rekap-mutasi-kurang" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Mutasi Kurang<i class="fa fa-angle-down ml-auto"></i></a>
+				<a href="#menu-rekap-mutasi-kurang" data-toggle="collapse"><i class="fa fa-upload fa-fw icon"></i>Rekap Mutasi Kurang<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-kurang">
 					<li class="nav nav-rekap-transfer"><a href="{{site_url('report/rekap_transfer')}}"><i class="fa fa-file-o fa-fw icon"></i>Transfer Keluar</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
 				</ul>
 			</li>
-			<li class="nav nav-rekap-excom"><a href="#"><i class="fa fa-file-o fa-fw icon"></i>Rekap Extracomtable</a></li>
-			<li class="nav nav-rekap-kib"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
-			<li class="nav nav-rekap-ruangan"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
-			<li class="nav nav-label"><a href="{{site_url('label')}}"><i class="fa fa-file-o fa-fw icon"></i>Labelisasi Barang</a></li>
-
-
+			<li class="nav nav-rekap-lainnya">
+				<a href="#menu-rekap-lainnya" data-toggle="collapse"><i class="fa fa-file-o fa-fw icon"></i>Rekap Lainnya<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-lainnya">
+					<li class="nav"><a href="{{site_url('report/rekap_kib_non')}}"><i class="fa fa-file-o fa-fw icon"></i>Rekap Non-Aset</a></li>
+					<li class="nav"><a href="{{site_url('report/rekap_ekstrakomtabel')}}"><i class="fa fa-file-o fa-fw icon"></i>Rekap Ekstrakomtabel</a></li>
+					<li class="nav"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
+					<li class="nav"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
+					<li class="nav"><a href="{{site_url('label')}}"><i class="fa fa-file-o fa-fw icon"></i>Labelisasi Barang</a></li>
+				</ul>
+			</li>
 			@if($this->session->auth['is_admin'] == 1)
 			<li class="nav nav-title">KAMUS</li>
 			<li class="nav nav-ruangan"><a href="{{site_url('ruangan')}}"><i class="fa fa-cube fa-fw icon"></i>Ruangan</a></li>
