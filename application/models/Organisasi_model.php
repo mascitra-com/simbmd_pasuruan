@@ -62,4 +62,13 @@ class Organisasi_model extends MY_Model {
 
         return $result;
     }
+
+    public function get_org_induk($kode)
+    {
+        $kode = explode('.', $kode);
+        $this->db->where('kd_bidang', $kode[0]);
+        $this->db->where('kd_unit', $kode[1]);
+        $this->db->where('jenis', '2');
+        return $this->db->get('organisasi')->row();
+    }
 }

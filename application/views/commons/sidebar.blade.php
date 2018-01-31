@@ -93,7 +93,6 @@
 			<li class="nav nav-rekap-mutasi-tambah">
 				<a href="#menu-rekap-mutasi-tambah" data-toggle="collapse"><i class="fa fa-download fa-fw icon"></i>Rekap Mutasi Tambah<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-tambah">
-					<li class="nav"><a href="#"><i class="fa fa-file-o fa-fw icon"></i> Inventarisasi</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_hibah/')}}"><i class="fa fa-file-o fa-fw icon"></i> Hibah</a></li>
 				</ul>

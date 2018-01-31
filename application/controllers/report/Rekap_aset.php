@@ -46,11 +46,13 @@ class Rekap_aset extends MY_Controller {
             $this->message('Pilih Organisasi', 'danger');
             $this->go('report/rekap_aset/index/'.$jenis);
         }
-
-		$input['upb']	= $input['id_organisasi']==='all' ? 'Kabupaten' :$this->organisasi->get($input['id_organisasi'])->nama;
+        if(strpos($input['id_organisasi'], '.'))
+            $input['upb']	= 'SEMUA ' . $this->organisasi->get_org_induk($input['id_organisasi'])->nama;
+        else
+            $input['upb']	= $input['id_organisasi']==='all' ? 'Kabupaten' :$this->organisasi->get($input['id_organisasi'])->nama;
 		$data['detail'] = $input;
-		
-		switch ($jenis) {
+
+        switch ($jenis) {
 			case 17:
 				if ($input['sumber_data']==1) {
 					$data['rekap'] = $this->report->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi']);

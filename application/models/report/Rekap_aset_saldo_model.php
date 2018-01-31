@@ -8,7 +8,17 @@ class Rekap_aset_saldo_model extends MY_Model {
 
 	public function get_rekapitulasi_aset_17($level = 1, $org = "")
 	{
-		$where = ($org==='all') ? "id_organisasi like '%%'" : "id_organisasi = {$org}";
+        if(strpos($org, '.')) {
+            $kode = explode('.', $org);
+            $this->db->select('id');
+            $this->db->where('kd_bidang', $kode[0]);
+            $this->db->where('kd_unit', $kode[1]);
+            $result = $this->db->get('organisasi')->result_array();
+            $id_orgs = implode(", ", array_column($result, 'id'));
+            $where = "id_organisasi IN ({$id_orgs})";
+        } else {
+            $where = ($org==='all') ? "id_organisasi like '%%'" : "id_organisasi = {$org}";
+        }
 
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM saldo_aset_a JOIN kategori k ON id_kategori = k.id WHERE {$where} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM saldo_aset_b JOIN kategori k ON id_kategori = k.id WHERE {$where} GROUP BY kd_golongan";
@@ -83,7 +93,17 @@ class Rekap_aset_saldo_model extends MY_Model {
 
 	public function get_rekapitulasi_aset_13($level = 1, $org = "")
 	{
-		$where = ($org==='all') ? "id_organisasi like '%%'" : "id_organisasi = {$org}";
+        if(strpos($org, '.')) {
+            $kode = explode('.', $org);
+            $this->db->select('id');
+            $this->db->where('kd_bidang', $kode[0]);
+            $this->db->where('kd_unit', $kode[1]);
+            $result = $this->db->get('organisasi')->result_array();
+            $id_orgs = implode(", ", array_column($result, 'id'));
+            $where = "id_organisasi IN ({$id_orgs})";
+        } else {
+            $where = ($org==='all') ? "id_organisasi like '%%'" : "id_organisasi = {$org}";
+        }
 		
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM saldo_aset_a JOIN kategori k ON id_kategori = k.id WHERE {$where} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM saldo_aset_b JOIN kategori k ON id_kategori = k.id WHERE {$where} AND kondisi < 3 GROUP BY kd_golongan";

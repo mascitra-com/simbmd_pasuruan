@@ -20,6 +20,8 @@
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
 								<!-- <option value="all">Semua UPB</option> -->
+								<option value="7.1" class="text-small">DINAS KESEHATAN (SEMUA)</option>
+								<option value="8.1" class="text-small">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small" {{ $org->id === $id_organisasi ? 'selected' : '' }}>{{$org->nama}}</option>
 								@endforeach
@@ -41,7 +43,7 @@
 						<div class="col-md-4">
 							<select name="sumber_data" class="form-control form-control-sm">
 								<option value="1">Saldo Berjalan</option>
-								<option value="2">Saldo Awal (Tahun {{date('Y') - 1}})</option>
+								<option value="2">Saldo Awal</option>
 							</select>
 						</div>
 					</div>
