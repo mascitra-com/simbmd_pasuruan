@@ -19,10 +19,10 @@
 						<div class="col-md-4">
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
-								<option value="all">SEMUA UPB</option>
-                                <option value="7.1" class="text-small">DINAS KESEHATAN (SEMUA)</option>
-								<option value="8.1" class="text-small">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
-							@foreach($organisasi AS $org)
+								@if($this->session->auth['is_superadmin'] == 1)
+								<option value="all">KABUPATEN</option>
+								@endif
+								@foreach($organisasi AS $org)
 									<option value="{{$org->id}}" class="text-small" {{ $org->id === $id_organisasi ? 'selected' : '' }}>{{$org->nama}}</option>
 								@endforeach
 							</select>
@@ -43,7 +43,7 @@
 						<div class="col-md-4">
 							<select name="sumber_data" class="form-control form-control-sm">
 								<option value="1">Saldo Berjalan</option>
-								<option value="2">Saldo Awal</option>
+								<option value="2">Saldo Awal (Tahun {{date('Y') - 1}})</option>
 							</select>
 						</div>
 					</div>

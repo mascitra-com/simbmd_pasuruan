@@ -205,36 +205,28 @@
 				<h4 class="modal-title">Pilih Kategori</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="form-group col">
-						<label>Golongan</label>
-						<select class="form-control" id="select-golongan">
-							<option value="">Pilih Golongan</option>
-							@foreach($kat AS $kats)
-							<option value="{{$kats->id}}">{{$kats->kode.' - '.$kats->nama}}</option>
-							@endforeach
-						</select>
-					</div>
-					<div class="form-group col">
-						<label>Bidang</label>
-						<select class="form-control" id="select-bidang"></select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col">
-						<label>Kelompok</label>
-						<select class="form-control" id="select-kelompok"></select>
-					</div>
-					<div class="form-group col">
-						<label>Sub-Kelompok</label>
-						<select class="form-control" id="select-subkelompok"></select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label>Sub Sub-Kelompok</label>
-					<select class="form-control" id="select-subsubkelompok"></select>
-				</div>
+			<div class="modal-body px-0 py-0 scroll">
+				<table id="tb-cari" class="table table-hover table-striped table-sm">
+					<thead>
+						<tr>
+							<th class="text-center">No.</th>
+							<th class="text-left">Kode</th>
+							<th class="text-left">Nama</th>
+							<th class="text-center">Aksi</th>
+						</tr>
+						<tr>
+							<th colspan="4">
+								<div class="input-group">
+									<input type="text" id="in-cari" class="form-control" placeholder="Ketik nama barang...">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" id="btn-cari"><i class="fa fa-search"></i></button>
+									</span>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" data-dismiss="modal">Pilih</button>
@@ -244,61 +236,52 @@
 </div>
 @end
 
+@section('style')
+<style>
+	.small{font-size: .9em}
+	.scroll{
+		max-height: 450px!important;
+		overflow-y: auto;!important;
+	}
+</style>
+@end
+
 @section('script')
 <script type="text/javascript">
 	var form = (function(){
-
 		theme.activeMenu('.nav-invent');
+		$("#btn-cari").on('click', fungsiCari);
 
-		$("#select-golongan").on("change", fungsiGolongan);
-		$("#select-bidang").on("change", fungsiBidang);
-		$("#select-kelompok").on("change", fungsiKelompok);
-		$("#select-subkelompok").on("change", fungsiSubKelompok);
+		function fungsiCari(e) {
+			var g = '';
+			var q = encodeURI($("#in-cari").val());
+			var no = 1;
+			var html = "";
 
-		function fungsiGolongan(e) {
-			var id = $("#select-golongan option:selected").val();
-			$.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=2", function(result){
-				$("#select-bidang").empty().append("<option value=''>Pilih Bidang...</option>");
-				$.each(result, function(key, value){
-					$("#select-bidang").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
+			$.getJSON("{{site_url('kategori/get_json?q=')}}"+q+"&g="+g, function(result){
+				html += "<tr><td class='text-center' colspan='4'>Menampilkan "+result.length+" data teratas</td></tr>";
+				$.each(result, function(index, item){
+					html += "<tr class='small'>";
+					html += "<td class='text-center'>"+(no++)+"</td>";
+					html += "<td class='text-center'>"+item.kode+"</td>";
+					html += "<td class='text-left'>"+item.nama+"</td>";
+					html += "<td class='text-center'><button class='btn btn-sm btn-primary' data-id="+item.id+" data-nama='"+item.nama+"'>pilih</button></td>";
+					html += "</tr>";
 				});
+				$("#tb-cari tbody").empty().append(html);
 			});
 		}
+		
+		$("#tb-cari > tbody").delegate("button[data-id]", "click", function(e){
+			var id   = $(e.currentTarget).data('id');
+			var nama = $(e.currentTarget).data('nama');
+			$("[name=id_kategori]").empty().append("<option value='"+id+"' selected>"+nama+"</option>");
+			$(".modal").modal('hide');
+		});
 
-		function fungsiBidang(e) {
-			var id = $("#select-bidang option:selected").val();
-			$.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=3", function(result){
-				$("#select-kelompok").empty().append("<option value=''>Pilih kelompok...</option>");
-				$.each(result, function(key, value){
-					$("#select-kelompok").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
-				});
-			});
-		}
-
-		function fungsiKelompok(e) {
-			var id = $("#select-kelompok option:selected").val();
-			$.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=4", function(result){
-				$("#select-subkelompok").empty().append("<option value=''>Pilih sub-kelompok...</option>");
-				$.each(result, function(key, value){
-					$("#select-subkelompok").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
-				});
-			});
-		}
-
-		function fungsiSubKelompok(e) {
-			var id = $("#select-subkelompok option:selected").val();
-			$.getJSON("{{site_url('kategori/get_by?')}}"+"sub_dari="+id+"&jenis=5", function(result){
-				$("#select-subsubkelompok").empty().append("<option value=''>Pilih sub sub-kelompok...</option>");
-				$.each(result, function(key, value){
-					$("#select-subsubkelompok").append("<option value='"+value.id+"'>"+value.kode+" - "+value.nama+"</option>");
-				});
-			});
-		}
-
-		$("[data-dismiss]").click(function(){
-			var id  = $("#select-subsubkelompok option:selected").val();
-			var txt = $("#select-subsubkelompok option:selected").text();
-			$("[name=id_kategori]").empty().append("<option value='"+id+"' selected>"+txt+"</option>");
+		$(".modal").on('hide.bs.modal', function(){
+			$("#tb-cari tbody").empty();
+			$("#tb-cari input").val("");
 		});
 
 	})();

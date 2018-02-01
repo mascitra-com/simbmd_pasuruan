@@ -55,13 +55,6 @@ class Kategori extends MY_Controller {
 		$this->render('modules/kategori/index_subsubkelompok', $data);
 	}
 
-	public function get_by()
-	{
-		$data = $this->input->get();
-		$result = $this->kategori->get_data_list($data);
-		echo json_encode($result);
-	}
-
 	public function add($jenis = null)
 	{
 		switch ($jenis) {
@@ -182,5 +175,14 @@ class Kategori extends MY_Controller {
 			$this->message('Data gagal dihapus','danger');
 			$this->go($ref);
 		}
+	}
+
+	public function get_json()
+	{
+		$data['nama'] = $this->input->get('q');
+		$data['kd_golongan'] = $this->input->get('g');
+		$data['jenis'] = 5;
+		$result = $this->kategori->limit(50)->get_data_list($data);
+		echo json_encode($result);
 	}
 }
