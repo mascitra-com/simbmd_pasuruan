@@ -75,7 +75,7 @@
             @endif
 
             @foreach($rekap AS $rek)
-                @if($rek->jumlah_aset > 0)
+                @if($rek->jumlah_aset > 0 && $rek->jumlah_nilai > 0)
                     <tr>
                         @if(isset($rek->kd_barang))
                             <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek->kd_barang}}</td>
@@ -89,7 +89,7 @@
                     </tr>
                     @if($detail['jenis'] > 1)
                         @foreach($rek->detail AS $rek2)
-                            @if($rek2->jumlah_aset > 0)
+                            @if($rek2->jumlah_aset > 0 && $rek2->jumlah_nilai > 0)
                                 <tr>
                                     @if(isset($rek2->kd_barang))
                                         <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek2->kd_barang}}</td>
@@ -104,7 +104,7 @@
                                 </tr>
                                 @if($detail['jenis'] > 2)
                                     @foreach($rek2->detail AS $rek3)
-                                        @if($rek3->jumlah_nilai > 0)
+                                        @if($rek3->jumlah_nilai > 0 && $rek3->jumlah_nilai > 0)
                                             <tr>
                                                 @if(isset($rek3->kd_barang))
                                                     <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek3->kd_barang}}</td>

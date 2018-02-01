@@ -19,7 +19,7 @@
 						<div class="col-md-4">
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
-								<!-- <option value="all">Semua UPB</option> -->
+								<option value="all">SEMUA UPB</option>
 								<option value="7.1" class="text-small">DINAS KESEHATAN (SEMUA)</option>
 								<option value="8.1" class="text-small">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
 								@foreach($organisasi AS $org)
