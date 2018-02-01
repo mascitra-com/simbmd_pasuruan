@@ -12,7 +12,7 @@ class Kategori_model extends MY_Model
 
     public function get_data_list($where = array())
     {
-        $this->where($where);
+        $this->like($where);
         $this->order_by('kd_golongan')
         ->order_by('kd_bidang')
         ->order_by('kd_kelompok')
