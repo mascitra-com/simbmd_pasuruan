@@ -22,6 +22,12 @@
 								@if($this->session->auth['is_superadmin'] == 1)
 								<option value="all">KABUPATEN</option>
 								@endif
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 195)
+                                    <option value="7.1">DINAS KESEHATAN (SEMUA)</option>
+                                @endif
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 233)
+                                    <option value="8.1">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
+                                @endif
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small" {{ $org->id === $id_organisasi ? 'selected' : '' }}>{{$org->nama}}</option>
 								@endforeach

@@ -71,7 +71,6 @@ class Rekap_aset extends MY_Controller {
 				show_404();
 				break;
 		}
-		
 		$this->render('modules/report/rekap_aset/cetak', $data);
 	}
 }
