@@ -6,8 +6,10 @@ class Rekap_aset_model extends MY_Model {
 		parent::__construct();
 	}
 
-	public function get_rekapitulasi_aset_17($level = 1, $org = "")
+	public function get_rekapitulasi_aset_17($level = 1, $org = "", $sumber)
 	{
+		$sumber = ($sumber==1) ? '':'saldo_';
+
         if($org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
             $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
@@ -17,15 +19,15 @@ class Rekap_aset_model extends MY_Model {
 		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
         }
 
-		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan";
-		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
-		$queryc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' {$whereKDP} GROUP BY kd_golongan";
-		$queryd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' {$whereKDP} GROUP BY kd_golongan";
-		$querye = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
+		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan";
+		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
+		$queryc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' {$whereKDP} GROUP BY kd_golongan";
+		$queryd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' {$whereKDP} GROUP BY kd_golongan";
+		$querye = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
 		
-		$querykdpa = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
-		$querykdpc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
-		$querykdpd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
+		$querykdpa = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
+		$querykdpc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
+		$querykdpd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
 		$queryf    = "SELECT kd_golongan, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
 		$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
@@ -33,15 +35,15 @@ class Rekap_aset_model extends MY_Model {
 		$lv1  = $this->kodefikasi($lv1);
 
 		if ($level > 1) {
-			$querya = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$queryb = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang";
-			$queryc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$queryd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$querye = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang";
+			$querya = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$queryb = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang";
+			$queryc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$queryd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querye = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang";
 			
-			$querykdpa = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$querykdpc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$querykdpd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querykdpa = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querykdpc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querykdpd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
 			$queryf    = "SELECT kd_golongan, kd_bidang, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
 			$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
@@ -60,15 +62,15 @@ class Rekap_aset_model extends MY_Model {
 		}
 
 		if ($level > 2) {
-			$querya = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$queryb = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$queryc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$queryd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$querye = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querya = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$queryb = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$queryc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$queryd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querye = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
 			
-			$querykdpa = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$querykdpc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$querykdpd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querykdpa = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querykdpc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querykdpd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
 			$queryf    = "SELECT kd_golongan, kd_bidang, kd_kelompok, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
 			$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
@@ -91,8 +93,10 @@ class Rekap_aset_model extends MY_Model {
 		return $lv1;
 	}
 
-	public function get_rekapitulasi_aset_13($level = 1, $org = "")
+	public function get_rekapitulasi_aset_13($level = 1, $org = "", $sumber)
 	{
+		$sumber = ($sumber==1) ? '':'saldo_';
+		
         if($org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
             $where 	  = "WHERE o.k.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
@@ -102,15 +106,15 @@ class Rekap_aset_model extends MY_Model {
 		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
         }
 		
-		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
-		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
-		$queryc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
-		$queryd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
-		$querye = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$queryc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$queryd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$querye = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
 		
-		$querykdpa = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
-		$querykdpc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
-		$querykdpd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$querykdpa = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$querykdpc = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
+		$querykdpd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
 		$queryf    = "SELECT kd_golongan, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
 		$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
@@ -118,15 +122,15 @@ class Rekap_aset_model extends MY_Model {
 		$lv1  = $this->kodefikasi($lv1);
 
 		if ($level > 1) {
-			$querya = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$queryb = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$queryc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$queryd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$querye = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querya = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$queryb = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$queryc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$queryd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querye = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
 			
-			$querykdpa = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$querykdpc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
-			$querykdpd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querykdpa = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querykdpc = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
+			$querykdpd = "SELECT kd_golongan, k.kd_bidang, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang";
 			$queryf    = "SELECT kd_golongan, kd_bidang, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 			
 			$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
@@ -145,15 +149,15 @@ class Rekap_aset_model extends MY_Model {
 		}
 
 		if ($level > 2) {
-			$querya = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$queryb = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$queryc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$queryd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$querye = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querya = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$queryb = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$queryc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '3' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$queryd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '4' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querye = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
 			
-			$querykdpa = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$querykdpc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
-			$querykdpd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querykdpa = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querykdpc = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_c JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
+			$querykdpd = "SELECT kd_golongan, k.kd_bidang, kd_kelompok, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan, k.kd_bidang, kd_kelompok";
 			$queryf    = "SELECT kd_golongan, kd_bidang, kd_kelompok, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
 			$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
@@ -173,11 +177,11 @@ class Rekap_aset_model extends MY_Model {
 			}
 		}
 
-		$querya = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryb = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryc = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_c JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryd = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM aset_d JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$querye = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_e JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
+		$querya = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
+		$queryb = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
+		$queryc = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
+		$queryd = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
+		$querye = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
 
 		$query  = "SELECT SUM(q.jumlah_aset) AS jumlah_aset, SUM(q.jumlah_nilai) AS jumlah_nilai FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye}) AS q";
 		$result = $this->db->query($query)->result()[0];
