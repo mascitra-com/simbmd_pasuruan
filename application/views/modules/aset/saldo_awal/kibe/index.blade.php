@@ -70,7 +70,7 @@
 							<td class="text-nowrap">{{$item->judul}}</td>
 							<td class="text-nowrap">{{$item->pencipta}}</td>
 							<td class="text-nowrap">{{$item->bahan}}</td>
-							<td class="text-nowrap">{{monefy($item->ukuran, FALSE)}}</td>
+							<td class="text-nowrap">{{$item->ukuran}}</td>
 							<td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
 							<td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
 							<td class="text-nowrap">{{$item->asal_usul}}</td>
