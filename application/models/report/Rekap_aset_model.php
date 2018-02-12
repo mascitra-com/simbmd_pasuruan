@@ -8,13 +8,13 @@ class Rekap_aset_model extends MY_Model {
 
 	public function get_rekapitulasi_aset_17($level = 1, $org = "")
 	{
-        if($org === '7.1' OR $org === '8.1') {
+        if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
             $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
             $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
         } else {
             $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org}";
-		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
+            $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
         }
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
@@ -89,7 +89,7 @@ class Rekap_aset_model extends MY_Model {
 
 	public function get_rekapitulasi_aset_13($level = 1, $org = "")
 	{
-        if($org === '7.1' OR $org === '8.1') {
+        if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
             $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
             $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";

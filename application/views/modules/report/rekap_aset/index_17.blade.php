@@ -22,6 +22,9 @@
                                 @if($this->session->auth['is_superadmin'] == 1)
                                     <option value="all">KABUPATEN</option>
                                 @endif
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 186)
+									<option value="5.2">DINAS PENGAIRAN DAN PERTAMBANGAN (SEMUA)</option>
+								@endif
                                 @if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 195)
                                     <option value="7.1">DINAS KESEHATAN (SEMUA)</option>
                                 @endif
