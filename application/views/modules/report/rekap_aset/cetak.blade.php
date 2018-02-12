@@ -82,7 +82,7 @@
                         @else
                             <td class="{{($detail['jenis']>1)?'bold':''}}">01.03.{{zerofy($rek->kd_golongan)}}</td>
                         @endif
-                        <td class="{{($detail['jenis']>1)?'bold':''}}">{{$rek->kategori}}</td>
+                        <td class="{{($detail['jenis']>1)?'bold':''}}">{{isset($rek->kategori)?$rek->kategori:''}}</td>
                         <td class="text-center">{{monefy($rek->jumlah_aset, false)}}</td>
                         <td class="text-right {{($detail['jenis']>1)?'bold':''}}">{{monefy($rek->jumlah_nilai)}}</td>
                         <?php $jumlah += $rek->jumlah_nilai; ?>
@@ -95,8 +95,7 @@
                                         <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek2->kd_barang}}</td>
                                     @else
                                         <td class="{{($detail['jenis']>2)?'bold':''}}">
-                                            01.03.{{zerofy($rek2->kd_golongan)}}
-                                            .{{zerofy($rek2->kd_bidang)}}</td>
+                                            01.03.{{zerofy($rek2->kd_golongan)}}.{{zerofy($rek2->kd_bidang)}}</td>
                                     @endif
                                     <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek2->kategori}}</td>
                                     <td class="text-center">{{monefy($rek2->jumlah_aset, false)}}</td>
@@ -109,8 +108,7 @@
                                                 @if(isset($rek3->kd_barang))
                                                     <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek3->kd_barang}}</td>
                                                 @else
-                                                    <td>01.03.{{zerofy($rek3->kd_golongan)}}
-                                                        .{{zerofy($rek3->kd_bidang)}}</td>
+                                                    <td>01.03.{{zerofy($rek3->kd_golongan)}}.{{zerofy($rek3->kd_bidang)}}</td>
                                                 @endif
                                                 <td>{{$rek3->kategori}}</td>
                                                 <td class="text-center">{{monefy($rek3->jumlah_aset, false)}}</td>

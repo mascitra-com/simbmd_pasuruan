@@ -30,7 +30,7 @@ class Rekap_aset_model extends MY_Model {
 		$querykdpd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' {$whereKDP} GROUP BY kd_golongan";
 		$queryf    = "SELECT kd_golongan, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
-		$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
+		$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q ORDER BY kd_golongan";
 		$lv1  = $this->db->query($query)->result();
 		$lv1  = $this->kodefikasi($lv1);
 
@@ -99,8 +99,8 @@ class Rekap_aset_model extends MY_Model {
 		
         if($org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
-            $where 	  = "WHERE o.k.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
-            $whereKDP = "AND o.k.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
+            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
+            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
         } else {
             $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org}";
 		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
@@ -117,7 +117,7 @@ class Rekap_aset_model extends MY_Model {
 		$querykdpd = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_d JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '6' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
 		$queryf    = "SELECT kd_golongan, SUM(jumlah_aset) AS jumlah_aset, SUM(jumlah_nilai) as jumlah_nilai FROM ({$querykdpa} UNION {$querykdpc} UNION {$querykdpd}) AS kdp";
 
-		$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q";
+		$query  = "SELECT * FROM ({$querya} UNION {$queryb} UNION {$queryc} UNION {$queryd} UNION {$querye} UNION {$queryf}) AS q ORDER BY kd_golongan";
 		$lv1  = $this->db->query($query)->result();
 		$lv1  = $this->kodefikasi($lv1);
 
@@ -211,9 +211,9 @@ class Rekap_aset_model extends MY_Model {
 
 	public function kodefikasi($data)
 	{
-		if (empty($data[0]->jumlah_aset)) {
-			return $data;
-		}
+		// if (empty($data[0]->jumlah_aset)) {
+		// 	return $data;
+		// }
 
 		$this->load->model('Kategori_model','kategori');
 		$temp = $this->kategori->get_many_by(array('jenis<'=>4));
