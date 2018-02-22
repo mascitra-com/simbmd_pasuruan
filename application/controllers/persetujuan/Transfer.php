@@ -116,17 +116,4 @@ class Transfer extends MY_Controller
 
 		return 1;
 	}
-
-	public function get_persetujuan($id) 
-	{
-
-		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_transfer', $id);
-
-		if (!empty($data)) {
-			$data['log_time'] = datify($data['log_time'], 'd/m/Y h:i');
-			$data['status'] = $data['status'] === '2' ? '<span class="badge badge-success">disetujui</span>' : '<span class="badge badge-danger">ditolak</span>';
-		}
-
-		echo json_encode($data);
-	}
 }

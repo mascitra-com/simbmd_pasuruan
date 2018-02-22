@@ -157,18 +157,6 @@ class Pengadaan extends MY_Controller {
 		return 1;
 	}
 
-	public function get_pengadaan($id) {
-
-		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_spk', $id);
-
-		if (!empty($data)) {
-			$data['log_time'] = datify($data['log_time'], 'd/m/Y h:i');
-			$data['status'] = $data['status'] === '2' ? '<span class="badge badge-success">disetujui</span>' : '<span class="badge badge-danger">ditolak</span>';
-		}
-
-		echo json_encode($data);
-	}
-
 	private function nol($var)
 	{
 		return (empty($var)) ? 0 : $var;

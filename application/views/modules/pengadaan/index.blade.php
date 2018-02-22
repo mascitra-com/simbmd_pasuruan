@@ -263,7 +263,7 @@
 	$("[data-id-spk]").on('click', function(e){
 		var id = $(e.currentTarget).data('id-spk');
 
-		$.getJSON("{{site_url('persetujuan/pengadaan/get_pengadaan/')}}"+id, function(result){
+		$.getJSON("{{site_url('persetujuan/api/get_persetujuan_pengadaan/')}}"+id, function(result){
 			$("#span-tanggal").html(result.log_time);
 			$("#span-status").html(result.status);
 			$("#span-pesan").html(result.pesan);

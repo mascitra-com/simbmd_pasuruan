@@ -180,7 +180,7 @@
 	$("[data-id-koreksi]").on('click', function(e){
 		var id = $(e.currentTarget).data('id-koreksi');
 
-		$.getJSON("{{site_url('persetujuan/koreksi_nilai/get_persetujuan/')}}"+id, function(result){
+		$.getJSON("{{site_url('persetujuan/api/get_persetujuan_koreksi_nilai/')}}"+id, function(result){
 			$("#span-tanggal").html(result.log_time);
 			$("#span-status").html(result.status);
 			$("#span-pesan").html(result.pesan);
