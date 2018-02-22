@@ -116,13 +116,7 @@
 						<label>Golongan</label>
 						<select class="form-control" id="select-golongan">
 							<option value="">Pilih Golongan</option>
-							<option value="1">01. Tanah</option>
 							<option value="2">02. Peralatan &amp Mesin</option>
-							<option value="3">03. Gedung &amp Bangunan</option>
-							<option value="4">04. Jalan, Irigasi &amp Jaringan</option>
-							<option value="5">05. Aset Tetap Lainnya</option>
-							<option value="6">06. Kontruksi Dalam Pengerjaan</option>
-							<option value="7">07. Aset Lainnya</option>
 						</select>
 					</div>
 					<div class="form-group col-6">
