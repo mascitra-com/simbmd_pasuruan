@@ -57,6 +57,15 @@
 						</div>
 					</div>
 					<div class="form-group row">
+						<label class="col-md-3 col-form-label text-right">Jenis Laporan</label>
+						<div class="col-md-4">
+							<select name="jenis_laporan" class="form-control form-control-sm">
+								<option value="1" selected="">Laporan Aset (Semua)</option>
+								<option value="2">Laporan Aset Rusak Berat</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Header Laporan</label>
 						<div class="col-md-4">
 							<input type="text" name="header" class="form-control form-control-sm" placeholder="Header laporan" value="Laporan"/>

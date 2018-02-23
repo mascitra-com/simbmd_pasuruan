@@ -216,7 +216,7 @@
         $("[data-id-hapus]").on('click', function(e){
             var id = $(e.currentTarget).data('id-hapus');
 
-            $.getJSON("{{site_url('persetujuan_penghapusan/get_persetujuan/')}}"+id, function(result){
+            $.getJSON("{{site_url('persetujuan/api/get_persetujuan_hapus/')}}"+id, function(result){
                 $("#span-tanggal").html(result.log_time);
                 $("#span-status").html(result.status);
                 $("#span-pesan").html(result.pesan);

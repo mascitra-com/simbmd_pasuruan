@@ -1,10 +1,10 @@
 @layout('commons/index')
-@section('title')Koreksi Kepemilikan@end
+@section('title')Koreksi Kode@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/kode?id_organisasi='.$filter['id_organisasi'])}}">Koreksi</a></li>
-<li class="breadcrumb-item active">Koreksi Kepemilikan</li>
+<li class="breadcrumb-item active">Koreksi Kode</li>
 @endsection
 
 @section('content')
@@ -90,7 +90,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Tambah Koreksi Kepemilikan</h4>
+				<h4 class="modal-title">Tambah Koreksi Kode</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
@@ -180,7 +180,7 @@
 	$("[data-id-koreksi]").on('click', function(e){
 		var id = $(e.currentTarget).data('id-koreksi');
 
-		$.getJSON("{{site_url('persetujuan/koreksi_kode/get_persetujuan/')}}"+id, function(result){
+		$.getJSON("{{site_url('persetujuan/api/get_persetujuan_koreksi_kode/')}}"+id, function(result){
 			$("#span-tanggal").html(result.log_time);
 			$("#span-status").html(result.status);
 			$("#span-pesan").html(result.pesan);

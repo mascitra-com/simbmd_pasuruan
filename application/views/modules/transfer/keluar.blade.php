@@ -154,7 +154,7 @@
 	$("[data-id-transfer]").on('click', function(e){
 		var id = $(e.currentTarget).data('id-transfer');
 
-		$.getJSON("{{site_url('persetujuan/transfer/get_persetujuan/')}}"+id, function(result){
+		$.getJSON("{{site_url('persetujuan/api/get_persetujuan_transfer/')}}"+id, function(result){
 			$("#span-tanggal").html(result.log_time);
 			$("#span-status").html(result.status);
 			$("#span-pesan").html(result.pesan);

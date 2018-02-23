@@ -185,4 +185,11 @@ class Kategori extends MY_Controller {
 		$result = $this->kategori->limit(50)->get_data_list($data);
 		echo json_encode($result);
 	}
+
+	public function get_by()
+	{
+		$data['detail'] = $this->input->get();
+		$result = $this->kategori->limit(50)->get_data_list($data['detail']);
+		echo json_encode($result);
+	}
 }

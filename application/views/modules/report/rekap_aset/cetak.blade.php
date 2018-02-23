@@ -33,17 +33,17 @@
         <table>
             <tr>
                 <td class="bold">PROVINSI</td>
-                <td>:</td>
+                <td>: </td>
                 <td>JAWA TIMUR</td>
             </tr>
             <tr>
                 <td class="bold">KABUPATEN</td>
-                <td>:</td>
+                <td>: </td>
                 <td>{{$detail['nama_kota']}}</td>
             </tr>
             <tr>
                 <td class="bold">UPB</td>
-                <td>:</td>
+                <td>: </td>
                 <td>{{$detail['upb']}}</td>
             </tr>
             <tr>
@@ -54,7 +54,7 @@
         </table>
     </div>
     <div class="title bold mt-4">
-        REKAPITULASI ASET TETAP PER {{($detail['jenis']==1)?'JENIS':(($detail['jenis']==2)?'OBJEK':'RINCIAN OBJEK')}}
+        REKAPITULASI ASET {{isset($detail['jenis_laporan']) && $detail['jenis_laporan']==2 ?'RUSAK BERAT ':''}}TETAP PER {{($detail['jenis']==1)?'JENIS':(($detail['jenis']==2)?'OBJEK':'RINCIAN OBJEK')}}
         <br>
         {{$detail['header']}}
     </div>

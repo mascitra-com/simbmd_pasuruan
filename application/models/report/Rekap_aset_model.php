@@ -6,7 +6,7 @@ class Rekap_aset_model extends MY_Model {
 		parent::__construct();
 	}
 
-	public function get_rekapitulasi_aset_17($level = 1, $org = "", $sumber)
+	public function get_rekapitulasi_aset_17($level = 1, $org = "", $sumber, $jenis=1)
 	{
 		$sumber = ($sumber==1) ? '':'saldo_';
 
@@ -17,6 +17,11 @@ class Rekap_aset_model extends MY_Model {
         } else {
             $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org}";
             $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
+        }
+        
+        if($jenis==2) {
+            $where .= " AND kondisi = 3";
+            $whereKDP .= " AND kondisi = 3";
         }
 
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan";

@@ -52,14 +52,19 @@ class Rekap_aset extends MY_Controller {
 		else {
 			$input['upb'] = $input['id_organisasi']==='all' ? 'Kabupaten' :$this->organisasi->get($input['id_organisasi'])->nama;
 		}
+		
 		$data['detail'] = $input;
+		$jenis_rekap 	= $input['jenis'];
+		$id_organisasi 	= $input['id_organisasi'];
+		$sumber 		= $input['sumber_data'];
 
 		switch ($jenis) {
 			case 17:
-			$data['rekap'] = $this->report->get_rekapitulasi_aset_17($input['jenis'], $input['id_organisasi'], $input['sumber_data']);
+			$jenis_laporan 	= $input['jenis_laporan'];
+			$data['rekap']  = $this->report->get_rekapitulasi_aset_17($jenis_rekap, $id_organisasi, $sumber, $jenis_laporan);
 			break;
 			case 13:
-			$data['rekap'] = $this->report->get_rekapitulasi_aset_13($input['jenis'], $input['id_organisasi'], $input['sumber_data']);
+			$data['rekap'] = $this->report->get_rekapitulasi_aset_13($jenis_rekap, $id_organisasi, $sumber);
 			break;
 			default:
 			show_404();
