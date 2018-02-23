@@ -12,7 +12,7 @@ class Rekap_hibah_model extends MY_Model {
 		# Ambil data SPK
 		$select 	 = "id,no_jurnal,tgl_jurnal, asal_penerimaan,no_serah_terima, tgl_serah_terima,keterangan";
 		$where 		 = array('is_deleted'=>0,'id_organisasi'=>$config['id_organisasi']);
-		$where_query = "tgl_serah_terima BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'";
+		$where_query = "tgl_serah_terima BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = 2";
 		$final 		 = $this->db->select($select)->where($where)->where($where_query)->get('hibah')->result();
 
         foreach ($final as $key => $value) {

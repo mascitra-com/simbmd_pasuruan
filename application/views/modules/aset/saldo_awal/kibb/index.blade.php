@@ -190,7 +190,7 @@
 					<div class="row">
 						<div class="form-group col">
 							<label>Tanggal Pembuatan</label>
-							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" required />
+							<input type="text" class="form-control" name="tgl_perolehan" value="{{isset($filter['tgl_perolehan'])?$filter['tgl_perolehan']:''}}" />
 						</div>
 						<div class="form-group col">
 							<label>Jumlah Tampilan Data</label>

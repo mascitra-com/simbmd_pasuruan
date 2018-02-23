@@ -126,14 +126,14 @@
 			<li class="nav nav-organisasi"><a href="{{site_url('organisasi')}}"><i class="fa fa-briefcase fa-fw icon"></i>Organisasi</a></li>
 			<li class="nav nav-kategori"><a href="{{site_url('kategori')}}"><i class="fa fa-tag fa-fw icon"></i>Kategori</a></li>
 			
-			<li class="nav nav-title">PERALATAN</li>
+			<!--<li class="nav nav-title">PERALATAN</li>
 			<li class="nav nav-backup mb-4">
 				<a href="#menu-backup" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Manajemen Data<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-backup">
 					<li class="nav"><a href="{{site_url('backup/import')}}"><i class="fa fa-download fa-fw icon"></i>Import Saldo Awal</a></li>
 					<li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li>
 				</ul>
-			</li>
+			</li>-->
 			@endif
 		</ul>
 	</div>

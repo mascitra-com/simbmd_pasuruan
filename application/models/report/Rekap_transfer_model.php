@@ -15,7 +15,7 @@ class Rekap_transfer_model extends MY_Model {
 		->join('organisasi','organisasi.id=transfer.id_tujuan')
 		->where('id_organisasi', $config['id_organisasi'])
 		->where('status_pengajuan', '2')
-		->where(" jurnal_tgl BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'")
+		->where(" jurnal_tgl BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = 2")
 		->group_by('id_tujuan')
 		->get('transfer')
 		->result();

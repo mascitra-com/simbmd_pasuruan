@@ -12,7 +12,7 @@ class Rekap_pengadaan_model extends MY_Model {
 		# Ambil data SPK
 		$select 	 = "id,nomor,nilai,addendum_nilai,nama_perusahaan";
 		$where 		 = array('is_deleted'=>0,'id_organisasi'=>$config['id_organisasi']);
-		$where_query = "tanggal BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'";
+		$where_query = "tanggal BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = 2";
 		$final 		 = $this->db->select($select)->where($where)->where($where_query)->get('spk')->result();
 
 		foreach ($final as $key => $value) {
