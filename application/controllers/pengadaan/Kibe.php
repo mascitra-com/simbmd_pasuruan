@@ -59,8 +59,8 @@ class Kibe extends MY_Controller
 
         for ($i = 0; $i < $kuantitas; $i++) {
             $data_final[$i] = $data;
-            $data_final[$i]['reg_barang'] = $this->kib_temp->get_reg_barang($data['id_kategori']) + $i;
-            $data_final[$i]['reg_induk'] = $this->kib_temp->get_reg_induk();
+            $data_final[$i]['reg_barang'] = 0;
+            $data_final[$i]['reg_induk'] = 0;
         }
 
         $sukses = $this->kib_temp->batch_insert($data_final);

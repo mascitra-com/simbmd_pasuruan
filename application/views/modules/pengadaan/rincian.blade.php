@@ -96,6 +96,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -116,11 +117,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kiba))
-							<tr><td colspan="15" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="16" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kiba AS $item)
+							@foreach($kiba AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -160,6 +162,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -187,11 +190,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kibb))
-							<tr><td colspan="21" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="22" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kibb AS $item)
+							@foreach($kibb AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -239,6 +243,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -264,11 +269,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kibc))
-							<tr><td colspan="19" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="20" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kibc AS $item)
+							@foreach($kibc AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -313,6 +319,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -339,11 +346,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kibd))
-							<tr><td colspan="20" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="21" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kibd AS $item)
+							@foreach($kibd AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -389,6 +397,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -411,11 +420,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kibe))
-							<tr><td colspan="16" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="17" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kibe AS $item)
+							@foreach($kibe AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -457,6 +467,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -469,11 +480,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kibnon))
-							<tr><td colspan="6" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="7" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kibnon AS $item)
+							@foreach($kibnon AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -498,6 +510,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -514,11 +527,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kpt))
-							<tr><td colspan="10" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="11" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kpt AS $item)
+							@foreach($kpt AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -553,6 +567,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -578,11 +593,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kdpc))
-							<tr><td colspan="19" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="20" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kdpc AS $item)
+							@foreach($kdpc AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
@@ -627,6 +643,7 @@
 					<table class="table table-hover table-striped table-bordered">
 						<thead>
 							<tr>
+								<th class="text-center">No.</th>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<th class="text-nowrap text-center">Aksi</th>
 								@endif
@@ -653,11 +670,12 @@
 						</thead>
 						<tbody>
 							@if(empty($kdpd))
-							<tr><td colspan="20" class="text-center"><b><i>Data kosong</i></b></td></tr>
+							<tr><td colspan="21" class="text-center"><b><i>Data kosong</i></b></td></tr>
 							@endif
 
-							@foreach($kdpd AS $item)
+							@foreach($kdpd AS $index=>$item)
 							<tr>
+								<td class="text-center">{{$index+1}}</td>
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">

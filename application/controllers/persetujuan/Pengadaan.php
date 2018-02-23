@@ -91,7 +91,7 @@ class Pengadaan extends MY_Controller {
 		$sukses = $this->persetujuan->insert($data);
 
 		if ($sukses) {
-			# BEGIN TRANSFER
+			# BEGIN INSERT
 			if ($data['status'] === '2') {
 				$this->save($data['id_spk']);
 			}
@@ -128,13 +128,27 @@ class Pengadaan extends MY_Controller {
 		$alfabet = array('a', 'b', 'c', 'd', 'e');
 
 		foreach ($alfabet as $item) {
+			# Set nama model
 			$kib = "kib{$item}";
 			$kib_temp = "kib{$item}_temp";
+			# Ambil data temp
+			$data = $this->{$kib_temp}->order_by('id_kategori')->get_many_by('id_spk', $id);
+			$id_kategori = 0;
 
-			$data = $this->{$kib_temp}->get_many_by('id_spk', $id);
-
+			# Proses data lebih lanjut
 			if (!empty($data)) {
-				foreach ($data as $key => $value) {
+				foreach ($data as $key => $value)
+				{
+					# Ambil last_reg jika kategori berganti
+					if ($id_kategori != $value->id_kategori) {
+						$id_kategori = $value->id_kategori;
+						$last_reg	 = $this->{$kib_temp}->get_reg_barang($id_kategori);
+					}
+
+					# Isi data reg
+					$value->reg_barang = $last_reg++;
+					$value->reg_induk  = strtoupper(uniqid().'.'.date('dmYhis'));
+					# Unset data tidak perlu
 					unset($value->id, $value->id_aset, $value->id_hapus, $value->id_transfer, $value->id_koreksi, $value->id_koreksi_detail);
 				}
 

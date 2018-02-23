@@ -171,13 +171,13 @@ class MY_Model extends MY_Base_model {
         return $data;
     }
 
-    public function get_reg_barang($id)
+    public function get_reg_barang($id_kategori)
     {
-        $qa = "SELECT MAX(reg_barang) AS reg FROM aset_a WHERE id_kategori = {$id}";
-        $qb = "SELECT MAX(reg_barang) AS reg FROM aset_b WHERE id_kategori = {$id}";
-        $qc = "SELECT MAX(reg_barang) AS reg FROM aset_c WHERE id_kategori = {$id}";
-        $qd = "SELECT MAX(reg_barang) AS reg FROM aset_d WHERE id_kategori = {$id}";
-        $qe = "SELECT MAX(reg_barang) AS reg FROM aset_e WHERE id_kategori = {$id}";
+        $qa = "SELECT MAX(reg_barang) AS reg FROM aset_a WHERE id_kategori = {$id_kategori}";
+        $qb = "SELECT MAX(reg_barang) AS reg FROM aset_b WHERE id_kategori = {$id_kategori}";
+        $qc = "SELECT MAX(reg_barang) AS reg FROM aset_c WHERE id_kategori = {$id_kategori}";
+        $qd = "SELECT MAX(reg_barang) AS reg FROM aset_d WHERE id_kategori = {$id_kategori}";
+        $qe = "SELECT MAX(reg_barang) AS reg FROM aset_e WHERE id_kategori = {$id_kategori}";
         $query  = "SELECT MAX(reg) as reg FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
 
         $result = $this->db->query($query);
