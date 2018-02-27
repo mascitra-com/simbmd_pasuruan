@@ -159,7 +159,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai Sisa</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?monefy($kib->nilai_sisa):''}}" />
+							<input type="text" class="form-control" max="{{$spk->nilai - $total_rincian}}" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?monefy($kib->nilai_sisa):''}}" />
 						</div>
 					</div>
 					<div class="form-group row">

@@ -22,6 +22,7 @@ class Kiba extends MY_Controller
             show_404();
 
         $data['spk'] = $this->spk->get($id_spk);
+        $data['total_rincian'] = $this->spk->get_total_rincian($id);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $id_spk);
         $this->render('modules/pengadaan/form_kiba', $data);
     }
@@ -34,6 +35,7 @@ class Kiba extends MY_Controller
         $data['kib'] = $this->kib_temp->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['spk'] = $this->spk->get($data['kib']->id_spk);
+        $data['total_rincian'] = $this->spk->get_total_rincian($id);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kib']->id_spk);
         $this->render('modules/pengadaan/form_kiba', $data);
     }

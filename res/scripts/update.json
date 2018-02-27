@@ -1,0 +1,17 @@
+var update = [
+	{
+		"version": "1.0.2",
+		"date": "25-02-2018",
+		"detail" : [
+			{"type": "perbaikan","description" : "Tambah aset dalam jumlah banyak yang tidak bisa"},
+			{"type": "perbaikan","description" : "Sistem numbering Reg Barang"},
+		]
+	},
+	{
+		"version": "1.0.3",
+		"date": "26-02-2018",
+		"detail" : [
+			{"type": "perbaikan","description" : "Nilai pengadaan tidak muncul di persetujuan"}
+		]
+	}
+]

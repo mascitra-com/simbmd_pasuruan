@@ -111,10 +111,10 @@ class Index extends MY_Controller {
 		if(empty($id))
 			show_404();
 
-		$data['spk']	  		= $this->spk->get($id);
-		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
-		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
-		$data['kegiatan'] 		= $this->kegiatan->get_data_by_organisasi($data['spk']->id_organisasi);
+		$data['spk']	  	   = $this->spk->get($id);
+		$data['sp2d']['data']  = $this->sp2d->get_many_by(array('id_spk'=>$id));
+		$data['sp2d']['total'] = $this->sp2d->total($data['sp2d']['data']);
+		$data['kegiatan'] 	   = $this->kegiatan->get_data_by_organisasi($data['spk']->id_organisasi);
 		$this->render('modules/pengadaan/detail', $data);
 	}
 
@@ -126,6 +126,7 @@ class Index extends MY_Controller {
 		$data['spk']	  		= $this->spk->get($id);
 		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
 		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
+		$data['total_rincian']  = $this->spk->get_total_rincian($id);
 
 		# RINCIAN
 		$data['kiba'] 	= $this->kiba->get_data_pengajuan($data['spk']->id);
