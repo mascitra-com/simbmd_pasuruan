@@ -5,6 +5,8 @@ class MY_Base_controller extends CI_Controller {
 
 	public function __construct()
 	{
+        show_error('Website dalam Proses Migrasi Server. Mohon Menunggu.', '503', 'Migrasi Server');
+        die();
 		parent::__construct();
 		$this->init();
 	}

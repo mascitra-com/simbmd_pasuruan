@@ -31,12 +31,12 @@
 				</div>
 				<div class="col">
 					<div class="row">
-						<?php $nilai_kontrak = (!empty($spk->addendum_nilai)) ? $spk->addendum_nilai : $spk->nilai ?>
+						<?php $nilai_kontrak = ($spk->addendum_nilai != 0) ? $spk->addendum_nilai : $spk->nilai ?>
 						<div class="col">Nilai Kontrak</div><div class="col"> : {{monefy($nilai_kontrak)}},00</div>
 						<div class="w-100"></div>
-						<div class="col">Total Rincian</div><div class="col"> : </div>
-						<div class="w-100"></div>
 						<div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}},00</div>
+						<div class="w-100"></div>
+						<div class="col">Total Rincian</div><div class="col"> : </div>
 						<div class="w-100"></div>
 					</div>
 				</div>

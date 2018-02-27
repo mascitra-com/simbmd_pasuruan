@@ -39,7 +39,7 @@ class Kibe extends MY_Controller
         $data['filter']         = $filter;
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
-        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/koreksi_nilai');
+        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/kibe/koreksi_nilai/'.$id_koreksi);
 
         $this->render('modules/koreksi/nilai/kibe', $data);
     }
@@ -145,7 +145,7 @@ class Kibe extends MY_Controller
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
         $data['organisasi']     = $this->organisasi->get_many_by(array('id<>'=>$data['koreksi']->id_organisasi->id, 'jenis'=>4));
-        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/koreksi_kepemilikan');
+        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/kibe/koreksi_kepemilikan/'.$id_koreksi);
 
         $this->render('modules/koreksi/kepemilikan/kibe', $data);
     }
@@ -251,7 +251,7 @@ class Kibe extends MY_Controller
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
         $data['organisasi']     = $this->organisasi->get_many_by(array('id<>'=>$data['koreksi']->id_organisasi, 'jenis'=>4));
-        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/koreksi_kode');
+        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/kibe/koreksi_kode/'.$id_koreksi);
 
         $this->render('modules/koreksi/kode/kibe', $data);
     }
@@ -356,7 +356,7 @@ class Kibe extends MY_Controller
         $data['filter']         = $filter;
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
-        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/koreksi_hapus');
+        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'koreksi/aset/kibe/koreksi_hapus/'.$id_koreksi);
 
         $this->render('modules/koreksi/hapus/kibe', $data);
     }

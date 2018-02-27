@@ -11,7 +11,7 @@
     <div class="form-inline">
         <div class="btn-group mb-3">
             <a href="#" class="btn btn-primary active">01. Detail Hibah</a>
-            <a href="{{site_url('persetujuan_hibah/rincian/'.$hibah->id)}}" class="btn btn-primary">02. Rincian Aset</a>
+            <a href="{{site_url('persetujuan/hibah/rincian/'.$hibah->id)}}" class="btn btn-primary">02. Rincian Aset</a>
         </div>
     </div>
     <div class="row">

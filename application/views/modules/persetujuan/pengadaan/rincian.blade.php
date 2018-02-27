@@ -11,8 +11,8 @@
 <div class="form-inline">
     <div class="btn-group mb-3">
         <a href="{{site_url('persetujuan/pengadaan/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail Pengadaan</a>
-        <a href="{{site_url('persetujuan/pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary active">02. SP2D</a>
-        <a href="{{site_url('persetujuan/pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary">03. Rincian Aset</a>
+        <a href="{{site_url('persetujuan/pengadaan/sp2d/'.$spk->id)}}" class="btn btn-primary">02. SP2D</a>
+        <a href="{{site_url('persetujuan/pengadaan/rincian/'.$spk->id)}}" class="btn btn-primary active">03. Rincian Aset</a>
     </div>
 </div>
 <div class="row mb-3">
@@ -33,12 +33,12 @@
                 </div>
                 <div class="col">
                     <div class="row">
-                        <?php $nilai_kontrak = (!empty($spk->addendum_nilai)) ? $spk->addendum_nilai : $spk->nilai ?>
+                        <?php $nilai_kontrak = ($spk->addendum_nilai != 0) ? $spk->addendum_nilai : $spk->nilai ?>
                         <div class="col">Nilai Kontrak</div><div class="col"> : {{monefy($nilai_kontrak)}},00</div>
                         <div class="w-100"></div>
-                        <div class="col">Total Rincian</div><div class="col"> : </div>
-                        <div class="w-100"></div>
                         <div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}},00</div>
+                        <div class="w-100"></div>
+                        <div class="col">Total Rincian</div><div class="col"> : </div>
                         <div class="w-100"></div>
                     </div>
                 </div>

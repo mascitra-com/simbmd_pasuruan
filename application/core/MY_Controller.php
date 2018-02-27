@@ -13,26 +13,27 @@ class MY_Controller extends MY_Base_controller {
 
 	public function _remap($method, $params = array())
     {
-		if (method_exists($this, $method))
-		{
-			if ($this->auth->is_loggedin())
-			{
-				if ($this->is_class_allowed())
-				{
-					return call_user_func_array(array($this, $method), $params);
-				}
-				else
-				{
-					show_404();
-				}
-			}
-			else
-			{
-				$this->go('masuk');
-			}
-		}
-		show_404();
-	}
+        if (isset($_SERVER['CI_ENV']) && $_SERVER['CI_ENV'] !== 'maintenance') {
+            if (method_exists($this, $method)) {
+                if ($this->auth->is_loggedin()) {
+                    if ($this->is_class_allowed()) {
+                        return call_user_func_array(array($this, $method), $params);
+                    } else {
+                        show_404();
+                    }
+                } else {
+                    $this->go('masuk');
+                }
+            }
+            show_404();
+        } else {
+            if ($this->auth->get_super_access()) {
+                return call_user_func_array(array($this, $method), $params);
+            } else {
+                show_error('Website Sedang Dalam Proses Pemutakhiran. <br><a href="https://simbmd-pasuruan.mascitra.com">Klik Disini.</a>', 500, "Dalam Pemutakhiran");
+            }
+        }
+    }
 
 	private function is_class_allowed()
 	{
