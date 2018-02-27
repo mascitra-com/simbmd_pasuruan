@@ -4,6 +4,7 @@ class MY_Controller extends MY_Base_controller {
 
 	public $is_admin = 0;
 	public $is_superadmin = 0;
+	public $maintenance_time = '0';
 
 	public function __construct()
 	{
@@ -12,28 +13,34 @@ class MY_Controller extends MY_Base_controller {
 	}
 
 	public function _remap($method, $params = array())
-    {
-        if (isset($_SERVER['CI_ENV']) && $_SERVER['CI_ENV'] !== 'maintenance') {
-            if (method_exists($this, $method)) {
-                if ($this->auth->is_loggedin()) {
-                    if ($this->is_class_allowed()) {
-                        return call_user_func_array(array($this, $method), $params);
-                    } else {
-                        show_404();
-                    }
-                } else {
-                    $this->go('masuk');
-                }
-            }
-            show_404();
-        } else {
-            if ($this->auth->get_super_access()) {
-                return call_user_func_array(array($this, $method), $params);
-            } else {
-                show_error('Website Sedang Dalam Proses Pemutakhiran. <br><a href="https://simbmd-pasuruan.mascitra.com">Klik Disini.</a>', 500, "Dalam Pemutakhiran");
-            }
-        }
-    }
+	{
+		if (date('G') !== $this->maintenance_time)
+		{
+			if (method_exists($this, $method))
+			{
+				if ($this->auth->is_loggedin())
+				{
+					if ($this->is_class_allowed())
+					{
+						return call_user_func_array(array($this, $method), $params);
+					}
+					else
+					{
+						show_404();
+					}
+				}
+				else
+				{
+					$this->go('masuk');
+				}
+			}
+			show_404();
+		}
+		else
+		{
+			echo "Website sedang dalam proses maintenance rutin. Website akan aktif kembali pada pukul 01.00 WIB";
+		}
+	}
 
 	private function is_class_allowed()
 	{

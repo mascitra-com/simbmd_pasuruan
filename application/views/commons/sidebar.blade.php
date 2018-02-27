@@ -9,6 +9,7 @@
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
 			<li class="nav nav-notifikasi"><a href="{{site_url('notifikasi')}}"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
+			<li class="nav nav-pembaharuan"><a href="{{site_url('notifikasi')}}"><i class="fa fa-lighbulp fa-fw icon"></i>Pembaharuan</a></li>
 			<li class="nav nav-saldo-awal">
 				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
@@ -54,6 +55,9 @@
 				</ul>
 			</li>
 			@endif
+
+			<li class="nav nav-title">LAINNYA</li>
+			<li class="nav nav-pelunasan"><a href="{{ site_url('transfer/index/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Pelunasan KDP</a></li>
 
 			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-title">PERSETUJUAN</li>

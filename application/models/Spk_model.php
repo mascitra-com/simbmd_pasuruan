@@ -76,4 +76,22 @@ class Spk_model extends MY_Model
 
         return $result;
     }
+
+    public function get_total_rincian($id_spk = NULL)
+    {
+        if (empty($id_spk)) {
+            return 0;
+        }
+
+        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_spk = {$id_spk}";
+        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_spk = {$id_spk}";
+        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_spk = {$id_spk}";
+        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_spk = {$id_spk}";
+        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_spk = {$id_spk}";
+        $qk = "SELECT SUM(nilai) AS nilai FROM aset_kapitalisasi WHERE id_spk = {$id_spk}";
+        $qnon = "SELECT SUM(nilai) AS nilai FROM aset_non WHERE id_spk = {$id_spk}";
+
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qk} UNION {$qnon}) AS q";
+        return $this->db->query($query)->result()[0]->nilai;
+    }
 }
