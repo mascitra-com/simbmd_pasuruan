@@ -22,12 +22,12 @@
             <div class="card-body row">
                 <div class="col-6">
                     <div class="row">
-                        <?php $nilai_kontrak = (!empty($spk->addendum_nilai) OR $spk->addendum_nilai != 0) ? $spk->addendum_nilai : $spk->nilai ?>
-                        <div class="col">Nilai Kontrak</div><div class="col"> : {{monefy($nilai_kontrak)}},00</div>
+                        <?php $nilai_kontrak = ($spk->addendum_nilai != 0) ? $spk->addendum_nilai : $spk->nilai ?>
+                        <div class="col">Nilai Kontrak</div><div class="col"> : {{monefy($nilai_kontrak)}}</div>
                         <div class="w-100"></div>
-                        <div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}},00</div>
+                        <div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}}</div>
                         <div class="w-100"></div>
-                        <div class="col">Sisa Kontrak</div><div class="col"> : {{monefy($nilai_kontrak - $sp2d['total']),00}}</div>
+                        <div class="col">Total Rincian</div><div class="col"> : {{monefy($total_rincian)}}</div>
                         <div class="w-100"></div>
                     </div>
                 </div>
