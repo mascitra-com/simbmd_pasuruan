@@ -21,7 +21,7 @@ class Kibnon extends MY_Controller {
 			show_404();
 
 		$data['spk'] = $this->spk->get($id_spk);
-		$data['total_rincian'] = $this->spk->get_total_rincian($id);
+		$data['total_rincian'] = $this->spk->get_total_rincian($id_spk);
 		$data['sp2d'] = $this->sp2d->get_many_by('id_spk', $id_spk);
 		$this->render('modules/pengadaan/form_kibnon', $data);
 	}
@@ -33,7 +33,7 @@ class Kibnon extends MY_Controller {
 	
 		$data['kib'] = $this->kib->get($id);
 		$data['spk'] = $this->spk->get($data['kib']->id_spk);
-		$data['total_rincian'] = $this->spk->get_total_rincian($id);
+		$data['total_rincian'] = $this->spk->get_total_rincian($data['kib']->id_spk);
 		$data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kib']->id_spk);
 		$this->render('modules/pengadaan/form_kibnon', $data);
 	}

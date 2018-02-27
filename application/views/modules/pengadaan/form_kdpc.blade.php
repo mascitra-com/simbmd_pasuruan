@@ -14,7 +14,7 @@
 		<div class="card">
 			<div class="card-header">{{isset($kib)?'Sunting':'Tambah'}} Aset</div>
 			<div class="card-body">
-				<form action="{{isset($kib)?site_url('aset/kdpc/update'):site_url('aset/kdpc/insert')}}" method="POST">
+				<form action="{{isset($kib)?site_url('pengadaan/kdpc/update_pengadaan'):site_url('pengadaan/kdpc/insert_pengadaan')}}" method="POST">
 					
 					<input type="hidden" name="id" value="{{isset($kib)?$kib->id:''}}">
 					<input type="hidden" name="id_organisasi" value="{{$spk->id_organisasi}}">

@@ -29,7 +29,7 @@ class Kapitalisasi extends MY_Controller {
 		$data = $this->input->get();
 		$data['sp2d'] = $this->sp2d->get_many_by('id_spk', $id_spk);
 		$data['spk'] = $this->spk->get($id_spk);
-		$data['total_rincian'] = $this->spk->get_total_rincian($id);
+		$data['total_rincian'] = $this->spk->get_total_rincian($id_spk);
 
 		switch ($step) {
 			case 'langkah_1':
@@ -92,7 +92,7 @@ class Kapitalisasi extends MY_Controller {
 		$data['kib'] 	  = $this->{$kib}->get($data['id_aset']);
 		$data['kategori'] = $this->kategori->get($data['subsubkelompok']);
 		$data['spk'] 	  = $this->spk->get($data['kpt']->id_spk);
-		$data['total_rincian'] = $this->spk->get_total_rincian($id);
+		$data['total_rincian'] = $this->spk->get_total_rincian($id_spk);
 		$data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kpt']->id_spk);
 
 		$this->render('modules/pengadaan/form_kapitalisasi_3', $data);
