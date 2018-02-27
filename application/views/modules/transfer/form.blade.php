@@ -70,7 +70,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
                             <div class="col-md-4">
-                                <input type="text" name="jurnal_no" class="form-control"/>
+                                <input type="text" class="form-control" value="####" disabled="" />
                             </div>
                         </div>
                         <div class="form-group row">

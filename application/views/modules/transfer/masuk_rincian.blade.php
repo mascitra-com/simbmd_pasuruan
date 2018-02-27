@@ -36,7 +36,7 @@
                         <div class="col"> : {{$transfer->surat_no}}</div>
                         <div class="w-100"></div>
                         <div class="col-4">No. Jurnal</div>
-                        <div class="col"> : {{$transfer->jurnal_no}}</div>
+                        <div class="col"> : {{$transfer->id}}</div>
                         <div class="w-100"></div>
                         <div class="col-4">No. Serah Terima</div>
                         <div class="col"> : {{$transfer->serah_terima_no}}</div>

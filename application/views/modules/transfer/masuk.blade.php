@@ -33,8 +33,8 @@
 					<tr>
 						<th class="text-center">No. Transfer</th>
 						<th>Asal</th>
-						<th class="text-nowrap">No. Jurnal</th>
-						<th class="text-center">Tanggal Jurnal</th>
+						<th class="text-nowrap">No. SK</th>
+						<th class="text-center">Tanggal SK</th>
 						<th class="text-center">No Serah Terima</th>
 						<th class="text-center">Tanggal Serah Terima</th>
                         <th class="text-center">Tanggal Verifikasi</th>

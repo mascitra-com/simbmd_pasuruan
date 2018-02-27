@@ -43,8 +43,6 @@
 						<div class="w-100"></div>
 						<div class="col">Total SP2D</div><div class="col"> : {{monefy($sp2d['total'])}}</div>
 						<div class="w-100"></div>
-						<div class="col">Total Rincian</div><div class="col"> : 0,00</div>
-						<div class="w-100"></div>
 					</div>
 				</div>
 			</div>
