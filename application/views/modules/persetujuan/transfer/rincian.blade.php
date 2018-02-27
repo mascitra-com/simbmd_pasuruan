@@ -10,7 +10,7 @@
 @section('content')
 <div class="form-inline">
     <div class="btn-group mb-3">
-        <a href="{{site_url('transfer/masuk_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('transfer/keluar_detail/'.$transfer->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="btn-group mb-3 ml-auto">
