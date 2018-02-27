@@ -37,7 +37,7 @@
 					<tr class="small">
 						<td class="text-center">{{$item->id}}</td>
 						<td>{{$item->id_organisasi->nama}}</td>
-						<td class="text-center">{{$item->surat_no}}</td>
+						<td class="text-center">{{$item->jurnal_no}}</td>
 						<td class="text-center">{{datify($item->surat_tgl)}}</td>
 						<td class="text-center">{{$item->serah_terima_no}}</td>
 						<td class="text-center">{{datify($item->serah_terima_tgl)}}</td>
