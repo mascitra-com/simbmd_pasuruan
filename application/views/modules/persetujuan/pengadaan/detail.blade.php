@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="form-group col">
                                     <label>Nilai</label>
-                                    <input type="number" class="form-control form-control-sm" name="nilai" placeholder="Nilai" required {{(!empty($sp2d['total']))?'readonly':''}}/>
+                                    <input type="number" class="form-control form-control-sm" name="nilai" placeholder="Nilai" value="{{ $spk->nilai }}" required {{(!empty($sp2d['total']))?'readonly':''}}/>
                                 </div>
                             </div>
                             <div class="form-group">

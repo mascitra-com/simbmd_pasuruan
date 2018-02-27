@@ -25,7 +25,7 @@ class Pengadaan extends MY_Controller {
 		$result = $this->spk->get_data_persetujuan($filter);
 
 		$data['spks'] = $result['data'];
-		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan/transfer');
+		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan/pengadaan');
 		$data['filter'] = $filter;
 
 		$this->render('modules/persetujuan/pengadaan/index', $data);
