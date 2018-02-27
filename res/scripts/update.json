@@ -13,5 +13,12 @@ var update = [
 		"detail" : [
 			{"type": "perbaikan","description" : "Nilai pengadaan tidak muncul di persetujuan"}
 		]
+	},
+	{
+		"version": "1.0.9",
+		"date": "27-02-2018",
+		"detail" : [
+			{"type": "perbaikan","description" : "Beberapa bug"},
+		]
 	}
 ]
