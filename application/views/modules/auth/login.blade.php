@@ -35,7 +35,7 @@
 					<div class="card-body">
 						<form action="{{site_url('authentication/do_login')}}" method="POST">
 						    <div class="mb-4 text-bigger text-center">
-						    <img src="{{ site_url('res/img/logo_kab-pasuruan.jpg') }}"
+						    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Lambang_Kabupaten_Pasuruan.png"
                              alt="Logo Kabupaten Pasuruan" class="img-responsive" width="100px">
                             </div>
 							<div class="mb-4 text-bigger text-center">

@@ -20,8 +20,8 @@
 					<tr>
 						<th class="text-center">No. Transfer</th>
 						<th>Asal</th>
-						<th class="text-nowrap">No. Jurnal</th>
-						<th class="text-center">Tanggal Jurnal</th>
+						<th class="text-nowrap">No. SK</th>
+						<th class="text-center">Tanggal SK</th>
 						<th class="text-center">No Serah Terima</th>
 						<th class="text-center">Tanggal Serah Terima</th>
 						<th class="text-center">Waktu Pengajuan</th>
@@ -37,7 +37,7 @@
 					<tr class="small">
 						<td class="text-center">{{$item->id}}</td>
 						<td>{{$item->id_organisasi->nama}}</td>
-						<td class="text-center">{{$item->jurnal_no}}</td>
+						<td class="text-center">{{$item->surat_no}}</td>
 						<td class="text-center">{{datify($item->surat_tgl)}}</td>
 						<td class="text-center">{{$item->serah_terima_no}}</td>
 						<td class="text-center">{{datify($item->serah_terima_tgl)}}</td>

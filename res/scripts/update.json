@@ -15,10 +15,12 @@ var update = [
 		]
 	},
 	{
-		"version": "1.0.10",
+		"version": "1.0.15",
 		"date": "27-02-2018",
 		"detail" : [
-			{"type": "perbaikan","description" : "Beberapa bug"},
+			{"type": "perbaikan","description" : "Simpan KDP pada pengadaan gagal"},
+			{"type": "perbaikan","description" : "Logo tidak muncul"},
+			{"type": "perbaikan","description" : "Beberapa bug lainnya"},
 		]
 	}
 ]

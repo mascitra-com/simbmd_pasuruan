@@ -602,8 +602,8 @@
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
-										<a href="{{site_url('aset/kdpc/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kdpc/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kdpc/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kdpc/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
 								</td>
 								@endif
@@ -679,8 +679,8 @@
 								@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 								<td class="text-nowrap text-center">
 									<div class="btn-group">
-										<a href="{{site_url('aset/kdpd/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
-										<a href="{{site_url('aset/kdpd/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+										<a href="{{site_url('pengadaan/kdpd/edit_pengadaan/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+										<a href="{{site_url('pengadaan/kdpd/delete_pengadaan/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
 									</div>
 								</td>
 								@endif
