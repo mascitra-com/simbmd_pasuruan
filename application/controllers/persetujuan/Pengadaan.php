@@ -69,7 +69,7 @@ class Pengadaan extends MY_Controller {
 			show_404();
 
 		$data['spk']	  		= $this->spk->get($id);
-		$data['total_rincian']  = $this->spk->get_total_rincian($id);
+		$data['total_rincian']  = $this->spk->get_total_rincian($data['spk']->id);
 		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
 		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
 
