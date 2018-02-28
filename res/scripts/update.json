@@ -22,5 +22,12 @@ var update = [
 			{"type": "perbaikan","description" : "Logo tidak muncul"},
 			{"type": "perbaikan","description" : "Beberapa bug lainnya"},
 		]
+	},
+	{
+		"version": "1.0.16",
+		"date": "27-02-2018",
+		"detail" : [
+			{"type": "perbaikan","description" : "Total rincian pengadaan yang salah"},
+		]
 	}
 ]

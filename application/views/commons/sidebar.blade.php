@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="title">
 			<h3 class="mb-0 text-bolder">SIMBMD</h3>
-			<span>Pasuruan (dev)</span>
+			<span>Pasuruan</span>
 		</div>
 		<ul class="sidebar-nav">
 			<li class="nav nav-title">UTAMA</li>
