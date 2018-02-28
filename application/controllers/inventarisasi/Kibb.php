@@ -42,7 +42,7 @@ class Kibb extends MY_Controller
 
         $data['org'] = $this->organisasi->get($id);
         $data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
-        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $id);
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['org']->id_organisasi);
         $this->render('modules/aset/saldo_berjalan/kibb/form', $data);
     }
 

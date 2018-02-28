@@ -40,6 +40,7 @@ class Kibe extends MY_Controller
         $data['spk'] = $this->spk->get($data['kib']->id_spk);
         $data['total_rincian'] = $this->spk->get_total_rincian($data['kib']->id_spk);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kib']->id_spk);
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['spk']->id_organisasi);
         $this->render('modules/pengadaan/form_kibe', $data);
     }
 

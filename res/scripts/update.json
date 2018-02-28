@@ -24,10 +24,11 @@ var update = [
 		]
 	},
 	{
-		"version": "1.0.16",
+		"version": "1.0.17",
 		"date": "27-02-2018",
 		"detail" : [
 			{"type": "perbaikan","description" : "Total rincian pengadaan yang salah"},
+			{"type": "perbaikan","description" : "Ruangan tidak muncul pada saat sunting"},
 		]
 	}
 ]
