@@ -112,7 +112,7 @@
 					<div class="form-row">
 						<div class="form-group col">
 							<label>No. Serah Terima</label>
-							<input type="number" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Serah Terima" required />
+							<input type="text" class="form-control form-control-sm" name="no_serah_terima" placeholder="No. Serah Terima" required />
 						</div>
 						<div class="form-group col">
 							<label>Tanggal Serah Terima</label>

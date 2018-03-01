@@ -62,7 +62,7 @@
                         <div class="form-row">
                             <div class="form-group col">
                                 <label>No. BA Serah Terima</label>
-                                <input type="number" class="form-control form-control-sm" value="{{ $hibah->no_serah_terima }}" name="no_serah_terima" placeholder="No. BA Serah Terima" />
+                                <input type="text" class="form-control form-control-sm" value="{{ $hibah->no_serah_terima }}" name="no_serah_terima" placeholder="No. BA Serah Terima" />
                             </div>
                             <div class="form-group col">
                                 <label>Tanggal BA Serah Terima</label>

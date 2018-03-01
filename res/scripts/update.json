@@ -31,4 +31,12 @@ var update = [
 			{"type": "perbaikan","description" : "Ruangan tidak muncul pada saat sunting"},
 		]
 	}
+	{
+		"version": "1.0.18",
+		"date": "1-03-2018",
+		"detail" : [
+			{"type": "perbaikan","description" : "Update Link Logo Pasuruan di halaman dashboar dan cetak label"},
+			{"type": "perbaikan","description" : "Field untuk No Serah Terima Hibah menjadi tipe Text"},
+		]
+	}
 ]
