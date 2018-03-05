@@ -40,7 +40,7 @@ class Kibe extends MY_Controller
         }
 
         $data['org'] = $this->organisasi->get($id);
-        $data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
+        //$data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
         $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $id);
         $this->render('modules/aset/saldo_berjalan/kibe/form', $data);
     }
@@ -55,8 +55,8 @@ class Kibe extends MY_Controller
         $data['kib'] = $this->kib->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['org'] = $this->organisasi->get($data['kib']->id_organisasi);
-        $data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
-        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['org']->id_organisasi);
+        //$data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['org']->id);
         $this->render('modules/aset/saldo_berjalan/kibe/form', $data);
     }
 

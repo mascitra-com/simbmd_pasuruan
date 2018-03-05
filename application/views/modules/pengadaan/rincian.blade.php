@@ -61,31 +61,49 @@
 			<div class="card-header">
 				<ul class="nav nav-tabs card-header-tabs" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="#kiba" role="tab">KIB-A</a>
+						<a class="nav-link active" data-toggle="tab" href="#kiba" role="tab">
+							KIB-A {{!empty($kiba) ? '<span class="badge badge-primary">'.(count($kiba)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kibb" role="tab">KIB-B</a>
+						<a class="nav-link" data-toggle="tab" href="#kibb" role="tab">
+							KIB-B {{!empty($kibb) ? '<span class="badge badge-primary">'.(count($kibb)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kibc" role="tab">KIB-C</a>
+						<a class="nav-link" data-toggle="tab" href="#kibc" role="tab">
+							KIB-C {{!empty($kibc) ? '<span class="badge badge-primary">'.(count($kibc)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kibd" role="tab">KIB-D</a>
+						<a class="nav-link" data-toggle="tab" href="#kibd" role="tab">
+							KIB-D {{!empty($kibd) ? '<span class="badge badge-primary">'.(count($kibd)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kibe" role="tab">KIB-E</a>
+						<a class="nav-link" data-toggle="tab" href="#kibe" role="tab">
+							KIB-E {{!empty($kibe) ? '<span class="badge badge-primary">'.(count($kibe)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kibnon" role="tab">Tidak Diakui Aset</a>
+						<a class="nav-link" data-toggle="tab" href="#kibnon" role="tab">
+							Tidak Diakui Aset {{!empty($kibnon) ? '<span class="badge badge-primary">'.(count($kibnon)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#tambah_nilai" role="tab">Penambahan Nilai</a>
+						<a class="nav-link" data-toggle="tab" href="#tambah_nilai" role="tab">
+							Penambahan Nilai {{!empty($kpt) ? '<span class="badge badge-primary">'.(count($kpt)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kdpc" role="tab">KDP (KIB-C)</a>
+						<a class="nav-link" data-toggle="tab" href="#kdpc" role="tab">
+							KDP (KIB-C) {{!empty($kdpc) ? '<span class="badge badge-primary">'.(count($kdpc)).'</span>' : ''}}
+						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" data-toggle="tab" href="#kdpd" role="tab">KDP (KIB-D)</a>
+						<a class="nav-link" data-toggle="tab" href="#kdpd" role="tab">
+							KDP (KIB-D) {{!empty($kdpd) ? '<span class="badge badge-primary">'.(count($kdpd)).'</span>' : ''}}
+						</a>
 					</li>
 				</ul>
 			</div>

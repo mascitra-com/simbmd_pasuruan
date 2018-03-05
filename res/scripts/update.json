@@ -24,11 +24,21 @@ var update = [
 		]
 	},
 	{
-		"version": "1.0.17",
+		"version": "1.0.19",
 		"date": "27-02-2018",
 		"detail" : [
+			{"type": "perbaikan","description" : "Penambahan aset lainnya pada pilih kategori kibe"},
 			{"type": "perbaikan","description" : "Total rincian pengadaan yang salah"},
 			{"type": "perbaikan","description" : "Ruangan tidak muncul pada saat sunting"},
+		]
+	},
+	{
+		"version": "1.1.0",
+		"date": "1-03-2018",
+		"detail" : [
+			{"type": "fitur","description" : "Pelunasan KDP"},
+			{"type": "fitur","description" : "Jumlah Aset tertera pada tab rincian aset"},
+			{"type": "perbaikan","description" : "Beberapa bug"}
 		]
 	}
 ]

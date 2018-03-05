@@ -57,7 +57,7 @@
 			@endif
 
 			<li class="nav nav-title">LAINNYA</li>
-			<li class="nav nav-pelunasan"><a href="{{ site_url('transfer/index/keluar') }}"><i class="fa fa-exchange fa-fw icon"></i>Pelunasan KDP</a></li>
+			<li class="nav nav-pelunasan"><a href="{{ site_url('pelunasan') }}"><i class="fa fa-dollar fa-fw icon"></i>Pelunasan KDP</a></li>
 
 			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-title">PERSETUJUAN</li>

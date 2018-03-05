@@ -4,7 +4,7 @@
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibb')}}">Aset</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibb')}}">KIB-B</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibb?id_organisasi='.$org->id)}}">KIB-B</a></li>
 <li class="breadcrumb-item active">{{isset($kib)?'Sunting':'Tambah'}}</li>
 @end
 

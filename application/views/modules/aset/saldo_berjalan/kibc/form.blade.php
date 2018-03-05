@@ -4,7 +4,7 @@
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibc')}}">Aset</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibc')}}">KIB-C</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibc?id_organisasi='.$org->id)}}">KIB-C</a></li>
 <li class="breadcrumb-item active">{{isset($kib)?'Sunting':'Tambah'}}</li>
 @end
 
@@ -229,6 +229,10 @@
 						<tr>
 							<th colspan="4">
 								<div class="input-group">
+									<select id="in-pilih" class="form-control">
+										<option value="3" selected>03. Gedung &amp Bangunan</option>
+										<option value="6">06. Kontruksi Dalam Pengerjaan</option>
+									</select>
 									<input type="text" id="in-cari" class="form-control" placeholder="Ketik nama barang...">
 									<span class="input-group-btn">
 										<button class="btn btn-primary" id="btn-cari"><i class="fa fa-search"></i></button>
@@ -265,7 +269,7 @@
 		$("#btn-cari").on('click', fungsiCari);
 
 		function fungsiCari(e) {
-			var g = '';
+			var g = $("#in-pilih").val();
 			var q = encodeURI($("#in-cari").val());
 			var no = 1;
 			var html = "";

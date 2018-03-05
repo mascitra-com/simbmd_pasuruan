@@ -32,7 +32,7 @@
 	$.each(update.reverse(), function(index, item){
 		var html = "<span class='card-title'>"+item.version+"</span><span class='card-date'>("+item.date+")</span>";
 		html += "<ul class='card-text ml-5'>";
-		item.detail = item.detail.sort(function(a,b) {return (a.type > b.type) ? -1 : ((b.type > a.type) ? 1 : 0);} );
+		item.detail = item.detail.sort(function(a,b) {return (a.type < b.type) ? -1 : ((b.type < a.type) ? 1 : 0);} );
 		for(var i=0; i<item.detail.length; i++){
 			html += "<li>("+item.detail[i].type+") "+item.detail[i].description+"</li>";
 		}

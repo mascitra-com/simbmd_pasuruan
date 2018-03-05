@@ -41,7 +41,7 @@ class Kibd extends MY_Controller
         }
 
         $data['org'] = $this->organisasi->get($id);
-        $data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
+        //$data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
         $this->render('modules/aset/saldo_berjalan/kibd/form', $data);
     }
 
@@ -55,7 +55,7 @@ class Kibd extends MY_Controller
         $data['kib'] = $this->kib->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['org'] = $this->organisasi->get($data['kib']->id_organisasi);
-        $data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
+        //$data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
         $this->render('modules/aset/saldo_berjalan/kibd/form', $data);
     }
 
