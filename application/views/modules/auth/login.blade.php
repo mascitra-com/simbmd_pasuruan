@@ -36,7 +36,7 @@
 						<form action="{{site_url('authentication/do_login')}}" method="POST">
 						    <div class="mb-4 text-bigger text-center">
 						    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Lambang_Kabupaten_Pasuruan.png"
-                             alt="" class="img-responsive" width="100px">
+                             alt="Logo Kabupaten Pasuruan" class="img-responsive" width="100px">
                             </div>
 							<div class="mb-4 text-bigger text-center">
 								<span class="text-bolder">SIMBMD</span><span>PASURUAN</span>
