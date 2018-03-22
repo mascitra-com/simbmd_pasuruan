@@ -75,8 +75,8 @@ class Index extends MY_Controller {
             show_404();
         }
 
-        $data['transfer']	= $this->transfer->subtitute($this->transfer->get($id));
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+        $data['transfer']      = $this->transfer->subtitute($this->transfer->get($id));
+        $data['organisasi']    = $this->organisasi->get_data(array('jenis' => 4));
 
         $this->render('modules/transfer/keluar_detail', $data);
     }
@@ -103,6 +103,7 @@ class Index extends MY_Controller {
         $data['kibd'] 	  = $this->kibd->get_data_transfer($id);
         $data['kibe']	  = $this->kibe->get_data_transfer($id);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
+        $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
         $this->render('modules/transfer/keluar_rincian', $data);
     }
@@ -118,6 +119,7 @@ class Index extends MY_Controller {
         $data['kibd']     = $this->kibd->get_data_transfer($id);
         $data['kibe']     = $this->kibe->get_data_transfer($id);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
+        $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
         $this->render('modules/transfer/masuk_rincian', $data);
     }

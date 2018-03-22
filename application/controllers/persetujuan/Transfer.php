@@ -61,6 +61,7 @@ class Transfer extends MY_Controller
 		$data['kibd'] = $this->kibd->get_data_transfer($id);
 		$data['kibe'] = $this->kibe->get_data_transfer($id);
 		$data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
+		$data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
 		$this->render('modules/persetujuan/transfer/rincian', $data);
 	}

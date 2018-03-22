@@ -94,7 +94,7 @@
 
 					<tr class="small">
 						<td class="text-center">{{++$no}}</td>
-						<td class="text-center">{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}</td>
+						<td class="text-center">{{$aset->kd_golongan.'.'.$aset->kd_bidang.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}</td>
 						<td class="text-center">{{$aset->reg_induk}}</td>
 						<td class="text-nowrap">{{$aset->nama}}</td>
 						<td class="text-center">{{monefy($aset->luas)}}</td>
