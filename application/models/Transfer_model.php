@@ -113,4 +113,20 @@ class Transfer_model extends MY_Model
 
 		return $result;
     }
+
+    public function get_total_rincian($id_transfer = NULL)
+    {
+        if (empty($id_transfer)) {
+            return 0;
+        }
+
+        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_transfer = {$id_transfer}";
+        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_transfer = {$id_transfer}";
+        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_transfer = {$id_transfer}";
+        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_transfer = {$id_transfer}";
+        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_transfer = {$id_transfer}";
+
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
+        return $this->db->query($query)->result()[0]->nilai;
+    }
 }

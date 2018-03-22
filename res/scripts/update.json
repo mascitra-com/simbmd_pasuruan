@@ -38,6 +38,18 @@ var update = [
 		"detail" : [
 			{"type": "fitur","description" : "Pelunasan KDP"},
 			{"type": "fitur","description" : "Jumlah Aset tertera pada tab rincian aset"},
+			{"type": "perbaikan","description" : "Beberapa bug"},
+			{"type": "perbaikan","description" : "Update Link Logo Pasuruan di halaman dashboar dan cetak label"},
+			{"type": "perbaikan","description" : "Field untuk No Serah Terima Hibah menjadi tipe Text"}
+		]
+	},
+	{
+		"version": "1.1.3",
+		"date": "20-03-2018",
+		"detail" : [
+			{"type": "fitur","description" : "Total rincian transfer ditampilkan"},
+			{"type": "perbaikan","description" : "Kode barang yang tertukar pada laporan KIB"},
+			{"type": "perbaikan","description" : "Tidak bisa melakukan persetujuan"},
 			{"type": "perbaikan","description" : "Beberapa bug"}
 		]
 	},

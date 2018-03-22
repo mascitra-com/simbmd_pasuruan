@@ -96,7 +96,7 @@
 					<tr class="small">
 						<td class="text-center">{{++$no}}</td>
 						<td class="text-center">
-							{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}
+							{{$aset->kd_golongan.'.'.$aset->kd_bidang.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}
 							<br>
 							{{$aset->reg_induk}}
 						</td>
