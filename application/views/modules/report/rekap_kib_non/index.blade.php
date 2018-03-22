@@ -40,7 +40,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nama Kota</label>
 						<div class="col-md-4">
-							<input type="text" name="nama_kota" class="form-control form-control-sm" value="Pasuruan" placeholder="Nama kota" />
+							<input type="text" name="nama_kota" class="form-control form-control-sm" value="PASURUAN" placeholder="Nama kota" />
 						</div>
 					</div>
 					<hr>

@@ -27,7 +27,7 @@
 @section('script')
 <script type="text/javascript" src="{{base_url('res/scripts/update.json')}}"></script>
 <script type="text/javascript">
-	theme.activeMenu('.nav-pembaharuan')
+	theme.activeMenu('.nav-pembaharuan');
 	$(".card-body").empty();
 	$.each(update.reverse(), function(index, item){
 		var html = "<span class='card-title'>"+item.version+"</span><span class='card-date'>("+item.date+")</span>";

@@ -40,13 +40,21 @@ var update = [
 			{"type": "fitur","description" : "Jumlah Aset tertera pada tab rincian aset"},
 			{"type": "perbaikan","description" : "Beberapa bug"}
 		]
-	}
+	},
 	{
-		"version": "1.0.18",
+		"version": "1.1.1",
 		"date": "1-03-2018",
 		"detail" : [
-			{"type": "perbaikan","description" : "Update Link Logo Pasuruan di halaman dashboar dan cetak label"},
+			{"type": "perbaikan","description" : "Update Link Logo Pasuruan di halaman dashboar dan cet	ak label"},
 			{"type": "perbaikan","description" : "Field untuk No Serah Terima Hibah menjadi tipe Text"},
+		]
+	},
+	{
+		"version": "1.1.2",
+		"date": "10-03-2018",
+		"detail" : [
+			{"type": "perbaikan","description" : "Kapitalkan Value dg Kata Laporan & Pasuruan"},
+			{"type": "perbaikan","description" : "Nilai SP2D di Monefy"},
 		]
 	}
 ]

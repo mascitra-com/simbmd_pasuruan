@@ -37,6 +37,7 @@ class Sp2d extends MY_Controller {
 
 		if ($data) {
 			$data->tanggal = datify($data->tanggal, 'Y-m-d');
+			$data->nilai = monefy($data->nilai);
 		}
 
 		echo json_encode($data);
