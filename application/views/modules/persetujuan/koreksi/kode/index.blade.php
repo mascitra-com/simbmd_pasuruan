@@ -44,7 +44,7 @@
 							<div class="btn-group">
 								<a href="{{ site_url('persetujuan/koreksi_kode/rincian/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
 								<button class="btn btn-sm btn-success btn-setuju" data-id="{{$item->id}}"><i class="fa fa-check mr-2"></i>Setuju</button>
-								<button class="btn btn-sm btn-success btn-tolak" data-id="{{$item->id}}"><i class="fa fa-times mr-2"></i>Tolak</button>
+								<button class="btn btn-sm btn-danger btn-tolak" data-id="{{$item->id}}"><i class="fa fa-times mr-2"></i>Tolak</button>
 							</div>
 						</td>
 					</tr>

@@ -116,10 +116,7 @@
                                         <td class="text-nowrap text-center">
                                             @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kiba/delete_penghapusan/'.$item->id)}}"
-                                                   class="btn btn-sm btn-danger"
-                                                   onclick="return confirm('Apakah anda yakin?')"><i
-                                                            class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('penghapusan/kiba/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                             @endif
                                         </td>
@@ -190,10 +187,7 @@
                                         <td class="text-nowrap text-center">
                                             @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibb/delete_penghapusan/'.$item->id)}}"
-                                                   class="btn btn-sm btn-danger"
-                                                   onclick="return confirm('Apakah anda yakin?')"><i
-                                                            class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('penghapusan/kibb/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                             @endif
                                         </td>
@@ -270,10 +264,7 @@
                                         <td class="text-nowrap text-center">
                                             @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibc/delete_penghapusan/'.$item->id)}}"
-                                                   class="btn btn-sm btn-danger"
-                                                   onclick="return confirm('Apakah anda yakin?')"><i
-                                                            class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('penghapusan/kibc/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                             @endif
                                         </td>
@@ -348,10 +339,7 @@
                                         <td class="text-nowrap text-center">
                                             @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibd/delete_penghapusan/'.$item->id)}}"
-                                                   class="btn btn-sm btn-danger"
-                                                   onclick="return confirm('Apakah anda yakin?')"><i
-                                                            class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('penghapusan/kibd/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                             @endif
                                         </td>
@@ -423,10 +411,7 @@
                                         <td class="text-nowrap text-center">
                                             @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
                                             <div class="btn-group">
-                                                <a href="{{site_url('aset/kibe/delete_penghapusan/'.$item->id)}}"
-                                                   class="btn btn-sm btn-danger"
-                                                   onclick="return confirm('Apakah anda yakin?')"><i
-                                                            class="fa fa-trash"></i></a>
+                                                <a href="{{site_url('penghapusan/kibe/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
                                             </div>
                                             @endif
                                         </td>

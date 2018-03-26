@@ -24,7 +24,7 @@ class Pegawai extends MY_Controller {
 		$data['pegawai'] 	= $result['data'];
 		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
 		$data['filter']		= $filter;
-		$data['org_list']	= $this->organisasi->get_all();
+		$data['org_list']	= $this->organisasi->get_data_by_auth();
 
 		$this->render('modules/pegawai/index', $data);
 	}
@@ -41,7 +41,7 @@ class Pegawai extends MY_Controller {
 			show_404();
 
 		$data['peg']		= $this->pegawai->get($id);
-		$data['org_list']	= $this->organisasi->get_all();
+		$data['org_list']	= $this->organisasi->get_data_by_auth();
 		$this->render('modules/pegawai/form', $data);
 	}
 

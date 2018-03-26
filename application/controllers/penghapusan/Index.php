@@ -103,6 +103,8 @@ class Index extends MY_Controller
         if(empty($id))
             show_404();
 
+        $id_organisasi = $this->hapus->get($id)->id_organisasi;
+
         $sukses = $this->hapus->delete($id);
         if($sukses) {
             $this->kiba->delete_by(array('id_hapus'=>$id));
@@ -112,10 +114,10 @@ class Index extends MY_Controller
             $this->kibe->delete_by(array('id_hapus'=>$id));
 
             $this->message('Data berhasil dihapus','success');
-            $this->go('penghapusan');
+            $this->go('penghapusan/index?id_organisasi='.$id_organisasi);
         } else {
             $this->message('Data gagal dihapus','danger');
-            $this->go('penghapusan');
+            $this->go('penghapusan/index?id_organisasi='.$id_organisasi);
         }
 
     }

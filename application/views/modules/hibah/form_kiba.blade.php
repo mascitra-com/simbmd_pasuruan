@@ -105,7 +105,7 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Tanggal Serah Terima</label>
+						<label class="col-md-3 col-form-label text-right">Tanggal Perolehan</label>
 						<div class="col-md-4">
 							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):''}}" />
 						</div>

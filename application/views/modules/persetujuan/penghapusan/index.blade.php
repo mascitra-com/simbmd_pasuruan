@@ -30,7 +30,7 @@
 				</thead>
 				<tbody>
 					@if(empty($hapus))
-					<tr><td colspan="10" class="text-center">Tidak ada data</td></tr>
+					<tr><td colspan="8" class="text-center">Tidak ada data</td></tr>
 					@endif
 
 					@foreach($hapus AS $item)
@@ -97,7 +97,7 @@
 					<input type="hidden" name="id_hapus">
 					<div class="form-group">
 						<label>Pesan/Alasan</label>
-						<textarea type="text" class="form-control" placeholder="Pesan verifikasi"></textarea>
+						<textarea type="text" name="pesan" class="form-control" placeholder="Pesan verifikasi"></textarea>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-secondary">Tolak</button>

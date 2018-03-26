@@ -99,11 +99,14 @@ class MY_Model extends MY_Base_model {
 
     public function form_verify($data)
     {
-        foreach ($data as $key => $value) {
-            if (in_array($key, $this->required)) {
-                if ($value !== "0" AND empty($value)) {
+        $data = (array)$data;
+        foreach ($this->required as $key) {
+            if (array_key_exists($key, $data)) {
+                if ($data[$key] !== "0" AND empty($data[$key])){
                     return FALSE;
                 }
+            } else {
+                return FALSE;
             }
         }
 
