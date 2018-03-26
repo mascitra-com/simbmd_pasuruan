@@ -52,7 +52,7 @@
 					<div class="form-group row">
 						<label class="col-md-4 col-form-label text-right">Username</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control" name="username" value="{{$profil->username}}" placeholder="Username" required/>
+							<input type="text" class="form-control" name="username" value="{{$profil->username}}" placeholder="Username" disabled/>
 						</div>
 					</div>
 					<div class="form-group row">
