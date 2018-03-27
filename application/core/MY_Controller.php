@@ -5,6 +5,7 @@ class MY_Controller extends MY_Base_controller {
 	public $is_admin = 0;
 	public $is_superadmin = 0;
 	public $maintenance_time = '0';
+	public $maintenance_status = '1';
 
 	public function __construct()
 	{
@@ -14,7 +15,7 @@ class MY_Controller extends MY_Base_controller {
 
 	public function _remap($method, $params = array())
 	{
-		if (date('G') !== $this->maintenance_time)
+		if (date('G') !== $this->maintenance_time AND $this->maintenance_status == '0')
 		{
 			if (method_exists($this, $method))
 			{
@@ -36,10 +37,12 @@ class MY_Controller extends MY_Base_controller {
 			}
 			show_404();
 		}
-		else
+		else if(date('G') == $this->maintenance_time)
 		{
-			echo "Website sedang dalam proses maintenance rutin. Website akan aktif kembali pada pukul 01.00 WIB";
-		}
+            show_error("Website Sedang Dalam Proses Maintenance. Website Akan Kembali Aktif Pada Pukul 01.00 WIB", 500, 'Maintenance');
+		} else {
+            show_error("Website Sedang Dalam Proses Maintenance.", 500, 'Maintenance');
+        }
 	}
 
 	private function is_class_allowed()
