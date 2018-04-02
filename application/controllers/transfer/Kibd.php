@@ -32,7 +32,7 @@ class Kibd extends MY_Controller
         $data['filter']         = $filter;
         $data['kib']            = $result['data'];
         $data['terpilih_count'] = count($where_not_in);
-        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'transfer/kibc/add/'.$data['transfer']->id);
+        $data['pagination']     = $this->pagination->get_pagination($result['data_count'], $filter, 'transfer/'.get_class($this).'/add/'.$id_transfer);
         $this->render('modules/transfer/kibd', $data);
     }
 

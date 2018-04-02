@@ -66,10 +66,10 @@ class Kibe extends MY_Controller
         $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('penghapusan/rincian/' . $id_hapus);
+            $this->go('penghapusan/index/rincian/' . $id_hapus);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('penghapusan/rincian/' . $id_hapus);
+            $this->go('penghapusan/index/rincian/' . $id_hapus);
         }
     }
 

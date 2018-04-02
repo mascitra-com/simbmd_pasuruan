@@ -41,7 +41,7 @@
                     <th class="text-nowrap">Keterangan</th>
                     <th class="text-nowrap">Status</th>
                     <th class="">Tanggal Verifikasi</th>
-                    <th class="text-center"></th>
+                    <th class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,7 +80,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td class="text-center" colspan="8">Tidak Ditemukan Data</td>
+                        <td class="text-center" colspan="9">Tidak Ditemukan Data</td>
                     </tr>
                 @endif
                 </tbody>

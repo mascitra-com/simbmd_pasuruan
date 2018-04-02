@@ -73,7 +73,7 @@
                                 <option value="">Semua</option>
 								<option value="1">Baik</option>
 								<option value="2">Kurang Baik</option>
-								<option value="0">Rusak Berat</option>
+								<option value="3">Rusak Berat</option>
 							</select>
 						</div>
 					</div>
