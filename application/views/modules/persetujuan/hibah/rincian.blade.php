@@ -101,7 +101,7 @@
                                 <th class="text-nowrap">No. Sertifikat</th>
                                 <th class="text-nowrap">Hak Pakai</th>
                                 <th class="text-nowrap">Pengguna</th>
-                                <th class="text-nowrap">Tgl. Serah Terima</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap text-right">Nilai</th>
@@ -157,7 +157,7 @@
                                 <th class="text-nowrap">No.Mesin</th>
                                 <th class="text-nowrap">No.Polisi</th>
                                 <th class="text-nowrap">No.BPKB</th>
-                                <th class="text-nowrap">Tgl. Serah Terima</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -224,7 +224,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Serah Terima</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -288,7 +288,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Serah Terima</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -348,7 +348,7 @@
                                 <th class="text-nowrap">Pecipta</th>
                                 <th class="text-nowrap">Bahan</th>
                                 <th class="text-nowrap">Ukuran</th>
-                                <th class="text-nowrap">Tgl. Serah Terima</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>

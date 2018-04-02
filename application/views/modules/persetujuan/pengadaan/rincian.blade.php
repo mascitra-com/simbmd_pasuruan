@@ -173,7 +173,7 @@
                                 <th class="text-nowrap">No.Mesin</th>
                                 <th class="text-nowrap">No.Polisi</th>
                                 <th class="text-nowrap">No.BPKB</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -240,7 +240,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -304,7 +304,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -364,7 +364,7 @@
                                 <th class="text-nowrap">Pecipta</th>
                                 <th class="text-nowrap">Bahan</th>
                                 <th class="text-nowrap">Ukuran</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -421,7 +421,7 @@
                                 <th class="text-nowrap">Merk</th>
                                 <th class="text-nowrap">Tipe</th>
                                 <th class="text-nowrap">Ukuran</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -556,7 +556,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -620,7 +620,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
