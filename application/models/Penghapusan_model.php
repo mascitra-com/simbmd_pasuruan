@@ -3,7 +3,7 @@
 class Penghapusan_model extends MY_Model
 {
 	public $_table = 'penghapusan';
-	public $required = array('no_jurnal', 'tgl_jurnal', 'no_serah_terima', 'tgl_serah_terima', 'id_organisasi');
+	public $required = array('id_organisasi');
 
     public function __construct()
     {
@@ -75,5 +75,22 @@ class Penghapusan_model extends MY_Model
         $result['data'] = $this->fill_empty_data($result['data']);
 
         return $result;
+    }
+
+    public function get_total_rincian($id_hapus = NULL)
+    {
+        if (empty($id_hapus)) {
+            return 0;
+        }
+
+        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_hapus = {$id_hapus}";
+        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_hapus = {$id_hapus}";
+        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_hapus = {$id_hapus}";
+        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_hapus = {$id_hapus}";
+        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_hapus = {$id_hapus}";
+        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_hapus = {$id_hapus}";
+
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg}) AS q";
+        return $this->db->query($query)->result()[0]->nilai;
     }
 }

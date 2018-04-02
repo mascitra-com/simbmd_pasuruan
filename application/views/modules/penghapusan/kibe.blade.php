@@ -77,7 +77,7 @@
 							<td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
 							<td class="text-nowrap">{{$item->masa_manfaat}}</td>
 							<td class="text-nowrap">{{$item->keterangan}}</td>
-							<td class="text-nowrap">{{$item->id_ruangan}}</td>
+							<td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
 							<td class="text-nowrap">{{$item->id_kategori->nama}}</td>
 						</tr>
 						@endforeach

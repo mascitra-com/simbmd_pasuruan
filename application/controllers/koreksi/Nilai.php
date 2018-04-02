@@ -70,6 +70,9 @@ class Nilai extends MY_Controller {
             case 'e':
             $this->go('koreksi/aset/kibe/koreksi_nilai/'.$id);
             break;
+            case 'g':
+            $this->go('koreksi/aset/kibg/koreksi_nilai/'.$id);
+            break;
 
             default:
             show_404();

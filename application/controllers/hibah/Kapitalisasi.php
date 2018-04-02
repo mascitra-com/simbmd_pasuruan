@@ -35,7 +35,7 @@ class Kapitalisasi extends MY_Controller
             case 'langkah_2':
                 if (empty($data['golongan']) OR empty($data['subsubkelompok'])) {
                     $this->message('Pilih kode barang terlebih dahulu', 'danger');
-                    $this->go('kapitalisasi/add_hibah/langkah_1/' . $id_hibah);
+                    $this->go('hibah/kapitalisasi/add/langkah_1/' . $id_hibah);
                 }
 
                 $where = array(
@@ -53,7 +53,7 @@ class Kapitalisasi extends MY_Controller
             case 'langkah_3':
                 if (empty($data['golongan']) OR empty($data['subsubkelompok'])) {
                     $this->message('Pilih kode barang terlebih dahulu', 'danger');
-                    $this->go('kapitalisasi/add_hibah/langkah_1/' . $id_hibah);
+                    $this->go('hibah/kapitalisasi/add/langkah_1/' . $id_hibah);
                 }
 
                 $kib = ($data['golongan'] === '3') ? 'kibc' : 'kibd';
@@ -95,37 +95,22 @@ class Kapitalisasi extends MY_Controller
     public function insert()
     {
         $data = $this->input->post();
-        $data['reg_induk'] = $this->kapitalisasi->get_reg_induk();
-        $data['nilai'] = unmonefy($data['nilai']);
-        $data['nilai_penunjang'] = unmonefy($data['nilai_penunjang']);
+        $data['reg_induk']  = $this->kapitalisasi->get_reg_induk();
+        $data['nilai']  = unmonefy($data['nilai']);
+        $data['nilai_penunjang']    = unmonefy($data['nilai_penunjang']);
 
         if (!$this->kapitalisasi->form_verify($data)) {
             $this->message('Isi data yang wajib diisi');
-            $this->go('kapitalisasi/add_hibah/langkah_3/' . $data['id_hibah'] . '?id_aset=' . $data['id_aset'] . '&golongan=' . $data['golongan'] . '&subsubkelompok=' . $data['id_kategori']);
+            $this->go('hibah/kapitalisasi/add/langkah_3/'.$data['id_hibah'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
         }
 
-        # Update data pada aset utama
-        $kib = ($data['golongan'] === '3') ? 'kibc' : 'kibd';
-        $temp = $this->{$kib}->get($data['id_aset']);
-        $nilai_tambah = ($this->nol($data['jumlah']) * $this->nol($data['nilai'])) + $this->nol($data['nilai_penunjang']);
-        $total = $nilai_tambah + $temp->nilai_tambah;
-        $sukses = $this->{$kib}->update($data['id_aset'], array('nilai_tambah' => $total));
-
-        if ($sukses) {
-            # Insert kapitalisasi
-            $sukses = $this->kapitalisasi->insert($data);
-            if ($sukses) {
-                $this->message('Data berhasil disimpan', 'success');
-                $this->go('hibah/rincian/' . $data['id_hibah']);
-            } else {
-                # Rollback update
-                $this->{$kib}->update($data['id_aset'], array('nilai_tambah' => $temp->nilai_tambah));
-                $this->message('Data gagal disimpan');
-                $this->go('kapitalisasi/add_hibah/langkah_3/' . $data['id_hibah'] . '?id_aset=' . $data['id_aset'] . '&golongan=' . $data['golongan'] . '&subsubkelompok=' . $data['id_kategori']);
-            }
+        $sukses = $this->kapitalisasi->insert($data);
+        if($sukses) {
+            $this->message('Data berhasil disimpan','success');
+            $this->go('hibah/index/rincian/'.$data['id_hibah']);
         } else {
-            $this->message('Terjadi kesalahan');
-            $this->go('kapitalisasi/add_hibah/langkah_3/' . $data['id_hibah'] . '?id_aset=' . $data['id_aset'] . '&golongan=' . $data['golongan'] . '&subsubkelompok=' . $data['id_kategori']);
+            $this->message('Data gagal disimpan');
+            $this->go('hibah/kapitalisasi/add/langkah_3/'.$data['id_hibah'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
         }
     }
 
@@ -139,7 +124,7 @@ class Kapitalisasi extends MY_Controller
 
         if (!$this->kapitalisasi->form_verify($data)) {
             $this->message('Isi data yang wajib diisi');
-            $this->go('kapitalisasi/edit_hibah/' . $id);
+            $this->go('hibah/kapitalisasi/edit/' . $id);
         }
 
         # Update data pada aset utama
@@ -156,16 +141,16 @@ class Kapitalisasi extends MY_Controller
             $sukses = $this->kapitalisasi->update($id, $data);
             if ($sukses) {
                 $this->message('Data berhasil disimpan', 'success');
-                $this->go('pengadaan/rincian/' . $data['id_hibah']);
+                $this->go('hibah/index/rincian/' . $data['id_hibah']);
             } else {
                 # Rollback update
                 $this->{$kib}->update($data['id_aset'], array('nilai_tambah' => $temp2->nilai_tambah));
                 $this->message('Data gagal disimpan');
-                $this->go('kapitalisasi/edit_hibah/' . $id);
+                $this->go('hibah/kapitalisasi/edit/' . $id);
             }
         } else {
             $this->message('Terjadi kesalahan');
-            $this->go('kapitalisasi/edit_hibah/' . $id);
+            $this->go('hibah/kapitalisasi/edit/' . $id);
         }
     }
 
@@ -187,17 +172,22 @@ class Kapitalisasi extends MY_Controller
             $sukses = $this->kapitalisasi->delete($id);
             if ($sukses) {
                 $this->message('Data berhasil dihapus', 'success');
-                $this->go('hibah/rincian/' . $kpt->id_hibah);
+                $this->go('hibah/index/rincian/' . $kpt->id_hibah);
             } else {
                 # Rollback
                 $this->{$kib}->update($kpt->id_aset, array('nilai_tambah' => $temp->nilai_tambah));
                 $this->message('Data gagal dihapus', 'danger');
-                $this->go('hibah/rincian/' . $kpt->id_hibah);
+                $this->go('hibah/index/rincian/' . $kpt->id_hibah);
             }
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('hibah/rincian/' . $kpt->id_hibah);
+            $this->go('hibah/index/rincian/' . $kpt->id_hibah);
         }
 
+    }
+
+    private function nol($var)
+    {
+        return (empty($var)) ? 0 : $var;
     }
 }

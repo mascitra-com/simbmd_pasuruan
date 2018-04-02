@@ -16,6 +16,7 @@ class Index extends MY_Controller
         $this->load->model('aset/Temp_kibc_model', 'kibc');
         $this->load->model('aset/Temp_kibd_model', 'kibd');
         $this->load->model('aset/Temp_kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kibg_model', 'kibg');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Penghapusan_model', 'hapus');
     }
@@ -56,19 +57,24 @@ class Index extends MY_Controller
     public function update()
     {
         $data = $this->input->post();
+        
+        $id = $data['id'];
+        unset($data['id']);
+
         if (!$this->hapus->form_verify($data)) {
             $this->message('Isi data yang diperlukan', 'danger');
-            $this->go('penghapusan/index?id_organisasi='.$data['id_organisasi']);
+            $this->go('penghapusan/index/detail/'.$id);
         }
 
-        $sukses = $this->hapus->update($data['id'], $data);
+        $sukses = $this->hapus->update($id, $data);
+
         if($sukses) {
             $this->message('Data berhasil disimpan','success');
-            $this->go('penghapusan/index/detail/'.$data['id']);
         } else {
             $this->message('Terjadi kesalahan','danger');
-            $this->go('penghapusan/index?id_organisasi='.$data['id']);
         }
+        
+        $this->go('penghapusan/index/detail/'.$id);
     }
 
     public function detail($id = null) {
@@ -93,6 +99,8 @@ class Index extends MY_Controller
         $data['kibc'] = $this->kibc->get_data_hapus($data['hapus']->id);
         $data['kibd'] = $this->kibd->get_data_hapus($data['hapus']->id);
         $data['kibe'] = $this->kibe->get_data_hapus($data['hapus']->id);
+        $data['kibg'] = $this->kibg->get_data_hapus($data['hapus']->id);
+        $data['total_rincian']  = $this->hapus->get_total_rincian($id);
 
         $this->session->unset_userdata('hapus_aset');
         $this->render('modules/penghapusan/rincian', $data);
@@ -112,6 +120,7 @@ class Index extends MY_Controller
             $this->kibc->delete_by(array('id_hapus'=>$id));
             $this->kibd->delete_by(array('id_hapus'=>$id));
             $this->kibe->delete_by(array('id_hapus'=>$id));
+            $this->kibg->delete_by(array('id_hapus'=>$id));
 
             $this->message('Data berhasil dihapus','success');
             $this->go('penghapusan/index?id_organisasi='.$id_organisasi);
@@ -144,6 +153,9 @@ class Index extends MY_Controller
                 break;
             case 'e':
                 $this->go('penghapusan/kibe/add/'.$id_hapus);
+                break;
+            case 'g':
+                $this->go('penghapusan/kibg/add/'.$id_hapus);
                 break;
             default:
                 show_404();

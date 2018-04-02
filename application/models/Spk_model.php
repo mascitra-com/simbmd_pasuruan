@@ -88,10 +88,11 @@ class Spk_model extends MY_Model
         $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_spk = {$id_spk}";
         $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_spk = {$id_spk}";
         $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_spk = {$id_spk}";
+        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_spk = {$id_spk}";
         $qk = "SELECT SUM(nilai + nilai_penunjang) AS nilai FROM aset_kapitalisasi WHERE id_spk = {$id_spk}";
         $qnon = "SELECT SUM(nilai) AS nilai FROM aset_non WHERE id_spk = {$id_spk}";
 
-        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qk} UNION {$qnon}) AS q";
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg} UNION {$qk} UNION {$qnon}) AS q";
         return $this->db->query($query)->result()[0]->nilai;
     }
 }

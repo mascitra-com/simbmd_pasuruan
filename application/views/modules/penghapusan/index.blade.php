@@ -33,8 +33,7 @@
                 <thead>
                 <thead>
                 <tr>
-                    <th class="text-center">ID</th>
-                    <th>No. Jurnal</th>
+                    <th class="text-center">No. Jurnal</th>
                     <th class="text-nowrap">Tanggal Jurnal</th>
                     <th class="text-nowrap">No. SK</th>
                     <th class="text-nowrap">Tanggal SK</th>
@@ -48,8 +47,7 @@
                 @if($hapus)
                     @foreach($hapus as $item)
                         <tr class="small">
-                            <td class="text-center">{{ $item->id }}</td>
-                            <td>{{ zerofy($item->id, 5) }}</td>
+                            <td class="text-center">{{ zerofy($item->id, 5) }}</td>
                             <td class="text-nowrap">{{ datify($item->tgl_jurnal, 'd-m-Y') }}</td>
                             <td class="text-nowrap">{{ $item->no_sk }}</td>
                             <td class="text-nowrap">{{ datify($item->tgl_sk, 'd-m-Y') }}</td>
@@ -70,7 +68,7 @@
                             <td class="text-nowrap">{{ $item->status_pengajuan > 1 ? datify($item->tanggal_verifikasi, 'd-m-Y') : "-" }}</td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ base_url('penghapusan/index/detail/'.$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ base_url('penghapusan/index/detail/'.$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
                                     @if($item->status_pengajuan == '0' || $item->status_pengajuan == '3')
                                         <button data-id="{{ $item->id }}" class="btn btn-danger "><i class="fa fa-trash"></i></button>
                                     @endif

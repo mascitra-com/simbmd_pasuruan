@@ -198,10 +198,6 @@
 						<tr>
 							<th colspan="4">
 								<div class="input-group">
-									<select id="in-pilih" class="form-control">
-										<option value="5" selected="">05. Buku, Barang & Budaya</option>
-										<option value="7">07. Aset Lainnya</option>
-									</select>
 									<input type="text" id="in-cari" class="form-control" placeholder="Ketik nama barang...">
 									<span class="input-group-btn">
 										<button class="btn btn-primary" id="btn-cari"><i class="fa fa-search"></i></button>
@@ -238,7 +234,7 @@
 		$("#btn-cari").on('click', fungsiCari);
 
 		function fungsiCari(e) {
-			var g = $("#in-pilih").val();
+			var g = 5;
 			var q = encodeURI($("#in-cari").val());
 			var no = 1;
 			var html = "";

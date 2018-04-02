@@ -88,25 +88,26 @@ class Kibb extends MY_Controller
     public function update()
     {
         $data = $this->input->post();
+        
+        // if (!$this->kib->form_verify($data)) {
+        //     $this->message('Isi data yang wajib diisi', 'danger');
+        //     $this->go('inventarisasi/kibb/edit/' . $data['id']);
+        // }
+        
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
         $id = $data['id'];
-        $data['nilai'] 	= unmonefy($data['nilai']);
-        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
+        $data['nilai'] = unmonefy($data['nilai']);
+        $data['nilai_sisa'] = unmonefy($data['nilai_sisa']);
         unset($data['id']);
 
-        if (!$this->kib->form_verify($data)) {
-            $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('inventarisasi/kibb/edit/' . $id);
-        }
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $page = $this->session->userdata('inv_page');
-            $this->go('inventarisasi/kibb?id_organisasi='.$data['id_organisasi'].'&page='.$page);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('inventarisasi/kibb/edit/' . $id);
         }
+
+        $this->go('inventarisasi/kibb/edit/' . $id);
     }
 
     public function delete($id = NULL)
@@ -118,7 +119,7 @@ class Kibb extends MY_Controller
 
         $sukses = $this->kib->delete($id);
         if ($sukses) {
-            $this->message("Data berhasil dihapus, <a href='" . site_url('inventarisasi/kibb/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
+            $this->message("Data berhasil dihapus", 'success');
             $this->go('inventarisasi/kibb');
         } else {
             $this->message('Data gagal dihapus', 'danger');

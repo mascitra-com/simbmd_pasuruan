@@ -30,7 +30,7 @@
 				<form action="{{site_url('inventarisasi/kibf')}}" method="GET" class="mr-auto">
 					<div class="input-group">
 						<select name="id_organisasi" class="form-control select-chosen">
-							<option value="">Pilih Organisasi....</option>
+							<option></option>
 							@foreach($organisasi AS $org)
 							<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
 							@endforeach

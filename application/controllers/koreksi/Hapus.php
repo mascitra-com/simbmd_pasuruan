@@ -71,6 +71,9 @@ class Hapus extends MY_Controller {
             case 'e':
             $this->go('koreksi/aset/kibe/koreksi_hapus/'.$id);
             break;
+            case 'g':
+            $this->go('koreksi/aset/kibg/koreksi_hapus/'.$id);
+            break;
 
             default:
             show_404();
@@ -131,6 +134,7 @@ class Hapus extends MY_Controller {
         $this->load->model('aset/Temp_kibc_model', 'kibc');
         $this->load->model('aset/Temp_kibd_model', 'kibd');
         $this->load->model('aset/Temp_kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kibg_model', 'kibg');
 
         if(empty($id))
             show_404();
@@ -143,6 +147,7 @@ class Hapus extends MY_Controller {
             $this->kibc->delete_by(array('id_koreksi'=>$id));
             $this->kibd->delete_by(array('id_koreksi'=>$id));
             $this->kibe->delete_by(array('id_koreksi'=>$id));
+            $this->kibg->delete_by(array('id_koreksi'=>$id));
 
             $this->message('Data berhasil dihapus','success');
         } else {

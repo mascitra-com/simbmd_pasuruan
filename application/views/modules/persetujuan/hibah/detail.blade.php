@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('persetujuan_hibah?id_organisasi='.$hibah->id_organisasi->id)}}">Persetujuan Hibah</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('persetujuan/hibah?id_organisasi='.$hibah->id_organisasi->id)}}">Persetujuan Hibah</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @end
 

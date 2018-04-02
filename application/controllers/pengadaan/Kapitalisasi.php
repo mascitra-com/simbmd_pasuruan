@@ -109,13 +109,6 @@ class Kapitalisasi extends MY_Controller {
 			$this->message('Isi data yang wajib diisi');
 			$this->go('pengadaan/kapitalisasi/add/langkah_3/'.$data['id_spk'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
 		}
-
-		// # Update data pada aset utama
-		// $kib  = ($data['golongan']==='3') ? 'kibc' : 'kibd';
-		// $temp = $this->{$kib}->get($data['id_aset']);
-		// $nilai_tambah = ($this->nol($data['jumlah']) * $this->nol($data['nilai'])) + $this->nol($data['nilai_penunjang']);
-		// $total 		  = $nilai_tambah + $temp->nilai_tambah;
-		// $sukses 	  = $this->{$kib}->update($data['id_aset'], array('nilai_tambah'=>$total));
 		
 		$sukses = $this->kapitalisasi->insert($data);
 		if($sukses) {

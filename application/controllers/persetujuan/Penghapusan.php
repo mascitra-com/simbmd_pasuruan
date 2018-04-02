@@ -44,6 +44,7 @@ class Penghapusan extends MY_Controller {
 		$this->load->model('aset/Temp_kibc_model', 'kibc');
 		$this->load->model('aset/Temp_kibd_model', 'kibd');
 		$this->load->model('aset/Temp_kibe_model', 'kibe');
+		$this->load->model('aset/Temp_kibg_model', 'kibg');
 
 		if (empty($id)) {
 			show_404();
@@ -55,7 +56,9 @@ class Penghapusan extends MY_Controller {
 		$data['kibc'] = $this->kibc->get_data_hapus($id);
 		$data['kibd'] = $this->kibd->get_data_hapus($id);
 		$data['kibe'] = $this->kibe->get_data_hapus($id);
+		$data['kibg'] = $this->kibg->get_data_hapus($id);
 		$data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
+		$data['total_rincian']  = $this->hapus->get_total_rincian($id);
 
 		$this->render('modules/persetujuan/penghapusan/rincian', $data);
 	}
@@ -90,8 +93,9 @@ class Penghapusan extends MY_Controller {
 		$this->load->model("aset/Temp_kibc_model", "kibc");
 		$this->load->model("aset/Temp_kibd_model", "kibd");
 		$this->load->model("aset/Temp_kibe_model", "kibe");
+		$this->load->model("aset/Temp_kibg_model", "kibg");
 
-		$alfabet = array('a', 'b', 'c', 'd', 'e');
+		$alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
 
 		foreach ($alfabet as $item) {
 			$kib = "kib{$item}";

@@ -78,8 +78,9 @@ class Koreksi_hapus extends MY_Controller {
 		$this->load->model("aset/Temp_kibc_model", "kibc");
 		$this->load->model("aset/Temp_kibd_model", "kibd");
 		$this->load->model("aset/Temp_kibe_model", "kibe");
+		$this->load->model("aset/Temp_kibg_model", "kibg");
 		
-		$alfabet = array('a','b','c','d','e');
+		$alfabet = array('a','b','c','d','e','g');
 		foreach ($alfabet as $item) {
 			# Ambil data
 			$temp = $this->{"kib{$item}"}->get_many_by('id_koreksi', $id_koreksi);

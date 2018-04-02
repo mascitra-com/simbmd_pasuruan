@@ -16,6 +16,7 @@ class Index extends MY_Controller {
 		$this->load->model('aset/Temp_kibc_model','kibc');
 		$this->load->model('aset/Temp_kibd_model','kibd');
 		$this->load->model('aset/Temp_kibe_model','kibe');
+		$this->load->model('aset/Temp_kibg_model','kibg');
 		$this->load->model('aset/Kibnon_model','kibnon');
 		$this->load->model('Kapitalisasi_model','kapitalisasi');
 	}
@@ -40,8 +41,8 @@ class Index extends MY_Controller {
 	public function insert()
 	{
 		$data = $this->input->post();
-        $data['nilai'] 	= unmonefy($data['nilai']);
-        $data['addendum_nilai'] 	= unmonefy($data['addendum_nilai']);
+        $data['nilai'] = unmonefy($data['nilai']);
+        $data['addendum_nilai'] = unmonefy($data['addendum_nilai']);
 		if (!$this->spk->form_verify($data)) {
 			$this->message('Isi data yang diperlukan', 'danger');
 			$this->go('pengadaan?id_organisasi='.$data['id_organisasi']);
@@ -93,6 +94,7 @@ class Index extends MY_Controller {
 			$this->kibc->delete_by(array('id_spk'=>$id));
 			$this->kibd->delete_by(array('id_spk'=>$id));
 			$this->kibe->delete_by(array('id_spk'=>$id));
+			$this->kibg->delete_by(array('id_spk'=>$id));
 			$this->kibnon->delete_by(array('id_spk'=>$id));
 			$this->kapitalisasi->delete_by(array('id_spk'=>$id));
 			$this->sp2d->delete_by(array('id_spk'=>$id));
@@ -134,6 +136,7 @@ class Index extends MY_Controller {
 		$data['kibc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id);
 		$data['kibd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id);
 		$data['kibe'] 	= $this->kibe->get_data_pengajuan($data['spk']->id);
+		$data['kibg'] 	= $this->kibg->get_data_pengajuan($data['spk']->id);
 		$data['kibnon'] = $this->kibnon->get_data_pengajuan($data['spk']->id);
 		$data['kdpc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id, TRUE);
 		$data['kdpd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id, TRUE);
@@ -164,6 +167,9 @@ class Index extends MY_Controller {
 			break;
 			case 'e':
 			$this->go('pengadaan/kibe/add/'.$id);
+			break;
+			case 'g':
+			$this->go('pengadaan/kibg/add/'.$id);
 			break;
 			case 'non':
 			$this->go('pengadaan/kibnon/add/'.$id);

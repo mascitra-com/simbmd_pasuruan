@@ -53,7 +53,7 @@
 								<option value="d">D - Jalan, Irigasi dan Jaringan</option>
 								<option value="e">E - Aset Tetap Lainya</option>
 								<option value="f">F - Konstruksi Dalam Pengerjaan</option>
-								<!-- <option value="g">G - Aset Tidak Berwujud</option> -->
+								<option value="g">G - Aset Lainnya</option>
 							</select>
 						</div>
 					</div>

@@ -47,7 +47,7 @@
                         <div class="col-4">No. Serah Terima</div>
                         <div class="col"> : {{$transfer->serah_terima_no}}</div>
                         <div class="w-100"></div>
-                        <div class="col-4">Jumlah Nilai</div>
+                        <div class="col-4">Total Rincian</div>
                         <div class="col"> : Rp {{monefy($total_rincian)}}</div>
                     </div>
                 </div>
@@ -83,6 +83,10 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">
                         KIB-E {{!empty($kibe) ? '<span class="badge badge-primary">'.(count($kibe)).'</span>' : ''}}
+                    </a>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kibg" role="tab">
+                        KIB-G {{!empty($kibg) ? '<span class="badge badge-primary">'.(count($kibg)).'</span>' : ''}}
                     </a>
                     </li>
                 </ul>
@@ -167,7 +171,7 @@
                                 <th class="text-nowrap">No.Mesin</th>
                                 <th class="text-nowrap">No.Polisi</th>
                                 <th class="text-nowrap">No.BPKB</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -243,7 +247,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -317,7 +321,7 @@
                                 <th class="text-nowrap">No.Dokumen</th>
                                 <th class="text-nowrap">Status Tanah</th>
                                 <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -385,7 +389,7 @@
                                 <th class="text-nowrap">Pecipta</th>
                                 <th class="text-nowrap">Bahan</th>
                                 <th class="text-nowrap">Ukuran</th>
-                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
                                 <th class="text-nowrap">Tgl. Pembukuan</th>
                                 <th class="text-nowrap">Asal Usul</th>
                                 <th class="text-nowrap">Kondisi</th>
@@ -439,6 +443,68 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- KIB-G -->
+                <div class="tab-pane" id="kibg" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-nowrap text-center">Aksi</th>
+                                <th class="text-nowrap text-center">Kode Barang</th>
+                                <th class="text-nowrap">Merk</th>
+                                <th class="text-nowrap">Tipe</th>
+                                <th class="text-nowrap">Ukuran</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
+                                <th class="text-nowrap">Tgl. Pembukuan</th>
+                                <th class="text-nowrap">Asal Usul</th>
+                                <th class="text-nowrap">Kondisi</th>
+                                <th class="text-nowrap text-right">Nilai</th>
+                                <th class="text-nowrap text-right">Nilai Sisa</th>
+                                <th class="text-nowrap">Masa Manfaat</th>
+                                <th>Keterangan</th>
+                                <th class="text-nowrap">Ruang</th>
+                                <th class="text-nowrap">Kategori</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(empty($kibg))
+                            <tr><td colspan="16" class="text-center"><b><i>Data kosong</i></b></td></tr>
+                            @endif
+                            
+                            @foreach($kibg AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    @if($transfer->status_pengajuan === '0' OR $transfer->status_pengajuan === '3')
+                                    <a href="{{site_url('transfer/kibg/delete/'.$item->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+                                    @endif
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->merk}}</td>
+                                <td class="text-nowrap">{{$item->tipe}}</td>
+                                <td class="text-nowrap">{{$item->ukuran}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
@@ -464,6 +530,7 @@
                             <li><input type="radio" name="jenis" value="c"> C - Gedung Dan Bangunan</li>
                             <li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
                             <li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
+                            <li><input type="radio" name="jenis" value="g"> G - Aset Lainnya</li>
                         </ul>
                         <hr>
                         <div class="form-group">

@@ -35,7 +35,8 @@ class Rekap_penghapusan_model extends MY_Model {
 		$qc = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_c c JOIN kategori k ON c.id_kategori = k.id JOIN penghapusan p ON c.id_hapus = p.id {$where}";
 		$qd = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_d d JOIN kategori k ON d.id_kategori = k.id JOIN penghapusan p ON d.id_hapus = p.id {$where}";
 		$qe = "SELECT reg_induk, reg_barang, kondisi, judul AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_e e JOIN kategori k ON e.id_kategori = k.id JOIN penghapusan p ON e.id_hapus = p.id {$where}";
-		$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
+		$qg = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_g g JOIN kategori k ON g.id_kategori = k.id JOIN penghapusan p ON g.id_hapus = p.id {$where}";
+		$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg}) AS q";
 		$final->aset = $this->db->query($query)->result();
 
 		return $final;

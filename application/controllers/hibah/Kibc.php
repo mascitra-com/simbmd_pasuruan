@@ -12,7 +12,6 @@ class Kibc extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/Kibc_model', 'kib');
         $this->load->model('aset/Temp_kibc_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
@@ -49,7 +48,7 @@ class Kibc extends MY_Controller
 
         if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibc/add_hibah/' . $data['id_hibah']);
+            $this->go('hibah/kibc/add/' . $data['id_hibah']);
         }
 
         $data_final = array();
@@ -58,18 +57,18 @@ class Kibc extends MY_Controller
 
         for ($i = 0; $i < $kuantitas; $i++) {
             $data_final[$i] = $data;
-            $data_final[$i]['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']) + $i;
-            $data_final[$i]['reg_induk'] = $this->kib->get_reg_induk();
+            $data_final[$i]['reg_barang'] = 0;
+            $data_final[$i]['reg_induk'] = 0;
             $data_final[$i]['id_hibah'] = $data['id_hibah'];
         }
 
         $sukses = $this->kib_temp->batch_insert($data_final);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('hibah/rincian/' . $data['id_hibah']);
+            $this->go('hibah/index/rincian/' . $data['id_hibah']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('aset/kibc/add_hibah/' . $data['id_hibah']);
+            $this->go('hibah/kibc/add/' . $data['id_hibah']);
         }
     }
 
@@ -84,16 +83,16 @@ class Kibc extends MY_Controller
 
         if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibc/edit_hibah/' . $id);
+            $this->go('hibah/kibc/edit/' . $id);
         }
 
         $sukses = $this->kib_temp->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disunting', 'success');
-            $this->go('hibah/rincian/' . $data['id_hibah']);
+            $this->go('hibah/index/rincian/' . $data['id_hibah']);
         } else {
             $this->message('Data gagal disunting', 'danger');
-            $this->go('aset/kibc/edit_hibah/' . $id);
+            $this->go('hibah/kibc/edit/' . $id);
         }
     }
 
@@ -106,10 +105,10 @@ class Kibc extends MY_Controller
         $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('hibah/rincian/' . $id_hibah);
+            $this->go('hibah/index/rincian/' . $id_hibah);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('hibah/rincian/' . $$id_hibah);
+            $this->go('hibah/index/rincian/' . $$id_hibah);
         }
     }
 }
