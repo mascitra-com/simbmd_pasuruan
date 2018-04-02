@@ -35,7 +35,7 @@ class Label extends MY_Controller
 
         if (empty($input['id_ruangan'])) {
             $this->message('Isi data yang perlu diisi', 'danger');
-            $this->go('report/rekap_ruangan');
+            $this->go('report/label');
         }
 
         $data['detail'] = $input;

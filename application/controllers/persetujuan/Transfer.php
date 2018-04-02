@@ -49,6 +49,7 @@ class Transfer extends MY_Controller
 		$this->load->model('aset/Temp_kibc_model', 'kibc');
 		$this->load->model('aset/Temp_kibd_model', 'kibd');
 		$this->load->model('aset/Temp_kibe_model', 'kibe');
+		$this->load->model('aset/Temp_kibg_model', 'kibg');
 
 		if (empty($id)) {
 			show_404();
@@ -60,6 +61,7 @@ class Transfer extends MY_Controller
 		$data['kibc'] = $this->kibc->get_data_transfer($id);
 		$data['kibd'] = $this->kibd->get_data_transfer($id);
 		$data['kibe'] = $this->kibe->get_data_transfer($id);
+		$data['kibg'] = $this->kibg->get_data_transfer($id);
 		$data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
 		$data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -100,8 +102,9 @@ class Transfer extends MY_Controller
 		$this->load->model("aset/Temp_kibc_model", "kibc");
 		$this->load->model("aset/Temp_kibd_model", "kibd");
 		$this->load->model("aset/Temp_kibe_model", "kibe");
+		$this->load->model("aset/Temp_kibg_model", "kibg");
 
-		$alfabet = array('a', 'b', 'c', 'd', 'e');
+		$alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
 		$transfer = $this->transfer->get($id);
 
 		foreach ($alfabet as $item) {

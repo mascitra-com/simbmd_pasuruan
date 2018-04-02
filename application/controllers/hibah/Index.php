@@ -16,6 +16,7 @@ class Index extends MY_Controller
         $this->load->model('aset/Temp_kibc_model', 'kibc');
         $this->load->model('aset/Temp_kibd_model', 'kibd');
         $this->load->model('aset/Temp_kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kibg_model', 'kibg');
         $this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
     }
@@ -27,6 +28,7 @@ class Index extends MY_Controller
         $filter = $this->input->get();
         $result = $this->hibah->get_data($filter);
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+        
         if(isset($filter['page']))
             $this->session->set_userdata('hibah_page', $filter['page']);
         else
@@ -58,7 +60,7 @@ class Index extends MY_Controller
         $data = $this->input->post();
         if (!$this->hibah->form_verify($data)) {
             $this->message('Isi data yang diperlukan', 'danger');
-            $this->go('hibah?id_organisasi=' . $data['id_organisasi']);
+            $this->go('hibah/index?id_organisasi=' . $data['id_organisasi']);
         }
         $sukses = $this->hibah->insert($data);
         if ($sukses) {
@@ -111,7 +113,9 @@ class Index extends MY_Controller
         $data['kibc'] = $this->kibc->get_data_hibah($data['hibah']->id);
         $data['kibd'] = $this->kibd->get_data_hibah($data['hibah']->id);
         $data['kibe'] = $this->kibe->get_data_hibah($data['hibah']->id);
+        $data['kibg'] = $this->kibg->get_data_hibah($data['hibah']->id);
         $data['kpt'] = $this->kapitalisasi->get_data_hibah($data['hibah']->id);
+        $data['total_rincian'] = $this->hibah->get_total_rincian($id);
 
         $this->render('modules/hibah/rincian', $data);
     }
@@ -128,6 +132,8 @@ class Index extends MY_Controller
             $this->kibc->delete_by(array('id_hibah'=>$id));
             $this->kibd->delete_by(array('id_hibah'=>$id));
             $this->kibe->delete_by(array('id_hibah'=>$id));
+            $this->kibg->delete_by(array('id_hibah'=>$id));
+            $this->kapitalisasi->delete_by(array('id_hibah'=>$id));
 
             $this->message('Data berhasil dihapus','success');
             $this->go('hibah/index');
@@ -152,16 +158,19 @@ class Index extends MY_Controller
                 $this->go('hibah/kibb/add/' . $id);
                 break;
             case 'c':
-                $this->go('hibah/kibc/add' . $id);
+                $this->go('hibah/kibc/add/' . $id);
                 break;
             case 'd':
-                $this->go('hibah/kibd/add' . $id);
+                $this->go('hibah/kibd/add/' . $id);
                 break;
             case 'e':
-                $this->go('hibah/kibe/add' . $id);
+                $this->go('hibah/kibe/add/' . $id);
+                break;
+            case 'g':
+                $this->go('hibah/kibg/add/' . $id);
                 break;
             case 'tambah':
-                $this->go('hibah/kapitalisasi/add' . $id);
+                $this->go('hibah/kapitalisasi/add/langkah_1/' . $id);
                 break;
 
             default:

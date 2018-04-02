@@ -28,16 +28,17 @@ class Rekap_hibah_model extends MY_Model {
 		# Ambil aset
 		$kategori = "kd_golongan, kd_bidang, kd_kelompok, kd_subkelompok, kd_subsubkelompok, k.nama";
 		$where    = "WHERE id_hibah= {$id_hibah}";
-		$qa = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_a a JOIN kategori k ON a.id_kategori = k.id {$where}";
-		$qb = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_b b JOIN kategori k ON b.id_kategori = k.id {$where}";
-		$qc = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM aset_c c JOIN kategori k ON c.id_kategori = k.id {$where}";
-		$qd = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM aset_d d JOIN kategori k ON d.id_kategori = k.id {$where}";
-		$qe = "SELECT reg_induk, reg_barang, kondisi, judul AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM aset_e e JOIN kategori k ON e.id_kategori = k.id {$where}";
-		$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
+		$qa = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_a a JOIN kategori k ON a.id_kategori = k.id {$where}";
+		$qb = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_b b JOIN kategori k ON b.id_kategori = k.id {$where}";
+		$qc = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_c c JOIN kategori k ON c.id_kategori = k.id {$where}";
+		$qd = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_d d JOIN kategori k ON d.id_kategori = k.id {$where}";
+		$qe = "SELECT reg_induk, reg_barang, kondisi, judul AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_e e JOIN kategori k ON e.id_kategori = k.id {$where}";
+		$qg = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_g g JOIN kategori k ON g.id_kategori = k.id {$where}";
+		$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg}) AS q";
 		$final->aset = $this->db->query($query)->result();
 
 		#Ambil Kapitalisasi
-		$query = $qe = "SELECT reg_induk, kap.nama AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori}  FROM kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id {$where}";
+		$query = $qe = "SELECT reg_induk, kap.nama AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori} FROM aset_kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id {$where}";
 		$final->kapitalisasi = $this->db->query($query)->result();
 
 		return $final;

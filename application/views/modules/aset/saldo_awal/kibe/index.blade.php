@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('saldo_awal/?id_organisasi='.$filter['id_organisasi'])}}">Aset Saldo Awal</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('saldo_awal/kibe?id_organisasi='.$filter['id_organisasi'])}}">Aset Saldo Awal</a></li>
 <li class="breadcrumb-item active">KIB-E</li>
 @end
 

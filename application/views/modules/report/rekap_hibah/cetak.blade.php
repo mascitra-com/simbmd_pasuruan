@@ -61,7 +61,7 @@
 					@foreach($rekap AS $hibah)
 					<tr>
 						<td colspan="8" class="small">
-							<span class="ml-3">No. Jurnal: {{zerofy($hapus->id, 5) }}</span>
+							<span class="ml-3">No. Jurnal: {{zerofy($hibah->id, 5) }}</span>
 							<span class="ml-3">Tgl. Jurnal: {{datify($hibah->tgl_jurnal)}}</span>
 							<span class="ml-3">No. BAST: {{$hibah->no_serah_terima}}</span>
 							<span class="ml-3">Tgl. BAST: {{datify($hibah->tgl_serah_terima)}}</span>
@@ -73,7 +73,7 @@
 					@foreach($hibah->rincian->aset AS $aset)
 					<tr class="small">
 						<td class="text-center">{{$no++}}</td>
-						<td class="text-center">{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}</td>
+						<td class="text-center">{{$aset->kd_golongan.'.'.$aset->kd_bidang.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}</td>
 						<td class="text-center">{{$aset->reg_induk}}</td>
 						<td>{{$aset->nama}}</td>
 						<td class="text-center">{{$aset->merk}}</td>
@@ -87,7 +87,7 @@
 					</tr>
 					@endforeach
 					<!-- NON ASET -->
-					@foreach($hibah->rincian->non_aset AS $non_aset)
+					<!-- @foreach($hibah->rincian->non_aset AS $non_aset)
 					<tr class="small">
 						<td class="text-center">{{$no++}}</td>
 						<td class="text-center">-</td>
@@ -102,12 +102,12 @@
 							$row++;
 						?>
 					</tr>
-					@endforeach
+					@endforeach -->
 					<!-- KAPITALISASI -->
 					@foreach($hibah->rincian->kapitalisasi AS $kap)
 					<tr class="small">
 						<td class="text-center">{{$no++}}</td>
-						<td class="text-center">{{$aset->kd_bidang.'.'.$aset->kd_golongan.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok}}</td>
+						<td class="text-center">{{$aset->kd_golongan.'.'.$aset->kd_bidang.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok}}</td>
 						<td class="text-center">{{$aset->reg_induk}}</td>
 						<td>{{$kap->judul}}</td>
 						<td class="text-center">{{$kap->merk}}</td>

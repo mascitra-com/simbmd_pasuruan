@@ -95,4 +95,20 @@ class Rekap_kib_model extends MY_Model {
 		$query  = "SELECT * FROM ($queryc UNION {$queryd}) AS q ORDER BY {$order}";
 		return $this->db->query($query)->result();
 	}
+
+	private function get_kibg($id, $kd_pemilik, $urut = '1', $kondisi = NULL)
+	{
+		$select = 'ast.*, kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,nama,
+		SUM(CASE WHEN (kondisi=1) THEN 1 ELSE 0 END) AS kb, SUM(CASE WHEN (kondisi=2) THEN 1 ELSE 0 END) AS kkb, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS krb,
+		COUNT(ast.id) AS jumlah, SUM(nilai) AS nilai_total';
+		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik}";
+        if(!empty($kondisi)){
+            $where .= " AND kondisi =".$kondisi;
+        }
+		$order  = ($urut==='2') ? 'YEAR(tgl_perolehan),' : '';
+		$order .= 'kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,reg_barang';
+		$group  = 'tgl_perolehan,tgl_pembukuan,merk,tipe,ukuran,asal_usul,nilai,masa_manfaat,keterangan,id_kategori';
+		$query  = "SELECT {$select} FROM aset_g ast JOIN kategori k ON ast.id_kategori = k.id WHERE {$where} GROUP BY {$group} ORDER BY {$order}";
+		return $this->db->query($query)->result();
+	}
 }

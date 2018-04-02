@@ -92,20 +92,18 @@ class Kibc extends MY_Controller
         $id = $data['id'];
         unset($data['id']);
 
-        if (!$this->kib->form_verify($data)) {
-            $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('inventarisasi/kibc/edit/' . $id);
-        }
+        // if (!$this->kib->form_verify($data)) {
+        //     $this->message('Isi data yang wajib diisi', 'danger');
+        //     $this->go('inventarisasi/kibc/edit/' . $id);
+        // }
 
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $page = $this->session->userdata('inv_page');
-            $this->go('inventarisasi/kibc?id_organisasi='.$data['id_organisasi'].'&page='.$page);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('inventarisasi/kibc/edit/' . $id);
         }
+            $this->go('inventarisasi/kibc/edit/' . $id);
     }
 
     public function delete($id = NULL)
@@ -117,7 +115,7 @@ class Kibc extends MY_Controller
 
         $sukses = $this->kib->delete($id);
         if ($sukses) {
-            $this->message("Data berhasil dihapus, <a href='" . site_url('inventarisasi/kibc/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
+            $this->message("Data berhasil dihapus", 'success');
             $this->go('inventarisasi/kibc');
         } else {
             $this->message('Data gagal dihapus', 'danger');

@@ -77,6 +77,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kibg" role="tab">
+                            KIB-G {{!empty($kibg) ? '<span class="badge badge-primary">'.(count($kibg)).'</span>' : ''}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibnon" role="tab">
                             Tidak Diakui Aset {{!empty($kibnon) ? '<span class="badge badge-primary">'.(count($kibnon)).'</span>' : ''}}
                         </a>
@@ -398,7 +403,64 @@
                                 <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
                                 <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                                 <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- KIB-G -->
+                <div class="tab-pane" id="kibg" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No.</th>
+                                <th class="text-nowrap text-center">Kode Barang</th>
+                                <th class="text-nowrap">Merk</th>
+                                <th class="text-nowrap">Tipe</th>
+                                <th class="text-nowrap">Ukuran</th>
+                                <th class="text-nowrap">Tgl. Pembuatan</th>
+                                <th class="text-nowrap">Tgl. Pembukuan</th>
+                                <th class="text-nowrap">Asal Usul</th>
+                                <th class="text-nowrap">Kondisi</th>
+                                <th class="text-nowrap text-right">Harga Satuan</th>
+                                <th class="text-nowrap text-right">Nilai Sisa</th>
+                                <th class="text-nowrap">Masa Manfaat</th>
+                                <th class="text-nowrap">Keterangan</th>
+                                <th class="text-nowrap">Ruang</th>
+                                <th class="text-nowrap">Kategori</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(empty($kibg))
+                            <tr><td colspan="15" class="text-center"><b><i>Data kosong</i></b></td></tr>
+                            @endif
+
+                            @foreach($kibg AS $index=>$item)
+                            <tr>
+                                <td class="text-center">{{$index+1}}</td>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->merk}}</td>
+                                <td class="text-nowrap">{{$item->tipe}}</td>
+                                <td class="text-nowrap">{{$item->ukuran}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
                                 <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
                             </tr>
                             @endforeach

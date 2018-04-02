@@ -3,7 +3,7 @@
 class Hibah_model extends MY_Model
 {
 	public $_table = 'hibah';
-	public $required = array('no_jurnal', 'tgl_jurnal', 'asal_penerimaan', 'no_serah_terima', 'tgl_serah_terima', 'id_organisasi');
+	public $required = array('tgl_jurnal', 'asal_penerimaan', 'id_organisasi');
 
     public function __construct()
     {
@@ -75,5 +75,24 @@ class Hibah_model extends MY_Model
         $result['data'] = $this->fill_empty_data($result['data']);
 
         return $result;
+    }
+
+    public function get_total_rincian($id_hibah = NULL)
+    {
+        if (empty($id_hibah)) {
+            return 0;
+        }
+
+        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_hibah = {$id_hibah}";
+        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_hibah = {$id_hibah}";
+        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_hibah = {$id_hibah}";
+        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_hibah = {$id_hibah}";
+        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_hibah = {$id_hibah}";
+        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_hibah = {$id_hibah}";
+        $qk = "SELECT SUM(nilai + nilai_penunjang) AS nilai FROM aset_kapitalisasi WHERE id_hibah = {$id_hibah}";
+        $qnon = "SELECT SUM(nilai) AS nilai FROM aset_non WHERE id_hibah = {$id_hibah}";
+
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg} UNION {$qk} UNION {$qnon}) AS q";
+        return $this->db->query($query)->result()[0]->nilai;
     }
 }

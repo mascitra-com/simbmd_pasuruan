@@ -62,6 +62,7 @@ class Pengadaan extends MY_Controller {
 		$this->load->model('aset/Temp_kibc_model','kibc');
 		$this->load->model('aset/Temp_kibd_model','kibd');
 		$this->load->model('aset/Temp_kibe_model','kibe');
+		$this->load->model('aset/Temp_kibg_model','kibg');
 		$this->load->model('aset/Kibnon_model','kibnon');
 		$this->load->model('Kapitalisasi_model','kapitalisasi');
 
@@ -79,6 +80,7 @@ class Pengadaan extends MY_Controller {
 		$data['kibc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id);
 		$data['kibd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id);
 		$data['kibe'] 	= $this->kibe->get_data_pengajuan($data['spk']->id);
+		$data['kibg'] 	= $this->kibg->get_data_pengajuan($data['spk']->id);
 		$data['kibnon'] = $this->kibnon->get_data_pengajuan($data['spk']->id);
 		$data['kdpc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id, TRUE);
 		$data['kdpd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id, TRUE);
@@ -119,14 +121,16 @@ class Pengadaan extends MY_Controller {
 		$this->load->model('aset/Kibc_model', 'kibc');
 		$this->load->model('aset/Kibd_model', 'kibd');
 		$this->load->model('aset/Kibe_model', 'kibe');
+		$this->load->model('aset/Kibg_model', 'kibg');
 		$this->load->model('aset/Temp_kiba_model', 'kiba_temp');
 		$this->load->model('aset/Temp_kibb_model', 'kibb_temp');
 		$this->load->model('aset/Temp_kibc_model', 'kibc_temp');
 		$this->load->model('aset/Temp_kibd_model', 'kibd_temp');
 		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
 
 		# Pindah dari Temp
-		$alfabet = array('a', 'b', 'c', 'd', 'e');
+		$alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
 
 		foreach ($alfabet as $item) {
 			# Set nama model

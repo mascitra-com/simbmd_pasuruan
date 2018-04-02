@@ -30,11 +30,10 @@
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Detail Transfer Keluar</div>
+			<div class="card-header">Detail Penghapusan</div>
 			<div class="card-body">
-				<form action="{{site_url('penghapusan/index/update')}}"
-                          method="POST">
-                    <input type="hidden" name="id" value="{{isset($hapus)?$hapus->id:''}}">
+				<form action="{{site_url('penghapusan/index/update')}}" method="POST">
+                    <input type="hidden" name="id" value="{{$hapus->id}}">
                     <input type="hidden" name="id_organisasi" value="{{$hapus->id_organisasi->id}}">
 
                     <div class="form-group row">

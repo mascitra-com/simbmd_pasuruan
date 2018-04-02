@@ -17,6 +17,7 @@ class Index extends MY_Controller {
         $this->load->model('aset/Temp_kibc_model', 'kibc');
         $this->load->model('aset/Temp_kibd_model', 'kibd');
         $this->load->model('aset/Temp_kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kibg_model', 'kibg');
     }
 
     public function index() {
@@ -33,7 +34,7 @@ class Index extends MY_Controller {
 
         $result = $this->transfer->get_data($filter);
         $data['transfer'] 	= $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'],$filter,'transfer/keluar?id_organisasi='.$filter['id_organisasi']);
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'],$filter,'transfer/index/keluar?id_organisasi='.$filter['id_organisasi']);
         $data['filter']   	= $filter;
         $this->render('modules/transfer/keluar', $data);
     }
@@ -53,7 +54,7 @@ class Index extends MY_Controller {
 
         $result = $this->transfer->get_data_masuk($filter);
         $data['transfer']   = $result['data'];
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'],$filter,'transfer/masuk?id_organisasi='.$filter['id_tujuan']);
+        $data['pagination'] = $this->pagination->get_pagination($result['data_count'],$filter,'transfer/index/masuk?id_organisasi='.$filter['id_tujuan']);
         $data['filter']     = $filter;
         $this->render('modules/transfer/masuk', $data);
     }
@@ -101,7 +102,8 @@ class Index extends MY_Controller {
         $data['kibb'] 	  = $this->kibb->get_data_transfer($id);
         $data['kibc'] 	  = $this->kibc->get_data_transfer($id);
         $data['kibd'] 	  = $this->kibd->get_data_transfer($id);
-        $data['kibe']	  = $this->kibe->get_data_transfer($id);
+        $data['kibe']     = $this->kibe->get_data_transfer($id);
+        $data['kibg']	  = $this->kibg->get_data_transfer($id);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
         $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -118,6 +120,7 @@ class Index extends MY_Controller {
         $data['kibc']     = $this->kibc->get_data_transfer($id);
         $data['kibd']     = $this->kibd->get_data_transfer($id);
         $data['kibe']     = $this->kibe->get_data_transfer($id);
+        $data['kibg']     = $this->kibg->get_data_transfer($id);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
         $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -133,22 +136,25 @@ class Index extends MY_Controller {
 
         switch ($jenis) {
             case 'a':
-            $this->go('transfer/kiba/add/'.$id);
-            break;
+                $this->go('transfer/kiba/add/'.$id);
+                break;
             case 'b':
-            $this->go('transfer/kibb/add/'.$id);
-            break;
+                $this->go('transfer/kibb/add/'.$id);
+                break;
             case 'c':
-            $this->go('transfer/kibc/add/'.$id);
-            break;
+                $this->go('transfer/kibc/add/'.$id);
+                break;
             case 'd':
-            $this->go('transfer/kibd/add/'.$id);
-            break;
+                $this->go('transfer/kibd/add/'.$id);
+                break;
             case 'e':
-            $this->go('transfer/kibe/add/'.$id);
-            break;
+                $this->go('transfer/kibe/add/'.$id);
+                break;
+            case 'g':
+                $this->go('transfer/kibg/add/'.$id);
+                break;
             default:
-            show_404();
+                show_404();
             break;
         }
     }
@@ -180,7 +186,7 @@ class Index extends MY_Controller {
 
         if (!$this->transfer->form_verify($data)) {
             $this->message('Isi data yang perlu diisi', 'danger');
-            $this->go('transfer/index/add/'.$data['id_organisasi']);
+            $this->go('transfer/index/keluar_detail/'.$data['id']);
         }
 
         $sukses = $this->transfer->update($id, $data);
@@ -206,6 +212,7 @@ class Index extends MY_Controller {
             $this->kibc->delete_by(array('id_transfer'=>$id));
             $this->kibd->delete_by(array('id_transfer'=>$id));
             $this->kibe->delete_by(array('id_transfer'=>$id));
+            $this->kibg->delete_by(array('id_transfer'=>$id));
 
             $this->message('Data berhasil dihapus','success');
             $this->go('transfer/index/keluar?id_organisasi='.$id_organisasi);

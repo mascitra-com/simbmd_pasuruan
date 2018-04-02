@@ -12,7 +12,6 @@ class Kibe extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/Kibe_model', 'kib');
         $this->load->model('aset/Temp_kibe_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
@@ -36,22 +35,23 @@ class Kibe extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data['kib'] = $this->kib->get($id);
+        $data['kib'] = $this->kib_temp->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
         $data['hibah'] = $this->hibah->get($data['kib']->id_hibah);
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['hibah']->id_organisasi);
         $this->render('modules/hibah/form_kibe', $data);
     }
 
-    public function insert_hibah()
+    public function insert()
     {
         $data = $this->input->post();
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
         $data['nilai'] 	= unmonefy($data['nilai']);
         $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
-        if (!$this->kib->form_verify($data)) {
+        if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibe/add_hibah/' . $data['id_hibah']);
+            $this->go('hibah/kibe/add/' . $data['id_hibah']);
         }
 
         $data_final = array();
@@ -60,18 +60,18 @@ class Kibe extends MY_Controller
 
         for ($i = 0; $i < $kuantitas; $i++) {
             $data_final[$i] = $data;
-            $data_final[$i]['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']) + $i;
-            $data_final[$i]['reg_induk'] = $this->kib->get_reg_induk();
+            $data_final[$i]['reg_barang'] = 0;
+            $data_final[$i]['reg_induk'] = 0;
             $data_final[$i]['id_hibah'] = $data['id_hibah'];
         }
 
-        $sukses = $this->kib->batch_insert($data_final);
+        $sukses = $this->kib_temp->batch_insert($data_final);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('hibah/rincian/' . $data['id_hibah']);
+            $this->go('hibah/index/rincian/' . $data['id_hibah']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('aset/kibe/add_hibah/' . $data['id_hibah']);
+            $this->go('hibah/kibe/add/' . $data['id_hibah']);
         }
     }
 
@@ -84,18 +84,18 @@ class Kibe extends MY_Controller
         $id = $data['id'];
         unset($data['id']);
 
-        if (!$this->kib->form_verify($data)) {
+        if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('aset/kibe/edit_hibah/' . $id);
+            $this->go('hibah/kibe/edit/' . $id);
         }
 
-        $sukses = $this->kib->update($id, $data);
+        $sukses = $this->kib_temp->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disunting', 'success');
-            $this->go('hibah/rincian/' . $data['id_hibah']);
+            $this->go('hibah/index/rincian/' . $data['id_hibah']);
         } else {
             $this->message('Data gagal disunting', 'danger');
-            $this->go('aset/kibe/edit_hibah/' . $id);
+            $this->go('hibah/kibe/edit/' . $id);
         }
     }
 
@@ -104,14 +104,14 @@ class Kibe extends MY_Controller
         if (empty($id))
             show_404();
 
-        $id_hibah = $this->kib->get($id)->id_hibah;
-        $sukses = $this->kib->delete($id);
+        $id_hibah = $this->kib_temp->get($id)->id_hibah;
+        $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('hibah/rincian/' . $id_hibah);
+            $this->go('hibah/index/rincian/' . $id_hibah);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('hibah/rincian/' . $id_hibah);
+            $this->go('hibah/index/rincian/' . $id_hibah);
         }
     }
 }

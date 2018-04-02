@@ -39,7 +39,7 @@
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <label>No. Jurnal</label>
-                                        <input type="number" class="form-control form-control-sm" value="{{ zerofy($hibah->id, 5) }}" name="no_jurnal" placeholder="Nomor Jurnal" />
+                                        <input type="number" class="form-control form-control-sm" value="{{ zerofy($hibah->id, 5) }}" name="no_jurnal" placeholder="Nomor Jurnal" disabled />
                                     </div>
                                     <div class="form-group col">
                                         <label>Tgl. Jurnal</label>

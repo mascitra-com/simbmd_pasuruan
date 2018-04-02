@@ -111,21 +111,18 @@ class Kiba extends MY_Controller
         $data['nilai'] = unmonefy($data['nilai']);
         unset($data['id']);
 
-        if (!$this->kib->form_verify($data)) {
-            $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('inventarisasi/kiba/edit/' . $id);
-        }
+        // if (!$this->kib->form_verify($data)) {
+        //     $this->message('Isi data yang wajib diisi', 'danger');
+        //     $this->go('inventarisasi/kiba/edit/' . $id);
+        // }
 
         $sukses = $this->kib->update($id, $data);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $page = $this->session->userdata('inv_b_page');
-            $this->go('inventarisasi/kiba?id_organisasi='.$data['id_organisasi'].'&page='.$page);
-
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('inventarisasi/kiba/edit/' . $id);
         }
+            $this->go('inventarisasi/kiba/edit/' . $id);
     }
 
     public function delete($id = NULL)
@@ -137,7 +134,7 @@ class Kiba extends MY_Controller
 
         $sukses = $this->kib->delete($id);
         if ($sukses) {
-            $this->message("Data berhasil dihapus, <a href='" . site_url('inventarisasi/kiba/undelete/' . $id) . "'><b>Urungkan!</b></a>", 'success');
+            $this->message("Data berhasil dihapus", 'success');
             $this->go('inventarisasi/kiba');
         } else {
             $this->message('Data gagal dihapus', 'danger');

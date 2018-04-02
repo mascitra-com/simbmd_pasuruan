@@ -58,6 +58,7 @@ class Koreksi_model extends MY_Model {
         $this->load->model('aset/Temp_kibc_model', 'kibc');
         $this->load->model('aset/Temp_kibd_model', 'kibd');
         $this->load->model('aset/Temp_kibe_model', 'kibe');
+        $this->load->model('aset/Temp_kibg_model', 'kibg');
 
         if ($koreksi->jenis_koreksi < 4) {
             $data['kiba'] = $this->kiba->select('temp_aset_a.*,original_value,corrected_value')->join('koreksi_detail', 'temp_aset_a.id_koreksi_detail=koreksi_detail.id')->get_many_by('id_koreksi', $id_koreksi);
@@ -65,12 +66,14 @@ class Koreksi_model extends MY_Model {
             $data['kibc'] = $this->kibc->select('temp_aset_c.*,original_value,corrected_value')->join('koreksi_detail', 'temp_aset_c.id_koreksi_detail=koreksi_detail.id')->get_many_by('id_koreksi', $id_koreksi);
             $data['kibd'] = $this->kibd->select('temp_aset_d.*,original_value,corrected_value')->join('koreksi_detail', 'temp_aset_d.id_koreksi_detail=koreksi_detail.id')->get_many_by('id_koreksi', $id_koreksi);
             $data['kibe'] = $this->kibe->select('temp_aset_e.*,original_value,corrected_value')->join('koreksi_detail', 'temp_aset_e.id_koreksi_detail=koreksi_detail.id')->get_many_by('id_koreksi', $id_koreksi);
+            $data['kibg'] = $this->kibg->select('temp_aset_g.*,original_value,corrected_value')->join('koreksi_detail', 'temp_aset_g.id_koreksi_detail=koreksi_detail.id')->get_many_by('id_koreksi', $id_koreksi);
         } else {
             $data['kiba'] = $this->kiba->get_many_by('id_koreksi', $id_koreksi);
             $data['kibb'] = $this->kibb->get_many_by('id_koreksi', $id_koreksi);
             $data['kibc'] = $this->kibc->get_many_by('id_koreksi', $id_koreksi);
             $data['kibd'] = $this->kibd->get_many_by('id_koreksi', $id_koreksi);
             $data['kibe'] = $this->kibe->get_many_by('id_koreksi', $id_koreksi);
+            $data['kibg'] = $this->kibg->get_many_by('id_koreksi', $id_koreksi);
         }
 
         foreach ($data as $key => $value) {

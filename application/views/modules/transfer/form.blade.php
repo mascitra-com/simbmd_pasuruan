@@ -111,8 +111,7 @@
                                 <div class="input-group">
                                     <input type="text" name="penerima_nama" class="form-control" value="{{ $penerima_transfer->nama }}"/>
                                     <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#modal-menerima">Pilih</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-menerima">Pilih</button>
                                     </span>
                                 </div>
                             </div>
@@ -148,8 +147,7 @@
                                 <div class="input-group">
                                     <input type="text" name="penyerah_nama" class="form-control" value="{{ $penyerah_transfer->nama }}"/>
                                     <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#modal-menyerahkan">Pilih</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-menyerahkan">Pilih</button>
                                     </span>
                                 </div>
                             </div>
@@ -185,8 +183,7 @@
                                 <div class="input-group">
                                     <input type="text" name="atasan_nama" class="form-control" value="{{ $atasan_transfer->nama }}"/>
                                     <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#modal-atasan">Pilih</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-atasan">Pilih</button>
                                     </span>
                                 </div>
                             </div>
@@ -225,127 +222,127 @@
     @end
 
 @section('modal')
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-menerima">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Pegawai</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 table-responsive col-scroll">
-                            <table class="table table-bordered table-sm" id="tbl-menerima">
-                                <thead>
-                                <tr>
-                                    <th>NIP</th>
-                                    <th>Nama</th>
-                                    <th>Jabatan</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th colspan="4">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cari Pegawai..."
-                                                   id="ip-search-menerima">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-primary" id="tb-search-menerima"><i
-                                                            class="fa fa-search"></i></button>
-                                            </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-menerima">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pegawai</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 table-responsive col-scroll">
+                        <table class="table table-bordered table-sm" id="tbl-menerima">
+                            <thead>
+                            <tr>
+                                <th>NIP</th>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Cari Pegawai..."
+                                               id="ip-search-menerima">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary" id="tb-search-menerima"><i
+                                                        class="fa fa-search"></i></button>
                                         </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-menyerahkan">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Pegawai</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 table-responsive col-scroll">
-                            <table class="table table-bordered table-sm" id="tbl-menyerahkan">
-                                <thead>
-                                <tr>
-                                    <th>NIP</th>
-                                    <th>Nama</th>
-                                    <th>Jabatan</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th colspan="4">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cari Pegawai..."
-                                                   id="ip-search-menyerahkan">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-primary" id="tb-search-menyerahkan"><i
-                                                            class="fa fa-search"></i></button>
-                                            </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-menyerahkan">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pegawai</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 table-responsive col-scroll">
+                        <table class="table table-bordered table-sm" id="tbl-menyerahkan">
+                            <thead>
+                            <tr>
+                                <th>NIP</th>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Cari Pegawai..."
+                                               id="ip-search-menyerahkan">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary" id="tb-search-menyerahkan"><i
+                                                        class="fa fa-search"></i></button>
                                         </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="modal-atasan">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Pegawai</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12 table-responsive col-scroll">
-                            <table class="table table-bordered table-sm" id="tbl-atasan">
-                                <thead>
-                                <tr>
-                                    <th>NIP</th>
-                                    <th>Nama</th>
-                                    <th>Jabatan</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th colspan="4">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cari Pegawai..."
-                                                   id="ip-search-atasan">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-primary" id="tb-search-atasan"><i
-                                                            class="fa fa-search"></i></button>
-                                            </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-atasan">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pegawai</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 table-responsive col-scroll">
+                        <table class="table table-bordered table-sm" id="tbl-atasan">
+                            <thead>
+                            <tr>
+                                <th>NIP</th>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Cari Pegawai..."
+                                               id="ip-search-atasan">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary" id="tb-search-atasan"><i
+                                                        class="fa fa-search"></i></button>
                                         </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @end
+</div>
+@end
 @section('script')
     <script type="text/javascript">
         var form = (function () {

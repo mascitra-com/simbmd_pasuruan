@@ -3,7 +3,7 @@
 class Kibe_model extends MY_Model
 {
 	public $_table = 'aset_e';
-	public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan','kondisi','kategori');
+	public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan','kondisi');
 
     public function __construct()
     {
