@@ -21,7 +21,7 @@ class Label_model extends MY_Model
         $where2  = "ast.is_deleted = 0 AND id_ruangan = {$id_ruangan}";
         $qA  = "SELECT {$select} FROM saldo_aset_b sast JOIN kategori k ON sast.id_kategori = k.id JOIN organisasi o ON sast.id_organisasi = o.id WHERE {$where}";
         $qB  = "SELECT {$select2} FROM aset_b ast JOIN kategori k ON ast.id_kategori = k.id JOIN organisasi o ON ast.id_organisasi = o.id WHERE {$where2}";
-        $query = "SELECT * FROM ({$qA} UNION {$qB}) as q";
+        $query = "SELECT * FROM ({$qA} UNION ALL {$qB}) as q";
         return $this->db->query($query)->result();
     }
 }

@@ -13,7 +13,7 @@ class Kibd extends MY_Controller
         $this->load->library('pagination');
     }
 
-    public function add($id_transfer = NULL)
+    public function add($id_transfer = NULL, $is_kdp = FALSE)
     {
         if (empty($id_transfer))
             show_404();
@@ -25,7 +25,7 @@ class Kibd extends MY_Controller
         # FILTER
         $filter = $this->input->get();
         $filter['id_organisasi'] = $data['transfer']->id_organisasi;
-        $filter['is_kdp']        = FALSE;
+        $filter['is_kdp']        = $is_kdp;
 
         $result = $this->kib->where_not_in('aset_d.id', !empty($where_not_in)?$where_not_in:'')->get_data($filter);
 

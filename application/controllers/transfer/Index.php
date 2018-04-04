@@ -103,7 +103,9 @@ class Index extends MY_Controller {
         $data['kibc'] 	  = $this->kibc->get_data_transfer($id);
         $data['kibd'] 	  = $this->kibd->get_data_transfer($id);
         $data['kibe']     = $this->kibe->get_data_transfer($id);
-        $data['kibg']	  = $this->kibg->get_data_transfer($id);
+        $data['kibg']     = $this->kibg->get_data_transfer($id);
+        $data['kdpc']     = $this->kibc->get_data_transfer($id, TRUE);
+        $data['kdpd']	  = $this->kibd->get_data_transfer($id, TRUE);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
         $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -121,6 +123,8 @@ class Index extends MY_Controller {
         $data['kibd']     = $this->kibd->get_data_transfer($id);
         $data['kibe']     = $this->kibe->get_data_transfer($id);
         $data['kibg']     = $this->kibg->get_data_transfer($id);
+        $data['kdpc']     = $this->kibc->get_data_transfer($id, TRUE);
+        $data['kdpd']     = $this->kibd->get_data_transfer($id, TRUE);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
         $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -152,6 +156,12 @@ class Index extends MY_Controller {
                 break;
             case 'g':
                 $this->go('transfer/kibg/add/'.$id);
+                break;
+            case 'kdpc':
+                $this->go('transfer/kibc/add/'.$id.'/TRUE');
+                break;
+            case 'kdpd':
+                $this->go('transfer/kibd/add/'.$id.'/TRUE');
                 break;
             default:
                 show_404();

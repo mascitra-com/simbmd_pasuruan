@@ -127,7 +127,7 @@ class Transfer_model extends MY_Model
         $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_transfer = {$id_transfer}";
         $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_transfer = {$id_transfer}";
 
-        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg}) AS q";
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg}) AS q";
         return $this->db->query($query)->result()[0]->nilai;
     }
 }

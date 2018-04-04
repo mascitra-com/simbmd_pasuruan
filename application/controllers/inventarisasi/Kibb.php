@@ -126,4 +126,14 @@ class Kibb extends MY_Controller
             $this->go('inventarisasi/kibb');
         }
     }
+
+    public function get_rincian_widget($id_organisasi = NULL)
+    {
+        $result = $this->kib->get_rincian_widget($id_organisasi);
+        $result->total = monefy($result->total, FALSE);
+        $result->nilai = monefy($result->nilai);
+        $result->total_rusak = monefy($result->total_rusak, FALSE);
+        $result->nilai_rusak = monefy($result->nilai_rusak);
+        echo json_encode($result);
+    }
 }

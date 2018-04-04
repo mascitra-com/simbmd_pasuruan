@@ -99,57 +99,47 @@
                                 aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{site_url('aset/kiba/add_penghapusan/'.$hapus->id)}}" method="GET">
-                        <input type="hidden" name="id_organisasi"
-                               value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
+                    <form action="{{site_url('penghapusan/kiba/add/'.$hapus->id)}}" method="GET">
+                        <input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Reg Barang</label>
-                                    <input type="text" class="form-control" name="reg_barang"
-                                           value="{{isset($filter['reg_barang'])?$filter['reg_barang']:''}}"/>
+                                    <input type="text" class="form-control" name="reg_barang" value="{{isset($filter['reg_barang'])?$filter['reg_barang']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Tgl. Sertifikat</label>
-                                    <input type="text" class="form-control" name="sertifikat_tgl"
-                                           value="{{isset($filter['sertifikat_tgl'])?$filter['sertifikat_tgl']:''}}"/>
+                                    <input type="text" class="form-control" name="sertifikat_tgl" value="{{isset($filter['sertifikat_tgl'])?$filter['sertifikat_tgl']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Pengguna</label>
-                                    <input type="text" class="form-control" name="pengguna"
-                                           value="{{isset($filter['pengguna'])?$filter['pengguna']:''}}"/>
+                                    <input type="text" class="form-control" name="pengguna" value="{{isset($filter['pengguna'])?$filter['pengguna']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Tahun</label>
-                                    <input type="date" class="form-control" name="tahun"
-                                           value="{{isset($filter['tahun'])?$filter['tahun']:''}}"/>
+                                    <input type="date" class="form-control" name="tahun" value="{{isset($filter['tahun'])?$filter['tahun']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Keterangan</label>
-                                    <input type="text" class="form-control" name="keterangan"
-                                           value="{{isset($filter['keterangan'])?$filter['keterangan']:''}}"/>
+                                    <input type="text" class="form-control" name="keterangan" value="{{isset($filter['keterangan'])?$filter['keterangan']:''}}"/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <input type="text" class="form-control" name="alamat"
-                                           value="{{isset($filter['alamat'])?$filter['alamat']:''}}"/>
+                                    <input type="text" class="form-control" name="alamat" value="{{isset($filter['alamat'])?$filter['alamat']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Hak</label>
-                                    <input type="text" class="form-control" name="hak"
-                                           value="{{isset($filter['hak'])?$filter['hak']:''}}"/>
+                                    <input type="text" class="form-control" name="hak" value="{{isset($filter['hak'])?$filter['hak']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Tgl. Pembukuan</label>
-                                    <input type="text" class="form-control" name="tgl_pembukuan"
-                                           value="{{isset($filter['tgl_pembukuan'])?$filter['tgl_pembukuan']:''}}"/>
+                                    <input type="text" class="form-control" name="tgl_pembukuan" value="{{isset($filter['tgl_pembukuan'])?$filter['tgl_pembukuan']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Nilai</label>
-                                    <input type="text" class="form-control" name="nilai"
-                                           value="{{isset($filter['nilai'])?$filter['nilai']:''}}"/>
+                                    <input type="text" class="form-control" name="nilai" value="{{isset($filter['nilai'])?$filter['nilai']:''}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Urutkan Berdasar</label>

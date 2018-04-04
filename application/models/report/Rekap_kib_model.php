@@ -92,7 +92,7 @@ class Rekap_kib_model extends MY_Model {
 		$order .= 'kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,reg_barang';
 		$queryc = "SELECT {$select},tingkat,beton,luas_lantai AS luas,CONCAT(null) AS panjang,CONCAT(null) AS lebar FROM aset_c ast JOIN kategori k ON ast.id_kategori = k.id WHERE {$where}";
 		$queryd = "SELECT {$select},panjang,lebar,luas,CONCAT(null) AS tingkat,CONCAT(null) AS beton FROM aset_d ast JOIN kategori k ON ast.id_kategori = k.id WHERE {$where}";
-		$query  = "SELECT * FROM ($queryc UNION {$queryd}) AS q ORDER BY {$order}";
+		$query  = "SELECT * FROM ($queryc UNION ALL {$queryd}) AS q ORDER BY {$order}";
 		return $this->db->query($query)->result();
 	}
 

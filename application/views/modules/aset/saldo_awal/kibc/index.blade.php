@@ -7,6 +7,45 @@
 <li class="breadcrumb-item active">KIB-C</li>
 @end
 
+@section('widget')
+@if(!empty($filter['id_organisasi']))
+<div class="row mb-4">
+	<div class="col">
+		<div class="card text-white bg-info" id="wg-nilai">
+			<div class="card-body">
+				<div class="card-title mb-0">TOTAL NILAI ASET KESELURUHAN</div>
+				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card text-white bg-dark" id="wg-total">
+			<div class="card-body">
+				<div class="card-title mb-0">JUMLAH ASET KESELURUHAN</div>
+				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card bg-warning" id="wg-nilai-rusak">
+			<div class="card-body">
+				<div class="card-title mb-0">TOTAL NILAI ASET RUSAK</div>
+				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card text-white bg-danger" id="wg-total-rusak">
+			<div class="card-body">
+				<div class="card-title mb-0">JUMLAH ASET RUSAK</div>
+				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+@end
+
 @section('content')
 <div class="row">
 	<div class="col">
@@ -15,7 +54,7 @@
 				<form action="{{site_url('saldo_awal/kibc')}}" method="GET" class="mr-auto">
 					<div class="input-group">
 						<select name="id_organisasi" class="form-control select-chosen">
-							<option value="">Pilih Organisasi....</option>
+							<option value=""></option>
 							@foreach($organisasi AS $org)
 							<option value="{{$org->id}}" {{isset($filter['id_organisasi']) && $org->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$org->nama}}</option>
 							@endforeach
@@ -208,6 +247,13 @@
 <script type="text/javascript">
 	var kib = (function(){
 		theme.activeMenu('.nav-saldo-awal');
+		// GET RINCIAN
+		$.getJSON("{{site_url('saldo_awal/kibc/get_rincian_widget/'.$filter['id_organisasi'])}}", function(result){
+			$("#wg-total .card-text").empty().html(result.total);
+			$("#wg-nilai .card-text").empty().html("Rp "+result.nilai);
+			$("#wg-total-rusak .card-text").empty().html(result.total_rusak);
+			$("#wg-nilai-rusak .card-text").empty().html("Rp "+result.nilai_rusak);
+		});
 	})();
 </script>
 @end

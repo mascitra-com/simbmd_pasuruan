@@ -84,6 +84,16 @@
                             KIB-G {{!empty($kibg) ? '<span class="badge badge-primary">'.(count($kibg)).'</span>' : ''}}
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kdpc" role="tab">
+                            KDP-C {{!empty($kdpc) ? '<span class="badge badge-primary">'.(count($kdpc)).'</span>' : ''}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#kdpd" role="tab">
+                            KDP-D {{!empty($kdpd) ? '<span class="badge badge-primary">'.(count($kdpd)).'</span>' : ''}}
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="card-body tab-content table-scroll px-0 py-0">
@@ -459,6 +469,140 @@
                                 <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
                             </tr>
                             @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- KDP-C -->
+                <div class="tab-pane" id="kdpc" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-nowrap text-center">Kode Barang</th>
+                                <th class="text-nowrap">Tingkat</th>
+                                <th class="text-nowrap">Beton</th>
+                                <th class="text-nowrap">Luas Lantai</th>
+                                <th class="text-nowrap">Lokasi</th>
+                                <th class="text-nowrap">Tgl.Dokumen</th>
+                                <th class="text-nowrap">No.Dokumen</th>
+                                <th class="text-nowrap">Status Tanah</th>
+                                <th class="text-nowrap">Kode Tanah</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
+                                <th class="text-nowrap">Tgl. Pembukuan</th>
+                                <th class="text-nowrap">Asal Usul</th>
+                                <th class="text-nowrap">Kondisi</th>
+                                <th class="text-nowrap text-right">Nilai</th>
+                                <th class="text-nowrap text-right">Nilai Sisa</th>
+                                <th class="text-nowrap">Masa Manfaat</th>
+                                <th>Keterangan</th>
+                                <th class="text-nowrap">Kategori</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(empty($kdpc))
+                            <tr>
+                                <td colspan="19" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
+                            @endif
+                            @if($kdpc)
+                            @foreach($kdpc AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
+                                <td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
+                                <td class="text-nowrap">{{$item->luas_lantai}}</td>
+                                <td class="text-nowrap">{{$item->lokasi}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
+                                <td class="text-nowrap">{{$item->status_tanah}}</td>
+                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- KDP-D -->
+                <div class="tab-pane" id="kdpd" role="tabpanel">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-nowrap text-center">Kode Barang</th>
+                                <th class="text-nowrap text-right">Nilai</th>
+                                <th class="text-nowrap">Kontruksi</th>
+                                <th class="text-nowrap">Panjang</th>
+                                <th class="text-nowrap">Lebar</th>
+                                <th class="text-nowrap">Luas</th>
+                                <th class="text-nowrap">Lokasi</th>
+                                <th class="text-nowrap">Tgl.Dokumen</th>
+                                <th class="text-nowrap">No.Dokumen</th>
+                                <th class="text-nowrap">Status Tanah</th>
+                                <th class="text-nowrap">Kode Tanah</th>
+                                <th class="text-nowrap">Tgl. Perolehan</th>
+                                <th class="text-nowrap">Tgl. Pembukuan</th>
+                                <th class="text-nowrap">Asal Usul</th>
+                                <th class="text-nowrap">Kondisi</th>
+                                <th class="text-nowrap text-right">Nilai Sisa</th>
+                                <th class="text-nowrap">Masa Manfaat</th>
+                                <th>Keterangan</th>
+                                <th class="text-nowrap">Kategori</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(empty($kdpd))
+                            <tr>
+                                <td colspan="20" class="text-center"><b><i>Data kosong</i></b></td>
+                            </tr>
+                            @endif
+                            @if($kdpd)
+                            @foreach($kdpd AS $item)
+                            <tr>
+                                <td class="text-nowrap text-center">
+                                    {{zerofy($item->id_kategori->kd_golongan)}} .
+                                    {{zerofy($item->id_kategori->kd_bidang)}} .
+                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
+                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
+                                    {{zerofy($item->reg_barang,4)}}
+                                </td>
+                                <td class="text-nowrap">{{$item->kontruksi}}</td>
+                                <td class="text-nowrap">{{$item->panjang}}</td>
+                                <td class="text-nowrap">{{$item->lebar}}</td>
+                                <td class="text-nowrap">{{$item->luas}}</td>
+                                <td class="text-nowrap">{{$item->lokasi}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
+                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
+                                <td class="text-nowrap">{{$item->status_tanah}}</td>
+                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
+                                <td class="text-nowrap">{{$item->asal_usul}}</td>
+                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
+                                <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
+                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
+                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
+                                <td class="text-nowrap">{{$item->keterangan}}</td>
+                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
+                            </tr>
+                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

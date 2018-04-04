@@ -243,8 +243,17 @@ class MY_Model extends MY_Base_model {
         return $result;
     }
 
-    public function get_data_transfer($id_transfer = NULL)
+    public function get_data_transfer($id_transfer = NULL, $is_kdp = FALSE)
     {
+        $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
+        $this->select("{$this->_table}.*");
+        
+        if ($is_kdp) {
+            $this->where('kd_golongan', '6');
+        } else {
+            $this->where('kd_golongan<>', '6');
+        }
+        
         $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_transfer'=>$id_transfer));
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);

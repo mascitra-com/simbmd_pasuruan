@@ -47,7 +47,7 @@ class Rekap_transfer_model extends MY_Model {
 				$qd = "SELECT {$select},nama,reg_barang,reg_induk,(nilai+nilai_tambah) AS nilai,CONCAT('-') AS keterangan FROM temp_aset_d ast JOIN {$join} WHERE id_transfer = {$item->id}";
 				$qe = "SELECT {$select},CONCAT(nama,' ',judul) AS nama,reg_barang,reg_induk,nilai,CONCAT(ukuran) AS keterangan FROM temp_aset_e ast JOIN {$join} WHERE id_transfer = {$item->id}";
 				$qg = "SELECT {$select},CONCAT(merk,' ',tipe) AS nama,reg_barang,reg_induk,nilai,CONCAT(ukuran) AS keterangan FROM temp_aset_g ast JOIN {$join} WHERE id_transfer = {$item->id}";
-				$query = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg}) AS q";
+				$query = "SELECT * FROM ({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg}) AS q";
 
 				$item->rincian = $this->db->query($query)->result();
 			}

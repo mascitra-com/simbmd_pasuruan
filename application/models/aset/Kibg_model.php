@@ -45,4 +45,11 @@ class Kibg_model extends MY_Model
         $result['data'] = $this->fill_empty_data($result['data']);
 		return $result;
     }
+
+    public function get_rincian_widget($id_organisasi)
+    {
+        $query = "SELECT COUNT(id) AS total, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS total_rusak, SUM(nilai) AS nilai, SUM(CASE WHEN(kondisi=3) THEN nilai ELSE 0 END) AS nilai_rusak
+        FROM {$this->_table} WHERE id_organisasi = {$id_organisasi}";
+        return $this->db->query($query)->result()[0];
+    }
 }

@@ -68,7 +68,6 @@ var update = [
 			{"type": "perbaikan","description" : "Tidak bisa melakukan persetujuan"},
 			{"type": "perbaikan","description" : "Beberapa bug"}
 		]
-	}
 	},
 	{
 		"version": "1.1.8",
@@ -86,11 +85,18 @@ var update = [
 			{"type": "perbaikan","description" : "Kondisi pada laporan KIB yang tidak berfungsi"},
 		]
 	},
-		{
+	{
 		"version": "1.1.20",
 		"date": "20-03-2018",
 		"detail" : [
 			{"type": "perbaikan","description" : "Perbaikan beberapa bug"},
+		]
+	},
+	{
+		"version": "1.2.0",
+		"date": "02-04-2018",
+		"detail" : [
+			{"type": "fitu","description" : "Pembatalan pengadaan yang telah disetujui"},
 		]
 	},
 ]

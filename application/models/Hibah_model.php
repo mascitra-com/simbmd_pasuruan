@@ -92,7 +92,7 @@ class Hibah_model extends MY_Model
         $qk = "SELECT SUM(nilai + nilai_penunjang) AS nilai FROM aset_kapitalisasi WHERE id_hibah = {$id_hibah}";
         $qnon = "SELECT SUM(nilai) AS nilai FROM aset_non WHERE id_hibah = {$id_hibah}";
 
-        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qg} UNION {$qk} UNION {$qnon}) AS q";
+        $query = "SELECT SUM(nilai) AS nilai FROM({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg} UNION ALL {$qk} UNION ALL {$qnon}) AS q";
         return $this->db->query($query)->result()[0]->nilai;
     }
 }

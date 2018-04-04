@@ -75,17 +75,13 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-right">Alasan</label>
                         <div class="col-md-4">
-                            <select name="alasan" id="alasan" class="form-control form-control-sm">
-                                <option value="Dijual">Dijual</option>
-                                <option value="Dimusnahkan">Dimusnahkan</option>
-                                <option value="Dihibahkan">Dihibahkan</option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" name="alasan" value="{{$hapus->alasan}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-right"></label>
                         <div class="col-md-4">
-                            <a href="{{site_url('persetujuan_transfer')}}" class="btn btn-warning">Kembali</a>
+                            <a href="{{site_url('persetujuan/transfer')}}" class="btn btn-warning">Kembali</a>
                         </div>
                     </div>
                 </form>

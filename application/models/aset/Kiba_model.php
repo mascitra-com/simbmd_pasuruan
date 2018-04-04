@@ -46,4 +46,12 @@ class Kiba_model extends MY_Model
 
 		return $result;
     }
+
+    public function get_rincian_widget($id_organisasi)
+    {
+        $query = "SELECT COUNT(a.id) AS total, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS total_rusak, SUM(nilai) AS nilai, SUM(CASE WHEN(kondisi=3) THEN nilai ELSE 0 END) AS nilai_rusak
+        FROM {$this->_table} a JOIN kategori k ON a.id_kategori = k.id 
+        WHERE id_organisasi = {$id_organisasi} AND kd_golongan <> 6";
+        return $this->db->query($query)->result()[0];
+    }
 }
