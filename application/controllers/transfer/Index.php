@@ -12,12 +12,18 @@ class Index extends MY_Controller {
         parent::__construct();
         $this->load->model('Transfer_model', 'transfer');
         $this->load->model('Organisasi_model', 'organisasi');
-        $this->load->model('aset/Temp_kiba_model', 'kiba');
-        $this->load->model('aset/Temp_kibb_model', 'kibb');
-        $this->load->model('aset/Temp_kibc_model', 'kibc');
-        $this->load->model('aset/Temp_kibd_model', 'kibd');
-        $this->load->model('aset/Temp_kibe_model', 'kibe');
-        $this->load->model('aset/Temp_kibg_model', 'kibg');
+        $this->load->model('aset/Kiba_model', 'kiba');
+        $this->load->model('aset/Kibb_model', 'kibb');
+        $this->load->model('aset/Kibc_model', 'kibc');
+        $this->load->model('aset/Kibd_model', 'kibd');
+        $this->load->model('aset/Kibe_model', 'kibe');
+        $this->load->model('aset/Kibg_model', 'kibg');
+        $this->load->model('aset/Temp_kiba_model', 'kiba_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kibb_temp');
+        $this->load->model('aset/Temp_kibc_model', 'kibc_temp');
+        $this->load->model('aset/Temp_kibd_model', 'kibd_temp');
+        $this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+        $this->load->model('aset/Temp_kibg_model', 'kibg_temp');
     }
 
     public function index() {
@@ -98,14 +104,14 @@ class Index extends MY_Controller {
             show_404();
 
         # RINCIAN
-        $data['kiba'] 	  = $this->kiba->get_data_transfer($id);
-        $data['kibb'] 	  = $this->kibb->get_data_transfer($id);
-        $data['kibc'] 	  = $this->kibc->get_data_transfer($id);
-        $data['kibd'] 	  = $this->kibd->get_data_transfer($id);
-        $data['kibe']     = $this->kibe->get_data_transfer($id);
-        $data['kibg']     = $this->kibg->get_data_transfer($id);
-        $data['kdpc']     = $this->kibc->get_data_transfer($id, TRUE);
-        $data['kdpd']	  = $this->kibd->get_data_transfer($id, TRUE);
+        $data['kiba'] 	  = $this->kiba_temp->get_data_transfer($id);
+        $data['kibb'] 	  = $this->kibb_temp->get_data_transfer($id);
+        $data['kibc'] 	  = $this->kibc_temp->get_data_transfer($id);
+        $data['kibd'] 	  = $this->kibd_temp->get_data_transfer($id);
+        $data['kibe']     = $this->kibe_temp->get_data_transfer($id);
+        $data['kibg']     = $this->kibg_temp->get_data_transfer($id);
+        $data['kdpc']     = $this->kibc_temp->get_data_transfer($id, TRUE);
+        $data['kdpd']	  = $this->kibd_temp->get_data_transfer($id, TRUE);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
         $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -117,14 +123,14 @@ class Index extends MY_Controller {
             show_404();
 
         # RINCIAN
-        $data['kiba']     = $this->kiba->get_data_transfer($id);
-        $data['kibb']     = $this->kibb->get_data_transfer($id);
-        $data['kibc']     = $this->kibc->get_data_transfer($id);
-        $data['kibd']     = $this->kibd->get_data_transfer($id);
-        $data['kibe']     = $this->kibe->get_data_transfer($id);
-        $data['kibg']     = $this->kibg->get_data_transfer($id);
-        $data['kdpc']     = $this->kibc->get_data_transfer($id, TRUE);
-        $data['kdpd']     = $this->kibd->get_data_transfer($id, TRUE);
+        $data['kiba']     = $this->kiba_temp->get_data_transfer($id);
+        $data['kibb']     = $this->kibb_temp->get_data_transfer($id);
+        $data['kibc']     = $this->kibc_temp->get_data_transfer($id);
+        $data['kibd']     = $this->kibd_temp->get_data_transfer($id);
+        $data['kibe']     = $this->kibe_temp->get_data_transfer($id);
+        $data['kibg']     = $this->kibg_temp->get_data_transfer($id);
+        $data['kdpc']     = $this->kibc_temp->get_data_transfer($id, TRUE);
+        $data['kdpd']     = $this->kibd_temp->get_data_transfer($id, TRUE);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
         $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
@@ -140,31 +146,31 @@ class Index extends MY_Controller {
 
         switch ($jenis) {
             case 'a':
-                $this->go('transfer/kiba/add/'.$id);
-                break;
+            $this->go('transfer/kiba/add/'.$id);
+            break;
             case 'b':
-                $this->go('transfer/kibb/add/'.$id);
-                break;
+            $this->go('transfer/kibb/add/'.$id);
+            break;
             case 'c':
-                $this->go('transfer/kibc/add/'.$id);
-                break;
+            $this->go('transfer/kibc/add/'.$id);
+            break;
             case 'd':
-                $this->go('transfer/kibd/add/'.$id);
-                break;
+            $this->go('transfer/kibd/add/'.$id);
+            break;
             case 'e':
-                $this->go('transfer/kibe/add/'.$id);
-                break;
+            $this->go('transfer/kibe/add/'.$id);
+            break;
             case 'g':
-                $this->go('transfer/kibg/add/'.$id);
-                break;
+            $this->go('transfer/kibg/add/'.$id);
+            break;
             case 'kdpc':
-                $this->go('transfer/kibc/add/'.$id.'/TRUE');
-                break;
+            $this->go('transfer/kibc/add/'.$id.'/TRUE');
+            break;
             case 'kdpd':
-                $this->go('transfer/kibd/add/'.$id.'/TRUE');
-                break;
+            $this->go('transfer/kibd/add/'.$id.'/TRUE');
+            break;
             default:
-                show_404();
+            show_404();
             break;
         }
     }
@@ -217,17 +223,17 @@ class Index extends MY_Controller {
         $id_organisasi = $this->transfer->get($id)->id_organisasi;
         $sukses        = $this->transfer->delete($id);
         if($sukses) {
-            $this->kiba->delete_by(array('id_transfer'=>$id));
-            $this->kibb->delete_by(array('id_transfer'=>$id));
-            $this->kibc->delete_by(array('id_transfer'=>$id));
-            $this->kibd->delete_by(array('id_transfer'=>$id));
-            $this->kibe->delete_by(array('id_transfer'=>$id));
-            $this->kibg->delete_by(array('id_transfer'=>$id));
+            $this->kiba_temp->delete_by(array('id_transfer'=>$id));
+            $this->kibb_temp->delete_by(array('id_transfer'=>$id));
+            $this->kibc_temp->delete_by(array('id_transfer'=>$id));
+            $this->kibd_temp->delete_by(array('id_transfer'=>$id));
+            $this->kibe_temp->delete_by(array('id_transfer'=>$id));
+            $this->kibg_temp->delete_by(array('id_transfer'=>$id));
 
-            $this->message('Data berhasil dihapus','success');
+            $this->message('Data berhasil ditransfer','success');
             $this->go('transfer/index/keluar?id_organisasi='.$id_organisasi);
         } else {
-            $this->message('Data gagal dihapus','danger');
+            $this->message('Data gagal ditransfer','danger');
             $this->go('transfer/index/keluar?id_organisasi='.$id_organisasi);
         }
 
@@ -262,6 +268,94 @@ class Index extends MY_Controller {
         } else {
             $this->message('Terjadi kesalahan', 'danger');
             $this->go('transfer/index/keluar_detail/'.$id);
+        }
+    }
+
+    public function abort_transaction($id_transfer = NULL)
+    {
+        # JIKA KOSONG
+        if (empty($id_transfer)) {
+            $this->message('Pilih data transfer yang akan dibatalkan', 'danger');
+            $this->go('transfer/index/');
+        }
+
+        # AMBIL DATA transfer
+        $transfer = $this->transfer->get($id_transfer);
+
+        # CEK KETERSEDIAAN PEMBATALAN
+        $abort_status = $this->check_abort_status($transfer->id);
+        if (!$abort_status['status']) {
+            $this->message($abort_status['reason'], 'danger');
+            $this->go('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi);
+        }
+
+        # ABOOORT - KEMBALIKAN RINCIAN
+        $alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
+        foreach ($alfabet as $item) {
+            $model_kib = "kib{$item}";
+            $model_kib_temp = "kib{$item}_temp";
+            
+            $temp = $this->{$model_kib_temp}->get_many_by(array('id_transfer'=>$id_transfer));
+
+            if (!empty($temp)) {
+                $where_in = array_column($data_temp, 'id_aset');
+                $this->{$model_kib}->batch_update($where_in, array('id_organisasi'=>$transfer->id_organisasi));
+            }
+        }
+
+        $this->transfer->update($id_transfer, array('status_pengajuan'=>0));
+
+        $this->message('transfer berhasil dibatalkan','success');
+        $this->go('transfer/index/keluar?id_organisasi='.$transfer->id_organisasi);
+    }
+
+    private function check_abort_status($id_transfer = NULL)
+    {
+        if (empty($id_transfer)) {
+            return array('status'=>FALSE, 'reason'=>'id transfer kosong');
+        }
+
+        $transfer = $this->transfer->get($id_transfer);
+
+        if (empty($transfer)) {
+            return array('status'=>FALSE, 'reason'=>'id transfer tidak valid');
+        }
+
+        $alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
+        foreach ($alfabet as $item) {
+            # SET MODEL
+            $model_kib  = "kib{$item}";
+            $model_kib_temp  = "kib{$item}_temp";
+
+            # AMBIL DATA PADA KIB TEMP
+            $data_temp = $this->{$model_kib_temp}->as_array()->order_by('id_aset')->get_many_by(array('id_transfer'=>$id_transfer));
+            
+            if (!empty($data_temp)) {
+
+                $where_in = array_column($data_temp, 'id_aset');
+                
+                # CHECK HAPUS/KOREKSI
+                $temp = $this->{$model_kib_temp}->where_in('id_aset', $where_in)->get_many_by(array('id_transfer'=>NULL));
+                if (count($temp) > 0) {
+                    return array('status'=>FALSE, 'reason'=>'Rincian transfer terikat dengan transaksi hapus/koreksi.');
+                }
+
+                # CEK TRANSFER
+                $temp = $this->{$model_kib}->where_in('id', $where_in)->get_many_by(array('id_organisasi'=>$transfer->id_tujuan));                
+                if (count($where_in) !== count($temp)) {
+                    return array('status'=>FALSE, 'reason'=>'Beberapa atau semua rincian pada transfer ini telah ditransfer ke UPB lainnya');
+                }
+            }
+        }
+
+        return array('status'=>TRUE);
+    }
+
+    public function get_abort_status($id_transfer = NULL) {
+        if (empty($id_transfer)) {
+            echo json_encode(array('status'=>FALSE, 'reason'=>'ID transfer KOSONG'));
+        } else {
+            echo json_encode($this->check_abort_status($id_transfer));
         }
     }
 }

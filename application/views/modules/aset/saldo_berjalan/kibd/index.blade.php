@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('aset')}}">Aset</a></li>
+<li class="breadcrumb-item"><a href="#">Aset</a></li>
 <li class="breadcrumb-item active">KIB-D</li>
 @end
 
@@ -13,7 +13,7 @@
 	<div class="col">
 		<div class="card text-white bg-info" id="wg-nilai">
 			<div class="card-body">
-				<div class="card-title mb-0">NILAI ASET</div>
+				<div class="card-title mb-0">NILAI ASET KESELURUHAN</div>
 				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 	<div class="col">
 		<div class="card text-white bg-dark" id="wg-total">
 			<div class="card-body">
-				<div class="card-title mb-0">BANYAK ASET</div>
+				<div class="card-title mb-0">BANYAK ASET KESELURUHAN</div>
 				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
 			</div>
 		</div>
@@ -108,6 +108,9 @@
 							<td class="text-nowrap text-center">
 								<div class="btn-group">
 									<a href="{{site_url('inventarisasi/kibd/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+									@if($this->session->auth['is_superadmin'] == 1)
+									<a href="{{site_url('inventarisasi/kibd/delete/'.$item->id)}}" class="btn btn-danger btn-sm" data-id="{{$item->id}}" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+									@endif
 								</div>
 							</td>
 							<td class="text-nowrap text-center">

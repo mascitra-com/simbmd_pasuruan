@@ -107,7 +107,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-right">Tanggal Serah Terima</label>
                         <div class="col-md-4">
-                            <input type="text" name="serah_terima_tgl" value="{{datify($transfer->serah_terima_tgl, 'Y-m-d')}}" class="form-control"/>
+                            <input type="date" name="serah_terima_tgl" value="{{datify($transfer->serah_terima_tgl, 'Y-m-d')}}" class="form-control"/>
                         </div>
                     </div>
                     <hr>

@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Persetujuan Transfer Keluar@end
+@section('title')Persetujuan Penghapusan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
@@ -10,14 +10,14 @@
 @section('content')
 <div class="form-inline">
     <div class="btn-group mb-3">
-        <a href="#" class="btn btn-primary active">01. Detail Transfer Masuk</a>
+        <a href="#" class="btn btn-primary active">01. Detail Penghapusan</a>
         <a href="{{site_url('persetujuan/penghapusan/rincian/'.$hapus->id)}}" class="btn btn-primary">02. Rincian Aset</a>
     </div>
 </div>
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Detail Transfer Keluar</div>
+			<div class="card-header">Detail Penghapusan</div>
 			<div class="card-body">
 				<form action="#" method="POST">
                     <input type="hidden" name="id" value="{{$hapus->id}}">

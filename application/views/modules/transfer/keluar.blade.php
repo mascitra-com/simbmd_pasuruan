@@ -39,7 +39,7 @@
 						<th class="text-center">Tanggal SK</th>
 						<th class="text-center">No Serah Terima</th>
 						<th class="text-center">Tanggal Serah Terima</th>
-						<th class="text-center">Tanggal Verifikasi</th>
+						<th class="text-center text-nowrap">Tanggal Verifikasi</th>
 						<th class="text-nowrap">Status</th>
 						<th class="text-center">Aksi</th>
 					</tr>
@@ -64,7 +64,12 @@
 							@elseif($item->status_pengajuan === '1')
 							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
 							@elseif($item->status_pengajuan === '2')
-							<button class="btn btn-success btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+							<div class="btn-group">
+								<button class="btn btn-success btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+								@if($this->session->auth['is_superadmin'] == 1)
+								<button class="btn btn-warning" data-id-batal="{{$item->id}}"><i class="fa fa-times"></i></button>
+								@endif
+							</div>
 							@elseif($item->status_pengajuan === '3')
 							<button class="btn btn-danger btn-sm btn-block" data-id-transfer="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
 							@else
@@ -111,7 +116,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-pesan">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-            <div class="modal-header">Detail Persetujuan</div>
+			<div class="modal-header">Detail Persetujuan</div>
 			<div class="modal-body">
 				<div class="form-group">
 					<label class="bold">Tanggal Verifikasi:</label>
@@ -132,13 +137,24 @@
 		</div>
 	</div>
 </div>
-
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-batal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content card text-center">
+            <div class="card-header">
+                <b class="card-title">Pembatalan Persetujuan</b>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="card-body"></div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('style')
 <style>
 .text-sm {font-size: smaller;}
-    .bold{font-weight: bold}
+.bold{font-weight: bold}
 </style>
 @endsection
 
@@ -162,5 +178,26 @@
 
 		$("#modal-pesan").modal('show');
 	});
+
+	$("[data-id-batal]").on('click', function(e){
+        $("#modal-batal .card-body").empty().html("<h4 class='mb-3'>Memeriksa ketersediaan pembatalan<br>Mohon menunggu</h4><h1 class='mb-4'><i class='fa fa-refresh fa-spin fa-2x'></i></h1>");
+        $("#modal-batal .card-footer").empty();
+        $("#modal-batal").modal('show');
+        
+        var id = $(this).data('id-batal');
+        $.getJSON("{{site_url('transfer/index/get_abort_status/')}}"+id, function(result){
+            if (result.status === true) {
+                html = "<div class='btn-group'>"
+                html += "<a href='{{site_url()}}transfer/index/abort_transaction/"+id+"' class='btn btn-warning'>Batalkan Persetujuan</a>";
+                html += "<button class='btn btn-secondary' data-dismiss='modal'>Urungkan</button>";
+                html += "</div>";
+                $("#modal-batal .card-body").empty().html("<h3 class='mb-3'>Pembatalan persetujuan dapat dilakukan.</h3>");
+                $("#modal-batal .card-footer").empty().html(html);
+            }else{
+                $("#modal-batal .card-body").empty().html("<p>Pembatalan persetujuan <b>tidak dapat dilakukan</b>.<br>"+result.reason+"</p>");
+                $("#modal-batal .card-footer").html("<button class='btn btn-secondary' data-dismiss='modal'>Urungkan</button>");
+            }
+        });
+    });
 </script>
 @end

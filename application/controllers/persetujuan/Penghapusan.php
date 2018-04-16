@@ -51,13 +51,13 @@ class Penghapusan extends MY_Controller {
 		}
 
 		# RINCIAN
-		$data['kiba'] = $this->kiba->get_data_hapus($id);
-		$data['kibb'] = $this->kibb->get_data_hapus($id);
-		$data['kibc'] = $this->kibc->get_data_hapus($id);
-		$data['kibd'] = $this->kibd->get_data_hapus($id);
-		$data['kibe'] = $this->kibe->get_data_hapus($id);
-		$data['kibg'] = $this->kibg->get_data_hapus($id);
 		$data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
+        $data['kiba'] = $this->kiba->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibb'] = $this->kibb->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibc'] = $this->kibc->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibd'] = $this->kibd->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibe'] = $this->kibe->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibg'] = $this->kibg->count_by(array('id_hapus'=>$data['hapus']->id));
 		$data['total_rincian']  = $this->hapus->get_total_rincian($id);
 
 		$this->render('modules/persetujuan/penghapusan/rincian', $data);

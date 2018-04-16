@@ -39,7 +39,7 @@
 						<th class="text-nowrap">Jangka Waktu</th>
 						<th>Keterangan</th>
 						<th class="text-center">Status Pengajuan</th>
-						<th class="text-center">Tanggal Verifikasi</th>
+						<th class="text-center text-nowrap">Tanggal Verifikasi</th>
 						<th class="text-center">Aksi</th>
 					</tr>
 				</thead>

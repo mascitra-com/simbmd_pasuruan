@@ -19,6 +19,7 @@
 						<div class="col-md-4">
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
+								<option value="all" class="text-small">KABUPATEN</option>
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
 								@endforeach

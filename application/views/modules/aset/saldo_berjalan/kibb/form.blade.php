@@ -3,12 +3,17 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibb')}}">Aset</a></li>
+<li class="breadcrumb-item"><a href="#">Aset</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibb?id_organisasi='.$org->id)}}">KIB-B</a></li>
 <li class="breadcrumb-item active">{{isset($kib)?'Sunting':'Tambah'}}</li>
 @end
 
 @section('content')
+<?php
+$status = isset($kib) && ($this->session->auth['is_superadmin'] != 1 OR !empty($kib->id_spk) OR !empty($kib->id_hibah));
+$attr   = $status  ? 'disabled':'';
+$attrInput = $status  ? 'readonly':'';
+?>
 <div class="row">
 	<div class="col">
 		<div class="card">
@@ -46,7 +51,7 @@
 						<label class="col-md-3 col-form-label text-right">Kode Barang</label>
 						<div class="col-md-4">
 							<div class="input-group">
-								<select class="form-control" name="id_kategori" {{isset($kib) ? 'disabled' : ''}}>
+								<select class="form-control" name="id_kategori" {{$attr}}>
 									@if(isset($kib))
 									<?php 
 									$kt = $kib->id_kategori;
@@ -56,7 +61,7 @@
 									@endif
 								</select>
 								<span class="input-group-btn">
-									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" {{isset($kib)?'disabled':''}}>pilih</button>
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mod-kategori" {{$attr}}>pilih</button>
 								</span>
 							</div>
 						</div>
@@ -141,7 +146,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Tanggal Perolehan</label>
 						<div class="col-md-4">
-							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):''}}" {{isset($kib)?'readonly':''}}/>
+							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tanggal Perolehan" value="{{isset($kib)?datify($kib->tgl_perolehan, 'Y-m-d'):''}}" {{$attrInput}}/>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -154,8 +159,8 @@
 						<label class="col-md-3 col-form-label text-right">Asal Usul</label>
 						<div class="col-md-4">
 							<select class="form-control" name="asal_usul">
-								<option value="Pembelian" {{isset($kib) && $kib->asal_usul == 'pembelian'?'selected':''}}>Pembelian</option>
-								<option value="Hibah" {{isset($kib) && $kib->asal_usul == 'hibah'?'selected':''}}>Hibah</option>
+								<option value="Pembelian" {{isset($kib) && $kib->asal_usul == 'Pembelian'?'selected':''}}>Pembelian</option>
+								<option value="Hibah" {{isset($kib) && $kib->asal_usul == 'Hibah'?'selected':''}}>Hibah</option>
 							</select>
 						</div>
 					</div>
@@ -172,7 +177,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
-							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}" {{isset($kib)?'readonly':''}} required/>
+							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}" {{$attrInput}} required/>
 						</div>
 					</div>
 					<div class="form-group row">

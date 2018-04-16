@@ -108,18 +108,35 @@ class Kibd extends MY_Controller
 
     public function delete($id = NULL)
     {
+
         if (empty($id)) {
             $this->message('Pilih organisasi terlebih dahulu', 'danger');
             $this->go('inventarisasi/kibd');
         }
 
+        $id_organisasi = $this->kib->get($id)->id_organisasi;
+
+        if (empty($id_organisasi) OR $this->session->auth['is_superadmin'] != 1) {
+            $this->message('Aset tidak valid', 'danger');
+            $this->go('inventarisasi/kibd');
+        }
+
+        $this->load->model('aset/Temp_kibd_model', 'kib_temp');
+        $kib = $this->kib->get_by(array('id'=>$id, 'id_spk'=>NULL, 'id_hibah'=>NULL));
+        $kib_temp = $this->kib_temp->get_many_by(array('id_aset'=>$id));
+
+        if (empty($kib) OR !empty($kib_temp)) {
+            $this->message('Aset yang anda pilih tidak dapat dihapus karena terikat dengan transaksi lain (Pengadaan/Transfer/Hapus/Reklas)', 'danger');
+            $this->go('inventarisasi/kibd?id_organisasi='.$id_organisasi);
+        }
+
         $sukses = $this->kib->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('inventarisasi/kibd');
+            $this->go('inventarisasi/kibd?id_organisasi='.$id_organisasi);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('inventarisasi/kibd');
+            $this->go('inventarisasi/kibd?id_organisasi='.$id_organisasi);
         }
     }
 

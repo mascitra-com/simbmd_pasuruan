@@ -1,16 +1,16 @@
 @layout('commons/index')
-@section('title')Persetujuan Transfer Keluar@end
+@section('title')Persetujuan Penghapusan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('persetujuan/penghapusan')}}">Persetujuan Transfer Keluar</a></li>
+<li class="breadcrumb-item"><a href="{{site_url('persetujuan/penghapusan')}}">Persetujuan Penghapusan</a></li>
 <li class="breadcrumb-item active">Rincian Aset</li>
 @end
 
 @section('content')
 <div class="form-inline">
     <div class="btn-group mb-3">
-        <a href="{{site_url('persetujuan/penghapusan/detail/'.$hapus->id)}}" class="btn btn-primary">01. Detail Transfer Keluar</a>
+        <a href="{{site_url('persetujuan/penghapusan/detail/'.$hapus->id)}}" class="btn btn-primary">01. Detail Penghapusan</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
     <div class="btn-group mb-3 ml-auto">
@@ -51,412 +51,237 @@
                 <ul class="nav nav-tabs card-header-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#kiba" role="tab">
-                            KIB-A {{!empty($kiba) ? '<span class="badge badge-primary">'.(count($kiba)).'</span>' : ''}}
+                            KIB-A {{!empty($kiba) ? '<span class="badge badge-primary">'.($kiba).'</span>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibb" role="tab">
-                            KIB-B {{!empty($kibb) ? '<span class="badge badge-primary">'.(count($kibb)).'</span>' : ''}}
+                            KIB-B {{!empty($kibb) ? '<span class="badge badge-primary">'.($kibb).'</span>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibc" role="tab">
-                            KIB-C {{!empty($kibc) ? '<span class="badge badge-primary">'.(count($kibc)).'</span>' : ''}}
+                            KIB-C {{!empty($kibc) ? '<span class="badge badge-primary">'.($kibc).'</span>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibd" role="tab">
-                            KIB-D {{!empty($kibd) ? '<span class="badge badge-primary">'.(count($kibd)).'</span>' : ''}}
+                            KIB-D {{!empty($kibd) ? '<span class="badge badge-primary">'.($kibd).'</span>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">
-                            KIB-E {{!empty($kibe) ? '<span class="badge badge-primary">'.(count($kibe)).'</span>' : ''}}
+                            KIB-E {{!empty($kibe) ? '<span class="badge badge-primary">'.($kibe).'</span>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibg" role="tab">
-                            KIB-G {{!empty($kibg) ? '<span class="badge badge-primary">'.(count($kibg)).'</span>' : ''}}
+                            KIB-G {{!empty($kibg) ? '<span class="badge badge-primary">'.($kibg).'</span>' : ''}}
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="card-body tab-content table-scroll px-0 py-0">
-
+            <div class="card-body tab-content">
                 <!-- KIB-A -->
                 <div class="tab-pane active" id="kiba" role="tabpanel">
-                    <table class="table table-hover table-striped table-bordered">
+                    <table class="jq-table table-striped" id="tb-kiba"
+                        data-toggle="#tb-kiba"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-search-on-enter-key="true"
+                        data-pagination="true"
+                        data-side-pagination="server"
+                        data-url="{{site_url('penghapusan/api/get_kiba/'.$hapus->id)}}">
                         <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Luas (m2)</th>
-                                <th class="text-nowrap">Alamat</th>
-                                <th class="text-nowrap">Tgl. Sertifikat</th>
-                                <th class="text-nowrap">No. Sertifikat</th>
-                                <th class="text-nowrap">Hak Pakai</th>
-                                <th class="text-nowrap">Pengguna</th>
-                                <th class="text-nowrap">Tgl. Perolehan</th>
-                                <th class="text-nowrap">Tgl. Pembukuan</th>
-                                <th class="text-nowrap">Asal Usul</th>
-                                <th class="text-nowrap text-right">Nilai</th>
-                                <th>Keterangan</th>
-                                <th class="text-nowrap">Kategori</th>
+                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
+                                <th data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-field="luas">Luas (m2)</th>
+                                <th data-field="alamat">Alamat</th>
+                                <th data-field="sertifikat_tgl">Tgl. Sertifikat</th>
+                                <th data-field="sertifikat_no">No. Sertifikat</th>
+                                <th data-field="hak">Hak Pakai</th>
+                                <th data-field="pengguna">Pengguna</th>
+                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-field="asal_usul">Asal Usul</th>
+                                <th data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if(empty($kiba))
-                            <tr>
-                                <td colspan="14" class="text-center"><b><i>Data kosong</i></b></td>
-                            </tr>
-                            @endif
-                            @if($kiba)
-                            @foreach($kiba AS $item)
-                            <tr>
-                                <td class="text-nowrap text-center">
-                                    {{zerofy($item->id_kategori->kd_golongan)}} .
-                                    {{zerofy($item->id_kategori->kd_bidang)}} .
-                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                    {{zerofy($item->reg_barang,4)}}
-                                </td>
-                                <td class="text-nowrap">{{$item->luas}}</td>
-                                <td class="text-nowrap">{{$item->alamat}}</td>
-                                <td class="text-nowrap">{{datify($item->sertifikat_tgl, 'd/m/Y')}}</td>
-                                <td class="text-nowrap">{{$item->sertifikat_no}}</td>
-                                <td class="text-nowrap">{{$item->hak}}</td>
-                                <td class="text-nowrap">{{$item->pengguna}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd/m/Y')}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd/m/Y')}}</td>
-                                <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                            </tr>
-                            @endforeach
-                            @endif
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
 
                 <!-- KIB-B -->
                 <div class="tab-pane" id="kibb" role="tabpanel">
-                    <table class="table table-hover table-striped table-bordered">
+                    <table class="jq-table table-striped" id="tb-kibb"
+                        data-toggle="#tb-kibb"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-search-on-enter-key="true"
+                        data-pagination="true"
+                        data-side-pagination="server"
+                        data-url="{{site_url('penghapusan/api/get_kibb/'.$hapus->id)}}">
                         <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Merk</th>
-                                <th class="text-nowrap">Tipe</th>
-                                <th class="text-nowrap">Ukuran/CC</th>
-                                <th class="text-nowrap">Bahan</th>
-                                <th class="text-nowrap">No.Pabrik</th>
-                                <th class="text-nowrap">No.Rangka</th>
-                                <th class="text-nowrap">No.Mesin</th>
-                                <th class="text-nowrap">No.Polisi</th>
-                                <th class="text-nowrap">No.BPKB</th>
-                                <th class="text-nowrap">Tgl. Perolehan</th>
-                                <th class="text-nowrap">Tgl. Pembukuan</th>
-                                <th class="text-nowrap">Asal Usul</th>
-                                <th class="text-nowrap">Kondisi</th>
-                                <th class="text-nowrap text-right">Nilai</th>
-                                <th class="text-nowrap text-right">Nilai Sisa</th>
-                                <th class="text-nowrap">Masa Manfaat</th>
-                                <th>Keterangan</th>
-                                <th class="text-nowrap">Ruang</th>
-                                <th class="text-nowrap">Kategori</th>
+                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
+                                <th data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-field="merk">Merk</th>
+                                <th data-field="tipe">Tipe</th>
+                                <th data-field="ukuran">Ukuran/CC</th>
+                                <th data-field="bahan">Bahan</th>
+                                <th data-field="no_pabrik">No.Pabrik</th>
+                                <th data-field="no_rangka">No.Rangka</th>
+                                <th data-field="no_mesin">No.Mesin</th>
+                                <th data-field="no_polisi">No.Polisi</th>
+                                <th data-field="no_bpkb">No.BPKB</th>
+                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-field="asal_usul">Asal Usul</th>
+                                <th data-field="kondisi">Kondisi</th>
+                                <th data-field="keterangan">Keterangan</th>
+                                <th data-field="id_ruangan">Ruang</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if(empty($kibb))
-                            <tr>
-                                <td colspan="21" class="text-center"><b><i>Data kosong</i></b></td>
-                            </tr>
-                            @endif
-                            @if($kibb)
-                            @foreach($kibb AS $item)
-                            <tr>
-                                <td class="text-nowrap text-center">
-                                    {{zerofy($item->id_kategori->kd_golongan)}} .
-                                    {{zerofy($item->id_kategori->kd_bidang)}} .
-                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                    {{zerofy($item->reg_barang,4)}}
-                                </td>
-                                <td class="text-nowrap">{{$item->merk}}</td>
-                                <td class="text-nowrap">{{$item->tipe}}</td>
-                                <td class="text-nowrap">{{$item->ukuran}}</td>
-                                <td class="text-nowrap">{{$item->bahan}}</td>
-                                <td class="text-nowrap">{{$item->no_pabrik}}</td>
-                                <td class="text-nowrap">{{$item->no_rangka}}</td>
-                                <td class="text-nowrap">{{$item->no_mesin}}</td>
-                                <td class="text-nowrap">{{$item->no_polisi}}</td>
-                                <td class="text-nowrap">{{$item->no_bpkb}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
-                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                            </tr>
-                            @endforeach
-                            @endif
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
 
                 <!-- KIB-C -->
                 <div class="tab-pane" id="kibc" role="tabpanel">
-                    <table class="table table-hover table-striped table-bordered">
+                    <table class="jq-table table-striped" id="tb-kibc" 
+                        data-toggle="#tb-kibc"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-search-on-enter-key="true"
+                        data-pagination="true"
+                        data-side-pagination="server"
+                        data-url="{{site_url('penghapusan/api/get_kibc/'.$hapus->id)}}">
                         <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Tingkat</th>
-                                <th class="text-nowrap">Beton</th>
-                                <th class="text-nowrap">Luas Lantai</th>
-                                <th class="text-nowrap">Lokasi</th>
-                                <th class="text-nowrap">Tgl.Dokumen</th>
-                                <th class="text-nowrap">No.Dokumen</th>
-                                <th class="text-nowrap">Status Tanah</th>
-                                <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Perolehan</th>
-                                <th class="text-nowrap">Tgl. Pembukuan</th>
-                                <th class="text-nowrap">Asal Usul</th>
-                                <th class="text-nowrap">Kondisi</th>
-                                <th class="text-nowrap text-right">Nilai</th>
-                                <th class="text-nowrap text-right">Nilai Sisa</th>
-                                <th class="text-nowrap">Masa Manfaat</th>
-                                <th>Keterangan</th>
-                                <th class="text-nowrap">Kategori</th>
+                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
+                                <th data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-field="tingkat">Tingkat</th>
+                                <th data-field="beton">Beton</th>
+                                <th data-field="luas_lantai">Luas Lantai</th>
+                                <th data-field="lokasi">Lokasi</th>
+                                <th data-field="dokumen_tgl">Tgl.Dokumen</th>
+                                <th data-field="dokumen_no">No.Dokumen</th>
+                                <th data-field="status_tanah">Status Tanah</th>
+                                <th data-field="kode_tanah">Kode Tanah</th>
+                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-field="asal_usul">Asal Usul</th>
+                                <th data-field="kondisi">Kondisi</th>
+                                <th data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if(empty($kibc))
-                            <tr>
-                                <td colspan="19" class="text-center"><b><i>Data kosong</i></b></td>
-                            </tr>
-                            @endif
-                            @if($kibc)
-                            @foreach($kibc AS $item)
-                            <tr>
-                                <td class="text-nowrap text-center">
-                                    {{zerofy($item->id_kategori->kd_golongan)}} .
-                                    {{zerofy($item->id_kategori->kd_bidang)}} .
-                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                    {{zerofy($item->reg_barang,4)}}
-                                </td>
-                                <td class="text-nowrap">{{($item->tingkat > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-                                <td class="text-nowrap">{{($item->beton > 0) ? "<span class='badge badge-success'>Ya</span>" : "<span class='badge badge-danger'>Tidak</span>"}}</td>
-                                <td class="text-nowrap">{{$item->luas_lantai}}</td>
-                                <td class="text-nowrap">{{$item->lokasi}}</td>
-                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
-                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
-                                <td class="text-nowrap">{{$item->status_tanah}}</td>
-                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
-                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                            </tr>
-                            @endforeach
-                            @endif
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
 
                 <!-- KIB-D -->
                 <div class="tab-pane" id="kibd" role="tabpanel">
-                    <table class="table table-hover table-striped table-bordered">
+                    <table class="jq-table table-striped" id="tb-kibd" 
+                        data-toggle="#tb-kibd"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-search-on-enter-key="true"
+                        data-pagination="true"
+                        data-side-pagination="server"
+                        data-url="{{site_url('penghapusan/api/get_kibd/'.$hapus->id)}}">
                         <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Kontruksi</th>
-                                <th class="text-nowrap">Panjang</th>
-                                <th class="text-nowrap">Lebar</th>
-                                <th class="text-nowrap">Luas</th>
-                                <th class="text-nowrap">Lokasi</th>
-                                <th class="text-nowrap">Tgl.Dokumen</th>
-                                <th class="text-nowrap">No.Dokumen</th>
-                                <th class="text-nowrap">Status Tanah</th>
-                                <th class="text-nowrap">Kode Tanah</th>
-                                <th class="text-nowrap">Tgl. Perolehan</th>
-                                <th class="text-nowrap">Tgl. Pembukuan</th>
-                                <th class="text-nowrap">Asal Usul</th>
-                                <th class="text-nowrap">Kondisi</th>
-                                <th class="text-nowrap text-right">Nilai</th>
-                                <th class="text-nowrap text-right">Nilai Sisa</th>
-                                <th class="text-nowrap">Masa Manfaat</th>
-                                <th>Keterangan</th>
-                                <th class="text-nowrap">Kategori</th>
+                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
+                                <th data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-field="kontruksi">Kontruksi</th>
+                                <th data-field="panjang">Panjang</th>
+                                <th data-field="lebar">Lebar</th>
+                                <th data-field="luas">Luas</th>
+                                <th data-field="lokasi">Lokasi</th>
+                                <th data-field="dokumen_tgl">Tgl.Dokumen</th>
+                                <th data-field="dokumen_no">No.Dokumen</th>
+                                <th data-field="status_tanah">Status Tanah</th>
+                                <th data-field="kode_barang">Kode Tanah</th>
+                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-field="asal_usul">Asal Usul</th>
+                                <th data-field="kondisi">Kondisi</th>
+                                <th data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if(empty($kibd))
-                            <tr>
-                                <td colspan="20" class="text-center"><b><i>Data kosong</i></b></td>
-                            </tr>
-                            @endif
-                            @if($kibd)
-                            @foreach($kibd AS $item)
-                            <tr>
-                                <td class="text-nowrap text-center">
-                                    {{zerofy($item->id_kategori->kd_golongan)}} .
-                                    {{zerofy($item->id_kategori->kd_bidang)}} .
-                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                    {{zerofy($item->reg_barang,4)}}
-                                </td>
-                                <td class="text-nowrap">{{$item->kontruksi}}</td>
-                                <td class="text-nowrap">{{$item->panjang}}</td>
-                                <td class="text-nowrap">{{$item->lebar}}</td>
-                                <td class="text-nowrap">{{$item->luas}}</td>
-                                <td class="text-nowrap">{{$item->lokasi}}</td>
-                                <td class="text-nowrap">{{$item->dokumen_tgl}}</td>
-                                <td class="text-nowrap">{{$item->dokumen_no}}</td>
-                                <td class="text-nowrap">{{$item->status_tanah}}</td>
-                                <td class="text-nowrap">{{$item->kode_tanah}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai+$item->nilai_tambah)}}</td>
-                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                            </tr>
-                            @endforeach
-                            @endif
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
 
                 <!-- KIB-E -->
                 <div class="tab-pane" id="kibe" role="tabpanel">
-                    <table class="table table-hover table-striped table-bordered">
+                    <table class="jq-table table-striped" id="tb-kibe" 
+                        data-toggle="#tb-kibe"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-search-on-enter-key="true"
+                        data-pagination="true"
+                        data-side-pagination="server"
+                        data-url="{{site_url('penghapusan/api/get_kibe/'.$hapus->id)}}">
                         <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Judul</th>
-                                <th class="text-nowrap">Pecipta</th>
-                                <th class="text-nowrap">Bahan</th>
-                                <th class="text-nowrap">Ukuran</th>
-                                <th class="text-nowrap">Tgl. Perolehan</th>
-                                <th class="text-nowrap">Tgl. Pembukuan</th>
-                                <th class="text-nowrap">Asal Usul</th>
-                                <th class="text-nowrap">Kondisi</th>
-                                <th class="text-nowrap text-right">Nilai</th>
-                                <th class="text-nowrap text-right">Nilai Sisa</th>
-                                <th class="text-nowrap">Masa Manfaat</th>
-                                <th>Keterangan</th>
-                                <th class="text-nowrap">Ruang</th>
-                                <th class="text-nowrap">Kategori</th>
+                                <th data-field="no" data-switchable="false" class="text-center">No.</th>
+                                <th data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
+                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
+                                <th data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
+                                <th data-field="judul" class="text-nowrap">Judul</th>
+                                <th data-field="pencipta" class="text-nowrap">Pecipta</th>
+                                <th data-field="bahan" class="text-nowrap">Bahan</th>
+                                <th data-field="ukuran" class="text-nowrap">Ukuran</th>
+                                <th data-field="tgl_perolehan" class="text-nowrap">Tgl. Perolehan</th>
+                                <th data-field="tgl_pembukuan" class="text-nowrap">Tgl. Pembukuan</th>
+                                <th data-field="asal_usul" class="text-nowrap">Asal Usul</th>
+                                <th data-field="Kondisi" class="text-nowrap">Kondisi</th>
+                                <th data-field="keterangan" class="text-nowrap">Keterangan</th>
+                                <th data-field="id_ruang" class="text-nowrap">Ruang</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if(empty($kibe))
-                            <tr>
-                                <td colspan="16" class="text-center"><b><i>Data kosong</i></b></td>
-                            </tr>
-                            @endif
-                            @if($kibe)
-                            @foreach($kibe AS $item)
-                            <tr>
-                                <td class="text-nowrap text-center">
-                                    {{zerofy($item->id_kategori->kd_golongan)}} .
-                                    {{zerofy($item->id_kategori->kd_bidang)}} .
-                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                    {{zerofy($item->reg_barang,4)}}
-                                </td>
-                                <td class="text-nowrap">{{$item->judul}}</td>
-                                <td class="text-nowrap">{{$item->pencipta}}</td>
-                                <td class="text-nowrap">{{$item->bahan}}</td>
-                                <td class="text-nowrap">{{$item->ukuran}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
-                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                            </tr>
-                            @endforeach
-                            @endif
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
-                
+
                 <!-- KIB-G -->
                 <div class="tab-pane" id="kibg" role="tabpanel">
-                    <table class="table table-hover table-striped table-bordered">
+                    <table class="jq-table table-striped" id="tb-kibg" 
+                        data-toggle="#tb-kibg"
+                        data-search="true"
+                        data-show-columns="true"
+                        data-search-on-enter-key="true"
+                        data-pagination="true"
+                        data-side-pagination="server"
+                        data-url="{{site_url('penghapusan/api/get_kibg/'.$hapus->id)}}">
                         <thead>
                             <tr>
-                                <th class="text-nowrap text-center">Kode Barang</th>
-                                <th class="text-nowrap">Merk</th>
-                                <th class="text-nowrap">Tipe</th>
-                                <th class="text-nowrap">Ukuran</th>
-                                <th class="text-nowrap">Tgl. Perolehan</th>
-                                <th class="text-nowrap">Tgl. Pembukuan</th>
-                                <th class="text-nowrap">Asal Usul</th>
-                                <th class="text-nowrap">Kondisi</th>
-                                <th class="text-nowrap text-right">Nilai</th>
-                                <th class="text-nowrap text-right">Nilai Sisa</th>
-                                <th class="text-nowrap">Masa Manfaat</th>
-                                <th class="text-nowrap">Keterangan</th>
-                                <th class="text-nowrap">Ruang</th>
-                                <th class="text-nowrap">Kategori</th>
+                                <th data-field="no" data-switchable="false" class="text-center">No.</th>
+                                <th data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
+                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
+                                <th data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
+                                <th data-field="merk" class="text-nowrap">Merk</th>
+                                <th data-field="tipe" class="text-nowrap">Tipe</th>
+                                <th data-field="ukuran" class="text-nowrap">Ukuran</th>
+                                <th data-field="tgl_perolehan" class="text-nowrap">Tgl. Perolehan</th>
+                                <th data-field="tgl_pembukuan" class="text-nowrap">Tgl. Pembukuan</th>
+                                <th data-field="asal_usul" class="text-nowrap">Asal Usul</th>
+                                <th data-field="kondisi" class="text-nowrap">Kondisi</th>
+                                <th data-field="keterangan" class="text-nowrap">Keterangan</th>
+                                <th data-field="id_ruangan" class="text-nowrap">Ruang</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if(empty($kibg))
-                            <tr>
-                                <td colspan="16" class="text-center"><b><i>Data kosong</i></b></td>
-                            </tr>
-                            @endif
-
-                            @foreach($kibg AS $item)
-                            <tr>
-                                <td class="text-nowrap text-center">
-                                    {{zerofy($item->id_kategori->kd_golongan)}} .
-                                    {{zerofy($item->id_kategori->kd_bidang)}} .
-                                    {{zerofy($item->id_kategori->kd_kelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subkelompok)}} .
-                                    {{zerofy($item->id_kategori->kd_subsubkelompok)}} .
-                                    {{zerofy($item->reg_barang,4)}}
-                                </td>
-                                <td class="text-nowrap">{{$item->merk}}</td>
-                                <td class="text-nowrap">{{$item->tipe}}</td>
-                                <td class="text-nowrap">{{$item->ukuran}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_perolehan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
-                                <td class="text-nowrap">{{$item->asal_usul}}</td>
-                                <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                                <td class="text-nowrap text-right">{{monefy($item->nilai)}}</td>
-                                <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                                <td class="text-nowrap">{{$item->masa_manfaat}}</td>
-                                <td class="text-nowrap">{{$item->keterangan}}</td>
-                                <td class="text-nowrap">{{is_object($item->id_ruangan)?$item->id_ruangan->nama:$item->id_ruangan}}</td>
-                                <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
 
@@ -464,7 +289,6 @@
         </div>
     </div>
 </div>
-
 @end
 
 @section('style')
@@ -473,10 +297,32 @@ th, td {
     font-size: smaller !important;
 }
 </style>
+<link rel="stylesheet" href="{{base_url('res/plugins/bttable/bttable.css')}}">
 @endsection
 
 @section('script')
+<script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>
 <script>
-    theme.activeMenu('.nav-transfer-masuk');
+    theme.activeMenu('.nav-penghapusan');
+    // FIX TAB ERROR
+    $(".nav-link").on('click', function(e){
+        var dom = $(e.currentTarget).attr('href');
+        $(".tab-pane:not("+dom+")").removeClass('active');
+    });
+
+    // INIT Datatables
+    $(".jq-table").bootstrapTable({
+        formatRecordsPerPage: function () {
+            return ''
+        },
+        formatShowingRows: function () {
+            return ''
+        }
+    });
+
+    function indexing(value, row, index)
+    {
+        return index + 1;
+    }
 </script>
 @end

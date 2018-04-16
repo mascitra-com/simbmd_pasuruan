@@ -256,6 +256,18 @@ class Index extends MY_Controller {
 		$this->kibe->delete_by(array('id_spk'=>$id_spk));
 		$this->kibg->delete_by(array('id_spk'=>$id_spk));
 
+		# KAPIPTALISASI
+		$kap = $this->kapitalisasi->get_many_by('id_spk', $id_spk);
+		foreach ($kap as $item) {
+			# Update data pada aset utama
+			$kib  = ($item->golongan==='3') ? 'kibc' : 'kibd';
+			$temp = $this->{$kib}->get($item->id_aset);
+			$nilai_kurang = $this->nol($item->jumlah) * $this->nol($item->nilai);
+			$total 		  = $temp->nilai_tambah - $nilai_kurang;
+			
+			$this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
+		}
+
 		$this->spk->update($id_spk, array('status_pengajuan'=>0));
 
 		$this->message('Pengadaan berhasil dibatalkan','success');
@@ -288,7 +300,7 @@ class Index extends MY_Controller {
     		# ==============================================================================
     		# CEK TRANSFER!
 			if (count($kib['saldo']) !== count($kib['temp'])) {
-				return array('status'=>FALSE, 'reason'=>"Terdapat rincian pada kib-{$index} yang telah ditransfer, dikoreksi, atau dihapus.");
+				return array('status'=>FALSE, 'reason'=>"Terdapat rincian pada kib-{$index} yang telah ditransfer, dikoreksi, dihapus, maupun terikat dengan pelunasan KDP.");
 			}
 
 			# ===============================================================================
@@ -318,10 +330,20 @@ class Index extends MY_Controller {
 			#=========================================================================
 			# CEK KOREKSI KODE
 			if (!empty($id_saldo)) {
-				$id_saldo = implode(',', array_unique($id_saldo));
-				$query = "SELECT COUNT(id) AS jumlah FROM temp_aset_{$index} WHERE id_aset IN({$id_saldo}) AND (id_transfer IS NOT NULL OR id_hapus IS NOT NULL OR id_koreksi IS NOT NULL)";
+				$koreksi_id_saldo = implode(',', array_unique($id_saldo));
+				$query = "SELECT COUNT(id) AS jumlah FROM temp_aset_{$index} WHERE id_aset IN({$koreksi_id_saldo}) AND (id_transfer IS NOT NULL OR id_hapus IS NOT NULL OR id_koreksi IS NOT NULL)";
 				if ($this->db->query($query)->result()[0]->jumlah > 0) {
 					return array('status'=>FALSE, 'reason'=>"Terdapat rincian pada kib-{$index} yang telah direklas.");
+				}
+			}
+
+			#==========================================================================
+			# CEK PELUNASAN
+			if (!empty($id_saldo)) {
+				$pelunasan_id_saldo = implode(',', array_unique($id_saldo));
+				$query = "SELECT * FROM pelunasan WHERE kib = '{$index}' AND (id_aset IN({$pelunasan_id_saldo}) OR id_kdp IN({$pelunasan_id_saldo}))";
+				if ($this->db->query($query)->num_rows() > 0) {
+					return array('status'=>FALSE, 'reason'=>"Terdapat rincian pada kib-{$index} yang terikat dengan pelunasan.");
 				}
 			}
 		}
@@ -335,5 +357,10 @@ class Index extends MY_Controller {
 		} else {
 			echo json_encode($this->check_abort_status($id_spk));
 		}
+	}
+
+	private function nol($var)
+	{
+		return (empty($var)) ? 0 : $var;
 	}
 }

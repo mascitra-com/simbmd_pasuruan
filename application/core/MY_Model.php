@@ -113,7 +113,7 @@ class MY_Model extends MY_Base_model {
         return TRUE;
     }
 
-    protected function fill_empty_data($data = array())
+    public function fill_empty_data($data = array())
     {
         if (empty($data)) {
             return $data;
@@ -260,11 +260,11 @@ class MY_Model extends MY_Base_model {
         return $result;
     }
 
-    public function get_data_hapus($id_hapus)
-    {
-        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hapus'=>$id_hapus));
-        $result = $this->subtitute($result);
-        $result = $this->fill_empty_data($result);
-        return $result;
-    }
+    // public function get_data_hapus($id_hapus)
+    // {
+    //     $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hapus'=>$id_hapus));
+    //     $result = $this->subtitute($result);
+    //     $result = $this->fill_empty_data($result);
+    //     return $result;
+    // }
 }

@@ -56,6 +56,17 @@
 					<div class="form-group row">
 						<label class="col-md-2 col-form-label text-right"></label>
 						<div class="col-md-4">
+							<div class="form-check form-check-inline">
+								<label class="form-check-label">
+									<input class="form-check-input" type="checkbox" name="akumulasi_kdp" value="1"> Akumulasi nilai KDP
+								</label>
+							</div>
+							<p class="form-text"></p>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-md-2 col-form-label text-right"></label>
+						<div class="col-md-4">
 							<button class="btn btn-primary" type="submit" onclick="return confirm('Apakah data sudah benar?')"><i class="fa fa-check"></i> Simpan</button>
 							<a href="{{site_url('Pelunasan?id_organisasi='.$id_organisasi)}}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Kembali</a>
 						</div>
@@ -214,6 +225,13 @@
 	$(".modal").on('hide.bs.modal', function(e){
 		$(e.currentTarget).find('tbody').empty();
 		$(e.currentTarget).find('input').val('');
+	});
+
+	$("[name=akumulasi_kdp]").on('click', function(e){
+		$(".form-text").empty();
+		if($("[name=akumulasi_kdp]:checked").length > 0) {
+			$(".form-text").html("Apabila dicentang, maka nilai aset yang dilunasi akan diakumulasikan dengan nilai KDP.");
+		}
 	});
 </script>
 @end

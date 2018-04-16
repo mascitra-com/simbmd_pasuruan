@@ -23,7 +23,7 @@
 						<th class="text-nowrap">Jangka Waktu</th>
 						<th>Keterangan</th>
 						<th class="text-center">Status Pengajuan</th>
-						<th class="text-center">Tanggal Verifikasi</th>
+						<th class="text-center">Tanggal Pengajuan</th>
 						<th class="text-center">Aksi</th>
 					</tr>
 				</thead>
@@ -49,7 +49,7 @@
 							ERROR
 							@endif
 						</td>
-						<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
+						<td class="text-center">{{datify($item->log_time, 'd-m-Y h:i')}}</td>
 						<td class="text-center">
 							<div class="btn-group">
 								<a href="{{ site_url('persetujuan/Pengadaan/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>

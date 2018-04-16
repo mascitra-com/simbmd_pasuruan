@@ -36,6 +36,7 @@ class Pelunasan extends MY_Controller {
 	public function insert()
 	{
 		$data = $this->input->post();
+
 		if (!$this->pelunasan->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi');
 			$this->go('pelunasan/add/'.$data['id_organisasi']);
@@ -44,17 +45,31 @@ class Pelunasan extends MY_Controller {
 		$this->load->model("aset/Kib{$data['kib']}_model", "kib");
 		$this->load->model("aset/Temp_kib{$data['kib']}_model", "kib_temp");
 
+		$aset = $this->kib->get($data['id_aset']);
+		$kdp  = $this->kib->get($data['id_kdp']);
+
+
 		# INSERT PELUNASAN
+		$data['id_kdp_spk']   = $kdp->id_spk;
+		$data['id_kdp_sp2d']  = $kdp->id_sp2d;
+		$data['id_kdp_hibah'] = $kdp->id_hibah;
 		$sukses = $this->pelunasan->insert($data);
 
 		if($sukses) {
-			# Pindah KDP ke TEMP
-			$kdp = $this->kib->get($data['id_kdp']);
-			$kdp->id_aset = $kdp->id;
-			unset($kdp->id, $kdp->log_action, $kdp->log_user, $kdp->log_time);
-			$sukses_2 = $this->kib_temp->insert((array)$kdp);
 
-			if($sukses_2) {
+			# Pindah KDP ke TEMP
+			$kdp->id_aset = $kdp->id;
+			unset($kdp->id, $kdp->id_spk, $kdp->id_sp2d, $kdp->id_hibah, $kdp->log_action, $kdp->log_user, $kdp->log_time);
+			$sukses_2a = $this->kib_temp->insert((array)$kdp);
+
+			# Update nilai ASET
+			$sukses_2b = TRUE;
+			if (isset($data['akumulasi_kdp']) AND $data['akumulasi_kdp'] === '1') {
+				$nilai_tambah = $aset->nilai + $kdp->nilai;
+				$sukses_2b = $this->kib->update($aset->id, array('nilai'=>$nilai_tambah));
+			}
+
+			if($sukses_2a && $sukses_2b) {
 				# HAPUS KDP
 				$sukses_3 = $this->kib->delete($data['id_kdp']);
 				if($sukses_3) {
@@ -63,7 +78,8 @@ class Pelunasan extends MY_Controller {
 				} else {
 					# ROLLBACK
 					$this->pelunasan->delete($sukses);
-					$this->kib_temp->delete($sukses_2);
+					$this->kib_temp->delete($sukses_2a);
+					$this->kib->update($aset->id, array('nilai'=>$aset->nilai));
 				}
 			} else {
 				# ROLLBACK
@@ -94,18 +110,30 @@ class Pelunasan extends MY_Controller {
 		$this->load->model("aset/Kib{$data->kib}_model", "kib");
 		$this->load->model("aset/Temp_kib{$data->kib}_model", "kib_temp");
 
+		$aset = $this->kib->get($data->id_aset);
+		$kdp  = $this->kib_temp->order_by('id', 'DESC')->get_by('id_aset', $data->id_kdp);
 		# ROLL BACK
-		$kdp = $this->kib_temp->order_by('id', 'DESC')->get_by('id_aset', $data->id_kdp);
 		$kdp->id = $kdp->id_aset;
+		$kdp->id_spk = $data->id_kdp_spk;
+		$kdp->id_sp2d = $data->id_kdp_sp2d;
+		$kdp->id_hibah = $data->id_kdp_hibah;
 		unset($kdp->id_aset, $kdp->id_transfer, $kdp->id_hapus, $kdp->id_koreksi, $kdp->id_koreksi_detail);
 
-		$sukses = $this->kib->insert((array)$kdp);
-		if($sukses) {
+		$sukses_a = $this->kib->insert((array)$kdp);
+		
+		$sukses_b = TRUE;
+		if ($data->akumulasi_kdp == '1') {
+			$nilai_asli = $aset->nilai - $kdp->nilai;
+			$sukses_b = $this->kib->update($aset->id, array('nilai'=>$nilai_asli));
+		}
+
+		if($sukses_a && $sukses_b) {
 			$this->pelunasan->delete($id);
 			$this->message('Transaski berhasil dibatalkan','success');
 		} else {
 			$this->message('Transaksi gagal dibatalkan','danger');
 		}
+
 		$this->go('pelunasan?id_organisasi='.$id_organisasi);
 	}
 

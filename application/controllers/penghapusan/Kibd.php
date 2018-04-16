@@ -8,7 +8,16 @@
 
 class Kibd extends MY_Controller
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('aset/Kibd_model', 'kib');
+        $this->load->model('aset/Temp_kibd_model', 'kib_temp');
+        $this->load->model('Organisasi_model', 'organisasi');
+        $this->load->model('Kategori_model', 'kategori');
+        $this->load->model('Penghapusan_model', 'hapus');
+        $this->load->library('pagination');
+    }
 
     public function add($id_hapus = NULL)
     {

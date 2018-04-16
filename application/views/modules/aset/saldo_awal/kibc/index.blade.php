@@ -13,7 +13,7 @@
 	<div class="col">
 		<div class="card text-white bg-info" id="wg-nilai">
 			<div class="card-body">
-				<div class="card-title mb-0">TOTAL NILAI ASET KESELURUHAN</div>
+				<div class="card-title mb-0">NILAI ASET KESELURUHAN</div>
 				<div class="card-text font-weight-bold" style="font-size: 1.5em"><div class="fa fa-spinner fa-spin"></div> Mengambil nilai...</div>
 			</div>
 		</div>

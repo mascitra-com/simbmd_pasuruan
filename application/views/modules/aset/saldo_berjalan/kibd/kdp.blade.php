@@ -3,7 +3,7 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('aset')}}">Aset</a></li>
+<li class="breadcrumb-item"><a href="#">Aset</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('inventarisasi/kibd')}}">KIB-D</a></li>
 <li class="breadcrumb-item active">KDP</li>
 @end

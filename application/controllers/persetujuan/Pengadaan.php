@@ -170,7 +170,8 @@ class Pengadaan extends MY_Controller {
 			$temp = $this->{$kib}->get($item->id_aset);
 			$nilai_tambah = ($this->nol($item->jumlah) * $this->nol($item->nilai)) + $this->nol($item->nilai_penunjang);
 			$total 		  = $nilai_tambah + $temp->nilai_tambah;
-			$sukses 	  = $this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
+			
+			$this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
 		}
 
 		return 1;

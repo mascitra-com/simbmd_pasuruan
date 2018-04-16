@@ -11,12 +11,12 @@ class Index extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/Temp_kiba_model', 'kiba');
-        $this->load->model('aset/Temp_kibb_model', 'kibb');
-        $this->load->model('aset/Temp_kibc_model', 'kibc');
-        $this->load->model('aset/Temp_kibd_model', 'kibd');
-        $this->load->model('aset/Temp_kibe_model', 'kibe');
-        $this->load->model('aset/Temp_kibg_model', 'kibg');
+        $this->load->model('aset/Temp_kiba_model', 'kiba_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kibb_temp');
+        $this->load->model('aset/Temp_kibc_model', 'kibc_temp');
+        $this->load->model('aset/Temp_kibd_model', 'kibd_temp');
+        $this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+        $this->load->model('aset/Temp_kibg_model', 'kibg_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Penghapusan_model', 'hapus');
     }
@@ -94,12 +94,12 @@ class Index extends MY_Controller
         $data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
 
         # RINCIAN
-        $data['kiba'] = $this->kiba->get_data_hapus($data['hapus']->id);
-        $data['kibb'] = $this->kibb->get_data_hapus($data['hapus']->id);
-        $data['kibc'] = $this->kibc->get_data_hapus($data['hapus']->id);
-        $data['kibd'] = $this->kibd->get_data_hapus($data['hapus']->id);
-        $data['kibe'] = $this->kibe->get_data_hapus($data['hapus']->id);
-        $data['kibg'] = $this->kibg->get_data_hapus($data['hapus']->id);
+        $data['kiba'] = $this->kiba_temp->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibb'] = $this->kibb_temp->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibc'] = $this->kibc_temp->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibd'] = $this->kibd_temp->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibe'] = $this->kibe_temp->count_by(array('id_hapus'=>$data['hapus']->id));
+        $data['kibg'] = $this->kibg_temp->count_by(array('id_hapus'=>$data['hapus']->id));
         $data['total_rincian']  = $this->hapus->get_total_rincian($id);
 
         $this->session->unset_userdata('hapus_aset');
@@ -115,12 +115,12 @@ class Index extends MY_Controller
 
         $sukses = $this->hapus->delete($id);
         if($sukses) {
-            $this->kiba->delete_by(array('id_hapus'=>$id));
-            $this->kibb->delete_by(array('id_hapus'=>$id));
-            $this->kibc->delete_by(array('id_hapus'=>$id));
-            $this->kibd->delete_by(array('id_hapus'=>$id));
-            $this->kibe->delete_by(array('id_hapus'=>$id));
-            $this->kibg->delete_by(array('id_hapus'=>$id));
+            $this->kiba_temp->delete_by(array('id_hapus'=>$id));
+            $this->kibb_temp->delete_by(array('id_hapus'=>$id));
+            $this->kibc_temp->delete_by(array('id_hapus'=>$id));
+            $this->kibd_temp->delete_by(array('id_hapus'=>$id));
+            $this->kibe_temp->delete_by(array('id_hapus'=>$id));
+            $this->kibg_temp->delete_by(array('id_hapus'=>$id));
 
             $this->message('Data berhasil dihapus','success');
             $this->go('penghapusan/index?id_organisasi='.$id_organisasi);
@@ -140,26 +140,26 @@ class Index extends MY_Controller
 
         switch ($jenis) {
             case 'a':
-                $this->go('penghapusan/kiba/add/'.$id_hapus);
-                break;
+            $this->go('penghapusan/kiba/add/'.$id_hapus);
+            break;
             case 'b':
-                $this->go('penghapusan/kibb/add/'.$id_hapus);
-                break;
+            $this->go('penghapusan/kibb/add/'.$id_hapus);
+            break;
             case 'c':
-                $this->go('penghapusan/kibc/add/'.$id_hapus);
-                break;
+            $this->go('penghapusan/kibc/add/'.$id_hapus);
+            break;
             case 'd':
-                $this->go('penghapusan/kibd/add/'.$id_hapus);
-                break;
+            $this->go('penghapusan/kibd/add/'.$id_hapus);
+            break;
             case 'e':
-                $this->go('penghapusan/kibe/add/'.$id_hapus);
-                break;
+            $this->go('penghapusan/kibe/add/'.$id_hapus);
+            break;
             case 'g':
-                $this->go('penghapusan/kibg/add/'.$id_hapus);
-                break;
+            $this->go('penghapusan/kibg/add/'.$id_hapus);
+            break;
             default:
-                show_404();
-                break;
+            show_404();
+            break;
         }
     }
     public function finish_transaction($id = NULL)
@@ -191,6 +191,77 @@ class Index extends MY_Controller
         } else {
             $this->message('Terjadi kesalahan', 'danger');
             $this->go('penghapusan/index/detail/'.$id);
+        }
+    }
+
+    public function abort_transaction($id_hapus = NULL)
+    {
+        # JIKA KOSONG
+        if (empty($id_hapus)) {
+            $this->message('Pilih data penghapusan yang akan dibatalkan', 'danger');
+            $this->go('penghapusan/index/');
+        }
+
+        # AMBIL DATA hapus
+        $hapus = $this->hapus->get($id_hapus);
+
+        # CEK KETERSEDIAAN PEMBATALAN
+        $abort_status = $this->check_abort_status($hapus->id);
+        if (!$abort_status['status']) {
+            $this->message($abort_status['reason'], 'danger');
+            $this->go('penghapusan/index?id_organisasi='.$hapus->id_organisasi);
+        }
+
+        # ABOOORT - KEMBALIKAN RINCIAN
+        $this->load->model('aset/Kiba_model', 'kiba');
+        $this->load->model('aset/Kibb_model', 'kibb');
+        $this->load->model('aset/Kibc_model', 'kibc');
+        $this->load->model('aset/Kibd_model', 'kibd');
+        $this->load->model('aset/Kibe_model', 'kibe');
+        $this->load->model('aset/Kibg_model', 'kibg');
+        
+        $alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
+        foreach ($alfabet as $item) {
+            $kib = "kib{$item}";
+            $kib_temp = "kib{$item}_temp";
+            
+            $temp = $this->{$kib_temp}->get_many_by(array('id_hapus'=>$id_hapus));
+
+            if (!empty($temp)) {
+                foreach ($temp as $key => $value) {
+                    $value->id = $value->id_aset;
+                    unset($value->id_aset,$value->id_transfer,$value->id_hapus,$value->id_koreksi,$value->id_koreksi_detail,$value->log_action,$value->log_user,$value->log_time);
+                }
+                $this->{$kib}->batch_insert($temp);
+            }
+        }
+
+        $this->hapus->update($id_hapus, array('status_pengajuan'=>0));
+
+        $this->message('Penghapusan berhasil dibatalkan','success');
+        $this->go('penghapusan/index?id_organisasi='.$hapus->id_organisasi);
+    }
+
+    private function check_abort_status($id_hapus = NULL)
+    {
+        if (empty($id_hapus)) {
+            return array('status'=>FALSE, 'reason'=>'id hapus kosong');
+        }
+
+        $hapus = $this->hapus->get($id_hapus);
+
+        if (empty($hapus)) {
+            return array('status'=>FALSE, 'reason'=>'id hapus tidak valid');
+        }
+
+        return array('status'=>TRUE);
+    }
+
+    public function get_abort_status($id_hapus = NULL) {
+        if (empty($id_hapus)) {
+            echo json_encode(array('status'=>FALSE, 'reason'=>'ID hapus KOSONG'));
+        } else {
+            echo json_encode($this->check_abort_status($id_hapus));
         }
     }
 }

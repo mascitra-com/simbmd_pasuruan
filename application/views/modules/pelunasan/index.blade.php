@@ -77,7 +77,7 @@
 									{{zerofy($item->id_aset->kd_subsubkelompok, 2)}}.
 									{{$item->id_aset->reg_barang}}
 								</td>
-								<td class="text-center">{{monefy($item->id_aset->nilai)}}</td>
+								<td class="text-center">{{$item->akumulasi_kdp=='1'?monefy($item->id_aset->nilai - $item->id_kdp->nilai): monefy($item->id_aset->nilai)}}</td>
 								<td class="text-center">
 									{{zerofy($item->id_kdp->kd_golongan, 2)}}.
 									{{zerofy($item->id_kdp->kd_bidang)}}.
@@ -128,7 +128,7 @@
 									{{zerofy($item->id_aset->kd_subsubkelompok, 2)}}.
 									{{$item->id_aset->reg_barang}}
 								</td>
-								<td class="text-center">{{monefy($item->id_aset->nilai)}}</td>
+								<td class="text-center">{{$item->akumulasi_kdp=='1'?monefy($item->id_aset->nilai - $item->id_kdp->nilai): monefy($item->id_aset->nilai)}}</td>
 								<td class="text-center">
 									{{zerofy($item->id_kdp->kd_golongan, 2)}}.
 									{{zerofy($item->id_kdp->kd_bidang)}}.
@@ -179,7 +179,7 @@
 									{{zerofy($item->id_aset->kd_subsubkelompok, 2)}}.
 									{{$item->id_aset->reg_barang}}
 								</td>
-								<td class="text-center">{{monefy($item->id_aset->nilai)}}</td>
+								<td class="text-center">{{$item->akumulasi_kdp=='1'?monefy($item->id_aset->nilai - $item->id_kdp->nilai): monefy($item->id_aset->nilai)}}</td>
 								<td class="text-center">
 									{{zerofy($item->id_kdp->kd_golongan, 2)}}.
 									{{zerofy($item->id_kdp->kd_bidang)}}.

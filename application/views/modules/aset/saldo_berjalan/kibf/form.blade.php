@@ -167,8 +167,8 @@
 						<label class="col-md-3 col-form-label text-right">Asal Usul</label>
 						<div class="col-md-4">
 							<select class="form-control" name="asal_usul">
-								<option value="Pembelian" {{isset($kib) && $kib->asal_usul == 'pembelian'?'selected':''}}>Pembelian</option>
-								<option value="Hibah" {{isset($kib) && $kib->asal_usul == 'hibah'?'selected':''}}>Hibah</option>
+								<option value="Pembelian" {{isset($kib) && $kib->asal_usul == 'Pembelian'?'selected':''}}>Pembelian</option>
+								<option value="Hibah" {{isset($kib) && $kib->asal_usul == 'Hibah'?'selected':''}}>Hibah</option>
 							</select>
 						</div>
 					</div>
