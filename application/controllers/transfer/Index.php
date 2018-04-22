@@ -335,7 +335,7 @@ class Index extends MY_Controller {
                 $where_in = array_column($data_temp, 'id_aset');
                 
                 # CHECK HAPUS/KOREKSI
-                $temp = $this->{$model_kib_temp}->where_in('id_aset', $where_in)->get_many_by(array('id_transfer'=>NULL));
+                $temp = $this->{$model_kib_temp}->where_in('id_aset', $where_in)->get_many_by(array('id_transfer'=>NULL, 'log_time>'=>$transfer->log_time));
                 if (count($temp) > 0) {
                     return array('status'=>FALSE, 'reason'=>'Rincian transfer terikat dengan transaksi hapus/koreksi.');
                 }
