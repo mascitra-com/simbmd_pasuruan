@@ -83,12 +83,12 @@ class Spk_model extends MY_Model
             return 0;
         }
 
-        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_spk = {$id_spk}";
-        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_spk = {$id_spk}";
-        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_spk = {$id_spk}";
-        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_spk = {$id_spk}";
-        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_spk = {$id_spk}";
-        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_spk = {$id_spk}";
+        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_spk = {$id_spk} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_spk = {$id_spk} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_spk = {$id_spk} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_spk = {$id_spk} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_spk = {$id_spk} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_spk = {$id_spk} AND id_hapus IS NULL AND id_koreksi IS NULL";
         $qk = "SELECT SUM(nilai + nilai_penunjang) AS nilai FROM aset_kapitalisasi WHERE id_spk = {$id_spk}";
         $qnon = "SELECT SUM(nilai) AS nilai FROM aset_non WHERE id_spk = {$id_spk}";
 

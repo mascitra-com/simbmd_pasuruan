@@ -27,7 +27,7 @@ class Rekap_hibah_model extends MY_Model {
 
 		# Ambil aset
 		$kategori = "kd_golongan, kd_bidang, kd_kelompok, kd_subkelompok, kd_subsubkelompok, k.nama";
-		$where    = "WHERE id_hibah= {$id_hibah}";
+		$where    = "WHERE id_hibah = {$id_hibah} AND id_transfer IS NULL AND id_hapus IS NULL and id_koreksi IS NULL";
 		$qa = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_a a JOIN kategori k ON a.id_kategori = k.id {$where}";
 		$qb = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_b b JOIN kategori k ON b.id_kategori = k.id {$where}";
 		$qc = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, (nilai+nilai_tambah) AS nilai, {$kategori}  FROM temp_aset_c c JOIN kategori k ON c.id_kategori = k.id {$where}";

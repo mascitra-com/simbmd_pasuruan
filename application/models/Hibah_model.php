@@ -83,12 +83,12 @@ class Hibah_model extends MY_Model
             return 0;
         }
 
-        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_hibah = {$id_hibah}";
-        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_hibah = {$id_hibah}";
-        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_hibah = {$id_hibah}";
-        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_hibah = {$id_hibah}";
-        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_hibah = {$id_hibah}";
-        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_hibah = {$id_hibah}";
+        $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_hibah = {$id_hibah} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_hibah = {$id_hibah} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_hibah = {$id_hibah} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_hibah = {$id_hibah} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_hibah = {$id_hibah} AND id_hapus IS NULL AND id_koreksi IS NULL";
+        $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_hibah = {$id_hibah} AND id_hapus IS NULL AND id_koreksi IS NULL";
         $qk = "SELECT SUM(nilai + nilai_penunjang) AS nilai FROM aset_kapitalisasi WHERE id_hibah = {$id_hibah}";
         $qnon = "SELECT SUM(nilai) AS nilai FROM aset_non WHERE id_hibah = {$id_hibah}";
 
