@@ -298,7 +298,7 @@ class Index extends MY_Controller {
             $temp = $this->{$model_kib_temp}->get_many_by(array('id_transfer'=>$id_transfer));
 
             if (!empty($temp)) {
-                $where_in = array_column($data_temp, 'id_aset');
+                $where_in = array_column($temp, 'id_aset');
                 $this->{$model_kib}->batch_update($where_in, array('id_organisasi'=>$transfer->id_organisasi));
             }
         }

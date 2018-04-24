@@ -188,6 +188,7 @@
 		$("[data-id-hapus]").on('click', fungsiTambah);
 
 		function fungsiTambah(e) {
+			$("[data-id-hapus]").prop('disabled', true);
 			var data = {
 				'id_hapus':$(e.currentTarget).data('id-hapus'),
 				'id_aset':$(e.currentTarget).data('id-aset')
@@ -202,6 +203,7 @@
 					} else {
 						alert('terjadi kesalahan');
 					}
+					$("[data-id-hapus]").prop('disabled', false);
 				}, 'json');
 		}
 	})();

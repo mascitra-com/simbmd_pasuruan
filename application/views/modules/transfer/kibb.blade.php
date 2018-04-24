@@ -219,6 +219,7 @@
 		$("[data-id-transfer]").on('click', fungsiTambah);
 
 		function fungsiTambah(e) {
+			$("[data-id-transfer]").prop('disabled', true);
 			var data = {
 				'id_transfer':$(e.currentTarget).data('id-transfer'),
 				'id_aset':$(e.currentTarget).data('id-aset')
@@ -233,6 +234,7 @@
 					} else {
 						alert('terjadi kesalahan');
 					}
+					$("[data-id-transfer]").prop('disabled', false);
 			}, 'json');
 		}
 	})();

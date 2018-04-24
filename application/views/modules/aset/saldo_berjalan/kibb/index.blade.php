@@ -108,7 +108,7 @@
 								<div class="btn-group">
 									<a href="{{site_url('inventarisasi/kibb/edit/'.$item->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
 									@if($this->session->auth['is_superadmin'] == 1)
-									<a href="{{site_url('inventarisasi/kibb/delete/'.$item->id)}}" class="btn btn-danger btn-sm" data-id="{{$item->id}}" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+									<!-- <a href="{{site_url('inventarisasi/kibb/delete/'.$item->id)}}" class="btn btn-danger btn-sm" data-id="{{$item->id}}" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a> -->
 									@endif
 								</div>
 							</td>
