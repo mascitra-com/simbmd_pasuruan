@@ -34,7 +34,20 @@ class Rekap_hibah extends MY_Controller {
 			$this->go('report/rekap_hibah');
 		}
 
-		$input['upb']	= $this->organisasi->get($input['id_organisasi'])->nama;
+		switch ($input['id_organisasi']) {
+			case 'all':
+			$input['upb'] = 'KABUPATEN';
+			break;
+			case '7.1':
+			$input['upb'] = 'DINAS KESEHATAN';
+			break;
+			case '8.1':
+			$input['upb'] = 'DINAS PENDIDIKAN';
+			break;
+			default:
+			$input['upb'] = $this->organisasi->get($input['id_organisasi'])->nama;
+			break;
+		}
 		
 		$data['detail'] = $input;
 		$data['rekap']  = $this->report->get_rekapitulasi($data['detail']);

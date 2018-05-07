@@ -8,8 +8,8 @@
 			<li class="nav nav-title">UTAMA</li>
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
-			<li class="nav nav-notifikasi"><a href="{{site_url('notifikasi')}}"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li>
-			<li class="nav nav-pembaharuan"><a href="{{site_url('pembaharuan')}}"><i class="fa fa-star fa-fw icon"></i>Pembaharuan</a></li>
+			<!-- <li class="nav nav-notifikasi"><a href="{{site_url('notifikasi')}}"><i class="fa fa-bell fa-fw icon"></i>Notifikasi</a></li> -->
+			<!-- <li class="nav nav-pembaharuan"><a href="{{site_url('pembaharuan')}}"><i class="fa fa-star fa-fw icon"></i>Pembaharuan</a></li> -->
 			<li class="nav nav-saldo-awal">
 				<a href="#menu-saldo-awal" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
@@ -128,7 +128,7 @@
 			@endif
 
 			@if($this->session->auth['is_superadmin'] == 1)
-			<li class="nav nav-title">KAMUS (PRIVAT)</li>
+			<li class="nav nav-title">KAMUS (SUPERADMIN)</li>
 			<li class="nav nav-organisasi"><a href="{{site_url('organisasi')}}"><i class="fa fa-briefcase fa-fw icon"></i>Organisasi</a></li>
 			<li class="nav nav-kategori"><a href="{{site_url('kategori')}}"><i class="fa fa-tag fa-fw icon"></i>Kategori</a></li>
 			

@@ -295,7 +295,7 @@ class Index extends MY_Controller {
             $model_kib = "kib{$item}";
             $model_kib_temp = "kib{$item}_temp";
             
-            $temp = $this->{$model_kib_temp}->get_many_by(array('id_transfer'=>$id_transfer));
+            $temp = $this->{$model_kib_temp}->as_array()->get_many_by(array('id_transfer'=>$id_transfer));
 
             if (!empty($temp)) {
                 $where_in = array_column($temp, 'id_aset');
@@ -341,8 +341,8 @@ class Index extends MY_Controller {
                 }
 
                 # CEK TRANSFER
-                $temp = $this->{$model_kib}->where_in('id', $where_in)->get_many_by(array('id_organisasi'=>$transfer->id_tujuan));                
-                if (count($where_in) !== count($temp)) {
+                $temp = $this->{$model_kib_temp}->where_in('id_aset', $where_in)->get_many_by(array('id_organisasi'=>$transfer->id_tujuan));                
+                if (count($temp) > 0) {
                     return array('status'=>FALSE, 'reason'=>'Beberapa atau semua rincian pada transfer ini telah ditransfer ke UPB lainnya');
                 }
             }

@@ -21,7 +21,7 @@ class Penghapusan extends MY_Controller {
 		$result = $this->hapus->get_data_persetujuan($filter);
 
 		$data['hapus'] = $result['data'];
-		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan_penghapusan');
+		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'persetujuan/penghapusan');
 		$data['filter'] = $filter;
 
 		$this->render('modules/persetujuan/penghapusan/index', $data);

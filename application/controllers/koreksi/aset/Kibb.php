@@ -372,7 +372,7 @@ class Kibb extends MY_Controller
         $data_kib->id_aset    = $data_kib->id;
         $data_kib->id_koreksi = $id_koreksi;
         $data_kib->id_koreksi_detail = NULL;
-        unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah);
+        unset($data_kib->id);
 
         $sukses = $this->kib_temp->insert((array)$data_kib);
         if($sukses) {

@@ -229,7 +229,13 @@ class MY_Model extends MY_Base_model {
             }
         }
 
-        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_spk'=>$id_spk, 'id_hapus'=>NULL, 'id_koreksi'=>NULL));
+        $where = array($this->_table.'.is_deleted'=>0, 'id_spk'=>$id_spk);
+
+        if ($this->_table !== 'aset_kapitalisasi' AND $this->_table !== 'aset_non') {
+            $where['id_hapus'] = NULL;
+        }
+
+        $result = $this->get_many_by($where);
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);
         return $result;
@@ -237,7 +243,13 @@ class MY_Model extends MY_Base_model {
 
     public function get_data_hibah($id_hibah)
     {
-        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah, 'id_hapus'=>NULL, 'id_koreksi'=>NULL));
+        $where = array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah);
+
+        if ($this->_table !== 'aset_kapitalisasi') {
+            $where['id_hapus'] = NULL;
+        }
+
+        $result = $this->get_many_by($where);
         $result = $this->subtitute($result);
         $result = $this->fill_empty_data($result);
         return $result;

@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Persetujuan Transfer Keluar@end
+@section('title')Persetujuan Penghapusan@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>

@@ -59,7 +59,7 @@
                         <button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
                         @elseif($item->status_pengajuan === '2')
                         <div class="btn-group">
-                            <button class="btn btn-success btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+                            <button class="btn btn-success btn-sm btn-block" data-id-hapus="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
                             @if($this->session->auth['is_superadmin'] == 1)
                             <button class="btn btn-warning" data-id-batal="{{$item->id}}"><i class="fa fa-times"></i></button>
                             @endif

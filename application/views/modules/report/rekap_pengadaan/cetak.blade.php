@@ -65,6 +65,9 @@
 						<td colspan="11" class="small">
 							<span class="ml-3">No. SPK/SP/DOK: {{$spk->nomor}}</span>
 							<span class="ml-3">Rekanan: {{$spk->nama_perusahaan}}</span>
+							@if($detail['upb'] === 'KABUPATEN' OR $detail['upb'] === 'DINAS PENDIDIKAN' OR $detail['upb'] === 'DINAS KESEHATAN')
+							<span class="ml-3">UPB: {{$spk->nama}}</span>
+							@endif
 						</td>
 					</tr>
 					<!-- ASET -->

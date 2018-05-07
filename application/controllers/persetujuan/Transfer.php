@@ -93,7 +93,7 @@ class Transfer extends MY_Controller
 
 		} else {
 			$this->message('Gagal verifikasi', 'danger');
-			$this->go('persetujuan/transfer');
+			$this->go('persetujuan/transfer/');
 		}
 	}
 
