@@ -19,6 +19,12 @@
 						<div class="col-md-4">
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 195)
+									<option value="7.1">DINAS KESEHATAN (SEMUA)</option>
+								@endif
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 233)
+									<option value="8.1">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
+								@endif
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
 								@endforeach

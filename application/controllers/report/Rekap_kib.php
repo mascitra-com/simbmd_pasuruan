@@ -34,11 +34,15 @@ class Rekap_kib extends MY_Controller
             $this->message('Isi data yang perlu diisi', 'danger');
             $this->go('report/rekap_kib');
         }
-
-        $input['upb'] = $input['id_organisasi']==='all'?'KABUPATEN':$this->organisasi->get($input['id_organisasi'])->nama;
-
+        if(strpos($input['id_organisasi'], '.')) {
+            $input['upb'] = 'SEMUA ' . $this->organisasi->get_org_induk($input['id_organisasi'])->nama;
+        }
+        else {
+            $input['upb'] = $input['id_organisasi']==='all' ? 'Kabupaten' :$this->organisasi->get($input['id_organisasi'])->nama;
+        }
         $data['detail'] = $input;
         $data['rekap'] = $this->report->get_rekapitulasi($data['detail']);
+        $data['detail']['sumber_data'] = ($input['sumber_data']==1) ? 'Saldo Berjalan':'Saldo Awal (Tahun 2017)';
 
         $view = 'cetak_' . $input['kib'];
         $this->render("modules/report/rekap_kib/{$view}", $data);

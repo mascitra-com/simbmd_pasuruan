@@ -10,12 +10,23 @@ class Rekap_penghapusan_model extends MY_Model {
 	public function get_rekapitulasi($config = array())
 	{
 		# Ambil data SPK
-		$select 	 = "id,no_jurnal,tgl_jurnal,no_sk, tgl_sk,keterangan,alasan";
-		$where 		 = array('is_deleted'=>0,'id_organisasi'=>$config['id_organisasi']);
+		$select 	 = "p.id,no_jurnal,tgl_jurnal,no_sk, tgl_sk,keterangan,alasan";
+		$where 		 = 'p.is_deleted = 0';
 		$where_query = "tgl_sk BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = '2'";
+
+        if($config['id_organisasi'] === '5.2' OR $config['id_organisasi'] === '7.1') {
+            $kode = explode('.', $config['id_organisasi']);
+            $where .= ' AND kd_bidang = '. $kode[0];
+            $where .= ' AND kd_unit = ' . $kode[1];
+        } else {
+            $where .= ' AND id_organisasi =' . $config['id_organisasi'];
+        }
 		if(!empty($config['alasan']))
 		    $where_query .= " AND alasan " . $config['alasan'];
-		$final 		 = $this->db->select($select)->where($where)->where($where_query)->get('penghapusan')->result();
+		$final 		 = $this->db->select($select)
+            ->from('penghapusan p')
+            ->join('organisasi o', 'p.id_organisasi = o.id')
+            ->where($where)->where($where_query)->get()->result();
 
         foreach ($final as $key => $value) {
             $value->rincian = $this->get_rincian($value->id);

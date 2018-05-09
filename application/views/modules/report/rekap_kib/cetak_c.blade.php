@@ -36,6 +36,8 @@
 			GEDUNG &amp BANGUNAN
 			<br>
 			{{$detail['header']}}
+			<br>
+			{{$detail['sumber_data']}}
 		</div>
 		<div class="header">
 			<table style="width:50%">

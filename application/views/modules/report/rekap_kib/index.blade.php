@@ -20,6 +20,12 @@
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
 								<option value="all" class="text-small">KABUPATEN</option>
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 195)
+									<option value="7.1">DINAS KESEHATAN (SEMUA)</option>
+								@endif
+								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 233)
+									<option value="8.1">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
+								@endif
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
 								@endforeach
@@ -59,6 +65,15 @@
 						</div>
 					</div>
 					<div class="form-group row">
+						<label class="col-md-3 col-form-label text-right">Sumber Data</label>
+						<div class="col-md-4">
+							<select name="sumber_data" class="form-control form-control-sm">
+								<option value="1">Saldo Berjalan</option>
+								<option value="2">Saldo Awal (Tahun 2017)</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Cetak Berdasar</label>
 						<div class="col-md-4">
 							<select name="urut" class="form-control form-control-sm">
@@ -81,7 +96,7 @@
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Header</label>
 						<div class="col-md-4">
-							<input type="text" name="header" class="form-control form-control-sm" value="TAHUN {{date('Y')}}" placeholder="Header laporan" />
+							<input type="text" name="header" class="form-control form-control-sm" value="LAPORAN" placeholder="Header laporan" />
 						</div>
 					</div>
 					<div class="form-group row">

@@ -99,4 +99,13 @@ var update = [
 			{"type": "fitu","description" : "Pembatalan pengadaan yang telah disetujui"},
 		]
 	},
+	{
+		"version": "1.2.1",
+		"date": "09-05-2018",
+		"detail" : [
+			{"type": "fitur","description" : "Pilihan Sumber Data pada Rekapitulasi Kartu Inventaris Barang"},
+			{"type": "fitur","description" : "Pilihan UPB untuk Semua Dinas Kesehatan & Semua Dinas Pendidikan pada Rekapitulasi Kartu Inventaris Barang"},
+			{"type": "fitur","description" : "Pilihan UPB untuk Semua Dinas Kesehatan & Semua Dinas Pendidikan pada Rekapitulasi Penghapusan"},
+		]
+	},
 ]
