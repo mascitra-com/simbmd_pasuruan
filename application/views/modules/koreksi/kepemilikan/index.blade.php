@@ -5,7 +5,7 @@
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$filter['id_organisasi'])}}">Koreksi</a></li>
 <li class="breadcrumb-item active">Koreksi Kepemilikan</li>
-@endsection
+@end
 
 @section('content')
 <div class="card">
@@ -160,13 +160,13 @@
 		</div>
 	</div>
 </div>
-@endsection
+@end
 
 @section('style')
 <style>
 .text-sm {font-size: smaller;}
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

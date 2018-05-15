@@ -6,7 +6,7 @@
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/nilai?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Nilai</a></li>
 <li class="breadcrumb-item active">Rincian</li>
-@endsection
+@end
 
 @section('content')
 <div class="form-inline">
@@ -558,7 +558,7 @@
             </div>
         </div>
     </div>
-    @endsection
+    @end
 
     @section('style')
     <style>
@@ -566,7 +566,7 @@
         font-size: smaller !important;
     }
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

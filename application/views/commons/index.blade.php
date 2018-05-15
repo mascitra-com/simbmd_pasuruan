@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{base_url('res/plugins/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{base_url('res/plugins/fontawesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{base_url('res/plugins/chosen/chosen.min.css')}}">
+    <link rel="stylesheet" href="{{base_url('res/plugins/notification/notification.css')}}">
     <link rel="stylesheet" href="{{base_url('res/styles/theme.css')}}">
     @yield('style')
 </head>
@@ -43,11 +44,12 @@
 <script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/popper.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/chosen/chosen.jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{base_url('res/plugins/clock/clock.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/scripts/theme.js')}}"></script>
 @yield('script')
 <script>
     $(document).ready(function() {
-
+        clock.setClock();
         numeral.register('locale', 'in', {
             delimiters: {
                 thousands: '.',

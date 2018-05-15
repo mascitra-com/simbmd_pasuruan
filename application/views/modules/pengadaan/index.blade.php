@@ -266,7 +266,7 @@
 <style>
 .text-sm {font-size: smaller;}
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

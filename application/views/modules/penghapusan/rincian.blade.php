@@ -341,7 +341,7 @@ Aset</a></li>
         </div>
     </div>
 </div>
-@endsection
+@end
 
 @section('style')
 <style>
@@ -350,7 +350,7 @@ th, td {
 }
 </style>
 <link rel="stylesheet" href="{{base_url('res/plugins/bttable/bttable.css')}}">
-@endsection
+@end
 
 @section('script')
 <script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>

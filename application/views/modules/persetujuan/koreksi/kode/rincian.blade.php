@@ -6,7 +6,7 @@ a@layout('commons/index')
 <li class="breadcrumb-item"><a href="{{site_url('persetujuan/koreksi_kode?')}}">Persetujuan</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('persetujuan/koreksi_kode?')}}">Koreksi Kode</a></li>
 <li class="breadcrumb-item active">Rincian</li>
-@endsection
+@end
 
 @section('content')
 <div class="form-inline">

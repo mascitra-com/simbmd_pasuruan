@@ -104,14 +104,16 @@ class Rekap_aset_model extends MY_Model {
 	public function get_rekapitulasi_aset_13($level = 1, $org = "", $sumber)
 	{
 		$sumber = ($sumber==1) ? '':'saldo_';
+		$year = date('Y');
 
+		$whereExcom = "(YEAR(tgl_pembukuan) <> {$year} OR (YEAR(tgl_pembukuan) = {$year} AND nilai >= batas_nilai))";
         if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
-            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
-            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
+            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} AND {$whereExcom}";
+            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} AND {$whereExcom}";
         } else {
-            $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org}";
-		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
+            $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org} AND {$whereExcom}";
+		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org} AND {$whereExcom}";
         }
 		
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
@@ -188,12 +190,12 @@ class Rekap_aset_model extends MY_Model {
 			}
 		}
 
-		$querya = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryb = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryc = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryd = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$querye = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
-		$queryg = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_g JOIN organisasi o ON id_organisasi = o.id WHERE kondisi = 3 {$whereKDP}";
+		$querya = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN organisasi o ON id_organisasi = o.id JOIN kategori k ON id_kategori = k.id WHERE kondisi = 3 {$whereKDP}";
+		$queryb = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN organisasi o ON id_organisasi = o.id JOIN kategori k ON id_kategori = k.id WHERE kondisi = 3 {$whereKDP}";
+		$queryc = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_c JOIN organisasi o ON id_organisasi = o.id JOIN kategori k ON id_kategori = k.id WHERE kondisi = 3 {$whereKDP}";
+		$queryd = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai + nilai_tambah) as jumlah_nilai FROM {$sumber}aset_d JOIN organisasi o ON id_organisasi = o.id JOIN kategori k ON id_kategori = k.id WHERE kondisi = 3 {$whereKDP}";
+		$querye = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_e JOIN organisasi o ON id_organisasi = o.id JOIN kategori k ON id_kategori = k.id WHERE kondisi = 3 {$whereKDP}";
+		$queryg = "SELECT COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_g JOIN organisasi o ON id_organisasi = o.id JOIN kategori k ON id_kategori = k.id WHERE kondisi = 3 {$whereKDP}";
 
 		$query  = "SELECT SUM(q.jumlah_aset) AS jumlah_aset, SUM(q.jumlah_nilai) AS jumlah_nilai FROM ({$querya} UNION ALL {$queryb} UNION ALL {$queryc} UNION ALL {$queryd} UNION ALL {$querye} UNION ALL {$queryg}) AS q";
 		$result = $this->db->query($query)->result()[0];

@@ -609,7 +609,7 @@
         </div>
     </div>
 </div>
-@endsection
+@end
 
 @section('style')
 <style>
@@ -617,7 +617,7 @@ th, td {
     font-size: smaller !important;
 }
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

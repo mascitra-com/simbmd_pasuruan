@@ -1,3 +1,4 @@
+
 @layout('commons/index')
 @section('title')Persetujuan Koreksi Kepemilikan@end
 
@@ -5,7 +6,7 @@
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('persetujuan/koreksi_kepemilikan')}}">Beranda</a></li>
 <li class="breadcrumb-item active">Rincian</li>
-@endsection
+@end
 
 @section('content')
 <div class="form-inline">
@@ -511,7 +512,7 @@ th, td {
     font-size: smaller !important;
 }
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

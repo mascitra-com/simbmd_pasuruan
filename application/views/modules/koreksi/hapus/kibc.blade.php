@@ -7,7 +7,7 @@
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/hapus?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Hapus</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/hapus/rincian/'.$koreksi->id)}}">Rincian</a></li>
 <li class="breadcrumb-item active">KIB-C</li>
-@endsection
+@end
 
 @section('content')
 <div class="row">

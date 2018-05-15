@@ -76,7 +76,7 @@
 <style>
 	.hidden{display: none;}
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

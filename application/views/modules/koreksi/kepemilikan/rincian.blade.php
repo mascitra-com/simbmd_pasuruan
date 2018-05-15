@@ -6,7 +6,7 @@ a@layout('commons/index')
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
 <li class="breadcrumb-item"><a href="{{site_url('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Kepemilikan</a></li>
 <li class="breadcrumb-item active">Rincian</li>
-@endsection
+@end
 
 @section('content')
 <div class="form-inline">
@@ -570,7 +570,7 @@ a@layout('commons/index')
             </div>
         </div>
     </div>
-    @endsection
+    @end
 
     @section('style')
     <style>
@@ -578,7 +578,7 @@ a@layout('commons/index')
         font-size: smaller !important;
     }
 </style>
-@endsection
+@end
 
 @section('script')
 <script>

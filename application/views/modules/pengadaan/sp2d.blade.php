@@ -172,7 +172,7 @@
 		overflow-y: auto;!important;
 	}
 </style>
-@endsection
+@end
 
 @section('script')
 <script>
@@ -231,5 +231,5 @@
 	})();
 	
 </script>
-@endsection
+@end
 

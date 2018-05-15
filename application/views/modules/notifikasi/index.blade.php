@@ -4,7 +4,7 @@
 @section('breadcrump')
     <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
     <li class="breadcrumb-item active">Notifikasi</li>
-@endsection
+@end
 
 @section('content')
     <div class="card">
@@ -50,4 +50,4 @@
     <style>
         .text-sm {font-size: smaller;}
     </style>
-@endsection
+@end
