@@ -23,11 +23,15 @@
     @include('commons/sidebar')
     <div id="content">
     @include('commons/header')
-
-    <!-- BREADCRUMP -->
-        <ol class="breadcrumb">
-            @yield('breadcrump')
-        </ol>
+        <!-- BREADCRUMP -->
+        <nav class="navbar navbar-light mb-4" style="background-color: #e8e8e8;">
+            <ol class="breadcrumb px-0 py-0 mx-0 my-0 navbar-text" style="background-color: initial;">
+                @yield('breadcrump')
+            </ol>
+            <div class="navbar-text ml-auto marquee py-0" style="max-width: 50%;overflow: hidden;white-space: nowrap;">{{$this->setting->get('scroll_text')}}</div>
+            <span class="navbar-text ml-2 px-2 py-1 font-weight-bold clock-placeholder" style="background-color: #bab8b8"></span>
+        </nav>
+        
 
         <!-- CONTENT -->
         <div class="container-fluid">
@@ -44,43 +48,10 @@
 <script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/popper.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/chosen/chosen.jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{base_url('res/plugins/marquee/marquee.min.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/plugins/clock/clock.js')}}"></script>
 <script type="text/javascript" src="{{base_url('res/scripts/theme.js')}}"></script>
 @yield('script')
-<script>
-    $(document).ready(function() {
-        clock.setClock();
-        numeral.register('locale', 'in', {
-            delimiters: {
-                thousands: '.',
-                decimal: ','
-            },
-            abbreviations: {
-                thousand: 'rb',
-                million: 'jt',
-                billion: 'm',
-                trillion: 't'
-            },
-            ordinal : function (number) {
-                return number === 1 ? 'er' : 'ème';
-            },
-            currency: {
-                symbol: 'Rp'
-            }
-        });
-
-        // switch between locales
-        numeral.locale('in');
-
-        var num;
-        $("input[name^='nilai'], input[name^='addendum_nilai'], input[name='corrected_value']").attr('type', 'text').on('blur', function(){
-            num = numeral($(this).val()).format('0,0.00');
-            $(this).val(num);
-        }).on('focus', function(){
-            num = numeral($(this).val()).format('0.00');
-            $(this).val(num);
-        });
-    });
-</script>
+<script type="text/javascript" src="{{base_url('res/scripts/app.js')}}"></script>
 </body>
 </html>

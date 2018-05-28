@@ -7,10 +7,6 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<span class="navbar-text ml-auto">{{greetings()}} <strong><a class="text-dark" href="{{site_url('profil')}}">{{$this->session->auth['name']}}</a></strong></span>
 		<span class="navbar-text ml-2">|</span>
-		<span class="navbar-text ml-2 font-weight-bold text-uppercase">{{date('d M')}}</span>
-		<span class="navbar-text ml-2">-</span>
-		<span class="navbar-text ml-2 font-weight-bold clock-placeholder"></span>
-		<span class="navbar-text ml-2">|</span>
 		<ul class="navbar-nav ml-2">
 			<!-- NOTIF HERE -->
 			<!-- <li class="nav-item dropdown">

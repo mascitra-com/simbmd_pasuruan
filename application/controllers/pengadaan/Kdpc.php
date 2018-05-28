@@ -24,7 +24,7 @@ class Kdpc extends MY_Controller {
 		$this->render('modules/pengadaan/form_kdpc', $data);
 	}
 
-	public function edit_pengadaan($id = NULL)
+	public function edit($id = NULL)
 	{
 		if(empty($id))
 			show_404();
@@ -37,7 +37,7 @@ class Kdpc extends MY_Controller {
 		$this->render('modules/pengadaan/form_kdpc', $data);
 	}
 
-	public function insert_pengadaan()
+	public function insert()
 	{
 		$data = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : '';
@@ -69,7 +69,7 @@ class Kdpc extends MY_Controller {
 		}
 	}
 
-	public function update_pengadaan()
+	public function update()
 	{
 		$data 		   = $this->input->post();
 		$data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
@@ -80,7 +80,7 @@ class Kdpc extends MY_Controller {
 
 		if (!$this->kib->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi', 'danger');
-			$this->go('pengadaan/kdpc/edit_pengadaan/'.$id);
+			$this->go('pengadaan/kdpc/edit/'.$id);
 		}
 
 		$sukses = $this->kib->update($id, $data);
@@ -89,11 +89,11 @@ class Kdpc extends MY_Controller {
 			$this->go('pengadaan/index/rincian/'.$data['id_spk']);
 		} else {
 			$this->message('Data gagal disunting','danger');
-			$this->go('pengadaan/kdpc/edit_pengadaan/'.$id);
+			$this->go('pengadaan/kdpc/edit/'.$id);
 		}
 	}
 
-	public function delete_pengadaan($id = NULL)
+	public function delete($id = NULL)
 	{
 		if(empty($id))
 			show_404();

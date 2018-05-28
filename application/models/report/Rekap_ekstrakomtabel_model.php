@@ -2,8 +2,11 @@
 
 class Rekap_ekstrakomtabel_model extends MY_Model {
 
+	public $priode;
+
 	public function __construct() {
 		parent::__construct();
+		$this->periode = $this->setting->get('periode_start');
 	}
 
 	public function get_rekapitulasi($config)
@@ -18,7 +21,7 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		$select = 'ast.*, kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,nama,
 		SUM(CASE WHEN (kondisi=1) THEN 1 ELSE 0 END) AS kb, SUM(CASE WHEN (kondisi=2) THEN 1 ELSE 0 END) AS kkb, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS krb,
 		COUNT(ast.id) AS jumlah, SUM(nilai) AS nilai_total';
-		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik} AND nilai < batas_nilai AND YEAR(tgl_pembukuan) = ".date('Y');
+		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik} AND nilai < batas_nilai AND YEAR(tgl_perolehan) >= {$this->periode}";
         if(!empty($kondisi)){
             $where .= " AND kondisi =".$kondisi;
         }
@@ -31,7 +34,7 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 
 	private function get_kibc($id, $kd_pemilik, $urut = '1', $kondisi = NULL)
 	{
-		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik} AND kd_golongan <> 6 AND nilai < batas_nilai AND YEAR(tgl_pembukuan) = ".date('Y');
+		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik} AND kd_golongan <> 6 AND nilai < batas_nilai AND YEAR(tgl_perolehan) >= {$this->periode}";
         if(!empty($kondisi)){
             $where .= " AND kondisi =".$kondisi;
         }
@@ -46,7 +49,7 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		$select = 'ast.*, kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,nama,
 		SUM(CASE WHEN (kondisi=1) THEN 1 ELSE 0 END) AS kb, SUM(CASE WHEN (kondisi=2) THEN 1 ELSE 0 END) AS kkb, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS krb,
 		COUNT(ast.id) AS jumlah, SUM(nilai) AS nilai_total';
-		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik} AND nilai < batas_nilai AND YEAR(tgl_pembukuan) = ".date('Y');
+		$where  = "ast.is_deleted = 0 AND id_organisasi = {$id} AND kd_pemilik = {$kd_pemilik} AND nilai < batas_nilai AND YEAR(tgl_perolehan) >= {$this->periode}";
         if(!empty($kondisi)){
             $where .= " AND kondisi =".$kondisi;
         }

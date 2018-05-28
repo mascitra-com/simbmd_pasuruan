@@ -8,27 +8,11 @@
  * @version 1.0
  */
  
-if (!function_exists('dump')) {
-    function dump ($var, $show = TRUE, $exit = TRUE) {
-
-        // Add formatting
-        echo '<pre>';
-        var_dump($var);
-        echo '</pre>';
-        
-        // Output
-        if ($show == TRUE) {
-            echo $output;
-        }
-        else {
-            return $output;
-        }
-        
-        //exit ?
-        if ($exit == TRUE) {
-            exit;
-        }
-        
+if ( ! function_exists('dump'))
+{
+    function dump($array=array())
+    {
+        echo '<pre>'; print_r($array); echo '</pre>';
     }
 }
 

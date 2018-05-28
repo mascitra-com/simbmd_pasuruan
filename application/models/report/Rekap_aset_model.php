@@ -104,16 +104,15 @@ class Rekap_aset_model extends MY_Model {
 	public function get_rekapitulasi_aset_13($level = 1, $org = "", $sumber)
 	{
 		$sumber = ($sumber==1) ? '':'saldo_';
-		$year = date('Y');
 
-		$whereExcom = "(YEAR(tgl_pembukuan) <> {$year} OR (YEAR(tgl_pembukuan) = {$year} AND nilai >= batas_nilai))";
+		$whereExcom = empty($sumber) ? "AND NOT ((id_spk IS NOT NULL OR id_hibah IS NOT NULL) AND nilai < batas_nilai)" : "";
         if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
-            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} AND {$whereExcom}";
-            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} AND {$whereExcom}";
+            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";
+            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";
         } else {
-            $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org} AND {$whereExcom}";
-		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org} AND {$whereExcom}";
+            $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org} {$whereExcom}";
+		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org} {$whereExcom}";
         }
 		
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";

@@ -130,7 +130,7 @@ class Kapitalisasi extends MY_Controller {
 
 		if (!$this->kapitalisasi->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi');
-			$this->go('pengadaan/kapitalisasi/edit_pengadaan/'.$id);
+			$this->go('pengadaan/kapitalisasi/edit/'.$id);
 		}
 
 		# Update data pada aset utama
@@ -149,7 +149,7 @@ class Kapitalisasi extends MY_Controller {
 		} else {
 			# Rollback update
 			$this->message('Data gagal disimpan');
-			$this->go('pengadaan/kapitalisasi/edit_pengadaan/'.$id);
+			$this->go('pengadaan/kapitalisasi/edit/'.$id);
 		}
 	}
 

@@ -74,6 +74,21 @@ if ( ! function_exists('unmonefy'))
 	}
 }
 
+if ( ! function_exists('set_lock_icon'))
+{
+	function set_lock_icon($array,$string)
+	{
+		return in_array($string, $array)?"<span class='badge badge-warning text-dark ml-2'><i class='fa fa-fw fa-lock text-dark'></i></span>":"";
+	}
+}
+
+if ( ! function_exists('set_lock_link'))
+{
+	function set_lock_link($array,$string,$link)
+	{
+		return in_array($string, $array)?"#":$link;
+	}
+}
 
 if ( ! function_exists('notif'))
 {

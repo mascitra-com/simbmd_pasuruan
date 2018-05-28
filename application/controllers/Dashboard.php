@@ -15,7 +15,6 @@ class Dashboard extends MY_Controller {
 
 	public function tes()
 	{
-		// $update = array("1.0"=>array("date"=>"xxx", "detail"=>array(array("jenis"=>"xxx", "deskripsi"=>"abc"), array("jenis"=>"xxx", "deskripsi"=>"abc"))));
-		// echo json_encode($update);
+		echo $this->uri->segment(1, 0);
 	}
 }
