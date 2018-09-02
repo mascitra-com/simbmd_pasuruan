@@ -83,6 +83,7 @@ class Index extends MY_Controller
         }
 
         $data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
+        $data['ref']   = !empty($this->input->get('ref')) ? 'true' : '';
         $this->render('modules/penghapusan/detail', $data);
     }
 
@@ -91,16 +92,25 @@ class Index extends MY_Controller
         if (empty($id)) {
             show_404();
         }
+        
         $data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
 
-        # RINCIAN
-        $data['kiba'] = $this->kiba_temp->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibb'] = $this->kibb_temp->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibc'] = $this->kibc_temp->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibd'] = $this->kibd_temp->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibe'] = $this->kibe_temp->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibg'] = $this->kibg_temp->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['total_rincian']  = $this->hapus->get_total_rincian($id);
+        # COUNT
+        $data['kiba']['count'] = $this->kiba_temp->count_by(array('id_hapus'=>$id));
+        $data['kibb']['count'] = $this->kibb_temp->count_by(array('id_hapus'=>$id));
+        $data['kibc']['count'] = $this->kibc_temp->count_by(array('id_hapus'=>$id));
+        $data['kibd']['count'] = $this->kibd_temp->count_by(array('id_hapus'=>$id));
+        $data['kibe']['count'] = $this->kibe_temp->count_by(array('id_hapus'=>$id));
+        $data['kibg']['count'] = $this->kibg_temp->count_by(array('id_hapus'=>$id));
+        # SUM
+        $data['kiba']['sum'] = $this->kiba_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hapus'=>$id))[0]->nilai;
+        $data['kibb']['sum'] = $this->kibb_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hapus'=>$id))[0]->nilai;
+        $data['kibc']['sum'] = $this->kibc_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_hapus'=>$id))[0]->nilai;
+        $data['kibd']['sum'] = $this->kibd_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_hapus'=>$id))[0]->nilai;
+        $data['kibe']['sum'] = $this->kibe_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hapus'=>$id))[0]->nilai;
+        $data['kibg']['sum'] = $this->kibg_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hapus'=>$id))[0]->nilai;
+
+        $data['ref'] = !empty($this->input->get('ref')) ? 'true' : '';
 
         $this->session->unset_userdata('hapus_aset');
         $this->render('modules/penghapusan/rincian', $data);

@@ -27,42 +27,6 @@ class Penghapusan extends MY_Controller {
 		$this->render('modules/persetujuan/penghapusan/index', $data);
 	}
 
-	public function detail($id = null) {
-		if (empty($id)) {
-			show_404();
-		}
-
-		$data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
-
-		$this->render('modules/persetujuan/penghapusan/detail', $data);
-	}
-
-	public function rincian($id = null) {
-		$this->load->model('aset/Temp_kiba_model', 'kiba');
-		$this->load->model('aset/Temp_kibb_model', 'kibb');
-		$this->load->model('aset/Temp_kibc_model', 'kibc');
-		$this->load->model('aset/Temp_kibd_model', 'kibd');
-		$this->load->model('aset/Temp_kibe_model', 'kibe');
-		$this->load->model('aset/Temp_kibg_model', 'kibg');
-
-		if (empty($id)) {
-			show_404();
-		}
-
-		# RINCIAN
-		$data['hapus'] = $this->hapus->subtitute($this->hapus->get($id));
-        $data['kiba'] = $this->kiba->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibb'] = $this->kibb->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibc'] = $this->kibc->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibd'] = $this->kibd->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibe'] = $this->kibe->count_by(array('id_hapus'=>$data['hapus']->id));
-        $data['kibg'] = $this->kibg->count_by(array('id_hapus'=>$data['hapus']->id));
-		$data['total_rincian']  = $this->hapus->get_total_rincian($id);
-
-		$this->render('modules/persetujuan/penghapusan/rincian', $data);
-	}
-
 	public function verifikasi() {
 		$data = $this->input->post();
 		$sukses = $this->persetujuan->insert($data);

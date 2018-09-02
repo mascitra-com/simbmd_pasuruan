@@ -3,17 +3,18 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
-<li class="breadcrumb-item active">SP2D</li>
+<li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/pengadaan'):site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item active">Rincian</li>
 @end
 
 @section('content')
 <div class="form-inline">
 	<div class="btn-group mb-3">
-		<a href="{{site_url('pengadaan/index/detail/'.$spk->id)}}" class="btn btn-primary">01. Detail Pengadaan</a>
-		<a href="{{site_url('pengadaan/sp2d/index/'.$spk->id)}}" class="btn btn-primary active">02. SP2D</a>
-		<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}" class="btn btn-primary">03. Rincian Aset</a>
+		<a href="{{site_url('pengadaan/index/detail/'.$spk->id)}}{{($ref?'?ref='.$ref:'')}}" class="btn btn-primary">01. Detail Pengadaan</a>
+		<a href="{{site_url('pengadaan/sp2d/index/'.$spk->id)}}{{($ref?'?ref='.$ref:'')}}" class="btn btn-primary active">02. SP2D</a>
+		<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}{{($ref?'?ref='.$ref:'')}}" class="btn btn-primary">03. Rincian Aset</a>
 	</div>
+	@if(!$ref)
 	<div class="btn-group mb-3 ml-auto">
         @if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
         <a href="{{site_url('pengadaan/index/finish_transaction/'.$spk->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
@@ -21,6 +22,7 @@
         <a href="{{site_url('pengadaan/index/cancel_transaction/'.$spk->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
         @endif
     </div>
+    @endif
 </div>
 <div class="row mb-3">
 	<div class="col">
@@ -54,7 +56,7 @@
 		<div class="card">
 			<div class="card-header form-inline">
 				<span class="mr-auto">SP2D</span>
-				@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
+				@if(($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3') && !$ref)
 				<button class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah"><i class="fa fa-plus"></i> Tambah SP2D</button>
 				@endif
 			</div>
@@ -67,7 +69,7 @@
 							<th>No. Rekening</th>
 							<th class="text-right" width="20%">Nilai</th>
 							<th>Keterangan</th>
-							@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
+							@if(($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3') && !$ref)
 							<th class="text-center">Aksi</th>
 							@endif
 						</tr>
@@ -80,10 +82,12 @@
 							<td>{{$data->kode_rekening}}</td>
 							<td class="text-right">{{monefy($data->nilai)}}</td>
 							<td>{{$data->keterangan}}</td>
-							@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
-							<td class="text-center text-nowrap btn-group">
-								<button class="btn btn-warning btn-sm" data-id="{{$data->id}}"><i class="fa fa-pencil"></i></button>
-								<a href="{{site_url('pengadaan/sp2d/delete/'.$data->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+							@if(($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3') && !$ref)
+							<td class="text-center text-nowrap">
+								<div class="btn-group">
+									<button class="btn btn-warning btn-sm" data-id="{{$data->id}}"><i class="fa fa-pencil"></i></button>
+									<a href="{{site_url('pengadaan/sp2d/delete/'.$data->id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
+								</div>
 							</td>
 							@endif
 						</tr>
@@ -97,6 +101,7 @@
 @end
 
 @section('modal')
+@if(!$ref)
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-tambah">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -163,6 +168,7 @@
 		</div>
 	</div>
 </div>
+@endif
 @end
 
 @section('style')

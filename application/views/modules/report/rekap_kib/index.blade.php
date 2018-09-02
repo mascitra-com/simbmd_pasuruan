@@ -19,7 +19,9 @@
 						<div class="col-md-4">
 							<select name="id_organisasi" class="select-chosen form-control" data-placeholder="Pilih UPB...">
 								<option></option>
+								@if($this->session->auth['is_superadmin'] == 1)
 								<option value="all" class="text-small">KABUPATEN</option>
+								@endif
 								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 195)
 									<option value="7.1">DINAS KESEHATAN (SEMUA)</option>
 								@endif

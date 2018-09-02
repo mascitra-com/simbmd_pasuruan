@@ -35,7 +35,12 @@ class Rekap_ekstrakomtabel extends MY_Controller
             $this->go('report/rekap_ekstrakomtabel');
         }
 
-        $input['upb'] = $this->organisasi->get($input['id_organisasi'])->nama;
+        if(strpos($input['id_organisasi'], '.')) {
+            $input['upb'] = 'SEMUA ' . $this->organisasi->get_org_induk($input['id_organisasi'])->nama;
+        }
+        else {
+            $input['upb'] = $input['id_organisasi']==='all' ? 'Kabupaten' :$this->organisasi->get($input['id_organisasi'])->nama;
+        }
 
         $data['detail'] = $input;
         $data['rekap'] = $this->report->get_rekapitulasi($data['detail']);

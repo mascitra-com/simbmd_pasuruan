@@ -62,10 +62,10 @@ class Kibd extends MY_Controller
         $sukses      = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('transfer/index/keluar_rincian/' . $id_transfer);
+            $this->go('transfer/index/rincian/'.$id_transfer.'?ref=keluar');
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('transfer/index/keluar_rincian/' . $id_transfer);
+            $this->go('transfer/index/rincian/'.$id_transfer.'?ref=keluar');
         }
     }
 }

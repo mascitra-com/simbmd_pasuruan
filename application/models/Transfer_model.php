@@ -122,8 +122,8 @@ class Transfer_model extends MY_Model
 
         $qa = "SELECT SUM(nilai) AS nilai FROM temp_aset_a WHERE id_transfer = {$id_transfer}";
         $qb = "SELECT SUM(nilai) AS nilai FROM temp_aset_b WHERE id_transfer = {$id_transfer}";
-        $qc = "SELECT SUM(nilai) AS nilai FROM temp_aset_c WHERE id_transfer = {$id_transfer}";
-        $qd = "SELECT SUM(nilai) AS nilai FROM temp_aset_d WHERE id_transfer = {$id_transfer}";
+        $qc = "SELECT SUM(nilai+nilai_tambah) AS nilai FROM temp_aset_c WHERE id_transfer = {$id_transfer}";
+        $qd = "SELECT SUM(nilai+nilai_tambah) AS nilai FROM temp_aset_d WHERE id_transfer = {$id_transfer}";
         $qe = "SELECT SUM(nilai) AS nilai FROM temp_aset_e WHERE id_transfer = {$id_transfer}";
         $qg = "SELECT SUM(nilai) AS nilai FROM temp_aset_g WHERE id_transfer = {$id_transfer}";
 

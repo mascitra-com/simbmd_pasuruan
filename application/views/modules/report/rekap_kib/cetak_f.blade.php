@@ -52,7 +52,7 @@
 				<thead>
 					<tr class="small">
 						<th class="text-center">No.</th>
-						<th class="text-center">Kode Barang &amp Reg Induk</th>
+						<th class="text-center">Kode Barang</th>
 						<th class="text-center">Jenis/Nama</th>
 						<th class="text-center">Kondisi</th>
 						<th class="text-center">Tingkat</th>
@@ -68,9 +68,10 @@
 						<th class="text-center">Asal-Usul/Tahun Pengadaan</th>
 						<th class="text-center">Nilai (Rp.)</th>
 						<th class="text-center">Keterangan</th>
+						<th class="text-center">UPB</th>
 					</tr>
 					<tr>
-						@for($i=1;$i <= 17; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
+						@for($i=1;$i <= 18; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
 					</tr>
 				</thead>
 				<tbody>
@@ -99,8 +100,6 @@
 						<td class="text-center">{{++$no}}</td>
 						<td class="text-center">
 							{{zerofy($aset->kd_golongan).'.'.zerofy($aset->kd_bidang).'.'.zerofy($aset->kd_kelompok).'.'.zerofy($aset->kd_subkelompok).'.'.zerofy($aset->kd_subsubkelompok).'.'.zerofy($aset->reg_barang,4)}}
-							<br>
-							{{$aset->reg_induk}}
 						</td>
 						<td class="text-center">{{$aset->nama}}</td>
 						<td class="text-center">{{$aset->kondisi==='1'?'B':($aset->kondisi==='2'?'KB':'RB')}}</td>
@@ -117,6 +116,7 @@
 						<td class="text-center">{{$aset->asal_usul}}<br>{{datify($aset->tgl_perolehan, 'Y')}}</td>
 						<td class="text-right">{{monefy($aset->nilai + $aset->nilai_tambah)}}</td>
 						<td>{{$aset->keterangan}}</td>
+						<td class="text-nowrap">{{$aset->organisasi}}</td>
 					</tr>
 					<?php
 						$jumlah += $aset->nilai + $aset->nilai_tambah;
@@ -130,7 +130,7 @@
 						<tr class="small bold">
 							<td class="text-right pr-3" colspan="15">SUB TOTAL TAHUN {{$tahun_now}}</td>
 							<td class="text-right">{{monefy($sub_jumlah)}}</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<?php 
 							$tahun_now  =  datify($aset->tgl_perolehan, 'Y');
@@ -143,7 +143,7 @@
 					<tr class="small bold">
 						<td class="text-right pr-3" colspan="15">TOTAL</td>
 						<td class="text-right">{{monefy($jumlah)}}</td>
-						<td></td>
+						<td colspan="2"></td>
 					</tr>
 				</tbody>
 				

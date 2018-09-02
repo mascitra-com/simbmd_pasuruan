@@ -4,7 +4,7 @@ class MY_Controller extends MY_Base_controller {
 
 	public $is_admin = 0;
 	public $is_superadmin = 0;
-	public $maintenance_time = '0';
+	public $maintenance_time = '22';
 	public $maintenance_status = '0';
 
 	public function __construct()
@@ -55,6 +55,13 @@ class MY_Controller extends MY_Base_controller {
 		} else {
 			show_error("Website Sedang Dalam Proses Maintenance.", 500, 'Maintenance');
 		}
+	}
+
+	protected function render($view, $data = array())
+	{
+		$this->load->model('Dashboard_model', 'dashboard');
+		$data['notif'] = $this->dashboard->get_notification();
+		$this->blade->render($view, $data);
 	}
 
 	private function is_class_allowed()

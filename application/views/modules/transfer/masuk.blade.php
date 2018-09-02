@@ -11,7 +11,7 @@
 	<div class="card-header form-inline">
 		<form action="" method="GET" class="mr-auto">
 			<div class="input-group">
-				<select name="id_tujuan" class="select-chosen" data-placeholder="Pilih UPB...">
+				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
 					<option></option>
 					@foreach($organisasi AS $org)
 						<option value="{{$org->id}}" {{isset($filter['id_tujuan']) && $org->id === $filter['id_tujuan'] ? 'selected' : ''}}>{{$org->nama}}</option>
@@ -57,7 +57,7 @@
 						<td class="text-center">{{datify($item->tanggal_verifikasi)}}</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('transfer/index/masuk_detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
+								<a href="{{ site_url('transfer/index/detail/'.$item->id.'?ref=masuk') }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
 							</div>
 						</td>
 					</tr>

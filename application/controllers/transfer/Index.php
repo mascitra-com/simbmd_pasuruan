@@ -50,7 +50,9 @@ class Index extends MY_Controller {
 
         $filter = $this->input->get();
         $data['organisasi']  = $this->organisasi->get_data(array('jenis' => 4));
-        $filter['id_tujuan'] = isset($filter['id_tujuan']) ? $filter['id_tujuan'] : '';
+        $filter['id_tujuan'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+
+        unset($filter['id_organisasi']);
 
         # Jika bukan superadmin
         if (!$this->auth->get_super_access()) {
@@ -70,71 +72,58 @@ class Index extends MY_Controller {
             $this->message('Pilih UPB Terlebih Dahulu', 'warning');
             $this->go('transfer/index/keluar');
         }
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+
+        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4, 'id<>'=>$this->auth->get_id_organisasi()));
         $data['org'] = $this->organisasi->get($id);
+
         $this->load->model('pegawai_model', 'pegawai');
+
         $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('penerima_transfer', 'penyerah_transfer', 'atasan_transfer')));
+        
         $this->render('modules/transfer/form', $data);
     }
 
-    public function keluar_detail($id = null) {
-        if (empty($id)) {
-            show_404();
-        }
+    public function detail($id = null) {
+        $data['ref'] = $this->input->get('ref');
 
-        $data['transfer']      = $this->transfer->subtitute($this->transfer->get($id));
-        $data['organisasi']    = $this->organisasi->get_data(array('jenis' => 4));
-
-        $this->render('modules/transfer/keluar_detail', $data);
-    }
-
-    public function masuk_detail($id = null) {
-        if (empty($id)) {
+        if (empty($id) OR ($data['ref'] !== 'keluar' && $data['ref'] !== 'masuk' && $data['ref'] !== 'persetujuan')) {
             show_404();
         }
 
         $data['transfer']   = $this->transfer->subtitute($this->transfer->get($id));
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4, 'id<>'=>$this->auth->get_id_organisasi()));
 
-        $this->render('modules/transfer/masuk_detail', $data);
+        $this->render('modules/transfer/detail', $data);
     }
 
-    public function keluar_rincian($id = null) {
-        if (empty($id))
+    public function rincian($id = null) {
+        $data['ref'] = $this->input->get('ref');
+
+        if (empty($id) OR ($data['ref'] !== 'keluar' && $data['ref'] !== 'masuk' && $data['ref'] !== 'persetujuan'))
             show_404();
 
-        # RINCIAN
-        $data['kiba'] 	  = $this->kiba_temp->get_data_transfer($id);
-        $data['kibb'] 	  = $this->kibb_temp->get_data_transfer($id);
-        $data['kibc'] 	  = $this->kibc_temp->get_data_transfer($id);
-        $data['kibd'] 	  = $this->kibd_temp->get_data_transfer($id);
-        $data['kibe']     = $this->kibe_temp->get_data_transfer($id);
-        $data['kibg']     = $this->kibg_temp->get_data_transfer($id);
-        $data['kdpc']     = $this->kibc_temp->get_data_transfer($id, TRUE);
-        $data['kdpd']	  = $this->kibd_temp->get_data_transfer($id, TRUE);
         $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
-        $data['total_rincian'] = $this->transfer->get_total_rincian($id);
 
-        $this->render('modules/transfer/keluar_rincian', $data);
-    }
+        # COUNT
+        $data['kiba']['count'] = $this->kiba_temp->count_by(array('id_transfer'=>$id));
+        $data['kibb']['count'] = $this->kibb_temp->count_by(array('id_transfer'=>$id));
+        $data['kibc']['count'] = $this->kibc_temp->join('kategori','id_kategori=kategori.id')->count_by(array('id_transfer'=>$id,'kd_golongan<>'=>6));
+        $data['kibd']['count'] = $this->kibd_temp->join('kategori','id_kategori=kategori.id')->count_by(array('id_transfer'=>$id,'kd_golongan<>'=>6));
+        $data['kibe']['count'] = $this->kibe_temp->count_by(array('id_transfer'=>$id));
+        $data['kibg']['count'] = $this->kibg_temp->count_by(array('id_transfer'=>$id));
+        $data['kdpc']['count'] = $this->kibc_temp->join('kategori','id_kategori=kategori.id')->count_by(array('id_transfer'=>$id,'kd_golongan'=>6));
+        $data['kdpd']['count'] = $this->kibd_temp->join('kategori','id_kategori=kategori.id')->count_by(array('id_transfer'=>$id,'kd_golongan'=>6));
+        # SUM
+        $data['kiba']['sum'] = $this->kiba_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_transfer'=>$id))[0]->nilai;
+        $data['kibb']['sum'] = $this->kibb_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_transfer'=>$id))[0]->nilai;
+        $data['kibc']['sum'] = $this->kibc_temp->join('kategori','id_kategori=kategori.id')->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_transfer'=>$id,'kd_golongan<>'=>6))[0]->nilai;
+        $data['kibd']['sum'] = $this->kibd_temp->join('kategori','id_kategori=kategori.id')->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_transfer'=>$id,'kd_golongan<>'=>6))[0]->nilai;
+        $data['kibe']['sum'] = $this->kibe_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_transfer'=>$id))[0]->nilai;
+        $data['kibg']['sum'] = $this->kibg_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_transfer'=>$id))[0]->nilai;
+        $data['kdpc']['sum'] = $this->kibc_temp->join('kategori','id_kategori=kategori.id')->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_transfer'=>$id,'kd_golongan'=>6))[0]->nilai;
+        $data['kdpd']['sum'] = $this->kibd_temp->join('kategori','id_kategori=kategori.id')->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_transfer'=>$id,'kd_golongan'=>6))[0]->nilai;
 
-    public function masuk_rincian($id = null) {
-        if (empty($id))
-            show_404();
-
-        # RINCIAN
-        $data['kiba']     = $this->kiba_temp->get_data_transfer($id);
-        $data['kibb']     = $this->kibb_temp->get_data_transfer($id);
-        $data['kibc']     = $this->kibc_temp->get_data_transfer($id);
-        $data['kibd']     = $this->kibd_temp->get_data_transfer($id);
-        $data['kibe']     = $this->kibe_temp->get_data_transfer($id);
-        $data['kibg']     = $this->kibg_temp->get_data_transfer($id);
-        $data['kdpc']     = $this->kibc_temp->get_data_transfer($id, TRUE);
-        $data['kdpd']     = $this->kibd_temp->get_data_transfer($id, TRUE);
-        $data['transfer'] = $this->transfer->subtitute($this->transfer->get($id));
-        $data['total_rincian'] = $this->transfer->get_total_rincian($id);
-
-        $this->render('modules/transfer/masuk_rincian', $data);
+        $this->render('modules/transfer/rincian', $data);
     }
 
     public function rincian_redirect($id = null)

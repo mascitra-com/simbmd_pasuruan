@@ -121,10 +121,12 @@ class Index extends MY_Controller {
 		if(empty($id))
 			show_404();
 
-		$data['spk']	  	   = $this->spk->get($id);
+		$data['spk']			  = $this->spk->get($id);
 		$data['sp2d']['data']  = $this->sp2d->get_many_by(array('id_spk'=>$id));
 		$data['sp2d']['total'] = $this->sp2d->total($data['sp2d']['data']);
-		$data['kegiatan'] 	   = $this->kegiatan->get_data_by_organisasi($data['spk']->id_organisasi);
+		$data['kegiatan'] 	  = $this->kegiatan->get_data_by_organisasi($data['spk']->id_organisasi);
+		$data['ref']			  = !empty($this->input->get('ref')) ? 'true' : '';
+
 		$this->render('modules/pengadaan/detail', $data);
 	}
 
@@ -133,23 +135,41 @@ class Index extends MY_Controller {
 		if(empty($id))
 			show_404();
 
-		$data['spk']	  		= $this->spk->get($id);
-		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
-		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
-		$data['total_rincian']  = $this->spk->get_total_rincian($id);
+		$data['spk']  		= $this->spk->get($id);
+		$data['nilai_sp2d'] = $this->sp2d->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
 
-		# RINCIAN
-		$data['kiba'] 	= $this->temp_kiba->get_data_pengajuan($data['spk']->id);
-		$data['kibb'] 	= $this->temp_kibb->get_data_pengajuan($data['spk']->id);
-		$data['kibc'] 	= $this->temp_kibc->get_data_pengajuan($data['spk']->id);
-		$data['kibd'] 	= $this->temp_kibd->get_data_pengajuan($data['spk']->id);
-		$data['kibe'] 	= $this->temp_kibe->get_data_pengajuan($data['spk']->id);
-		$data['kibg'] 	= $this->temp_kibg->get_data_pengajuan($data['spk']->id);
-		$data['kibnon'] = $this->kibnon->get_data_pengajuan($data['spk']->id);
-		$data['kdpc'] 	= $this->temp_kibc->get_data_pengajuan($data['spk']->id, TRUE);
-		$data['kdpd'] 	= $this->temp_kibd->get_data_pengajuan($data['spk']->id, TRUE);
-		$data['kpt'] 	= $this->kapitalisasi->get_data_pengajuan($data['spk']->id);
+		# FIXED
+		$data['kiba']['count'] = $this->temp_kiba->count_by(array('id_spk'=>$id));
+		$data['kiba']['sum']   = $this->temp_kiba->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KIB-B
+		$data['kibb']['count'] = $this->temp_kibb->count_by(array('id_spk'=>$id));
+		$data['kibb']['sum']   = $this->temp_kibb->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KIB-C
+		$data['kibc']['count'] = $this->temp_kibc->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan<>', '6')->count_by(array('id_spk'=>$id));
+		$data['kibc']['sum']   = $this->temp_kibc->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan<>', '6')->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KIB-D
+		$data['kibd']['count'] = $this->temp_kibd->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan<>', '6')->count_by(array('id_spk'=>$id));
+		$data['kibd']['sum']   = $this->temp_kibd->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan<>', '6')->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KIB-E
+		$data['kibe']['count'] = $this->temp_kibe->count_by(array('id_spk'=>$id));
+		$data['kibe']['sum']   = $this->temp_kibe->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KIB-F
+		$data['kibg']['count'] = $this->temp_kibg->count_by(array('id_spk'=>$id));
+		$data['kibg']['sum']   = $this->temp_kibg->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KIB-NON
+		$data['kibnon']['count'] = $this->kibnon->count_by(array('id_spk'=>$id));
+		$data['kibnon']['sum']   = $this->kibnon->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KDP-C
+		$data['kdpc']['count'] = $this->temp_kibc->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan', '6')->count_by(array('id_spk'=>$id));
+		$data['kdpc']['sum']   = $this->temp_kibc->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan', '6')->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#KDP-D
+		$data['kdpd']['count'] = $this->temp_kibd->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan', '6')->count_by(array('id_spk'=>$id));
+		$data['kdpd']['sum']   = $this->temp_kibd->join('kategori', 'id_kategori = kategori.id')->where('kd_golongan', '6')->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
+		#PENAMBAHAN NILAI
+		$data['kpt']['count'] = $this->kapitalisasi->count_by(array('id_spk'=>$id));
+		$data['kpt']['sum']   = $this->kapitalisasi->select("SUM(nilai) AS nilai")->get_many_by(array('id_spk'=>$id))[0]->nilai;
 
+		$data['ref'] = !empty($this->input->get('ref')) ? 'true' : '';
 		$this->render('modules/pengadaan/rincian', $data);
 	}
 
@@ -189,7 +209,7 @@ class Index extends MY_Controller {
 			$this->go('pengadaan/kdpd/add/'.$id);
 			break;
 			case 'tambah':
-			$this->go('pengadaan/kapitalisasi/add/langkah_1/'.$id);
+			$this->go('pengadaan/kapitalisasi/add/'.$id);
 			break;
 
 			default:

@@ -3,16 +3,17 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan Aset</a></li>
+<li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/penghapusan'):site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan Aset</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @end
 
 @section('content')
 <div class="form-inline">
     <div class="btn-group mb-3">
-        <a href="#" class="btn btn-primary active">01. Detail Penghapusan Aset</a>
-        <a href="{{ site_url('penghapusan/index/rincian/'.$hapus->id) }}" class="btn btn-primary">02. Rincian Aset</a>
+        <a href="" class="btn btn-primary active">01. Detail Penghapusan Aset</a>
+        <a href="{{ site_url('penghapusan/index/rincian/'.$hapus->id)}}{{$ref?'?ref=true':''}}" class="btn btn-primary">02. Rincian Aset</a>
     </div>
+    @if(!$ref)
     <div class="btn-group mb-3 ml-auto">
         @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
         <a href="{{ site_url('penghapusan/index/finish_transaction/'.$hapus->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
@@ -26,6 +27,7 @@
         </a>
         @endif
     </div>
+    @endif
 </div>
 <div class="row">
 	<div class="col">
@@ -42,80 +44,85 @@
                             <input type="text" class="form-control form-control-sm" value="{{$hapus->id_organisasi->nama}}" disabled/>
                         </div>
                     </div>
-                        <hr>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right"></label>
-                            <div class="col-md-4">
-                                <h5>Jurnal Penghapusan</h5>
-                            </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right"></label>
+                        <div class="col-md-4">
+                            <h5>Jurnal Penghapusan</h5>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" value="{{ zerofy($hapus->id, 5) }}" readonly/>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right">Nomor Jurnal</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" value="{{ zerofy($hapus->id, 5) }}" readonly/>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Tanggal Jurnal</label>
-                            <div class="col-md-4">
-                                <input type="date" class="form-control form-control-sm" name="tgl_jurnal" value="{{ datify($hapus->tgl_jurnal, 'Y-m-d')}}"/>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right">Tanggal Jurnal</label>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control form-control-sm" name="tgl_jurnal" value="{{ datify($hapus->tgl_jurnal, 'Y-m-d')}}"/>
                         </div>
-                        <hr>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right"></label>
-                            <div class="col-md-4">
-                                <h5>SK Penghapusan</h5>
-                            </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right"></label>
+                        <div class="col-md-4">
+                            <h5>SK Penghapusan</h5>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">SK Penghapusan</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" name="no_sk" value="{{ $hapus->no_sk }}"/>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right">SK Penghapusan</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control form-control-sm" name="no_sk" value="{{ $hapus->no_sk }}"/>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Tgl Penghapusan</label>
-                            <div class="col-md-4">
-                                <input type="date" class="form-control form-control-sm" name="tgl_sk" value="{{datify($hapus->tgl_sk, 'Y-m-d')}}"/>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right">Tgl Penghapusan</label>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control form-control-sm" name="tgl_sk" value="{{datify($hapus->tgl_sk, 'Y-m-d')}}"/>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Keterangan</label>
-                            <div class="col-md-4">
-                                <textarea name="keterangan" id="keterangan" class="form-control form-control-sm" rows="3">{{ $hapus->keterangan }}</textarea>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right">Keterangan</label>
+                        <div class="col-md-4">
+                            <textarea name="keterangan" id="keterangan" class="form-control form-control-sm" rows="3">{{ $hapus->keterangan }}</textarea>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right">Alasan</label>
-                            <div class="col-md-4">
-                                <select name="alasan" id="alasan" class="form-control form-control-sm">
-                                    <option value="Dijual" {{$hapus->alasan == 'Dijual'?'selected':''}}>Dijual</option>
-                                    <option value="Dimusnahkan" {{$hapus->alasan == 'Dimusnahkan'?'selected':''}}>Dimusnahkan</option>
-                                    <option value="Dihibahkan" {{$hapus->alasan == 'Dihibahkan'?'selected':''}}>Dihibahkan</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right">Alasan</label>
+                        <div class="col-md-4">
+                            <select name="alasan" id="alasan" class="form-control form-control-sm">
+                                <option value="Dijual" {{$hapus->alasan == 'Dijual'?'selected':''}}>Dijual</option>
+                                <option value="Dimusnahkan" {{$hapus->alasan == 'Dimusnahkan'?'selected':''}}>Dimusnahkan</option>
+                                <option value="Dihibahkan" {{$hapus->alasan == 'Dihibahkan'?'selected':''}}>Dihibahkan</option>
+                            </select>
                         </div>
-                        <hr>
-                        <div class="form-group row">
-                            <label class="col-md-3 col-form-label text-right"></label>
-                            <div class="col-md-4">
-                                @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                @endif
-                                <button type="reset" class="btn btn-secondary">Bersihkan</button>
-                                <a href="{{site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}" class="btn btn-warning">Kembali</a>
-                            </div>
+                    </div>
+                    <hr>
+                    @if(!$ref)
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right"></label>
+                        <div class="col-md-4">
+                            @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            @endif
+                            <button type="reset" class="btn btn-secondary">Bersihkan</button>
+                            <a href="{{site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}" class="btn btn-warning">Kembali</a>
                         </div>
-                    </form>
-			</div>
-		</div>
-	</div>
+                    </div>
+                    @endif
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @end
 
 @section('script')
 <script>
-	theme.activeMenu('.nav-penghapusan')
+	theme.activeMenu('.nav-penghapusan');
+    @if($hapus->status_pengajuan === '1' OR $hapus->status_pengajuan === '2' OR $ref)
+    $(':input').prop('disabled', true);
+    @endif
 </script>
 @end

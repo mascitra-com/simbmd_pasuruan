@@ -3,7 +3,7 @@
 class Kibd_model extends MY_Model
 {
 	public $_table = 'aset_d';
-	public $required = array('id_organisasi','id_kategori','tgl_perolehan','tgl_pembukuan','kondisi','nilai','kategori');
+	public $required = array('id_organisasi','id_kategori','tgl_perolehan','tgl_pembukuan','kondisi','nilai');
 
     public function __construct()
     {

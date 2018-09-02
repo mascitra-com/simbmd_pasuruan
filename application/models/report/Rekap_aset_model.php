@@ -104,8 +104,9 @@ class Rekap_aset_model extends MY_Model {
 	public function get_rekapitulasi_aset_13($level = 1, $org = "", $sumber)
 	{
 		$sumber = ($sumber==1) ? '':'saldo_';
+		$year   = $this->setting->get('periode_start');
 
-		$whereExcom = empty($sumber) ? "AND NOT ((id_spk IS NOT NULL OR id_hibah IS NOT NULL) AND nilai < batas_nilai)" : "";
+		$whereExcom = empty($sumber) ? "AND (CASE WHEN YEAR(tgl_perolehan) >= {$year} THEN nilai > batas_nilai ELSE TRUE END)" : "";
         if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
             $kode = explode('.', $org);
             $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";

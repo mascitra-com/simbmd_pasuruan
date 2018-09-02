@@ -11,12 +11,18 @@ class Index extends MY_Controller
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kegiatan_model', 'kegiatan');
 
-        $this->load->model('aset/Temp_kiba_model', 'kiba');
-        $this->load->model('aset/Temp_kibb_model', 'kibb');
-        $this->load->model('aset/Temp_kibc_model', 'kibc');
-        $this->load->model('aset/Temp_kibd_model', 'kibd');
-        $this->load->model('aset/Temp_kibe_model', 'kibe');
-        $this->load->model('aset/Temp_kibg_model', 'kibg');
+        $this->load->model('aset/Kiba_model', 'kiba');
+        $this->load->model('aset/Kibb_model', 'kibb');
+        $this->load->model('aset/Kibc_model', 'kibc');
+        $this->load->model('aset/Kibd_model', 'kibd');
+        $this->load->model('aset/Kibe_model', 'kibe');
+        $this->load->model('aset/Kibg_model', 'kibg');
+        $this->load->model('aset/Temp_kiba_model', 'kiba_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kibb_temp');
+        $this->load->model('aset/Temp_kibc_model', 'kibc_temp');
+        $this->load->model('aset/Temp_kibd_model', 'kibd_temp');
+        $this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+        $this->load->model('aset/Temp_kibg_model', 'kibg_temp');
         $this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
     }
@@ -99,23 +105,40 @@ class Index extends MY_Controller
         if (empty($id))
             show_404();
 
-        $data['hibah'] = $this->hibah->get($id);
-        $data['kegiatan'] = $this->kegiatan->get_data_by_organisasi($data['hibah']->id_organisasi);
+        $data['hibah']    = $this->hibah->subtitute($this->hibah->get($id));
+        $data['kegiatan'] = $this->kegiatan->get_data_by_organisasi($data['hibah']->id_organisasi->id);
+        $data['ref']      = !empty($this->input->get('ref')) ? 'true' : '';
+
         $this->render('modules/hibah/detail', $data);
     }
 
     public function rincian($id = NULL)
     {
-        $data['hibah'] = $this->hibah->get($id);
+        $data['hibah'] = $this->hibah->subtitute($this->hibah->get($id));
         # RINCIAN
-        $data['kiba'] = $this->kiba->get_data_hibah($data['hibah']->id);
-        $data['kibb'] = $this->kibb->get_data_hibah($data['hibah']->id);
-        $data['kibc'] = $this->kibc->get_data_hibah($data['hibah']->id);
-        $data['kibd'] = $this->kibd->get_data_hibah($data['hibah']->id);
-        $data['kibe'] = $this->kibe->get_data_hibah($data['hibah']->id);
-        $data['kibg'] = $this->kibg->get_data_hibah($data['hibah']->id);
-        $data['kpt'] = $this->kapitalisasi->get_data_hibah($data['hibah']->id);
-        $data['total_rincian'] = $this->hibah->get_total_rincian($id);
+        // # COUNT
+        $data['kiba']['count'] = $this->kiba_temp->count_by(array('id_hibah'=>$id));
+        $data['kiba']['sum']   = $this->kiba_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        
+        $data['kibb']['count'] = $this->kibb_temp->count_by(array('id_hibah'=>$id));
+        $data['kibb']['sum']   = $this->kibb_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        
+        $data['kibc']['count'] = $this->kibc_temp->count_by(array('id_hibah'=>$id));
+        $data['kibc']['sum']   = $this->kibc_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        
+        $data['kibd']['count'] = $this->kibd_temp->count_by(array('id_hibah'=>$id));
+        $data['kibd']['sum']   = $this->kibd_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        
+        $data['kibe']['count'] = $this->kibe_temp->count_by(array('id_hibah'=>$id));
+        $data['kibe']['sum']   = $this->kibe_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        
+        $data['kibg']['count'] = $this->kibg_temp->count_by(array('id_hibah'=>$id));
+        $data['kibg']['sum']   = $this->kibg_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+
+        $data['kpt']['count'] = $this->kapitalisasi->count_by(array('id_hibah'=>$id));
+        $data['kpt']['sum']   = $this->kapitalisasi->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        
+        $data['ref']   = !empty($this->input->get('ref')) ? 'true' : '';
 
         $this->render('modules/hibah/rincian', $data);
     }
@@ -127,12 +150,12 @@ class Index extends MY_Controller
 
         $sukses = $this->hibah->delete($id);
         if($sukses) {
-            $this->kiba->delete_by(array('id_hibah'=>$id));
-            $this->kibb->delete_by(array('id_hibah'=>$id));
-            $this->kibc->delete_by(array('id_hibah'=>$id));
-            $this->kibd->delete_by(array('id_hibah'=>$id));
-            $this->kibe->delete_by(array('id_hibah'=>$id));
-            $this->kibg->delete_by(array('id_hibah'=>$id));
+            $this->kiba_temp->delete_by(array('id_hibah'=>$id));
+            $this->kibb_temp->delete_by(array('id_hibah'=>$id));
+            $this->kibc_temp->delete_by(array('id_hibah'=>$id));
+            $this->kibd_temp->delete_by(array('id_hibah'=>$id));
+            $this->kibe_temp->delete_by(array('id_hibah'=>$id));
+            $this->kibg_temp->delete_by(array('id_hibah'=>$id));
             $this->kapitalisasi->delete_by(array('id_hibah'=>$id));
 
             $this->message('Data berhasil dihapus','success');
@@ -209,5 +232,98 @@ class Index extends MY_Controller
             $this->message('Terjadi kesalahan', 'danger');
             $this->go('hibah/index/detail/'.$id);
         }
+    }
+
+    public function abort_transaction($id_hibah = NULL)
+    {
+        # JIKA KOSONG
+        if (empty($id_hibah)) {
+            $this->message('Pilih data hibah yang akan dibatalkan', 'danger');
+            $this->go('hibah/index/');
+        }
+
+        # AMBIL DATA hibah
+        $hibah = $this->hibah->get($id_hibah);
+
+        # CEK KETERSEDIAAN PEMBATALAN
+        $abort_status = $this->check_abort_status($hibah->id);
+        if (!$abort_status['status']) {
+            $this->message($abort_status['reason'], 'danger');
+            $this->go('hibah/index?id_organisasi='.$hibah->id_organisasi);
+        }
+
+        # ABOOORT - HAPUS RINCIAN
+        $this->kiba->delete_by(array('id_hibah'=>$id_hibah));
+        $this->kibb->delete_by(array('id_hibah'=>$id_hibah));
+        $this->kibc->delete_by(array('id_hibah'=>$id_hibah));
+        $this->kibd->delete_by(array('id_hibah'=>$id_hibah));
+        $this->kibe->delete_by(array('id_hibah'=>$id_hibah));
+        $this->kibg->delete_by(array('id_hibah'=>$id_hibah));
+
+        # KAPIPTALISASI
+        $kap = $this->kapitalisasi->get_many_by('id_hibah', $id_hibah);
+        foreach ($kap as $item) {
+            # Update data pada aset utama
+            $kib  = ($item->golongan==='3') ? 'kibc' : 'kibd';
+            $temp = $this->{$kib}->get($item->id_aset);
+            $nilai_kurang = $this->nol($item->jumlah) * $this->nol($item->nilai);
+            $total        = $temp->nilai_tambah - $nilai_kurang;
+            
+            $this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
+        }
+
+        $this->hibah->update($id_hibah, array('status_pengajuan'=>0));
+
+        $this->message('hibah berhasil dibatalkan','success');
+        $this->go('hibah/index?id_organisasi='.$hibah->id_organisasi);
+    }
+
+    private function check_abort_status($id_hibah = NULL)
+    {
+        if (empty($id_hibah)) {
+            return array('status'=>FALSE, 'reason'=>'id hibah kosong');
+        }
+
+        $hibah = $this->hibah->get($id_hibah);
+
+        if (empty($hibah)) {
+            return array('status'=>FALSE, 'reason'=>'id hibah tidak valid');
+        }
+
+        $alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
+        foreach ($alfabet as $item) {
+            # SET MODEL
+            $model_kib  = "kib{$item}";
+            $model_kib_temp  = "kib{$item}_temp";
+
+            # AMBIL DATA PADA KIB TEMP
+            $data_temp = $this->{$model_kib}->as_array()->order_by('id')->get_many_by(array('id_hibah'=>$id_hibah));
+            
+            if (!empty($data_temp)) {
+
+                $where_in = array_column($data_temp, 'id');
+                
+                # CHECK KETERIKATAN
+                $temp = $this->{$model_kib_temp}->where_in('id_aset', $where_in)->count_by(array('log_time>'=>$hibah->log_time));
+                if ($temp > 0) {
+                    return array('status'=>FALSE, 'reason'=>'Rincian hibah terikat dengan transaksi lainnya.');
+                }
+            }
+        }
+
+        return array('status'=>TRUE);
+    }
+
+    public function get_abort_status($id_hibah = NULL) {
+        if (empty($id_hibah)) {
+            echo json_encode(array('status'=>FALSE, 'reason'=>'ID hibah KOSONG'));
+        } else {
+            echo json_encode($this->check_abort_status($id_hibah));
+        }
+    }
+
+    private function nol($var)
+    {
+        return (empty($var)) ? 0 : $var;
     }
 }

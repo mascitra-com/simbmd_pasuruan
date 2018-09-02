@@ -23,7 +23,7 @@ class Kiba extends MY_Controller
         # INI DUPLIKAT!!!
         if ($data['transfer']->status_pengajuan !== '0' AND $data['transfer']->status_pengajuan !== '3') {
             $this->message('Data sedang menunggu persetujuan atau telah disetujui');
-            $this->go('transfer/index/keluar_rincian/'.$id_transfer);
+            $this->go('transfer/index/rincian/'.$id_transfer.'?ref=keluar');
         }
 
         $where_not_in     = $this->kib_temp->select('id_aset')->as_array()->get_many_by('id_transfer', $id_transfer);
@@ -68,10 +68,10 @@ class Kiba extends MY_Controller
         $sukses = $this->kib_temp->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('transfer/index/keluar_rincian/' . $id_transfer);
+            $this->go('transfer/index/rincian/'.$id_transfer.'?ref=keluar');
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('transfer/index/keluar_rincian/' . $id_transfer);
+            $this->go('transfer/index/rincian/'.$id_transfer.'?ref=keluar');
         }
     }
 }

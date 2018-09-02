@@ -6,14 +6,13 @@
     <link rel="stylesheet" href="{{base_url('res/plugins/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{base_url('res/plugins/fontawesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{base_url('res/plugins/chosen/chosen.min.css')}}">
-    <link rel="stylesheet" href="{{base_url('res/plugins/notification/notification.css')}}">
     <link rel="stylesheet" href="{{base_url('res/styles/theme.css')}}">
     @yield('style')
 </head>
 <body>
 <?php $message = $this->session->flashdata('message'); ?>
 @if(!empty($message))
-    <div class="alert alert-{{$message[1]}} fade show fixed-top text-center" role="alert">
+    <div class="alert alert-{{$message[1]}} fade show fixed-top text-center" style="border-radius: 0">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">&times;</button>
         <strong>Pesan!</strong> {{$message[0]}}
     </div>
@@ -31,10 +30,8 @@
             <div class="navbar-text ml-auto marquee py-0" style="max-width: 50%;overflow: hidden;white-space: nowrap;">{{$this->setting->get('scroll_text')}}</div>
             <span class="navbar-text ml-2 px-2 py-1 font-weight-bold clock-placeholder" style="background-color: #bab8b8"></span>
         </nav>
-        
-
         <!-- CONTENT -->
-        <div class="container-fluid">
+        <div class="container-fluid pb-5">
             @yield('widget')
             @yield('content')
         </div>

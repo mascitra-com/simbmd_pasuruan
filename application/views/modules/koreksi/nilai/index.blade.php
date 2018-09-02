@@ -70,7 +70,7 @@
 								<div class="btn-group">
 								<a href="{{ site_url('koreksi/nilai/rincian/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
 								@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
-								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
+								<button class="btn btn-sm btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
 								@endif
 							</div>
 							</div>

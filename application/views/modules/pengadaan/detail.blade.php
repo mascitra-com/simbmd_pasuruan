@@ -3,17 +3,18 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
+<li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/pengadaan'):site_url('pengadaan/index?id_organisasi='.$spk->id_organisasi)}}">Pengadaan</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @end
 
 @section('content')
 <div class="form-inline">
 	<div class="btn-group mb-3">
-		<a href="{{site_url('pengadaan/index/detail/'.$spk->id)}}" class="btn btn-primary active">01. Detail Pengadaan</a>
-		<a href="{{site_url('pengadaan/sp2d/index/'.$spk->id)}}" class="btn btn-primary">02. SP2D</a>
-		<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}" class="btn btn-primary">03. Rincian Aset</a>
+		<a href="{{site_url('pengadaan/index/detail/'.$spk->id)}}{{($ref?'?ref='.$ref:'')}}" class="btn btn-primary active">01. Detail Pengadaan</a>
+		<a href="{{site_url('pengadaan/sp2d/index/'.$spk->id)}}{{($ref?'?ref='.$ref:'')}}" class="btn btn-primary">02. SP2D</a>
+		<a href="{{site_url('pengadaan/index/rincian/'.$spk->id)}}{{($ref?'?ref='.$ref:'')}}" class="btn btn-primary">03. Rincian Aset</a>
 	</div>
+	@if(!$ref)
 	<div class="btn-group mb-3 ml-auto">
         @if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
         <a href="{{site_url('pengadaan/index/finish_transaction/'.$spk->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
@@ -21,6 +22,7 @@
         <a href="{{site_url('pengadaan/index/cancel_transaction/'.$spk->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
         @endif
     </div>
+    @endif
 </div>
 <div class="row mb-3">
 	<div class="col">
@@ -147,12 +149,14 @@
 					</div>
 					<hr>
 					<div class="form-row">
+						@if(!$ref)
 						<div class="col text-right">
 							@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
 							<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
 							@endif
 							<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
 						</div>
+						@endif
 					</div>
 				</form>
 			</div>
@@ -165,7 +169,7 @@
 <script>
     theme.activeMenu('.nav-pengadaan');
 
-    @if($spk->status_pengajuan === '1' OR $spk->status_pengajuan === '2')
+    @if($spk->status_pengajuan === '1' OR $spk->status_pengajuan === '2' OR $ref)
     $(':input').prop('disabled', true);
     @endif
 </script>

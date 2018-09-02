@@ -214,69 +214,42 @@ class MY_Model extends MY_Base_model {
         return $reg;
     }
 
-    public function get_data_pengajuan($id_spk, $is_kdp = FALSE)
-    {
-        # SELAIN ASET NON
-        if ($this->_table !== 'aset_non') {
-
-            $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-            $this->select("{$this->_table}.*");
-
-            if ($is_kdp) {
-                $this->where('kd_golongan', '6');
-            } else {
-                $this->where('kd_golongan<>', '6');
-            }
-        }
-
-        $where = array($this->_table.'.is_deleted'=>0, 'id_spk'=>$id_spk);
-
-        if ($this->_table !== 'aset_kapitalisasi' AND $this->_table !== 'aset_non') {
-            $where['id_hapus'] = NULL;
-        }
-
-        $result = $this->get_many_by($where);
-        $result = $this->subtitute($result);
-        $result = $this->fill_empty_data($result);
-        return $result;
-    }
-
-    public function get_data_hibah($id_hibah)
-    {
-        $where = array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah);
-
-        if ($this->_table !== 'aset_kapitalisasi') {
-            $where['id_hapus'] = NULL;
-        }
-
-        $result = $this->get_many_by($where);
-        $result = $this->subtitute($result);
-        $result = $this->fill_empty_data($result);
-        return $result;
-    }
-
-    public function get_data_transfer($id_transfer = NULL, $is_kdp = FALSE)
-    {
-        $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-        $this->select("{$this->_table}.*");
-        
-        if ($is_kdp) {
-            $this->where('kd_golongan', '6');
-        } else {
-            $this->where('kd_golongan<>', '6');
-        }
-        
-        $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_transfer'=>$id_transfer));
-        $result = $this->subtitute($result);
-        $result = $this->fill_empty_data($result);
-        return $result;
-    }
-
-    // public function get_data_hapus($id_hapus)
+    // public function get_data_hibah($id_hibah)
     // {
-    //     $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hapus'=>$id_hapus));
+    //     $where = array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah);
+
+    //     if ($this->_table !== 'aset_kapitalisasi') {
+    //         $where['id_hapus'] = NULL;
+    //     }
+
+    //     $result = $this->get_many_by($where);
     //     $result = $this->subtitute($result);
     //     $result = $this->fill_empty_data($result);
     //     return $result;
     // }
+
+    // public function get_data_transfer($id_transfer = NULL, $is_kdp = FALSE)
+    // {
+    //     $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
+    //     $this->select("{$this->_table}.*");
+        
+    //     if ($is_kdp) {
+    //         $this->where('kd_golongan', '6');
+    //     } else {
+    //         $this->where('kd_golongan<>', '6');
+    //     }
+        
+    //     $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_transfer'=>$id_transfer));
+    //     $result = $this->subtitute($result);
+    //     $result = $this->fill_empty_data($result);
+    //     return $result;
+    // }
+
+    // // public function get_data_hapus($id_hapus)
+    // // {
+    // //     $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hapus'=>$id_hapus));
+    // //     $result = $this->subtitute($result);
+    // //     $result = $this->fill_empty_data($result);
+    // //     return $result;
+    // // }
 }

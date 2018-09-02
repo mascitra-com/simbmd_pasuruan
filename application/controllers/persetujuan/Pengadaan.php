@@ -13,6 +13,23 @@ class Pengadaan extends MY_Controller {
 		$this->load->model('Persetujuan_model', 'persetujuan');
 		$this->load->model('Organisasi_model', 'organisasi');
 		$this->load->model('Kegiatan_model', 'kegiatan');
+
+		$this->load->model('aset/Kiba_model', 'kiba');
+		$this->load->model('aset/Kibb_model', 'kibb');
+		$this->load->model('aset/Kibc_model', 'kibc');
+		$this->load->model('aset/Kibd_model', 'kibd');
+		$this->load->model('aset/Kibe_model', 'kibe');
+		$this->load->model('aset/Kibg_model', 'kibg');
+		
+		$this->load->model('aset/Temp_kiba_model','kiba_temp');
+		$this->load->model('aset/Temp_kibb_model','kibb_temp');
+		$this->load->model('aset/Temp_kibc_model','kibc_temp');
+		$this->load->model('aset/Temp_kibd_model','kibd_temp');
+		$this->load->model('aset/Temp_kibe_model','kibe_temp');
+		$this->load->model('aset/Temp_kibg_model','kibg_temp');
+		$this->load->model('aset/Kibnon_model','kibnon');
+		$this->load->model('Kapitalisasi_model','kapitalisasi');
+
 		$this->load->library('Pagination');
 	}
 
@@ -29,64 +46,6 @@ class Pengadaan extends MY_Controller {
 		$data['filter'] = $filter;
 
 		$this->render('modules/persetujuan/pengadaan/index', $data);
-	}
-
-	public function detail($id = null)
-	{
-		if(empty($id))
-			show_404();
-
-		$data['spk']	  		= $this->spk->get($id);
-		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
-		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
-		$data['kegiatan'] 		= $this->kegiatan->get_data_by_organisasi($data['spk']->id_organisasi);
-		
-		$this->render('modules/persetujuan/pengadaan/detail', $data);
-	}
-
-	public function sp2d($id = null)
-	{
-		if(empty($id))
-			show_404();
-		
-		$data['spk']	  		= $this->spk->get($id);
-		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
-		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
-		$this->render('modules/persetujuan/pengadaan/sp2d', $data);
-	}
-
-	public function rincian($id = null)
-	{
-		$this->load->model('aset/Temp_kiba_model','kiba');
-		$this->load->model('aset/Temp_kibb_model','kibb');
-		$this->load->model('aset/Temp_kibc_model','kibc');
-		$this->load->model('aset/Temp_kibd_model','kibd');
-		$this->load->model('aset/Temp_kibe_model','kibe');
-		$this->load->model('aset/Temp_kibg_model','kibg');
-		$this->load->model('aset/Kibnon_model','kibnon');
-		$this->load->model('Kapitalisasi_model','kapitalisasi');
-
-		if(empty($id))
-			show_404();
-
-		$data['spk']	  		= $this->spk->get($id);
-		$data['total_rincian']  = $this->spk->get_total_rincian($data['spk']->id);
-		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
-		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
-
-		# RINCIAN
-		$data['kiba'] 	= $this->kiba->get_data_pengajuan($data['spk']->id);
-		$data['kibb'] 	= $this->kibb->get_data_pengajuan($data['spk']->id);
-		$data['kibc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id);
-		$data['kibd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id);
-		$data['kibe'] 	= $this->kibe->get_data_pengajuan($data['spk']->id);
-		$data['kibg'] 	= $this->kibg->get_data_pengajuan($data['spk']->id);
-		$data['kibnon'] = $this->kibnon->get_data_pengajuan($data['spk']->id);
-		$data['kdpc'] 	= $this->kibc->get_data_pengajuan($data['spk']->id, TRUE);
-		$data['kdpd'] 	= $this->kibd->get_data_pengajuan($data['spk']->id, TRUE);
-		$data['kpt'] 	= $this->kapitalisasi->get_data_pengajuan($data['spk']->id);
-
-		$this->render('modules/persetujuan/pengadaan/rincian', $data);
 	}
 
 	public function verifikasi() {
@@ -116,19 +75,6 @@ class Pengadaan extends MY_Controller {
 	}
 
 	private function save($id) {
-		$this->load->model('aset/Kiba_model', 'kiba');
-		$this->load->model('aset/Kibb_model', 'kibb');
-		$this->load->model('aset/Kibc_model', 'kibc');
-		$this->load->model('aset/Kibd_model', 'kibd');
-		$this->load->model('aset/Kibe_model', 'kibe');
-		$this->load->model('aset/Kibg_model', 'kibg');
-		$this->load->model('aset/Temp_kiba_model', 'kiba_temp');
-		$this->load->model('aset/Temp_kibb_model', 'kibb_temp');
-		$this->load->model('aset/Temp_kibc_model', 'kibc_temp');
-		$this->load->model('aset/Temp_kibd_model', 'kibd_temp');
-		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
-		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
-
 		# Pindah dari Temp
 		$alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
 

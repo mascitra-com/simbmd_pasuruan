@@ -3,9 +3,8 @@
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
-<li class="breadcrumb-item"><a href="{{site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan
-Aset</a></li>
-<li class="breadcrumb-item active">Rincian Aset</li>
+<li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/penghapusan'):site_url('penghapusan/index/index?id_organisasi='.$hapus->id_organisasi->id)}}">Penghapusan Aset</a></li>
+<li class="breadcrumb-item active">Rincian</li>
 @end4
 
 @section('content')
@@ -14,6 +13,7 @@ Aset</a></li>
         <a href="{{site_url('penghapusan/index/detail/'.$hapus->id)}}" class="btn btn-primary">01. Penghapusan Aset</a>
         <a href="#" class="btn btn-primary active">02. Rincian Aset</a>
     </div>
+    @if(!$ref)
     <div class="btn-group mb-3 ml-auto">
         @if($hapus->status_pengajuan === '0' || $hapus->status_pengajuan === '3')
         <a href="{{ site_url('penghapusan/index/finish_transaction/'.$hapus->id) }}" class="btn btn-success" onclick="return confirm('Anda Yakin? Data tidak dapat di sunting jika telah diajukan.')">
@@ -29,6 +29,7 @@ Aset</a></li>
         @endif
         <button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
     </div>
+    @endif
 </div>
 <div class="row mb-3">
     <div class="col">
@@ -49,7 +50,7 @@ Aset</a></li>
                         <div class="col"> : {{ $hapus->no_sk }}</div>
                         <div class="w-100"></div>
                         <div class="col-4">Total Rincian</div>
-                        <div class="col"> : {{monefy($total_rincian)}}</div>
+                        <div class="col"> : {{monefy($kiba['sum']+$kibb['sum']+$kibc['sum']+$kibd['sum']+$kibe['sum']+$kibg['sum'])}}</div>
                         <div class="w-100"></div>
                     </div>
                 </div>
@@ -64,32 +65,32 @@ Aset</a></li>
                 <ul class="nav nav-tabs card-header-tabs" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#kiba" role="tab">
-                            KIB-A {{!empty($kiba) ? '<span class="badge badge-primary">'.($kiba).'</span>' : ''}}
+                            KIB-A {{!empty($kiba['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibb" role="tab">
-                            KIB-B {{!empty($kibb) ? '<span class="badge badge-primary">'.($kibb).'</span>' : ''}}
+                            KIB-B {{!empty($kibb['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibc" role="tab">
-                            KIB-C {{!empty($kibc) ? '<span class="badge badge-primary">'.($kibc).'</span>' : ''}}
+                            KIB-C {{!empty($kibc['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibd" role="tab">
-                            KIB-D {{!empty($kibd) ? '<span class="badge badge-primary">'.($kibd).'</span>' : ''}}
+                            KIB-D {{!empty($kibd['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibe" role="tab">
-                            KIB-E {{!empty($kibe) ? '<span class="badge badge-primary">'.($kibe).'</span>' : ''}}
+                            KIB-E {{!empty($kibe['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#kibg" role="tab">
-                            KIB-G {{!empty($kibg) ? '<span class="badge badge-primary">'.($kibg).'</span>' : ''}}
+                            KIB-G {{!empty($kibg['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
                         </a>
                     </li>
                 </ul>
@@ -97,18 +98,21 @@ Aset</a></li>
             <div class="card-body tab-content">
                 <!-- KIB-A -->
                 <div class="tab-pane active" id="kiba" role="tabpanel">
-                    <table class="jq-table table-striped" id="tb-kiba"
-                        data-toggle="#tb-kiba"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-search-on-enter-key="true"
-                        data-pagination="true"
-                        data-side-pagination="server"
-                        data-url="{{site_url('penghapusan/api/get_kiba/'.$hapus->id)}}">
+                    <div id="toolbar-a">
+                        <div class="input-group">
+                            <span class="input-group-addon">Total</span>
+                            <input type="text" class="form-control" value="{{!empty($kiba['count'])?$kiba['count']:'kosong'}}" readonly="">
+                            <span class="input-group-addon">Rp</span>
+                            <input type="text" class="form-control" value="{{!empty($kiba['count'])?monefy($kiba['sum']):'kosong'}}" readonly="">
+                        </div>
+                    </div>
+                    <table class="jq-table table-striped" id="tb-kiba" data-toggle="#tb-kiba" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-a" data-pagination="true" data-side-pagination="server" data-url="{{site_url('penghapusan/api/get_kiba/'.$hapus->id)}}">
                         <thead>
                             <tr>
                                 <th data-field="no" data-switchable="false">No.</th>
+                                @if(!$ref)
                                 <th data-field="aksi" data-switchable="false">Aksi</th>
+                                @endif
                                 <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
                                 <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
                                 <th data-field="nilai" data-switchable="false">Nilai</th>
@@ -130,18 +134,21 @@ Aset</a></li>
 
                 <!-- KIB-B -->
                 <div class="tab-pane" id="kibb" role="tabpanel">
-                    <table class="jq-table table-striped" id="tb-kibb"
-                        data-toggle="#tb-kibb"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-search-on-enter-key="true"
-                        data-pagination="true"
-                        data-side-pagination="server"
-                        data-url="{{site_url('penghapusan/api/get_kibb/'.$hapus->id)}}">
+                    <div id="toolbar-b">
+                        <div class="input-group">
+                            <span class="input-group-addon">Total</span>
+                            <input type="text" class="form-control" value="{{!empty($kibb['count'])?$kibb['count']:'kosong'}}" readonly="">
+                            <span class="input-group-addon">Rp</span>
+                            <input type="text" class="form-control" value="{{!empty($kibb['count'])?monefy($kibb['sum']):'kosong'}}" readonly="">
+                        </div>
+                    </div>
+                    <table class="jq-table table-striped" id="tb-kibb" data-toggle="#tb-kibb" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-b" data-pagination="true" data-side-pagination="server" data-url="{{site_url('penghapusan/api/get_kibb/'.$hapus->id)}}">
                         <thead>
                             <tr>
                                 <th data-field="no" data-switchable="false">No.</th>
+                                @if(!$ref)
                                 <th data-field="aksi" data-switchable="false">Aksi</th>
+                                @endif
                                 <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
                                 <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
                                 <th data-field="nilai" data-switchable="false">Nilai</th>
@@ -168,18 +175,21 @@ Aset</a></li>
 
                 <!-- KIB-C -->
                 <div class="tab-pane" id="kibc" role="tabpanel">
-                    <table class="jq-table table-striped" id="tb-kibc" 
-                        data-toggle="#tb-kibc"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-search-on-enter-key="true"
-                        data-pagination="true"
-                        data-side-pagination="server"
-                        data-url="{{site_url('penghapusan/api/get_kibc/'.$hapus->id)}}">
+                    <div id="toolbar-c">
+                        <div class="input-group">
+                            <span class="input-group-addon">Total</span>
+                            <input type="text" class="form-control" value="{{!empty($kibc['count'])?$kibc['count']:'kosong'}}" readonly="">
+                            <span class="input-group-addon">Rp</span>
+                            <input type="text" class="form-control" value="{{!empty($kibc['count'])?monefy($kibc['sum']):'kosong'}}" readonly="">
+                        </div>
+                    </div>
+                    <table class="jq-table table-striped" id="tb-kibc" data-toggle="#tb-kibc" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-c" data-pagination="true" data-side-pagination="server" data-url="{{site_url('penghapusan/api/get_kibc/'.$hapus->id)}}">
                         <thead>
                             <tr>
                                 <th data-field="no" data-switchable="false">No.</th>
+                                @if(!$ref)
                                 <th data-field="aksi" data-switchable="false">Aksi</th>
+                                @endif
                                 <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
                                 <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
                                 <th data-field="nilai" data-switchable="false">Nilai</th>
@@ -204,18 +214,21 @@ Aset</a></li>
 
                 <!-- KIB-D -->
                 <div class="tab-pane" id="kibd" role="tabpanel">
-                    <table class="jq-table table-striped" id="tb-kibd" 
-                        data-toggle="#tb-kibd"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-search-on-enter-key="true"
-                        data-pagination="true"
-                        data-side-pagination="server"
-                        data-url="{{site_url('penghapusan/api/get_kibd/'.$hapus->id)}}">
+                    <div id="toolbar-d">
+                        <div class="input-group">
+                            <span class="input-group-addon">Total</span>
+                            <input type="text" class="form-control" value="{{!empty($kibd['count'])?$kibd['count']:'kosong'}}" readonly="">
+                            <span class="input-group-addon">Rp</span>
+                            <input type="text" class="form-control" value="{{!empty($kibd['count'])?monefy($kibd['sum']):'kosong'}}" readonly="">
+                        </div>
+                    </div>
+                    <table class="jq-table table-striped" id="tb-kibd" data-toggle="#tb-kibd" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-d" data-pagination="true" data-side-pagination="server" data-url="{{site_url('penghapusan/api/get_kibd/'.$hapus->id)}}">
                         <thead>
                             <tr>
                                 <th data-field="no" data-switchable="false">No.</th>
+                                @if(!$ref)
                                 <th data-field="aksi" data-switchable="false">Aksi</th>
+                                @endif
                                 <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
                                 <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
                                 <th data-field="nilai" data-switchable="false">Nilai</th>
@@ -241,14 +254,15 @@ Aset</a></li>
 
                 <!-- KIB-E -->
                 <div class="tab-pane" id="kibe" role="tabpanel">
-                    <table class="jq-table table-striped" id="tb-kibe" 
-                        data-toggle="#tb-kibe"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-search-on-enter-key="true"
-                        data-pagination="true"
-                        data-side-pagination="server"
-                        data-url="{{site_url('penghapusan/api/get_kibe/'.$hapus->id)}}">
+                    <div id="toolbar-e">
+                        <div class="input-group">
+                            <span class="input-group-addon">Total</span>
+                            <input type="text" class="form-control" value="{{!empty($kibe['count'])?$kibe['count']:'kosong'}}" readonly="">
+                            <span class="input-group-addon">Rp</span>
+                            <input type="text" class="form-control" value="{{!empty($kibe['count'])?monefy($kibe['sum']):'kosong'}}" readonly="">
+                        </div>
+                    </div>
+                    <table class="jq-table table-striped" id="tb-kibe" data-toggle="#tb-kibe" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-e" data-pagination="true" data-side-pagination="server" data-url="{{site_url('penghapusan/api/get_kibe/'.$hapus->id)}}">
                         <thead>
                             <tr>
                                 <th data-field="no" data-switchable="false" class="text-center">No.</th>
@@ -274,18 +288,21 @@ Aset</a></li>
 
                 <!-- KIB-G -->
                 <div class="tab-pane" id="kibg" role="tabpanel">
-                    <table class="jq-table table-striped" id="tb-kibg" 
-                        data-toggle="#tb-kibg"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-search-on-enter-key="true"
-                        data-pagination="true"
-                        data-side-pagination="server"
-                        data-url="{{site_url('penghapusan/api/get_kibg/'.$hapus->id)}}">
+                    <div id="toolbar-g">
+                        <div class="input-group">
+                            <span class="input-group-addon">Total</span>
+                            <input type="text" class="form-control" value="{{!empty($kibg['count'])?$kibg['count']:'kosong'}}" readonly="">
+                            <span class="input-group-addon">Rp</span>
+                            <input type="text" class="form-control" value="{{!empty($kibg['count'])?monefy($kibg['sum']):'kosong'}}" readonly="">
+                        </div>
+                    </div>
+                    <table class="jq-table table-striped" id="tb-kibg" data-toggle="#tb-kibg" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-g" data-pagination="true" data-side-pagination="server" data-url="{{site_url('penghapusan/api/get_kibg/'.$hapus->id)}}">
                         <thead>
                             <tr>
                                 <th data-field="no" data-switchable="false" class="text-center">No.</th>
+                                @if(!$ref)
                                 <th data-field="aksi" data-switchable="false" class="text-nowrap text-center">Aksi</th>
+                                @endif
                                 <th data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
                                 <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
                                 <th data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
@@ -303,7 +320,6 @@ Aset</a></li>
                         <tbody></tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
@@ -312,6 +328,7 @@ Aset</a></li>
 @end
 
 @section('modal')
+@if(!$ref)
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-add">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -341,6 +358,7 @@ Aset</a></li>
         </div>
     </div>
 </div>
+@endif
 @end
 
 @section('style')

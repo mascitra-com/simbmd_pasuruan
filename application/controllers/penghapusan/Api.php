@@ -8,11 +8,6 @@ class Api extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/Temp_kibb_model', 'kibb');
-        $this->load->model('aset/Temp_kibc_model', 'kibc');
-        $this->load->model('aset/Temp_kibd_model', 'kibd');
-        $this->load->model('aset/Temp_kibe_model', 'kibe');
-        $this->load->model('aset/Temp_kibg_model', 'kibg');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Penghapusan_model', 'hapus');
     }
@@ -23,7 +18,7 @@ class Api extends MY_Controller
 
         # SET INIT
         $filter = $this->input->get();
-        $this->hapus = $this->hapus->get($id_hapus);;
+        $this->hapus = $this->hapus->get($id_hapus);
         $this->kib   = "kiba";
         $this->kolom = array('id','id_hapus', 'luas','alamat','sertifikat_tgl','sertifikat_no','hak','pengguna',
             'tgl_perolehan','tgl_pembukuan', 'kondisi','nilai','asal_usul','id_kategori','id_organisasi');
@@ -39,7 +34,7 @@ class Api extends MY_Controller
         
         # SET INIT
         $filter = $this->input->get();
-        $this->hapus = $this->hapus->get($id_hapus);;
+        $this->hapus = $this->hapus->get($id_hapus);
         $this->kib   = "kibb";
         $this->kolom = array('id','id_hapus', 'merk','tipe','ukuran','bahan','no_pabrik','no_rangka',
             'no_mesin','no_polisi','no_bpkb','tgl_perolehan','tgl_pembukuan', 'kondisi','nilai','asal_usul',
@@ -56,7 +51,7 @@ class Api extends MY_Controller
         
         # SET INIT
         $filter = $this->input->get();
-        $this->hapus = $this->hapus->get($id_hapus);;
+        $this->hapus = $this->hapus->get($id_hapus);
         $this->kib   = "kibc";
         $this->kolom = array('id','id_hapus', 'tingkat','beton','luas_lantai','lokasi','dokumen_tgl','dokumen_no',
             'status_tanah','kode_tanah','tgl_perolehan','tgl_pembukuan', 'kondisi','nilai','asal_usul','id_kategori','id_organisasi');
@@ -72,7 +67,7 @@ class Api extends MY_Controller
         
         # SET INIT
         $filter = $this->input->get();
-        $this->hapus = $this->hapus->get($id_hapus);;
+        $this->hapus = $this->hapus->get($id_hapus);
         $this->kib   = "kibd";
         $this->kolom = array('id','id_hapus', 'kontruksi','panjang','lebar','luas','lokasi','dokumen_tgl','dokumen_no',
             'status_tanah','kode_tanah','tgl_perolehan','tgl_pembukuan', 'kondisi','nilai','asal_usul','id_kategori','id_organisasi');
@@ -88,7 +83,7 @@ class Api extends MY_Controller
         
         # SET INIT
         $filter = $this->input->get();
-        $this->hapus = $this->hapus->get($id_hapus);;
+        $this->hapus = $this->hapus->get($id_hapus);
         $this->kib   = "kibe";
         $this->kolom = array('id','id_hapus', 'judul','pencipta','bahan','ukuran',
             'tgl_perolehan','tgl_pembukuan', 'kondisi','nilai','asal_usul','id_kategori','id_organisasi');
@@ -104,7 +99,7 @@ class Api extends MY_Controller
         
         # SET INIT
         $filter = $this->input->get();
-        $this->hapus = $this->hapus->get($id_hapus);;
+        $this->hapus = $this->hapus->get($id_hapus);
         $this->kib   = "kibg";
         $this->kolom = array('id','id_hapus', 'merk','tipe','ukuran',
             'tgl_perolehan','tgl_pembukuan', 'kondisi','nilai','asal_usul','id_kategori','id_organisasi');

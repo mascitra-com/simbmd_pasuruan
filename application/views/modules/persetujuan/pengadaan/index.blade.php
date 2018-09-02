@@ -52,7 +52,7 @@
 						<td class="text-center">{{datify($item->log_time, 'd-m-Y h:i')}}</td>
 						<td class="text-center">
 							<div class="btn-group">
-								<a href="{{ site_url('persetujuan/Pengadaan/detail/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+								<a href="{{ site_url('pengadaan/index/detail/'.$item->id.'?ref=true') }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
 								<button class="btn btn-sm btn-success btn-setuju" data-id="{{$item->id}}"><i class="fa fa-check mr-2"></i>Setuju</button>
 								<button class="btn btn-sm btn-danger btn-tolak" data-id="{{$item->id}}"><i class="fa fa-times mr-2"></i>Tolak</button>
 							</div>

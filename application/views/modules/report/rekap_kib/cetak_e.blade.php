@@ -55,7 +55,7 @@
 					</tr>
 					<tr class="small">
 						<th rowspan="2" class="text-center">No.</th>
-						<th rowspan="2" class="text-center">Kode Barang &amp Reg Induk</th>
+						<th rowspan="2" class="text-center">Kode Barang</th>
 						<th rowspan="2" class="text-center">Jenis/Nama</th>
 						<th rowspan="2" class="text-center">Judul</th>
 						<th rowspan="2" class="text-center">Pencipta</th>
@@ -67,6 +67,7 @@
 						<th rowspan="2" class="text-center">Asal-Usul</th>
 						<th rowspan="2" class="text-center">Nilai (Rp.)</th>
 						<th rowspan="2" class="text-center">Keterangan</th>
+						<th rowspan="2" class="text-center">UPB</th>
 					</tr>
 					<tr class="small">
 						<th class="text-center">B</th>
@@ -74,7 +75,7 @@
 						<th class="text-center">RB</th>
 					</tr>
 					<tr>
-						@for($i=1;$i <= 15; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
+						@for($i=1;$i <= 16; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
 					</tr>
 				</thead>
 				<tbody>
@@ -103,8 +104,6 @@
 						<td class="text-center">{{++$no}}</td>
 						<td class="text-center">
 							{{zerofy($aset->kd_golongan).'.'.zerofy($aset->kd_bidang).'.'.zerofy($aset->kd_kelompok).'.'.zerofy($aset->kd_subkelompok).'.'.zerofy($aset->kd_subsubkelompok).'.'.zerofy($aset->reg_barang,4)}}
-							<br>
-							{{$aset->reg_induk}}
 						</td>
 						<td class="text-center">{{$aset->nama}}</td>
 						<td class="text-center">{{$aset->judul}}</td>
@@ -119,6 +118,7 @@
 						<td class="text-center">{{$aset->asal_usul}}</td>
 						<td class="text-right">{{monefy($aset->nilai_total)}}</td>
 						<td>{{$aset->keterangan}}</td>
+						<td class="text-nowrap">{{$aset->organisasi}}</td>
 					</tr>
 					<?php
 						$jumlah += $aset->nilai_total;

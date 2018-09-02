@@ -50,7 +50,7 @@
 				<thead>
 					<tr class="small">
 						<th rowspan="2" class="text-center">No.</th>
-						<th rowspan="2" class="text-center">Kode Barang/Reg Induk</th>
+						<th rowspan="2" class="text-center">Kode Barang</th>
 						<th rowspan="2" class="text-center">Jenis/Nama</th>
 						<th rowspan="2" class="text-center">Merk/Tipe</th>
 						<th rowspan="2" class="text-center">Ukuran/CC</th>
@@ -65,6 +65,7 @@
 						<th rowspan="2" class="text-center">Asal-Usul</th>
 						<th rowspan="2" class="text-center">Nilai (Rp.)</th>
 						<th rowspan="2" class="text-center">Keterangan</th>
+						<th rowspan="2" class="text-center">UPB</th>
 					</tr>
 					<tr class="small">
 						<th class="text-center">Baik</th>
@@ -72,7 +73,7 @@
 						<th class="text-center">Rusak Berat</th>
 					</tr>
 					<tr>
-						@for($i=1;$i <= 18; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
+						@for($i=1;$i <= 19; $i++)<td class="text-center small bold">{{$i}}</td>@endfor
 					</tr>
 				</thead>
 				<tbody>
@@ -101,8 +102,6 @@
 						<td class="text-center">{{++$no}}</td>
 						<td class="text-center">
 							{{$aset->kd_golongan.'.'.$aset->kd_bidang.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok.'.'.zerofy($aset->reg_barang,4)}}
-							<br>
-							{{$aset->reg_induk}}
 						</td>
 						<td>{{$aset->nama}}</td>
 						<td class="text-center">{{$aset->merk.' '.$aset->tipe}}</td>
@@ -120,6 +119,7 @@
 						<td class="text-center">{{$aset->asal_usul}}</td>
 						<td class="text-right">{{monefy($aset->nilai_total)}}</td>
 						<td>{{$aset->keterangan}}</td>
+						<td class="text-nowrap">{{$aset->organisasi}}</td>
 					</tr>
 					<?php
 						$jumlah += $aset->nilai_total;
@@ -133,7 +133,7 @@
 						<tr class="small bold">
 							<td class="text-right pr-3" colspan="16">SUB TOTAL TAHUN {{$tahun_now}}</td>
 							<td class="text-right">{{monefy($sub_jumlah)}}</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<?php 
 							$tahun_now  =  datify($aset->tgl_perolehan, 'Y');
@@ -146,7 +146,7 @@
 					<tr class="small bold">
 						<td class="text-right pr-3" colspan="16">TOTAL</td>
 						<td class="text-right">{{monefy($jumlah)}}</td>
-						<td></td>
+						<td colspan="2"></td>
 					</tr>
 				</tbody>
 			</table>

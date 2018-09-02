@@ -25,9 +25,10 @@ class Sp2d extends MY_Controller {
 		if(empty($id))
 			show_404();
 		
-		$data['spk']	  		= $this->spk->get($id);
-		$data['sp2d']['data']	= $this->sp2d->get_many_by(array('id_spk'=>$id));
-		$data['sp2d']['total']	= $this->sp2d->total($data['sp2d']['data']);
+		$data['spk']			  = $this->spk->get($id);
+		$data['sp2d']['data']  = $this->sp2d->get_many_by(array('id_spk'=>$id));
+		$data['sp2d']['total'] = $this->sp2d->total($data['sp2d']['data']);
+		$data['ref']			  = !empty($this->input->get('ref')) ? 'true' : '';
 		$this->render('modules/pengadaan/sp2d', $data);
 	}
 
