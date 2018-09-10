@@ -68,31 +68,69 @@
 	<div class="card-body">
 		<table class="jq-table table-striped" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('aset/kibb/get/'.$id_organisasi.'/'.$source)}}">
 			<thead>
-					<tr>
-						<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
-						<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
-						<th data-class='text-nowrap' data-field="nilai" data-switchable="false" data-sortable="true">Nilai</th>
-						<th data-class='text-nowrap' data-field="merk">Merk</th>
-						<th data-class='text-nowrap' data-field="tipe">Tipe</th>
-						<th data-class='text-nowrap' data-field="ukuran">Ukuran/CC</th>
-						<th data-class='text-nowrap' data-field="bahan">Bahan</th>
-						<th data-class='text-nowrap' data-field="no_pabrik">No.Pabrik</th>
-						<th data-class='text-nowrap' data-field="no_rangka">No.Rangka</th>
-						<th data-class='text-nowrap' data-field="no_mesin">No.Mesin</th>
-						<th data-class='text-nowrap' data-field="no_polisi">No.Polisi</th>
-						<th data-class='text-nowrap' data-field="no_bpkb">No.BPKB</th>
-						<th data-class='text-nowrap' data-field="tgl_perolehan" data-sortable="true">Tgl. Perolehan</th>
-						<th data-class='text-nowrap' data-field="tgl_pembukuan" data-sortable="true">Tgl. Pembukuan</th>
-						<th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
-						<th data-class='text-nowrap' data-field="kondisi" data-sortable="true">Kondisi</th>
-						<th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
-						<th data-class='text-nowrap' data-field="id_ruangan">Ruang</th>
-					</tr>
-				</thead>
+				<tr>
+					@if($source === 'berjalan')
+					<th data-field="aksi" data-switchable="false">Aksi</th>
+					@endif
+					<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+					<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+					<th data-class='text-nowrap' data-field="nilai" data-switchable="false" data-sortable="true">Nilai</th>
+					<th data-class='text-nowrap' data-field="merk">Merk</th>
+					<th data-class='text-nowrap' data-field="tipe">Tipe</th>
+					<th data-class='text-nowrap' data-field="ukuran">Ukuran/CC</th>
+					<th data-class='text-nowrap' data-field="bahan">Bahan</th>
+					<th data-class='text-nowrap' data-field="no_pabrik">No.Pabrik</th>
+					<th data-class='text-nowrap' data-field="no_rangka">No.Rangka</th>
+					<th data-class='text-nowrap' data-field="no_mesin">No.Mesin</th>
+					<th data-class='text-nowrap' data-field="no_polisi">No.Polisi</th>
+					<th data-class='text-nowrap' data-field="no_bpkb">No.BPKB</th>
+					<th data-class='text-nowrap' data-field="tgl_perolehan" data-sortable="true">Tgl. Perolehan</th>
+					<th data-class='text-nowrap' data-field="tgl_pembukuan" data-sortable="true">Tgl. Pembukuan</th>
+					<th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+					<th data-class='text-nowrap' data-field="kondisi" data-sortable="true">Kondisi</th>
+					<th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
+					<th data-class='text-nowrap' data-field="id_ruangan">Ruang</th>
+				</tr>
+			</thead>
 			<tbody></tbody>
 		</table>
 	</div>
 </div>
+@end
+
+@section('modal')
+@if($source === 'berjalan')
+<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Sunting Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{{site_url('aset/kibb/update')}}" method="POST">
+					<input type="hidden" name="id">
+					<div class="form-group">
+						<label for="">Pilih Ruangan</label>
+						<select name="id_ruangan" class="form-control">
+							<option>Pilih Ruangan Baru</option>
+							@foreach($ruangan AS $data)
+							<option value="{{$data->id}}">{{$data->nama}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 @end
 
 @section('style')
@@ -116,6 +154,13 @@ th, td {
 			$("#wg-nilai .card-text").empty().html("Rp "+result.nilai);
 			$("#wg-total-rusak .card-text").empty().html(result.total_rusak);
 			$("#wg-nilai-rusak .card-text").empty().html("Rp "+result.nilai_rusak);
+		});
+
+		// SUNTING
+		$("table > tbody").delegate('[data-id]', 'click', function(e){
+			var id = $(e.currentTarget).data('id');
+			$("[name=id]").val(id);
+			$("#modal-edit").modal('show');
 		});
 
 		// INIT Datatables

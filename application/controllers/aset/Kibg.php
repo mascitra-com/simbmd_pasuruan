@@ -24,6 +24,11 @@ class Kibg extends MY_Controller
             show_404();
         }
 
+        if ($data['source'] === 'berjalan') {
+            $this->load->model('Ruangan_model', 'ruangan');
+            $data['ruangan'] = $this->ruangan->order_by('nama')->get_many_by('id_organisasi', $data['id_organisasi']);
+        }
+
         $this->render('modules/aset/kibg/index', $data);
     }
 
@@ -100,8 +105,25 @@ class Kibg extends MY_Controller
             $value['id_kategori'] = $value['id_kategori']->nama;
             $value['id_ruangan']  = !empty($value['id_ruangan'])?$value['id_ruangan']->nama:'';
 
+            if ($this->_model === 'kib_berjalan') {
+                $value['aksi'] = "<button class='btn btn-warning btn-sm' data-id='".$value['id']."'><i class='fa fa-pencil'></i></button>";
+            }
+
             $data['rows'][$key] = (object)$value;
         }
         return $data;
+    }
+
+    public function update()
+    {
+        $data = $this->input->post();
+        $id = $data['id'];
+        $id_organisasi = $this->kib_berjalan->get($id)->id_organisasi;
+
+        unset($data['id']);
+
+        $this->kib_berjalan->update($id, $data);
+        $this->message('Data berhasil disunting', 'success');
+        $this->go('aset/kibg?source=berjalan&id_organisasi='.$id_organisasi);
     }
 }

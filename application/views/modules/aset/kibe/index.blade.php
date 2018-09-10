@@ -69,6 +69,9 @@
 		<table class="jq-table table-striped" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('aset/kibe/get/'.$id_organisasi.'/'.$source)}}">
 			<thead>
 				<tr>
+					@if($source === 'berjalan')
+					<th data-field="aksi" data-switchable="false">Aksi</th>
+					@endif
 					<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
 					<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
 					<th data-class='text-nowrap' data-field="nilai" data-switchable="false" class="text-nowrap text-right" data-sortable="true">Nilai</th>
@@ -88,6 +91,41 @@
 		</table>
 	</div>
 </div>
+@end
+
+@section('modal')
+@if($source === 'berjalan')
+<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Sunting Data</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{{site_url('aset/kibe/update')}}" method="POST">
+					<input type="hidden" name="id">
+					<div class="form-group">
+						<label for="">Pilih Ruangan</label>
+						<select name="id_ruangan" class="form-control">
+							<option>Pilih Ruangan Baru</option>
+							@foreach($ruangan AS $data)
+							<option value="{{$data->id}}">{{$data->nama}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
 @end
 
 @section('style')
@@ -111,6 +149,13 @@ th, td {
 			$("#wg-nilai .card-text").empty().html("Rp "+result.nilai);
 			$("#wg-total-rusak .card-text").empty().html(result.total_rusak);
 			$("#wg-nilai-rusak .card-text").empty().html("Rp "+result.nilai_rusak);
+		});
+
+		// SUNTING
+		$("table > tbody").delegate('[data-id]', 'click', function(e){
+			var id = $(e.currentTarget).data('id');
+			$("[name=id]").val(id);
+			$("#modal-edit").modal('show');
 		});
 
 		// INIT Datatables
