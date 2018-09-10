@@ -15,7 +15,7 @@
 				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
 					<option></option>
 					@foreach($organisasi AS $item)
-						<option value="{{$item->id}}" {{isset($filter['id_organisasi']) && $item->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$item->nama}}</option>
+					<option value="{{$item->id}}" {{isset($filter['id_organisasi']) && $item->id === $filter['id_organisasi'] ? 'selected' : ''}}>{{$item->nama}}</option>
 					@endforeach
 				</select>
 				<span class="input-group-btn">
@@ -35,11 +35,11 @@
 					<tr>
 						<th class="text-center">No. Jurnal</th>
 						<th class="text-center">Tanggal Jurnal</th>
-                        <th class="text-center">Keterangan</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Tanggal Verifikasi</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
+						<th class="text-center">Keterangan</th>
+						<th class="text-center">Status</th>
+						<th class="text-center">Tanggal Verifikasi</th>
+						<th class="text-center">Aksi</th>
+					</tr>
 				</thead>
 				<tbody>
 					@if(empty($koreksi))
@@ -53,13 +53,18 @@
 						<td>{{$item->keterangan}}</td>
 						<td class="text-center">
 							@if($item->status_pengajuan === '0')
-							<button class="btn btn-secondary btn-sm btn-block" id="btn-pesan">draf</button>
+							<button class="btn btn-sm btn-secondary" id="btn-pesan">draf</button>
 							@elseif($item->status_pengajuan === '1')
-							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
+							<button class="btn btn-sm btn-warning" id="btn-pesan">menunggu</button>
 							@elseif($item->status_pengajuan === '2')
-							<button class="btn btn-success btn-sm btn-block" data-id-koreksi="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+							<div class="btn-group">
+								<button class="btn btn-sm btn-success btn-sm" data-id-koreksi="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+								@if($this->session->auth['is_superadmin'] == 1)
+								<button class="btn btn-sm btn-warning" data-id-batal="{{$item->id}}"><i class="fa fa-times"></i></button>
+								@endif
+							</div>
 							@elseif($item->status_pengajuan === '3')
-							<button class="btn btn-danger btn-sm btn-block" data-id-koreksi="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
+							<button class="btn btn-sm btn-danger" data-id-koreksi="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
 							@else
 							ERROR
 							@endif
@@ -68,16 +73,16 @@
 						<td class="text-center">
 							<div class="btn-group">
 								<div class="btn-group">
-								<a href="{{ site_url('koreksi/kepemilikan/rincian/'.$item->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Rincian</a>
-								@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
-								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
-								@endif
-							</div>
+									<a href="{{ site_url('koreksi/kepemilikan/rincian/'.$item->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> Rincian</a>
+									@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
+									<button class="btn btn-sm btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
+									@endif
+								</div>
 							</div>
 						</td>
 					</tr>
 					@endforeach
-                </tbody>
+				</tbody>
 			</thead>
 		</table>
 	</div>
@@ -139,7 +144,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-pesan">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-            <div class="modal-header">Detail Persetujuan</div>
+			<div class="modal-header">Detail Persetujuan</div>
 			<div class="modal-body">
 				<div class="form-group">
 					<label class="bold">Tanggal Verifikasi:</label>
@@ -157,6 +162,19 @@
 					<button class="btn btn-primary" data-dismiss="modal">Batal</button>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-batal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content card text-center">
+			<div class="card-header">
+				<b class="card-title">Pembatalan Persetujuan</b>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="card-body"></div>
+			<div class="card-footer"></div>
 		</div>
 	</div>
 </div>
@@ -187,6 +205,27 @@
 		});
 
 		$("#modal-pesan").modal('show');
+	});
+
+	$("[data-id-batal]").on('click', function(e){
+		$("#modal-batal .card-body").empty().html("<h4 class='mb-3'>Memeriksa ketersediaan pembatalan<br>Mohon menunggu</h4><h1 class='mb-4'><i class='fa fa-refresh fa-spin fa-2x'></i></h1>");
+		$("#modal-batal .card-footer").empty();
+		$("#modal-batal").modal('show');
+		
+		var id = $(this).data('id-batal');
+		$.getJSON("{{site_url('koreksi/kepemilikan/get_abort_status/')}}"+id, function(result){
+			if (result.status === true) {
+				html = "<div class='btn-group'>"
+				html += "<a href='{{site_url()}}koreksi/kepemilikan/abort_transaction/"+id+"' class='btn btn-warning'>Batalkan Persetujuan</a>";
+				html += "<button class='btn btn-secondary' data-dismiss='modal'>Urungkan</button>";
+				html += "</div>";
+				$("#modal-batal .card-body").empty().html("<h3 class='mb-3'>Pembatalan persetujuan dapat dilakukan.</h3>");
+				$("#modal-batal .card-footer").empty().html(html);
+			}else{
+				$("#modal-batal .card-body").empty().html("<p>Pembatalan persetujuan <b>tidak dapat dilakukan</b>.<br>"+result.reason+"</p>");
+				$("#modal-batal .card-footer").html("<button class='btn btn-secondary' data-dismiss='modal'>Urungkan</button>");
+			}
+		});
 	});
 </script>
 @end

@@ -53,7 +53,7 @@
                         @foreach($kib AS $item)
                         <tr>
                             <td class="text-nowrap text-center">
-                                <button class="btn btn-primary" data-id="{{$item->id}}" data-nilai="{{monefy($item->nilai)}}"><i class="fa fa-plus"></i></button>
+                                <button class="btn btn-primary" data-id="{{$item->id}}"><i class="fa fa-plus"></i></button>
                             </td>
                             <td class="text-nowrap text-center">
                                 {{zerofy($item->id_kategori->kd_golongan)}} .
@@ -239,11 +239,7 @@
 
         $("[data-id]").on('click', function(e){
             var id = $(e.currentTarget).data('id');
-            var nilai = $(e.currentTarget).data('nilai');
-
             $("[name=id_aset]").val(id);
-            $("[name=original_value]").val(nilai);
-
             $("#modal-tambah").modal('show');
         });
     })();

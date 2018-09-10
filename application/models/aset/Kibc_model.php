@@ -1,6 +1,6 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class Kibc_model extends MY_Model
+class Kibc_model extends MY_Model_aset
 {
 	public $_table = 'aset_c';
 	public $required = array('id_organisasi','id_kategori','nilai','tgl_pembukuan','tgl_perolehan','kondisi','nilai');
@@ -48,17 +48,18 @@ class Kibc_model extends MY_Model
 		$this->limit($limit, ($page - 1) * $limit);
 
 		# Return result
-		$this->empty_substitution = "<span class='text-secondary'><i>kosong</i></span>";
+		;
 		$result['data'] = $this->subtitute($this->get_all());
         $result['data'] = $this->fill_empty_data($result['data']);
 		return $result;
     }
 
-    public function get_rincian_widget($id_organisasi)
+    public function get_rincian_widget($id_organisasi, $is_kdp)
     {
+        $where_kdp = $is_kdp ? 'kd_golongan = 6' : 'kd_golongan <> 6';
         $query = "SELECT COUNT(a.id) AS total, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS total_rusak, SUM(nilai) AS nilai, SUM(CASE WHEN(kondisi=3) THEN nilai ELSE 0 END) AS nilai_rusak
         FROM {$this->_table} a JOIN kategori k ON a.id_kategori = k.id 
-        WHERE id_organisasi = {$id_organisasi} AND kd_golongan <> 6";
+        WHERE id_organisasi = {$id_organisasi} AND {$where_kdp}";
         return $this->db->query($query)->result()[0];
     }
 }

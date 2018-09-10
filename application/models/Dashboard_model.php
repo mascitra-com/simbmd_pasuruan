@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Rizki Herdatullah
- * Date: 1/16/2018
- * Time: 6:04 PM
- */
-
 class Dashboard_model extends MY_Model
 {
     public function __construct()
@@ -15,9 +8,13 @@ class Dashboard_model extends MY_Model
 
     public function get_notification()
     {
-    	$data['pengadaan']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM spk WHERE status_pengajuan = 1")->row()->jumlah;
-    	$data['pengadaan']['icon']  = 'cart-plus';
-    	$data['pengadaan']['link']  = site_url('persetujuan/pengadaan');
+    	$data['inventarisasi']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM inventarisasi WHERE status_pengajuan = 1")->row()->jumlah;
+    	$data['inventarisasi']['icon']  = 'archive';
+    	$data['inventarisasi']['link']  = site_url('persetujuan/inventarisasi');
+
+        $data['pengadaan']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM spk WHERE status_pengajuan = 1")->row()->jumlah;
+        $data['pengadaan']['icon']  = 'cart-plus';
+        $data['pengadaan']['link']  = site_url('persetujuan/pengadaan');
 
     	$data['hibah']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM hibah WHERE status_pengajuan = 1")->row()->jumlah;
     	$data['hibah']['icon']  = 'cubes';
@@ -37,7 +34,7 @@ class Dashboard_model extends MY_Model
 
         $data['koreksi_kepemilikan']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM koreksi WHERE status_pengajuan = 1 AND jenis_koreksi = 2")->row()->jumlah;
         $data['koreksi_kepemilikan']['icon']  = 'user';
-        $data['koreksi_kepemilikan']['link']  = site_url('persetujuan/koreksi_nilai');
+        $data['koreksi_kepemilikan']['link']  = site_url('persetujuan/koreksi_kepemilikan');
 
         $data['reklas_kode']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM koreksi WHERE status_pengajuan = 1 AND jenis_koreksi = 3")->row()->jumlah;
         $data['reklas_kode']['icon']  = 'tag';
@@ -45,7 +42,11 @@ class Dashboard_model extends MY_Model
 
         $data['koreksi_hapus']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM koreksi WHERE status_pengajuan = 1 AND jenis_koreksi = 4")->row()->jumlah;
         $data['koreksi_hapus']['icon']  = 'times';
-        $data['koreksi_hapus']['link']  = site_url('persetujuan/koreksi_nilai');
+        $data['koreksi_hapus']['link']  = site_url('persetujuan/koreksi_hapus');
+
+        $data['koreksi_atribut']['count'] = $this->db->query("SELECT COUNT(id) AS jumlah FROM koreksi WHERE status_pengajuan = 1 AND jenis_koreksi = 5")->row()->jumlah;
+        $data['koreksi_atribut']['icon']  = 'puzzle-piece';
+        $data['koreksi_atribut']['link']  = site_url('persetujuan/koreksi_atribut');
 
     	foreach ($data as $key => $value) {
     		if (empty($value['count'])) {

@@ -6,11 +6,24 @@ class Api extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-        $this->load->model('Persetujuan_model', 'persetujuan');
-    }
+		$this->load->model('Persetujuan_model', 'persetujuan');
+	}
 
-    public function get_persetujuan_pengadaan($id)
-    {
+	public function get_persetujuan_inventarisasi($id)
+	{
+		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_inventarisasi', $id);
+
+		if (!empty($data))
+		{
+			$data['log_time'] = datify($data['log_time'], 'd/m/Y h:i');
+			$data['status'] = $data['status'] === '2' ? '<span class="badge badge-success">disetujui</span>' : '<span class="badge badge-danger">ditolak</span>';
+		}
+
+		echo json_encode($data);
+	}
+
+	public function get_persetujuan_pengadaan($id)
+	{
 		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_spk', $id);
 
 		if (!empty($data)) {
@@ -36,17 +49,17 @@ class Api extends MY_Controller
 
 	public function get_persetujuan_hapus($id)
 	{
-        $data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_hapus', $id);
+		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_hapus', $id);
 
-        if (!empty($data)) {
-            $data['log_time'] = datify($data['log_time'], 'd/m/Y h:i');
-            $data['status'] = $data['status'] === '2' ? '<span class="badge badge-success">disetujui</span>' : '<span class="badge badge-danger">ditolak</span>';
-        }
+		if (!empty($data)) {
+			$data['log_time'] = datify($data['log_time'], 'd/m/Y h:i');
+			$data['status'] = $data['status'] === '2' ? '<span class="badge badge-success">disetujui</span>' : '<span class="badge badge-danger">ditolak</span>';
+		}
 
-        echo json_encode($data);
-    }
+		echo json_encode($data);
+	}
 
-    public function get_persetujuan_transfer($id) 
+	public function get_persetujuan_transfer($id) 
 	{
 		$data = $this->persetujuan->order_by('log_time', 'DESC')->limit(1)->as_array()->get_by('id_transfer', $id);
 

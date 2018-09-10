@@ -1,64 +1,36 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Kibb extends MY_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('aset/Kibb_model', 'kib');
+        $this->load->model('aset/Temp_kibb_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Ruangan_model', 'ruangan');
-        $this->load->library('pagination');
+        $this->load->model('Inventarisasi_model', 'inventarisasi');
     }
 
-    public function index()
+    public function add($id_inventarisasi = NULL)
     {
-        $filter = $this->input->get();
-        $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
-        if(isset($filter['page']))
-            $this->session->set_userdata('inv_page', $filter['page']);
-        else
-            $this->session->set_userdata('inv_page', '1');
-        $data['organisasi'] = $this->organisasi->get_data_by_auth();
+        if (empty($id_inventarisasi))
+            show_404();
 
-        $result = $this->kib->get_data($filter);
-        $data['kib'] = $result['data'];
-        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $filter['id_organisasi']);
-        $data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, 'inventarisasi/' . get_class($this));
-        $data['filter'] = (!empty($filter) ? $filter : array('id_organisasi' => ''));
-
-        $this->render('modules/aset/saldo_berjalan/kibb/index', $data);
-    }
-
-    public function add($id = NULL)
-    {
-        if (empty($id)) {
-            $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('inventarisasi/kibb');
-        }
-
-        $data['org'] = $this->organisasi->get($id);
-        //$data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
-        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['org']->id);
-        $this->render('modules/aset/saldo_berjalan/kibb/form', $data);
+        $data['inventarisasi'] = $this->inventarisasi->get($id_inventarisasi);
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['inventarisasi']->id_organisasi);
+        $this->render('modules/inventarisasi/form_kibb', $data);
     }
 
     public function edit($id = NULL)
     {
-        if (empty($id)) {
-            $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('inventarisasi/kibb');
-        }
+        if (empty($id))
+            show_404();
 
-        $data['kib'] = $this->kib->get($id);
+        $data['kib'] = $this->kib_temp->get($id);
         $data['kib']->id_kategori = $this->kategori->get($data['kib']->id_kategori);
-        $data['org'] = $this->organisasi->get($data['kib']->id_organisasi);
-        //$data['kat'] = $this->kategori->get_data_list(array('sub_dari' => NULL));
-        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['org']->id);
-        $this->render('modules/aset/saldo_berjalan/kibb/form', $data);
+        $data['inventarisasi'] = $this->inventarisasi->get($data['kib']->id_inventarisasi);
+        $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['inventarisasi']->id_organisasi);
+        $this->render('modules/inventarisasi/form_kibb', $data);
     }
 
     public function insert()
@@ -68,89 +40,69 @@ class Kibb extends MY_Controller
         $data['nilai'] 	= unmonefy($data['nilai']);
         $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
 
-        if (!$this->kib->form_verify($data)) {
+        if (!$this->kib_temp->form_verify($data)) {
             $this->message('Isi data yang wajib diisi', 'danger');
-            $this->go('inventarisasi/kibb/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kibb/add`/' . $data['id_inventarisasi']);
         }
-        $data['reg_barang'] = $this->kib->get_reg_barang($data['id_kategori']);
-        $data['reg_induk'] = $this->kib->get_reg_induk();
 
-        $sukses = $this->kib->insert($data);
+        $data_final = array();
+        $kuantitas = !empty($data['kuantitas']) ? $data['kuantitas'] : 1;
+        unset($data['kuantitas']);
+
+        for ($i = 0; $i < $kuantitas; $i++) {
+            $data_final[$i] = $data;
+            $data_final[$i]['reg_barang'] = 0;
+            $data_final[$i]['reg_induk'] = 0;
+            $data_final[$i]['id_inventarisasi'] = $data['id_inventarisasi'];
+        }
+
+        $sukses = $this->kib_temp->batch_insert($data_final);
         if ($sukses) {
             $this->message('Data berhasil disimpan', 'success');
-            $this->go('inventarisasi/kibb/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/index/rincian/' . $data['id_inventarisasi']);
         } else {
             $this->message('Data gagal disimpan', 'danger');
-            $this->go('inventarisasi/kibb/add/' . $data['id_organisasi']);
+            $this->go('inventarisasi/kibb/add/' . $data['id_inventarisasi']);
         }
     }
 
     public function update()
     {
         $data = $this->input->post();
-        
-        // if (!$this->kib->form_verify($data)) {
-        //     $this->message('Isi data yang wajib diisi', 'danger');
-        //     $this->go('inventarisasi/kibb/edit/' . $data['id']);
-        // }
-        
         $data['tahun'] = !empty($data['tgl_perolehan']) ? datify($data['tgl_perolehan'], 'Y') : NULL;
+        $data['nilai'] 	= unmonefy($data['nilai']);
+        $data['nilai_sisa'] 	= unmonefy($data['nilai_sisa']);
         $id = $data['id'];
-        $data['nilai'] = unmonefy($data['nilai']);
-        $data['nilai_sisa'] = unmonefy($data['nilai_sisa']);
         unset($data['id']);
 
-        $sukses = $this->kib->update($id, $data);
-        if ($sukses) {
-            $this->message('Data berhasil disimpan', 'success');
-        } else {
-            $this->message('Data gagal disimpan', 'danger');
+        if (!$this->kib_temp->form_verify($data)) {
+            $this->message('Isi data yang wajib diisi', 'danger');
+            $this->go('inventarisasi/kibb/edit/' . $id);
         }
 
-        $this->go('inventarisasi/kibb/edit/' . $id);
+        $sukses = $this->kib_temp->update($id, $data);
+        if ($sukses) {
+            $this->message('Data berhasil disunting', 'success');
+            $this->go('inventarisasi/index/rincian/' . $data['id_inventarisasi']);
+        } else {
+            $this->message('Data gagal disunting', 'danger');
+            $this->go('inventarisasi/kibb/edit/' . $id);
+        }
     }
 
     public function delete($id = NULL)
     {
+        if (empty($id))
+            show_404();
 
-        if (empty($id)) {
-            $this->message('Pilih organisasi terlebih dahulu', 'danger');
-            $this->go('inventarisasi/kibb');
-        }
-
-        $id_organisasi = $this->kib->get($id)->id_organisasi;
-
-        if (empty($id_organisasi) OR $this->session->auth['is_superadmin'] != 1) {
-            $this->message('Aset tidak valid', 'danger');
-            $this->go('inventarisasi/kibb');
-        }
-
-        $this->load->model('aset/Temp_kibb_model', 'kib_temp');
-        $kib = $this->kib->get_by(array('id'=>$id, 'id_spk'=>NULL, 'id_hibah'=>NULL));
-        $kib_temp = $this->kib_temp->get_many_by(array('id_aset'=>$id));
-
-        if (empty($kib) OR !empty($kib_temp)) {
-            $this->message('Aset yang anda pilih tidak dapat dihapus karena terikat dengan transaksi lain (Pengadaan/Transfer/Hapus/Reklas)', 'danger');
-            $this->go('inventarisasi/kibb?id_organisasi='.$id_organisasi);
-        }
-
+        $id_inventarisasi = $this->kib->get($id)->id_inventarisasi;
         $sukses = $this->kib->delete($id);
         if ($sukses) {
             $this->message("Data berhasil dihapus", 'success');
-            $this->go('inventarisasi/kibb?id_organisasi='.$id_organisasi);
+            $this->go('inventarisasi/index/rincian/' . $id_inventarisasi);
         } else {
             $this->message('Data gagal dihapus', 'danger');
-            $this->go('inventarisasi/kibb?id_organisasi='.$id_organisasi);
+            $this->go('inventarisasi/index/rincian/' . $id_inventarisasi);
         }
-    }
-
-    public function get_rincian_widget($id_organisasi = NULL)
-    {
-        $result = $this->kib->get_rincian_widget($id_organisasi);
-        $result->total = monefy($result->total, FALSE);
-        $result->nilai = monefy($result->nilai);
-        $result->total_rusak = monefy($result->total_rusak, FALSE);
-        $result->nilai_rusak = monefy($result->nilai_rusak);
-        echo json_encode($result);
     }
 }

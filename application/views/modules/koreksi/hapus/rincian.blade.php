@@ -1,4 +1,4 @@
-a@layout('commons/index')
+@layout('commons/index')
 @section('title')Koreksi Hapus@end
 
 @section('breadcrump')
@@ -517,41 +517,37 @@ a@layout('commons/index')
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Tambah Aset</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                    aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{site_url('koreksi/hapus/rincian_redirect')}}" method="POST">
-                        <input type="hidden" name="id" value="{{$koreksi->id}}">
-                        
-                        <div class="modal-title"><b>Aset Tetap</b></div>
-                        <ul style="list-style: none;">
-                            <li><input type="radio" name="jenis" value="a"> A - Tanah</li>
-                            <li><input type="radio" name="jenis" value="b"> B - Peralatan Dan Mesin</li>
-                            <li><input type="radio" name="jenis" value="c"> C - Gedung Dan Bangunan</li>
-                            <li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
-                            <li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
-                            <li><input type="radio" name="jenis" value="g"> G - Aset Lainnya</li>
-                        </ul>
-                        <hr>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Pilih</button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i
-                                class="fa fa-times"></i> Batal
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{site_url('koreksi/hapus/rincian_redirect')}}" method="POST">
+                    <input type="hidden" name="id" value="{{$koreksi->id}}">
+                    <div class="modal-title"><b>Aset Tetap</b></div>
+                    <ul style="list-style: none;">
+                        <li><input type="radio" name="jenis" value="a"> A - Tanah</li>
+                        <li><input type="radio" name="jenis" value="b"> B - Peralatan Dan Mesin</li>
+                        <li><input type="radio" name="jenis" value="c"> C - Gedung Dan Bangunan</li>
+                        <li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
+                        <li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
+                        <li><input type="radio" name="jenis" value="g"> G - Aset Lainnya</li>
+                    </ul>
+                    <hr>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Pilih</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    @end
+</div>
+@end
 
-    @section('style')
-    <style>
-    th, td {
-        font-size: smaller !important;
-    }
+@section('style')
+<style>
+th, td {
+    font-size: smaller !important;
+}
 </style>
 @end
 

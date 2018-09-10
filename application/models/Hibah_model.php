@@ -40,7 +40,7 @@ class Hibah_model extends MY_Model
         $this->limit($limit, ($page - 1) * $limit);
 
         # Return result
-        $this->empty_substitution = "<span class='text-secondary'><i>kosong</i></span>";
+        ;
         $result['data'] = $this->subtitute($this->get_all());
         $result['data'] = $this->fill_empty_data($result['data']);
 
@@ -70,7 +70,7 @@ class Hibah_model extends MY_Model
         $this->limit($limit, ($page - 1) * $limit);
 
         # Return result
-        $this->empty_substitution = "<span class='text-secondary'><i>kosong</i></span>";
+        ;
         $result['data'] = $this->subtitute($this->get_all());
         $result['data'] = $this->fill_empty_data($result['data']);
 

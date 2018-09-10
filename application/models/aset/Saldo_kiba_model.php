@@ -1,8 +1,9 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class Saldo_kiba_model extends MY_Model
+class Saldo_kiba_model extends MY_Model_aset
 {
 	public $_table = 'saldo_aset_a';
+    public $_kolom = array('reg_barang','reg_induk','luas','alamat','sertifikat_tgl','sertifikat_no','hak','pengguna','tgl_perolehan','tgl_pembukuan','asal_usul','kondisi','nilai','keterangan');
 
     public function __construct()
     {
@@ -39,7 +40,7 @@ class Saldo_kiba_model extends MY_Model
 		$this->limit($limit, ($page - 1) * $limit);
 
 		# Return result
-		$this->empty_substitution = "<span class='text-secondary'><i>kosong</i></span>";
+		;
         $result['data'] = $this->subtitute($this->get_all());
 		$result['data'] = $this->fill_empty_data($result['data']);
 

@@ -65,7 +65,7 @@ class Kiba extends MY_Controller
             $data_kib->id_aset    = $data_kib->id;
             $data_kib->id_koreksi = $id_koreksi;
             $data_kib->id_koreksi_detail = $sukses;
-            unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah);
+            unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah, $data->id_inventarisasi);
 
             $sukses2 = $this->kib_temp->insert((array)$data_kib);
             if($sukses2) {
@@ -171,7 +171,7 @@ class Kiba extends MY_Controller
             $data_kib->id_aset    = $data_kib->id;
             $data_kib->id_koreksi = $id_koreksi;
             $data_kib->id_koreksi_detail = $sukses;
-            unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah);
+            unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah, $data->id_inventarisasi);
 
             $sukses2 = $this->kib_temp->insert((array)$data_kib);
             if($sukses2) {
@@ -276,7 +276,7 @@ class Kiba extends MY_Controller
             $data_kib->id_aset    = $data_kib->id;
             $data_kib->id_koreksi = $id_koreksi;
             $data_kib->id_koreksi_detail = $sukses;
-            unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah);
+            unset($data_kib->id, $data_kib->id_spk, $data_kib->id_sp2d, $data_kib->id_hibah, $data->id_inventarisasi);
 
             $sukses2 = $this->kib_temp->insert((array)$data_kib);
             if($sukses2) {
@@ -416,4 +416,6 @@ class Kiba extends MY_Controller
             $this->go('koreksi/hapus/rincian/'.$temp->id_koreksi);
         }
     }
+
+    
 }

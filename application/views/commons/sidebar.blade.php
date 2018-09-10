@@ -1,4 +1,4 @@
-<?php $locked = $this->setting->get('lock_menu'); ?>
+x<?php $locked = $this->setting->get('lock_menu'); ?>
 <div id="sidebar">
 	<div class="wrapper">
 		<div class="title">
@@ -10,33 +10,36 @@
 			<li class="nav nav-dashboard"><a href="{{site_url()}}"><i class="fa fa-dashboard fa-fw icon"></i>Beranda</a></li>
 			<li class="nav nav-profil"><a href="{{site_url('profil')}}"><i class="fa fa-user fa-fw icon"></i>Profil</a></li>
 			@if($this->session->auth['is_superadmin'] == 1)
-			<li class="nav nav-pengaturan"><a href="{{site_url('pengaturan')}}"><i class="fa fa-cog fa-fw icon"></i>Pengaturan<span class="badge badge-warning text-dark ml-2 mt-1">baru</span></a></li>
+			<li class="nav nav-pengaturan"><a href="{{site_url('pengaturan')}}"><i class="fa fa-cog fa-fw icon"></i>Pengaturan</a></li>
 			@endif
+
+			<li class="nav nav-title">ASET</li>
 			<li class="nav nav-saldo-awal">
 				<a href="{{set_lock_link($locked,'saldo_awal','#menu-saldo-awal')}}" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal{{set_lock_icon($locked,'saldo_awal')}}<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
-					<li class="nav"><a href="{{site_url('saldo_awal/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-					<li class="nav"><a href="{{site_url('saldo_awal/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-					<li class="nav"><a href="{{site_url('saldo_awal/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-					<li class="nav"><a href="{{site_url('saldo_awal/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-					<li class="nav"><a href="{{site_url('saldo_awal/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('saldo_awal/kibg')}}"><i class="fa fa-window-restore fa-fw icon"></i>KIB-G</a></li>
+					<li class="nav"><a href="{{site_url('aset/kiba?source=saldo')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibb?source=saldo')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibc?source=saldo')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibd?source=saldo')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibe?source=saldo')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibg?source=saldo')}}"><i class="fa fa-window-restore fa-fw icon"></i>KIB-G</a></li>
+				</ul>
+			</li>
+			<li class="nav nav-saldo-berjalan">
+				<a href="{{set_lock_link($locked,'saldo_berjalan','#menu-saldo-berjalan')}}" data-toggle="collapse"><i class="fa fa-cloud-upload fa-fw icon"></i>Saldo Berjalan{{set_lock_icon($locked,'saldo_berjalan')}}<i class="fa fa-angle-down ml-auto"></i></a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-berjalan">
+					<li class="nav"><a href="{{site_url('aset/kiba?source=berjalan')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibb?source=berjalan')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibc?source=berjalan')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibd?source=berjalan')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibe?source=berjalan')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibg?source=berjalan')}}"><i class="fa fa-window-restore fa-fw icon"></i>KIB-G</a></li>
 				</ul>
 			</li>
 
 			<li class="nav nav-title">MUTASI TAMBAH</li>
 			<li class="nav nav-invent">
-				<a href="{{set_lock_link($locked,'inventarisasi','#menu-invent')}}" data-toggle="collapse">
-					<i class="fa fa-cloud-upload fa-fw icon"></i>Inventarisasi{{set_lock_icon($locked,'inventarisasi')}}<i class="fa fa-angle-down ml-auto"></i>
-				</a>
-				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-invent">
-					<li class="nav"><a href="{{site_url('inventarisasi/kiba')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibb')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibc')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibd')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibe')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('inventarisasi/kibg')}}"><i class="fa fa-window-restore fa-fw icon"></i>KIB-G</a></li>
-				</ul>
+				<a href="{{set_lock_link($locked,'inventarisasi',site_url('inventarisasi/index'))}}"><i class="fa fa-archive fa-fw icon"></i>Inventarisasi{{set_lock_icon($locked,'inventarisasi')}}<span class="badge badge-warning text-dark ml-2 mt-1">baru</span></a>
 			</li>
 			<!--PENGADAAN -->
 			<li class="nav nav-pengadaan">
@@ -87,14 +90,18 @@
 			<li class="nav nav-pelunasan">
 				<a href="{{set_lock_link($locked,'pelunasan',site_url('pelunasan/index'))}}"><i class="fa fa-dollar fa-fw icon"></i>Pelunasan KDP{{set_lock_icon($locked,'pelunasan')}}</a>
 			</li>
+			<li class="nav nav-koreksi-atribut">
+				<a href="{{set_lock_link($locked,'koreksi_atribut',site_url('koreksi/atribut/index'))}}"><i class="fa fa-puzzle-piece fa-fw icon"></i>Koreksi Atribut{{set_lock_icon($locked,'koreksi_atribut')}}<span class="badge badge-warning text-dark ml-2 mt-1">baru</span></a>
+			</li>
 
 			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-title">PERSETUJUAN</li>
-			<li class="nav nav-persetujuan-pengadaan nav-persetujuan-hibah">
+			<li class="nav nav-persetujuan-pengadaan nav-persetujuan-hibah nav-invent">
 				<a href="{{set_lock_link($locked,'persetujuan','#menu-persetujuan-tambah')}}" data-toggle="collapse">
 					<i class="fa fa-download fa-fw icon"></i>Mutasi Tambah{{set_lock_icon($locked,'persetujuan')}}<i class="fa fa-angle-down ml-auto"></i>
 				</a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-persetujuan-tambah">
+					<li class="nav"><a href="{{site_url('persetujuan/inventarisasi')}}"><i class="fa fa-check fa-fw icon"></i>Inventarisasi</a></li>
 					<li class="nav"><a href="{{site_url('persetujuan/pengadaan')}}"><i class="fa fa-check fa-fw icon"></i>Pengadaan</a></li>
 					<li class="nav"><a href="{{site_url('persetujuan/hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
 				</ul>
@@ -117,6 +124,7 @@
 					<li class="nav"><a href="{{site_url('persetujuan/koreksi_kepemilikan')}}"><i class="fa fa-user fa-fw icon"></i>2. Koreksi Kepemilikan</a></li>
 					<li class="nav"><a href="{{site_url('persetujuan/koreksi_kode')}}"><i class="fa fa-tag fa-fw icon"></i>3. Reklas Kode</a></li>
 					<li class="nav"><a href="{{site_url('persetujuan/koreksi_hapus')}}"><i class="fa fa-trash fa-fw icon"></i>4. Koreksi Hapus</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/koreksi_atribut')}}"><i class="fa fa-puzzle-piece fa-fw icon"></i>5. Koreksi Atribut</a></li>
 				</ul>
 			</li>
 			@endif

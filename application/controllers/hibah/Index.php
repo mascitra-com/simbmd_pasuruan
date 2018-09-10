@@ -148,6 +148,8 @@ class Index extends MY_Controller
         if(empty($id))
             show_404();
 
+        $id_organisasi = $this->hibah->get($id)->id_organisasi;
+
         $sukses = $this->hibah->delete($id);
         if($sukses) {
             $this->kiba_temp->delete_by(array('id_hibah'=>$id));
@@ -159,11 +161,10 @@ class Index extends MY_Controller
             $this->kapitalisasi->delete_by(array('id_hibah'=>$id));
 
             $this->message('Data berhasil dihapus','success');
-            $this->go('hibah/index');
         } else {
             $this->message('Data gagal dihapus','danger');
-            $this->go('hibah/index');
         }
+        $this->go('hibah/index?id_organisasi='.$id_organisasi);
     }
 
     public function rincian_redirect($id = null)
@@ -175,30 +176,30 @@ class Index extends MY_Controller
 
         switch ($jenis) {
             case 'a':
-                $this->go('hibah/kiba/add/' . $id);
-                break;
+            $this->go('hibah/kiba/add/' . $id);
+            break;
             case 'b':
-                $this->go('hibah/kibb/add/' . $id);
-                break;
+            $this->go('hibah/kibb/add/' . $id);
+            break;
             case 'c':
-                $this->go('hibah/kibc/add/' . $id);
-                break;
+            $this->go('hibah/kibc/add/' . $id);
+            break;
             case 'd':
-                $this->go('hibah/kibd/add/' . $id);
-                break;
+            $this->go('hibah/kibd/add/' . $id);
+            break;
             case 'e':
-                $this->go('hibah/kibe/add/' . $id);
-                break;
+            $this->go('hibah/kibe/add/' . $id);
+            break;
             case 'g':
-                $this->go('hibah/kibg/add/' . $id);
-                break;
+            $this->go('hibah/kibg/add/' . $id);
+            break;
             case 'tambah':
-                $this->go('hibah/kapitalisasi/add/langkah_1/' . $id);
-                break;
+            $this->go('hibah/kapitalisasi/add/langkah_1/' . $id);
+            break;
 
             default:
-                show_404();
-                break;
+            show_404();
+            break;
         }
     }
 
@@ -296,18 +297,11 @@ class Index extends MY_Controller
             $model_kib  = "kib{$item}";
             $model_kib_temp  = "kib{$item}_temp";
 
-            # AMBIL DATA PADA KIB TEMP
-            $data_temp = $this->{$model_kib}->as_array()->order_by('id')->get_many_by(array('id_hibah'=>$id_hibah));
-            
-            if (!empty($data_temp)) {
+            $result = $this->{$model_kib}->select("COUNT(id) AS total, SUM(nilai) AS jumlah")->get_by(array('id_hibah'=>$hibah->id, 'id_organisasi'=>$hibah->id_organisasi));
+            $result_temp = $this->db->query("SELECT COUNT(id) AS total, SUM(nilai) AS jumlah FROM ".$this->{$model_kib_temp}->_table." WHERE id_aset IN(SELECT id FROM ".$this->{$model_kib}->_table." WHERE id_hibah = {$hibah->id} AND id_organisasi = {$hibah->id_organisasi}) OR id_hibah = {$hibah->id}")->row();
 
-                $where_in = array_column($data_temp, 'id');
-                
-                # CHECK KETERIKATAN
-                $temp = $this->{$model_kib_temp}->where_in('id_aset', $where_in)->count_by(array('log_time>'=>$hibah->log_time));
-                if ($temp > 0) {
-                    return array('status'=>FALSE, 'reason'=>'Rincian hibah terikat dengan transaksi lainnya.');
-                }
+            if ($result->total!==$result_temp->total OR $result->jumlah!==$result_temp->jumlah) {
+                return array('status'=>FALSE, 'reason'=>'Rincian hibah terikat dengan transaksi lainnya.');
             }
         }
 

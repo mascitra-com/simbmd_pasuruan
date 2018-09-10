@@ -1,6 +1,6 @@
 <?php (defined('BASEPATH')) OR exit('No direct script access allowed');
 
-class Kibe_model extends MY_Model
+class Kibe_model extends MY_Model_aset
 {
 	public $_table = 'aset_e';
 	public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan','kondisi');
@@ -40,7 +40,7 @@ class Kibe_model extends MY_Model
 		$this->limit($limit, ($page - 1) * $limit);
 
 		# Return result
-		$this->empty_substitution = "<span class='text-secondary'><i>kosong</i></span>";
+		;
 		$result['data'] = $this->subtitute($this->get_all());
         $result['data'] = $this->fill_empty_data($result['data']);
 		return $result;

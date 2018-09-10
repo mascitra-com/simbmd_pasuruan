@@ -8,6 +8,21 @@ class Kepemilikan extends MY_Controller {
     public function __construct()
     {
         parent::__construct();
+
+        $this->load->model('aset/Kiba_model', 'kiba');
+        $this->load->model('aset/Kibb_model', 'kibb');
+        $this->load->model('aset/Kibc_model', 'kibc');
+        $this->load->model('aset/Kibd_model', 'kibd');
+        $this->load->model('aset/Kibe_model', 'kibe');
+        $this->load->model('aset/Kibg_model', 'kibg');
+
+        $this->load->model('aset/Temp_kiba_model', 'kiba_temp');
+        $this->load->model('aset/Temp_kibb_model', 'kibb_temp');
+        $this->load->model('aset/Temp_kibc_model', 'kibc_temp');
+        $this->load->model('aset/Temp_kibd_model', 'kibd_temp');
+        $this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+        $this->load->model('aset/Temp_kibg_model', 'kibg_temp');
+
         $this->load->model('Koreksi_model', 'koreksi');
         $this->load->model('Koreksi_detail_model', 'koreksi_detail');
         $this->load->model('Organisasi_model', 'organisasi');
@@ -126,34 +141,32 @@ class Kepemilikan extends MY_Controller {
         $this->go('koreksi/kepemilikan/rincian/'.$id);
     }
 
-    public function delete($id = null)
+    public function delete($id_koreksi = null)
     {
-        $this->load->model('aset/Temp_kiba_model', 'kiba');
-        $this->load->model('aset/Temp_kibb_model', 'kibb');
-        $this->load->model('aset/Temp_kibc_model', 'kibc');
-        $this->load->model('aset/Temp_kibd_model', 'kibd');
-        $this->load->model('aset/Temp_kibe_model', 'kibe');
-        $this->load->model('aset/Temp_kibg_model', 'kibg');
-
-        if(empty($id))
+        if (empty($id_koreksi)) {
             show_404();
-
-        $id_organisasi = $this->koreksi->get($id)->id_organisasi;
-        $sukses        = $this->koreksi->delete($id);
-        if($sukses) {
-            $this->kiba->delete_by(array('id_koreksi'=>$id));
-            $this->kibb->delete_by(array('id_koreksi'=>$id));
-            $this->kibc->delete_by(array('id_koreksi'=>$id));
-            $this->kibd->delete_by(array('id_koreksi'=>$id));
-            $this->kibe->delete_by(array('id_koreksi'=>$id));
-            $this->kibg->delete_by(array('id_koreksi'=>$id));
-
-            $this->message('Data berhasil dihapus','success');
-        } else {
-            $this->message('Data gagal dihapus','danger');
         }
 
-        $this->go('koreksi/kepemilikan?id_organisasi='.$id_organisasi);
+        $koreksi = $this->koreksi->get($id_koreksi);
+
+        if ($koreksi->status_pengajuan == 1 OR $koreksi->status_pengajuan == 2) {
+            $this->message('data menunggu atau telah disetujui', 'warning');
+            $this->go('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi);
+            die();
+        }
+
+        $model = array('kiba_temp','kibb_temp','kibc_temp','kibd_temp','kibe_temp','kibg_temp');
+        foreach ($model as $m) {
+            $temp = $this->{$m}->get_many_by('id_koreksi', $id_koreksi);
+            foreach ($temp as $key => $value) {
+                $this->koreksi_detail->delete($value->id_koreksi_detail);
+            }
+            $this->{$m}->delete_by('id_koreksi', $id_koreksi);
+        }
+
+        $this->koreksi->delete($id_koreksi);
+        $this->message('data berhasil dihapus', 'success');
+        $this->go('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi);
     }
 
     public function finish_transaction($id = NULL)
@@ -194,5 +207,94 @@ class Kepemilikan extends MY_Controller {
     		}
     	}
     	return $data;
+    }
+
+    public function abort_transaction($id_koreksi = NULL)
+    {
+        # JIKA KOSONG
+        if (empty($id_koreksi)) {
+            $this->message('Pilih data koreksi kepemilikan yang akan dibatalkan', 'danger');
+            $this->go('koreksi/kepemilikan/');
+        }
+
+        # AMBIL DATA koreksi
+        $koreksi = $this->koreksi->get($id_koreksi);
+
+        # CEK KETERSEDIAAN PEMBATALAN
+        $abort_status = $this->check_abort_status($koreksi->id);
+        if (!$abort_status['status']) {
+            $this->message($abort_status['reason'], 'danger');
+            $this->go('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi);
+        }
+
+        # ABOOORT - KEMBALIKAN RINCIAN
+        $alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
+        foreach ($alfabet as $item) {
+            # SET MODEL
+            $model_kib  = "kib{$item}";
+            $model_kib_temp  = "kib{$item}_temp";
+
+            $temp = $this->{$model_kib_temp}->get_many_by('id_koreksi', $id_koreksi);
+
+            foreach ($temp as $aset) {
+                $orginal_value = $this->koreksi_detail->get($aset->id_koreksi_detail)->original_value;
+                $this->{$model_kib}->update($aset->id_aset, array('id_organisasi'=>$orginal_value));
+            }
+        }
+
+        $this->koreksi->update($id_koreksi, array('status_pengajuan'=>0));
+
+        $this->message('koreksi berhasil dibatalkan','success');
+        $this->go('koreksi/kepemilikan?id_organisasi='.$koreksi->id_organisasi);
+    }
+
+    private function check_abort_status($id_koreksi = NULL)
+    {
+        if (empty($id_koreksi)) {
+            return array('status'=>FALSE, 'reason'=>'id koreksi kosong');
+        }
+
+        $koreksi = $this->koreksi->get($id_koreksi);
+
+        if (empty($koreksi)) {
+            return array('status'=>FALSE, 'reason'=>'id koreksi tidak valid');
+        }
+
+        $alfabet = array('a', 'b', 'c', 'd', 'e', 'g');
+        foreach ($alfabet as $item) {
+            # SET MODEL
+            $model_kib = "kib{$item}";
+            $model_kib_temp = "kib{$item}_temp";
+
+            $data_temp = $this->{$model_kib_temp}->as_array()->order_by('id_aset')->get_many_by(array('id_koreksi'=>$id_koreksi));
+            
+            if (!empty($data_temp)) {
+
+                $where_in = array_column($data_temp, 'id_aset');
+                
+                # CHECK HAPUS/KOREKSI
+                $temp = $this->{$model_kib_temp}
+                ->where_in('id_aset', $where_in)
+                ->group_start()
+                ->where('id_koreksi !=', $id_koreksi)
+                ->or_where("id_koreksi IS NULL", NULL, FALSE)
+                ->group_end()
+                ->get_many_by(array('log_time>'=>$koreksi->log_time));
+                
+                if (count($temp) > 0) {
+                    return array('status'=>FALSE, 'reason'=>'Rincian koreksi terikat dengan transaksi lain.');
+                }
+            }
+        }
+
+        return array('status'=>TRUE);
+    }
+
+    public function get_abort_status($id_koreksi = NULL) {
+        if (empty($id_koreksi)) {
+            echo json_encode(array('status'=>FALSE, 'reason'=>'ID koreksi KOSONG'));
+        } else {
+            echo json_encode($this->check_abort_status($id_koreksi));
+        }
     }
 }

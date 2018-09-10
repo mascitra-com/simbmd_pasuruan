@@ -63,6 +63,12 @@ class Organisasi_model extends MY_Model {
         return $result;
     }
 
+    public function get_id_by_auth($id_organisasi)
+    {
+        $this->load->model('Auth_model', 'auth');
+        return (!$this->auth->get_super_access()) ? $this->auth->get_id_organisasi() : $id_organisasi;
+    }
+
     public function get_org_induk($kode)
     {
         $kode = explode('.', $kode);

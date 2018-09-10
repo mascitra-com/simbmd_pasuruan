@@ -102,34 +102,36 @@
 										<tr>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="saldo_awal" {{in_array('saldo_awal', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Saldo Awal</td>
+											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="saldo_berjalan" {{in_array('saldo_berjalan', $pengaturan->lock_menu)?'checked':''}}></td>
+											<td>Saldo Berjalan</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="inventarisasi" {{in_array('inventarisasi', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Inventarisasi</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="pengadaan" {{in_array('pengadaan', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Pengadaan</td>
-											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="hibah" {{in_array('hibah', $pengaturan->lock_menu)?'checked':''}}></td>
-											<td>Hibah</td>
 										</tr>
 										<tr>
+											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="hibah" {{in_array('hibah', $pengaturan->lock_menu)?'checked':''}}></td>
+											<td>Hibah</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="transfer" {{in_array('transfer', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Transfer</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="koreksi" {{in_array('koreksi', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Koreksi</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="penghapusan" {{in_array('penghapusan', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Penghapusan</td>
-											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="pelunasan" {{in_array('pelunasan', $pengaturan->lock_menu)?'checked':''}}></td>
-											<td>Pelunasan KDP</td>
 										</tr>
 										<tr>
+											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="pelunasan" {{in_array('pelunasan', $pengaturan->lock_menu)?'checked':''}}></td>
+											<td>Pelunasan KDP</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="persetujuan" {{in_array('persetujuan', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Persetujuan</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="report" {{in_array('report', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Laporan</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="ruangan" {{in_array('ruangan', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Kamus Ruangan</td>
-											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="kegiatan" {{in_array('kegiatan', $pengaturan->lock_menu)?'checked':''}}></td>
-											<td>Kamus Kegiatan</td>
 										</tr>
 										<tr>
+											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="kegiatan" {{in_array('kegiatan', $pengaturan->lock_menu)?'checked':''}}></td>
+											<td>Kamus Kegiatan</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="pegawai" {{in_array('pegawai', $pengaturan->lock_menu)?'checked':''}}></td>
 											<td>Kamus Pegawai</td>
 											<td class="text-center"><input type="checkbox" name="lock_menu[]" value="organisasi" {{in_array('organisasi', $pengaturan->lock_menu)?'checked':''}}></td>

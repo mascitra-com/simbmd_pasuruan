@@ -191,16 +191,16 @@ class Index extends MY_Controller {
 
         if (!$this->transfer->form_verify($data)) {
             $this->message('Isi data yang perlu diisi', 'danger');
-            $this->go('transfer/index/keluar_detail/'.$data['id']);
+            $this->go('transfer/index/detail/'.$data['id'].'?ref=keluar');
         }
 
         $sukses = $this->transfer->update($id, $data);
         if($sukses) {
             $this->message('Data berhasil ditambah','success');
-            $this->go('transfer/index/keluar_detail/'.$id);
+            $this->go('transfer/index/detail/'.$id.'?ref=keluar');
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/index/keluar_detail/'.$id);
+            $this->go('transfer/index/detail/'.$id.'?ref=keluar');
         }
     }
 
@@ -237,10 +237,10 @@ class Index extends MY_Controller {
         $sukses = $this->transfer->update($id, $data);
         if($sukses) {
             $this->message('Data berhasil diajukan','success');
-            $this->go('transfer/index/keluar_detail/'.$id);
+            $this->go('transfer/index/detail/'.$id.'?ref=keluar');
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/index/keluar_detail/'.$id);
+            $this->go('transfer/index/detail/'.$id.'?ref=keluar');
         }
     }
 
@@ -253,10 +253,10 @@ class Index extends MY_Controller {
         $sukses = $this->transfer->update($id, $data);
         if($sukses) {
             $this->message('Data berhasil dibatalkan','success');
-            $this->go('transfer/index/keluar_detail/'.$id);
+            $this->go('transfer/index/detail/'.$id.'?ref=keluar');
         } else {
             $this->message('Terjadi kesalahan', 'danger');
-            $this->go('transfer/index/keluar_detail/'.$id);
+            $this->go('transfer/index/detail/'.$id.'?ref=keluar');
         }
     }
 
