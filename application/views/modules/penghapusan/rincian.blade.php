@@ -374,12 +374,6 @@ th, td {
 <script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>
 <script>
     theme.activeMenu('.nav-penghapusan');
-    // FIX TAB ERROR
-    $(".nav-link").on('click', function(e){
-        var dom = $(e.currentTarget).attr('href');
-        $(".tab-pane:not("+dom+")").removeClass('active');
-    });
-
     // INIT Datatables
     $(".jq-table").bootstrapTable({
         formatRecordsPerPage: function () {

@@ -1,22 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Rizki Herdatullah
- * Date: 1/8/2018
- * Time: 2:29 PM
- */
-
 class Kibc extends MY_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('aset/Kibc_model', 'kib');
         $this->load->model('aset/Temp_kibc_model', 'kib_temp');
         $this->load->model('Organisasi_model', 'organisasi');
         $this->load->model('Kategori_model', 'kategori');
         $this->load->model('Hibah_model', 'hibah');
         $this->load->library('pagination');
+    }
+
+    public function get()
+    {
+        $filter = $this->input->get();
+
+        if (isset($filter['search'])) {
+            foreach ($this->kib->_kolom as $kolom) {
+                $filter[$kolom] = $filter['search'];
+            }
+            unset($filter['search']);
+        }
+
+        echo json_encode($this->kib->get_data_aset($filter));
     }
 
     public function add($id_hibah = NULL)

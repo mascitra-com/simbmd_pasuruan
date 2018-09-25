@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$config['mode'] = 'jember';
+$config['import_max_rows'] = 2000;
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

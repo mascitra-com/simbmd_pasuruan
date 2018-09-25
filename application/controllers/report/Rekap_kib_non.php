@@ -23,8 +23,6 @@ class Rekap_kib_non extends MY_Controller
             $data['id_organisasi'] = $this->auth->get_id_organisasi();
         }
 
-        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_kib', 'mengetahui_kib')));
-
         $this->render('modules/report/rekap_kib_non/index', $data);
     }
 

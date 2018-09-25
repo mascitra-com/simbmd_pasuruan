@@ -34,12 +34,12 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		}
 
 		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} AND nilai < batas_nilai AND YEAR(tgl_perolehan) >= {$this->periode}";
-        
-        if(!empty($kondisi)){
-            $where .= " AND kondisi =".$kondisi;
-        }
+		
+		if(!empty($kondisi)){
+			$where .= " AND kondisi =".$kondisi;
+		}
 
-        $order  = "id_organisasi,";
+		$order  = "id_organisasi,";
 		$order .= ($urut==='2') ? 'YEAR(tgl_perolehan),' : '';
 		$order .= 'k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,reg_barang';
 		$group  = 'tgl_perolehan,tgl_pembukuan,merk,tipe,ukuran,bahan,no_pabrik,no_rangka,no_mesin,no_polisi,no_bpkb,asal_usul,nilai,masa_manfaat,keterangan,id_kategori';
@@ -63,12 +63,12 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		}
 
 		$where  = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} AND kd_golongan <> 6 AND nilai < batas_nilai AND YEAR(tgl_perolehan) >= {$this->periode}";
-        
-        if(!empty($kondisi)){
-            $where .= " AND kondisi =".$kondisi;
-        }
+		
+		if(!empty($kondisi)){
+			$where .= " AND kondisi =".$kondisi;
+		}
 
-        $order  = "id_organisasi,";
+		$order  = "id_organisasi,";
 		$order .= ($urut==='2') ? 'YEAR(tgl_perolehan),' : '';
 		$order .= 'kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,reg_barang';
 		$query  = "SELECT {$select} FROM aset_c ast JOIN kategori k ON ast.id_kategori = k.id JOIN organisasi o ON ast.id_organisasi = o.id WHERE {$where} ORDER BY {$order}";
@@ -93,12 +93,12 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		}
 
 		$where  = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} AND nilai < batas_nilai AND YEAR(tgl_perolehan) >= {$this->periode}";
-        
-        if(!empty($kondisi)){
-            $where .= " AND kondisi =".$kondisi;
-        }
 		
-        $order  = "id_organisasi,";
+		if(!empty($kondisi)){
+			$where .= " AND kondisi =".$kondisi;
+		}
+		
+		$order  = "id_organisasi,";
 		$order  = ($urut==='2') ? 'YEAR(tgl_perolehan),' : '';
 		$order .= 'kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,reg_barang';
 		$group  = 'tgl_perolehan,tgl_pembukuan,judul,pencipta,bahan,ukuran,asal_usul,nilai,masa_manfaat,keterangan,id_kategori';

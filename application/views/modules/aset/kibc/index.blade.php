@@ -76,6 +76,7 @@
 						<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
 						<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
 						<th data-class='text-nowrap' data-field="nilai" data-switchable="false" data-sortable="true">Nilai</th>
+						<th data-class='text-nowrap' data-field="nilai_tambah" data-switchable="false" data-sortable="true">Nilai Tambah</th>
 						<th data-class='text-nowrap' data-field="tingkat">Tingkat</th>
 						<th data-class='text-nowrap' data-field="beton">Beton</th>
 						<th data-class='text-nowrap' data-field="luas_lantai">Luas Lantai</th>

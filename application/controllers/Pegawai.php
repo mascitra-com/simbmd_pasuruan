@@ -14,161 +14,92 @@ class Pegawai extends MY_Controller {
 	
 	public function index()
 	{
-		# Load pagination library
-		$this->load->library('Pagination', 'pagination');
-
-		# Prepare data
-		$filter = trim_empty_data($this->input->get());
-		$result = $this->pegawai->get_data($filter);
-
-		$data['pegawai'] 	= $result['data'];
-		$data['pagination'] = $this->pagination->get_pagination($result['data_count'], $filter, get_class($this));
-		$data['filter']		= $filter;
-		$data['org_list']	= $this->organisasi->get_data_by_auth();
-
+		$data['id_organisasi'] = !empty($this->input->get('id_organisasi'))?$this->input->get('id_organisasi'):0;
+		$data['id_organisasi'] = $this->organisasi->get_id_by_auth($data['id_organisasi']);
+		$data['organisasi'] 	  = $this->organisasi->get_data_by_auth();
 		$this->render('modules/pegawai/index', $data);
 	}
 
-	public function add()
+	public function get()
 	{
-		$data['org_list'] = $this->organisasi->get_data_by_auth();
-		$this->render('modules/pegawai/form', $data);
+		$filter = $this->input->get();
+		$filter = $this->set_filter($filter);
+
+		echo json_encode($this->pegawai->get_data($filter));
 	}
 
-	public function edit($id = NULL)
+	private function set_filter($filter = array())
 	{
-		if (empty($id))
-			show_404();
+		$kolom = array('nip', 'user.nama', 'jabatan');
 
-		$data['peg']		= $this->pegawai->get($id);
-		$data['org_list']	= $this->organisasi->get_data_by_auth();
-		$this->render('modules/pegawai/form', $data);
+		if (isset($filter['search'])) {
+			foreach ($kolom as $key => $value) {
+				$filter[$value] = $filter['search'];
+			}
+		}
+		return $filter;
 	}
 
 	public function insert()
 	{
 		$data = $this->input->post();
 
-		# Verify empty data
 		if (!$this->pegawai->form_verify($data)) {
-			$this->message('Isi data yang perlu diisi', 'danger');
-			$this->go('pegawai/add');
+			$this->message('Isi data yang wajib diisi', 'danger');
+			$this->go('pegawai/index?id_organisasi='.$data['id_organisasi']);
 		}
 
-		# Verify availablity username
-		$result = $this->pegawai->get_by(array('username'=>$data['username']));
-		if (!empty($result)) {
-			$this->message('Username telah dipakai, gunakan username lainnya', 'danger');
-			$this->go('pegawai/add');
-		}
-
-		# Verify password match
-		if ($data['password'] !== $data['password_re']) {
-			$this->message('Password tidak sama', 'danger');
-			$this->go('pegawai/add');
+		if (!$this->check_password($data)) {
+			$this->message('Password tidak match', 'danger');
+			$this->go('pegawai/index?id_organisasi='.$data['id_organisasi']);
 		}
 
 		$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-		unset($data['password_re']);
+		unset($data['re_password']);
 
-		$sukses = $this->pegawai->insert($data);
-		if($sukses) {
-			$this->message('Data berhasil ditambah','success');
-			$this->go('pegawai/add');
-		} else {
-			$this->message('Data gagal ditambah','danger');
-			$this->go('pegawai/add');
-		}
+		$this->pegawai->insert($data);
+		$this->message('Data berhasil ditambah', 'success');
+		$this->go('pegawai/index?id_organisasi='.$data['id_organisasi']);
+
 	}
 
 	public function update()
 	{
 		$data = $this->input->post();
 		$id   = $data['id'];
-		unset($data['id']);
 
-		# If password want to be changed
-		if (empty($data['password'])) {
-			unset($data['password'], $data['password_re']);
-		} else {
-			if ($data['password'] !== $data['password_re']) {
-				$this->message('Password tidak sama', 'danger');
-				$this->go('pegawai/add');
+		if(!empty($data['password'])){
+			if (!$this->check_password($data)) {
+				$this->message('Password tidak match', 'danger');
+				$this->go('pegawai/index?id_organisasi='.$data['id_organisasi']);
 			}
-
 			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-			unset($data['password_re']);
+		}else{
+			unset($data['password']);
 		}
 
-		# Verify empty data
-		if (!$this->pegawai->form_verify($data)) {
-			$this->message('Isi data yang perlu diisi', 'danger');
-			$this->go('pegawai/add');
-		}
+		unset($data['id'], $data['re_password']);
 
-		# Verify availablity username
-		$result = $this->pegawai->get_by(array('username'=>$data['username'], 'id<>'=>$id));
-		if (!empty($result)) {
-			$this->message('Username telah dipakai, gunakan username lainnya', 'danger');
-			$this->go('pegawai/add');
-		}
+		$this->pegawai->update($id, $data);
 
-		$sukses = $this->pegawai->update($id, $data);
-		if($sukses) {
-			$this->message('Data berhasil sunting','success');
-			$this->go('pegawai');
-		} else {
-			$this->message('Data gagal sunting','danger');
-			$this->go('pegawai/edit/'.$id);
-		}
+		$this->message('Data berhasil disunting', 'success');
+		$this->go('pegawai/index?id_organisasi='.$data['id_organisasi']);
 	}
 
-	public function delete($id = NULL)
+	private function check_password($data)
 	{
-		if (empty($id))
-			show_404();
-
-		$sukses = $this->pegawai->delete($id);
-		if($sukses) {
-			$this->message('Data berhasil dihapus','success');
-			$this->go('pegawai');
-		} else {
-			$this->message('Data gagal dihapus','danger');
-			$this->go('pegawai');
-		}
+		return !empty($data['password']) && !empty($data['re_password']) && $data['password'] === $data['re_password'];
 	}
 
-    public function get_data_search()
-    {
-        $key = $this->input->get('key');
+	public function delete($id = null)
+	{
+		if (empty($id)) {
+			show_404();
+		}
 
-        $this->load->model('Auth_model', 'auth');
-        # Jika bukan superadmin
-        if (!$this->auth->get_super_access()) {
-            $id_org = $this->auth->get_id_organisasi();
-
-            # Jika kepala UPB
-            if ($this->auth->get_kepala_access()) {
-                $temp = $this->organisasi->get($id_org);
-                $orgs = $this->organisasi->as_array()->get_many_by(array('kd_bidang' => $temp->kd_bidang, 'kd_unit' => $temp->kd_unit, 'jenis' => 4));
-            } else {
-                $orgs = $this->organisasi->as_array()->get_many_by('id', $id_org);
-            }
-            $id_orgs = array_column($orgs, 'id');
-            $result = $this->pegawai->where_in('id_organisasi', $id_orgs)->group_start()->like('nip', $key)->or_like('nama', $key)->or_like('jabatan', $key)->group_end()->limit(50)->get_all();
-        } else {
-            $result = $this->pegawai->like('nip', $key)->or_like('nama', $key)->or_like('jabatan', $key)->limit(50)->get_all();
-        }
-
-        echo json_encode($result);
-    }
-
-    public function save_cookie()
-    {
-        $data = $this->input->get();
-        $this->load->helper('cookie');
-        set_cookie("{$data['name']}", $data['id'], time() + (10 * 365 * 24 * 60 * 60));
-        echo json_encode(array('sukses' => TRUE, 'cookie'=> get_cookie("{$data['name']}")));
-    }
-
+		$id_organisasi = $this->pegawai->get($id)->id_organisasi;
+		$this->pegawai->delete($id);
+		$this->message('Data berhasil dihapus', 'success');
+		$this->go('pegawai/index?id_organisasi='.$id_organisasi);
+	}
 }

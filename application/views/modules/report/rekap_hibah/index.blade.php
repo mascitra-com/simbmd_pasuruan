@@ -23,11 +23,11 @@
 								<option value="all" class="text-small">KABUPATEN</option>
 								@endif
 								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 195)
-                                    <option value="7.1" class="text-small">DINAS KESEHATAN (SEMUA)</option>
-                                @endif
+								<option value="7.1" class="text-small">DINAS KESEHATAN (SEMUA)</option>
+								@endif
 								@if($this->session->auth['is_superadmin'] == 1 || $id_organisasi == 233)
-                                    <option value="8.1" class="text-small">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
-                                @endif
+								<option value="8.1" class="text-small">DINAS PENDIDIKAN DAERAH (SEMUA)</option>
+								@endif
 								@foreach($organisasi AS $org)
 								<option value="{{$org->id}}" class="text-small">{{$org->nama}}</option>
 								@endforeach
@@ -39,9 +39,9 @@
 						<div class="col-md-4">
 							<?php $year = date('Y'); ?>
 							<div class="input-group">
-							<input type="date" name="periode_start" class="form-control form-control-sm" value="{{datify('1-1-'.$year, 'Y-m-d')}}" placeholder="Dari" />
-							<span class="input-group-addon">s.d.</span>
-							<input type="date" name="periode_end" class="form-control form-control-sm" value="{{datify('31-12-'.$year, 'Y-m-d')}}" placeholder="Dari" />
+								<input type="date" name="periode_start" class="form-control form-control-sm" value="{{datify('1-1-'.$year, 'Y-m-d')}}" placeholder="Dari" />
+								<span class="input-group-addon">s.d.</span>
+								<input type="date" name="periode_end" class="form-control form-control-sm" value="{{datify('31-12-'.$year, 'Y-m-d')}}" placeholder="Dari" />
 							</div>
 						</div>
 					</div>
@@ -74,24 +74,23 @@
 						<label class="col-md-3 col-form-label text-right">Nama</label>
 						<div class="col-md-4">
 							<div class="input-group">
-								<input type="text" name="lapor_nama" class="form-control form-control-sm" value="{{ $melaporkan_hibah->nama }}" placeholder="Nama" />
+								<input type="text" name="lapor_nama" class="form-control form-control-sm" value="" placeholder="Nama" />
 								<span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-										data-target="#modal-melaporkan">Pilih</button>
-                                </span>
+									<button type="button" class="btn btn-primary" data-target-cari='lapor'>Pilih</button>
+								</span>
 							</div>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">NIP</label>
 						<div class="col-md-4">
-							<input type="text" name="lapor_nip" class="form-control form-control-sm" value="{{ $melaporkan_hibah->nip }}" placeholder="NIP" />
+							<input type="text" name="lapor_nip" class="form-control form-control-sm" value="" placeholder="NIP" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Jabatan</label>
 						<div class="col-md-4">
-							<input type="text" name="lapor_jabatan" class="form-control form-control-sm" value="{{ $melaporkan_hibah->jabatan }}" placeholder="Jabatan" />
+							<input type="text" name="lapor_jabatan" class="form-control form-control-sm" value="" placeholder="Jabatan" />
 						</div>
 					</div>
 					<hr>
@@ -105,24 +104,23 @@
 						<label class="col-md-3 col-form-label text-right">Nama</label>
 						<div class="col-md-4">
 							<div class="input-group">
-								<input type="text" name="mengetahui_nama" value="{{ $mengetahui_hibah->nama }}" class="form-control form-control-sm" placeholder="Nama" />
+								<input type="text" name="mengetahui_nama" value="" class="form-control form-control-sm" placeholder="Nama" />
 								<span class="input-group-btn">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-										data-target="#modal-mengetahui">Pilih</button>
-                                </span>
+									<button type="button" class="btn btn-primary" data-target-cari='mengetahui'>Pilih</button>
+								</span>
 							</div>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">NIP</label>
 						<div class="col-md-4">
-							<input type="text" name="mengetahui_nip" value="{{ $mengetahui_hibah->nip }}" class="form-control form-control-sm" placeholder="NIP" />
+							<input type="text" name="mengetahui_nip" value="" class="form-control form-control-sm" placeholder="NIP" />
 						</div>
 					</div>
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Jabatan</label>
 						<div class="col-md-4">
-							<input type="text" name="mengetahui_jabatan" value="{{ $mengetahui_hibah->jabatan }}" class="form-control form-control-sm" placeholder="Jabatan" />
+							<input type="text" name="mengetahui_jabatan" value="" class="form-control form-control-sm" placeholder="Jabatan" />
 						</div>
 					</div>
 					<div class="form-group row">
@@ -140,167 +138,79 @@
 @end
 
 @section('modal')
-	<div class="modal fade" tabindex="-1" role="dialog" id="modal-melaporkan">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Pegawai</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-								aria-hidden="true">&times;</span></button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-12 table-responsive col-scroll">
-							<table class="table table-bordered table-sm" id="tbl-melaporkan">
-								<thead>
-								<tr>
-									<th>NIP</th>
-									<th>Nama</th>
-									<th>Jabatan</th>
-									<th></th>
-								</tr>
-								<tr>
-									<th colspan="4">
-										<div class="input-group">
-											<input type="text" class="form-control" placeholder="Cari Pegawai..."
-												   id="ip-search-melaporkan">
-											<div class="input-group-btn">
-												<button class="btn btn-primary" id="tb-search-melaporkan"><i
-															class="fa fa-search"></i></button>
-											</div>
-										</div>
-									</th>
-								</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-					</div>
-				</div>
+<div class="modal fade" id="modal-cari-pegawai" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Pilih Pegawai</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" name="target">
+				<table class="jq-table table-striped" data-search="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('pegawai/get?id_organisasi=')}}">
+					<thead>
+						<tr>
+							<th data-field="nip">NIP</th>
+							<th data-field="nama" data-class="text-nowrap">Nama</th>
+							<th data-field="jabatan" data-class="text-nowrap">Jabatan</th>
+							<th data-field="aksi" data-formatter='aksi' data-class='text-center'>Aksi</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" tabindex="-1" role="dialog" id="modal-mengetahui">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Pegawai</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-								aria-hidden="true">&times;</span></button>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-12 table-responsive col-scroll">
-							<table class="table table-bordered table-sm" id="tbl-mengetahui">
-								<thead>
-								<tr>
-									<th>NIP</th>
-									<th>Nama</th>
-									<th>Jabatan</th>
-									<th></th>
-								</tr>
-								<tr>
-									<th colspan="4">
-										<div class="input-group">
-											<input type="text" class="form-control" placeholder="Cari Pegawai..."
-												   id="ip-search-mengetahui">
-											<div class="input-group-btn">
-												<button class="btn btn-primary" id="tb-search-mengetahui"><i
-															class="fa fa-search"></i></button>
-											</div>
-										</div>
-									</th>
-								</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	@end
+</div>
+@end
+
+@section('style')
+<link rel="stylesheet" href="{{base_url('res/plugins/bttable/bttable.css')}}">
+@end
 
 @section('script')
+<script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>
 <script type="text/javascript">
-	var org = (function(){
-		theme.activeMenu('.nav-rekap-mutasi-tambah');
-	})();
-    $("#tb-search-mengetahui").on("click", fungsiTombolCariMengetahui);
-    $("#ip-search-mengetahui").on("keyup", fungsiEnterCariMengetahui);
-    $("#tbl-mengetahui").delegate("[data-nip]", "click", fungsiTombolMengetahui);
+	
+	var url = "{{site_url('pegawai/get')}}";
+	
+	theme.activeMenu('.nav-rekap-mutasi');
+	
+	$(".jq-table").bootstrapTable({
+		formatRecordsPerPage: function () {
+			return ''
+		},
+		formatShowingRows: function () {
+			return ''
+		}
+	});
 
-    $("#tb-search-melaporkan").on("click", fungsiTombolCariMelaporkan);
-    $("#ip-search-melaporkan").on("keyup", fungsiEnterCariMelaporkan);
-    $("#tbl-melaporkan").delegate("[data-nip]", "click", fungsiTombolMelaporkan);
+	$("[data-target-cari]").on('click', function(){
+		var idOrganisasi = $('.select-chosen').val();
+		var urls = url+'?id_organisasi='+idOrganisasi;
 
-    function fungsiEnterCariMengetahui(e) {
-        var enterKey = 13;
-        if (e.which === enterKey) {
-            fungsiTombolCariMengetahui();
-        }
-    }
+		if(idOrganisasi === '5.2' || idOrganisasi === '7.1' || idOrganisasi === '8.1'){
+			idOrganisasi = idOrganisasi.split('.');
+			urls = url+'?kd_bidang='+idOrganisasi[0]+'&kd_unit='+idOrganisasi[1];
+		}
 
-    function fungsiTombolCariMengetahui(e) {
-        var key = $("#ip-search-mengetahui").val();
-        $.getJSON("{{site_url('pegawai/get_data_search?key=')}}" + key, function (result) {
-            $("#tbl-mengetahui > tbody").empty();
-            $("#tbl-mengetahui > tbody").append("<tr><td colspan='2' class='text-center'><b>menampilkan " + result.length + " data teratas</b></td></tr>");
-            $.each(result, function (key, value) {
-                var html = "<tr>";
-                html += "<td>" + value.nip + "</td>";
-                html += "<td>" + value.nama + "</td>";
-                html += "<td>" + value.jabatan + "</td>";
-                html += "<td><button class='btn btn-secondary btn-sm btn-block' data-id='" + value.id + "' data-nip='" + value.nip + "' data-nama='" + value.nama + "' data-jabatan='" + value.jabatan + "'>Pilih</button></td>";
-                html += "</tr>";
+		$("[name=target]").val( $(this).data('target-cari') );
+		$(".jq-table").bootstrapTable('refresh', {'url':urls});
+		$("#modal-cari-pegawai").modal('show');
+	});
 
-                $("#tbl-mengetahui > tbody").append(html);
-            });
-        });
-    }
+	function aksi(value, row, index, field){
+		return "<button class='btn btn-sm btn-primary' data-nama='"+row.nama+"' data-nip='"+row.nip+"' data-jabatan='"+row.jabatan+"'>pilih</button>"
+	}
 
-    function fungsiTombolMengetahui(e) {
-        $.getJSON("{{site_url('pegawai/save_cookie?name=mengetahui_hibah&id=')}}" + $(e.currentTarget).data('id'), function (result) {
-            $('[name=mengetahui_nip]').val($(e.currentTarget).data('nip'));
-            $('[name=mengetahui_nama]').val($(e.currentTarget).data('nama'));
-            $('[name=mengetahui_jabatan]').val($(e.currentTarget).data('jabatan'));
-            $("#modal-mengetahui").modal('hide');
-        });
-    }
-
-    function fungsiEnterCariMelaporkan(e) {
-        var enterKey = 13;
-        if (e.which === enterKey) {
-            fungsiTombolCariMelaporkan();
-        }
-    }
-
-    function fungsiTombolCariMelaporkan(e) {
-        var key = $("#ip-search-mengetahui").val();
-        $.getJSON("{{site_url('pegawai/get_data_search?key=')}}" + key, function (result) {
-            $("#tbl-melaporkan > tbody").empty();
-            $("#tbl-melaporkan > tbody").append("<tr><td colspan='2' class='text-center'><b>menampilkan " + result.length + " data teratas</b></td></tr>");
-            $.each(result, function (key, value) {
-                var html = "<tr>";
-                html += "<td>" + value.nip + "</td>";
-                html += "<td>" + value.nama + "</td>";
-                html += "<td>" + value.jabatan + "</td>";
-                html += "<td><button class='btn btn-secondary btn-sm btn-block' data-id='" + value.id + "' data-nip='" + value.nip + "' data-nama='" + value.nama + "' data-jabatan='" + value.jabatan + "'>Pilih</button></td>";
-                html += "</tr>";
-
-                $("#tbl-melaporkan > tbody").append(html);
-            });
-        });
-    }
-
-    function fungsiTombolMelaporkan(e) {
-        $.getJSON("{{site_url('pegawai/save_cookie?name=melaporkan_hibah&id=')}}" + $(e.currentTarget).data('id'), function (result) {
-            $('[name=lapor_nip]').val($(e.currentTarget).data('nip'));
-            $('[name=lapor_nama]').val($(e.currentTarget).data('nama'));
-            $('[name=lapor_jabatan]').val($(e.currentTarget).data('jabatan'));
-            $("#modal-melaporkan").modal('hide');
-        });
-    }
+	$("table tbody").delegate('[data-nama]', 'click', function(e){
+		var target = $('[name=target]').val();
+		$('[name='+target+'_nama]').val($(e.currentTarget).data('nama'));
+		$('[name='+target+'_nip]').val($(e.currentTarget).data('nip'));
+		$('[name='+target+'_jabatan]').val($(e.currentTarget).data('jabatan'));
+		$('#modal-cari-pegawai').modal('hide');
+	});
 </script>
 @end

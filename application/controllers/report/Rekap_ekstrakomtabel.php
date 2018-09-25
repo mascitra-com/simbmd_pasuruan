@@ -17,11 +17,11 @@ class Rekap_ekstrakomtabel extends MY_Controller
     {
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
         $data['id_organisasi'] = 0;
+        
         # Jika bukan superadmin
         if (!$this->auth->get_super_access()) {
             $data['id_organisasi'] = $this->auth->get_id_organisasi();
         }
-        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_kib', 'mengetahui_kib')));
 
         $this->render('modules/report/rekap_ekstrakomtabel/index', $data);
     }

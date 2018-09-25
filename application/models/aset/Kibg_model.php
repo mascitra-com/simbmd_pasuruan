@@ -4,6 +4,7 @@ class Kibg_model extends MY_Model_aset
 {
 	public $_table = 'aset_g';
 	public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan');
+    public $_kolom = array('tgl_perolehan', 'tgl_pembukuan', 'merk', 'tipe', 'ukuran', 'asal_usul', 'kondisi', 'nilai');
 
     public function __construct()
     {

@@ -10,78 +10,63 @@ class Pegawai_model extends MY_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Organisasi_model', 'organisasi');
-        $this->load->model('Auth_model', 'auth');
     }
 
     public function get_data($filter = array())
     {
-        # Prepare separate filter
-        $result = array();
-        $page = isset($filter['page']) ? $filter['page'] : 1;
-        $limit = isset($filter['limit']) ? $filter['limit'] : 200;
-        $ord_by = isset($filter['ord_by']) ? $filter['ord_by'] : 'id';
-        $ord_pos = isset($filter['ord_pos']) ? $filter['ord_pos'] : 'ASC';
+        $results = array();
 
-        # Unset non-filter data
-        unset($filter['page'], $filter['limit'], $filter['ord_by'], $filter['ord_pos']);
+        # LIMIT, OFFSET, AND SORT
+        $limit  = isset($filter['limit'])?$filter['limit']:'';
+        $offset = isset($filter['offset'])?$filter['offset']:'';
+        $sort   = isset($filter['sort'])?$filter['sort']:'';
+        $order  = isset($filter['order'])?$filter['order']:'';
 
-        # Begin filter
-        $this->where('id<>', $this->auth->get_id());
-        $this->order_by('is_superadmin', 'DESC');
-        # If not a super admin
-        if (!$this->auth->get_super_access()) {
-            $this->where('id_organisasi', $this->auth->get_id_organisasi());
+        # WHERE
+        $where[$this->_table.'.id'] = isset($filter['id'])?$filter['id']:'';
+        $where['id_organisasi']     = isset($filter['id_organisasi'])?$filter['id_organisasi']:'';
+        $where['kd_bidang']  = isset($filter['kd_bidang'])?$filter['kd_bidang']:'';
+        $where['kd_unit']    = isset($filter['kd_unit'])?$filter['kd_unit']:'';
+        $where['kd_subunit'] = isset($filter['kd_subunit'])?$filter['kd_subunit']:'';
+        $where['kd_upb']     = isset($filter['kd_upb'])?$filter['kd_upb']:'';
+
+        # UNSET FILTER
+        $filter = $this->unset_attr($filter);
+        $where  = trim_empty_data($where);
+
+        # SET LIKE
+        if (count($filter) > 0) {
+            $this->group_start();
+            $this->or_like($filter);
+            $this->group_end();
         }
 
-        foreach ($filter as $key => $value)
-            $this->like($key, $value);
+        $this->select($this->_table.'.*');
+        $this->join('organisasi', 'organisasi.id = id_organisasi');
 
-        # Get result count for pagination
-        $tmp = clone $this->db;
-        $result["data_count"] = $tmp->from("{$this->_table}")->count_all_results();
+        # SET LIMIT AND OFFSET
+        if (!empty($limit) OR !empty($offset)) {
+            $clone = clone($this->db);
+            $results['total'] = $clone->where($where)->from($this->_table)->count_all_results();
 
-        # Limit & order
-        $this->order_by($ord_by, $ord_pos);
-        $this->limit($limit, ($page - 1) * $limit);
-
-        # Return result
-        $this->empty_substitution = "<span class='text-secondary'><i>(kosong)</i></span>";
-        $result['data'] = $this->fill_empty_data($this->get_all());
-
-        # convert organisasi_id to nama
-        $formated = $this->organisasi->get_formated_data();
-        foreach ($result['data'] as $peg) {
-            $peg->id_organisasi = $formated[$peg->id_organisasi];
+            $this->limit($limit, $offset);
         }
 
-        return $result;
+        # SET SORT
+        if (!empty($sort)) {
+            $this->order_by($sort, $order);
+        }
+
+        $results['rows'] = $this->subtitute( $this->get_many_by($where) );
+        return $results;
     }
 
-    public function get_cookie_pegawai($name)
+    private function unset_attr($filter = array())
     {
-        $this->load->helper('cookie');
-        $data = array();
-        if (is_array($name)) {
-            foreach ($name as $list) {
-                $data["{$list}"] = $this->get_pegawai($list);
-            }
-        } else {
-            $data["{$name}"] = $this->get_pegawai($name);
-        }
-        return $data;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    private function get_pegawai($name)
-    {
-        if ($id = get_cookie("{$name}")) {
-            return $this->get($id);
-        } else {
-            return $this->get($this->auth->get_id());
-        }
+        unset($filter['limit'],$filter['offset'], $filter['order'], $filter['sort']);
+        unset($filter['id'], $filter['id_organisasi']);
+        unset($filter['kd_bidang'], $filter['kd_unit'], $filter['kd_subunit'], $filter['kd_upb']);
+        unset($filter['search']);
+        return $filter;
     }
 }

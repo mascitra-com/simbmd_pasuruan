@@ -39,7 +39,13 @@
 			<div class="form-group row">
 				<label class="col-md-2 col-form-label text-right">Umur Ekonomis</label>
 				<div class="col-md-4">
-					<input type="number" min="0.00" step="0.01" class="form-control" name="umur_ekonomis" value="{{isset($kategori)?$kategori->umur_ekonomis :''}}" placeholder="umur ekonomis" />
+					<input type="number" min="0" class="form-control" name="umur_ekonomis" value="{{isset($kategori)?$kategori->umur_ekonomis :''}}" placeholder="umur ekonomis" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-md-2 col-form-label text-right">Batas Nilai</label>
+				<div class="col-md-4">
+					<input type="number"class="form-control" name="batas_nilai" value="{{isset($kategori)?$kategori->batas_nilai :''}}" placeholder="batas nilai" />
 				</div>
 			</div>
 			<div class="form-group row">

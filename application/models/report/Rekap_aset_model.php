@@ -10,19 +10,19 @@ class Rekap_aset_model extends MY_Model {
 	{
 		$sumber = ($sumber==1) ? '':'saldo_';
 
-        if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
-            $kode = explode('.', $org);
-            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
-            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
-        } else {
-            $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org}";
-            $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
-        }
-        
-        if($jenis==2) {
-            $where .= " AND kondisi = 3";
-            $whereKDP .= " AND kondisi = 3";
-        }
+		if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
+			$kode = explode('.', $org);
+			$where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
+			$whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]}";
+		} else {
+			$where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org}";
+			$whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org}";
+		}
+		
+		if($jenis==2) {
+			$where .= " AND kondisi = 3";
+			$whereKDP .= " AND kondisi = 3";
+		}
 
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' {$whereKDP} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id {$where} GROUP BY kd_golongan";
@@ -107,14 +107,14 @@ class Rekap_aset_model extends MY_Model {
 		$year   = $this->setting->get('periode_start');
 
 		$whereExcom = empty($sumber) ? "AND (CASE WHEN YEAR(tgl_perolehan) >= {$year} THEN nilai > batas_nilai ELSE TRUE END)" : "";
-        if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
-            $kode = explode('.', $org);
-            $where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";
-            $whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";
-        } else {
-            $where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org} {$whereExcom}";
-		    $whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org} {$whereExcom}";
-        }
+		if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
+			$kode = explode('.', $org);
+			$where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";
+			$whereKDP = "AND o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";
+		} else {
+			$where 	  = ($org==='all') ? "" : "WHERE id_organisasi = {$org} {$whereExcom}";
+			$whereKDP = ($org==='all') ? "" : "AND id_organisasi = {$org} {$whereExcom}";
+		}
 		
 		$querya = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_a JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kd_golongan = '1' AND kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
 		$queryb = "SELECT kd_golongan, COUNT(nilai) AS jumlah_aset, SUM(nilai) as jumlah_nilai FROM {$sumber}aset_b JOIN kategori k ON id_kategori = k.id JOIN organisasi o ON id_organisasi = o.id WHERE kondisi < 3 {$whereKDP} GROUP BY kd_golongan";
@@ -250,7 +250,7 @@ class Rekap_aset_model extends MY_Model {
 
 			$item->kategori = $this->db->get('kategori')->result();
 			$item->kategori = empty($item->kategori) ? '' : $item->kategori[0]->nama;
-        }
+		}
 
 		return $data;
 	}

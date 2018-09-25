@@ -9,14 +9,22 @@ class Rekap_transfer_model extends MY_Model {
 
 	public function get_rekapitulasi($config = array())
 	{
+		if ($config['jenis'] === '1') {
+			$from = 'id_tujuan';
+			$to = 'id_organisasi';
+		}else{
+			$from = 'id_organisasi';
+			$to = 'id_tujuan';
+		}
+
 		# AMBIL DATA TRANSFER PER KELOMPOK
 		$rekap = $this->db
-		->select('id_tujuan, nama')
-		->join('organisasi','organisasi.id=transfer.id_tujuan')
-		->where('id_organisasi', $config['id_organisasi'])
+		->select("{$to} AS to, nama")
+		->where($from, $config['id_organisasi'])
+		->join('organisasi','organisasi.id=transfer.'.$to)
 		->where('status_pengajuan', '2')
 		->where(" jurnal_tgl BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = 2")
-		->group_by('id_tujuan')
+		->group_by($to)
 		->get('transfer')
 		->result();
 
@@ -27,8 +35,8 @@ class Rekap_transfer_model extends MY_Model {
 		# AMBIL DATA TRANSFER
 		foreach ($rekap as $value) {
 			$value->transfer = $this->db
-			->where('id_organisasi', $config['id_organisasi'])
-			->where('id_tujuan', $value->id_tujuan)
+			->where($from, $config['id_organisasi'])
+			->where($to, $value->to)
 			->where('status_pengajuan', '2')
 			->where("jurnal_tgl BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'")
 			->get('transfer')

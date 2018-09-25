@@ -170,7 +170,7 @@ class Api extends MY_Controller
         $this->kib    = "kapitalisasi";
         $this->is_kdp = TRUE;
         $table_name   = $this->{$this->kib}->_table;
-        $this->kolom  = array('id','id_spk','nama_barang','merk','alamat','tipe','jumlah','nilai','nilai_penunjang','id_kategori');
+        $this->kolom  = array('id','id_spk','nama_barang','merk','alamat','tipe','jumlah','nilai','nilai_penunjang', 'keterangan','id_kategori');
         
         $data['total'] = $this->{$this->kib}->group_start()->or_like($this->get_like_array($filter['search']))->group_end()->count_by(array('id_spk'=>$id_spk));
         $data['rows']  = $this->set_data($filter);
@@ -187,6 +187,7 @@ class Api extends MY_Controller
         $table_name = $this->{$this->kib}->_table;
 
         if ($this->kib !== 'kibnon' && $this->kib !== 'kapitalisasi') {
+            $this->{$this->kib}->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL');
 
             $this->{$this->kib}->select("{$table_name}.*");
             $this->{$this->kib}->join('kategori', "id_kategori = kategori.id");
@@ -280,7 +281,7 @@ class Api extends MY_Controller
     {
         $result = array();
         foreach ($this->kolom as $item) {
-            if ($item !== 'id' && $item !== 'id_organisasi' && $item !== 'id_kategori') {
+            if ($item !== 'id' && $item !== 'id_organisasi' && $item !== 'id_kategori' && $item !=='id_spk') {
                 $result[$item] = $key;
             }
         }

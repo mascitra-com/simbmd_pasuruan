@@ -35,31 +35,31 @@ class MY_Model extends MY_Base_model {
         return $this;
     }
 
-    public function like($field, $match = '', $side = 'both', $escape = NULL) {
+    public function like($field, $match = NULL, $side = 'both', $escape = NULL) {
         $this->_database->like($field, $match, $side, $escape);
         return $this;
     }
 
-    public function or_like($field, $match = '', $side = 'both', $escape = NULL) {
+    public function or_like($field, $match = NULL, $side = 'both', $escape = NULL) {
         $this->_database->or_like($field, $match, $side, $escape);
         return $this;
     }
 
-    public function where($field, $match = '') {
+    public function where($field, $match = NULL) {
         $this->_database->where($field, $match);
         return $this;
     }
 
-    public function or_where($field, $match = '') {
+    public function or_where($field, $match = NULL) {
         $this->_database->or_where($field, $match);
         return $this;
     }
 
-    public function where_in($field, $match = '') {
+    public function where_in($field, $match = NULL) {
         $this->_database->where_in($field, $match);
         return $this;
     }
-    public function where_not_in($field, $match = '') {
+    public function where_not_in($field, $match = NULL) {
         $this->_database->where_not_in($field, $match);
         return $this;
     }
@@ -174,14 +174,16 @@ class MY_Model extends MY_Base_model {
         return $data;
     }
 
-    public function get_reg_barang($id_kategori)
+    public function get_regBarang($id_kategori)
     {
-        $qa = "SELECT MAX(reg_barang) AS reg FROM aset_a WHERE id_kategori = {$id_kategori}";
-        $qb = "SELECT MAX(reg_barang) AS reg FROM aset_b WHERE id_kategori = {$id_kategori}";
-        $qc = "SELECT MAX(reg_barang) AS reg FROM aset_c WHERE id_kategori = {$id_kategori}";
-        $qd = "SELECT MAX(reg_barang) AS reg FROM aset_d WHERE id_kategori = {$id_kategori}";
-        $qe = "SELECT MAX(reg_barang) AS reg FROM aset_e WHERE id_kategori = {$id_kategori}";
-        $query  = "SELECT MAX(reg) as reg FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
+        # SET INDIVIDUAL QUERY
+        $qa    = "SELECT MAX(reg_barang) AS reg FROM aset_a WHERE id_kategori = {$id_kategori}";
+        $qb    = "SELECT MAX(reg_barang) AS reg FROM aset_b WHERE id_kategori = {$id_kategori}";
+        $qc    = "SELECT MAX(reg_barang) AS reg FROM aset_c WHERE id_kategori = {$id_kategori}";
+        $qd    = "SELECT MAX(reg_barang) AS reg FROM aset_d WHERE id_kategori = {$id_kategori}";
+        $qe    = "SELECT MAX(reg_barang) AS reg FROM aset_e WHERE id_kategori = {$id_kategori}";
+        # SET QUERY KESELURUAHN
+        $query = "SELECT MAX(reg) as reg FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe}) AS q";
 
         $result = $this->db->query($query);
 
@@ -192,64 +194,25 @@ class MY_Model extends MY_Base_model {
         }
     }
 
-    public function get_reg_induk()
-    {
-        while (true) {
-            $reg = strtoupper(uniqid().'.'.date('dmYhis'));
-
-            $qa = "SELECT id FROM aset_a WHERE reg_induk = '{$reg}'";
-            $qb = "SELECT id FROM aset_b WHERE reg_induk = '{$reg}'";
-            $qc = "SELECT id FROM aset_c WHERE reg_induk = '{$reg}'";
-            $qd = "SELECT id FROM aset_d WHERE reg_induk = '{$reg}'";
-            $qe = "SELECT id FROM aset_e WHERE reg_induk = '{$reg}'";
-            $qk = "SELECT id FROM aset_kapitalisasi WHERE reg_induk = '{$reg}'";
-            $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qk}) AS q";
-            $result = $this->db->query($query);
-
-            if ($result->num_rows() < 1) {
-                break;
-            }
-        }
-
-        return $reg;
-    }
-
-    // public function get_data_hibah($id_hibah)
+    // public function get_regInduk()
     // {
-    //     $where = array($this->_table.'.is_deleted'=>0, 'id_hibah'=>$id_hibah);
+    //     while (true) {
+    //         $reg = strtoupper(uniqid().'.'.date('dmYhis'));
 
-    //     if ($this->_table !== 'aset_kapitalisasi') {
-    //         $where['id_hapus'] = NULL;
+    //         $qa = "SELECT id FROM aset_a WHERE reg_induk = '{$reg}'";
+    //         $qb = "SELECT id FROM aset_b WHERE reg_induk = '{$reg}'";
+    //         $qc = "SELECT id FROM aset_c WHERE reg_induk = '{$reg}'";
+    //         $qd = "SELECT id FROM aset_d WHERE reg_induk = '{$reg}'";
+    //         $qe = "SELECT id FROM aset_e WHERE reg_induk = '{$reg}'";
+    //         $qk = "SELECT id FROM aset_kapitalisasi WHERE reg_induk = '{$reg}'";
+    //         $query  = "SELECT * FROM ({$qa} UNION {$qb} UNION {$qc} UNION {$qd} UNION {$qe} UNION {$qk}) AS q";
+    //         $result = $this->db->query($query);
+
+    //         if ($result->num_rows() < 1) {
+    //             break;
+    //         }
     //     }
 
-    //     $result = $this->get_many_by($where);
-    //     $result = $this->subtitute($result);
-    //     $result = $this->fill_empty_data($result);
-    //     return $result;
+    //     return $reg;
     // }
-
-    // public function get_data_transfer($id_transfer = NULL, $is_kdp = FALSE)
-    // {
-    //     $this->join('kategori', $this->_table.'.id_kategori = kategori.id');
-    //     $this->select("{$this->_table}.*");
-        
-    //     if ($is_kdp) {
-    //         $this->where('kd_golongan', '6');
-    //     } else {
-    //         $this->where('kd_golongan<>', '6');
-    //     }
-        
-    //     $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_transfer'=>$id_transfer));
-    //     $result = $this->subtitute($result);
-    //     $result = $this->fill_empty_data($result);
-    //     return $result;
-    // }
-
-    // // public function get_data_hapus($id_hapus)
-    // // {
-    // //     $result = $this->get_many_by(array($this->_table.'.is_deleted'=>0, 'id_hapus'=>$id_hapus));
-    // //     $result = $this->subtitute($result);
-    // //     $result = $this->fill_empty_data($result);
-    // //     return $result;
-    // // }
 }

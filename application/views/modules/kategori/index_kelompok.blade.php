@@ -54,7 +54,7 @@
 								<div class="btn-group btn-group-sm">
 									<a href="{{site_url('kategori/subkelompok/'.$kat->id)}}" class="btn btn-success"><i class="fa fa-eye"></i> Lihat Sub</a>
 									<a href="{{site_url('kategori/edit/'.$kat->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Sunting</a>
-									<a href="{{site_url('kategori/delete/'.$kat->id.'?ref=kategori/kelompok/'.$induk->id)}}" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?\nAksi ini tidak dapat diurungkan')"><i class="fa fa-trash"></i> Hapus</a>
+									<!-- <a href="{{site_url('kategori/delete/'.$kat->id.'?ref=kategori/kelompok/'.$induk->id)}}" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?\nAksi ini tidak dapat diurungkan')"><i class="fa fa-trash"></i> Hapus</a> -->
 								</div>
 							</td>
 						</tr>

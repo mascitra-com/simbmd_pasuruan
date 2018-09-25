@@ -90,6 +90,21 @@ if ( ! function_exists('set_lock_link'))
 	}
 }
 
+if ( ! function_exists('uniqchar'))
+{
+	function uniqchar($len = 4)
+	{
+		$char = 'abcdefghjklmnpqrstuvwxyz123456789';
+		$max  = strlen($char) - 1;
+
+		$string = '';
+		for($i = 0; $i < $len; $i++){
+			$string .= $char[mt_rand(0, $max)];
+		}
+		return $string;
+	}
+}
+
 if ( ! function_exists('notif'))
 {
     function notif($string)

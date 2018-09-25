@@ -20,6 +20,8 @@ class Index extends MY_Controller
 		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
 		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
 
+		$this->load->model('Kapitalisasi_model', 'kapitalisasi');
+
 		$this->load->model('Inventarisasi_model', 'inventarisasi');
 		$this->load->model('Organisasi_model', 'organisasi');
 	}
@@ -53,7 +55,7 @@ class Index extends MY_Controller
 		$sukses = $this->inventarisasi->insert($data);
 		if ($sukses) {
 			$this->message('Data berhasil disimpan.');
-			$this->go('inventarisasi/detail/'.$sukses);
+			$this->go('inventarisasi/index/rincian/'.$sukses);
 		}else{
 			$this->message('Terjadi kesalahan, data gagal disimpan.', 'danger');
 			$this->go('inventarisasi/index?id_organisasi='.$data['id_organisasi']);
@@ -74,7 +76,7 @@ class Index extends MY_Controller
 		}else{
 			$this->message('Terjadi kesalahan, data gagal disimpan.', 'danger');
 		}
-		$this->go('inventarisasi/detail/'.$id);
+		$this->go('inventarisasi/index/rincian/'.$id);
 	}
 
 	public function delete($id = null)
@@ -92,6 +94,7 @@ class Index extends MY_Controller
 			$this->kibd_temp->delete_by(array('id_inventarisasi'=>$id));
 			$this->kibe_temp->delete_by(array('id_inventarisasi'=>$id));
 			$this->kibg_temp->delete_by(array('id_inventarisasi'=>$id));
+			$this->kapitalisasi->delete_by(array('id_inventarisasi'=>$id));
 
 			$this->message('Data berhasil dihapus','success');
 		} else {
@@ -110,22 +113,25 @@ class Index extends MY_Controller
 		$data['inventarisasi'] = $this->inventarisasi->get($id_inventarisasi);
 
 		$data['kiba']['count'] = $this->kiba_temp->count_by(array('id_inventarisasi'=>$id_inventarisasi));
-		$data['kiba']['sum']   = $this->kiba_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+		$data['kiba']['sum']   = $this->kiba_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
 		$data['kibb']['count'] = $this->kibb_temp->count_by(array('id_inventarisasi'=>$id_inventarisasi));
-		$data['kibb']['sum']   = $this->kibb_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+		$data['kibb']['sum']   = $this->kibb_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
 		$data['kibc']['count'] = $this->kibc_temp->count_by(array('id_inventarisasi'=>$id_inventarisasi));
-		$data['kibc']['sum']   = $this->kibc_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+		$data['kibc']['sum']   = $this->kibc_temp->select("SUM(nilai+nilai_tambah) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
 		$data['kibd']['count'] = $this->kibd_temp->count_by(array('id_inventarisasi'=>$id_inventarisasi));
-		$data['kibd']['sum']   = $this->kibd_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+		$data['kibd']['sum']   = $this->kibd_temp->select("SUM(nilai+nilai_tambah) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
 		$data['kibe']['count'] = $this->kibe_temp->count_by(array('id_inventarisasi'=>$id_inventarisasi));
-		$data['kibe']['sum']   = $this->kibe_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+		$data['kibe']['sum']   = $this->kibe_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
 		$data['kibg']['count'] = $this->kibg_temp->count_by(array('id_inventarisasi'=>$id_inventarisasi));
-		$data['kibg']['sum']   = $this->kibg_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+		$data['kibg']['sum']   = $this->kibg_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+
+		$data['kpt']['count'] = $this->kapitalisasi->count_by(array('id_inventarisasi'=>$id_inventarisasi));
+		$data['kpt']['sum']   = $this->kapitalisasi->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
 		$data['ref'] = empty($this->input->get('ref')) ? '' : 'true';
 
@@ -158,7 +164,9 @@ class Index extends MY_Controller
 			case 'g':
 			$this->go('inventarisasi/kibg/add/' . $id);
 			break;
-
+			case 'tambah':
+			$this->go('inventarisasi/kapitalisasi/add/' . $id);
+			break;
 			default:
 			show_404();
 			break;
@@ -222,6 +230,19 @@ class Index extends MY_Controller
 		$this->kibd->delete_by(array('id_inventarisasi'=>$id_inventarisasi));
 		$this->kibe->delete_by(array('id_inventarisasi'=>$id_inventarisasi));
 		$this->kibg->delete_by(array('id_inventarisasi'=>$id_inventarisasi));
+
+		# KAPIPTALISASI
+		$kap = $this->kapitalisasi->get_many_by('id_hibah', $id_hibah);
+		foreach ($kap as $item) {
+         # Update data pada aset utama
+			$kib  = ($item->golongan==='3') ? 'kibc' : 'kibd';
+			$temp = $this->{$kib}->get($item->id_aset);
+			$nilai_kurang = $this->nol($item->jumlah) * $this->nol($item->nilai);
+			$total = $temp->nilai_tambah - $nilai_kurang;
+			$total = $total < 0 ? 0 : $total;
+
+			$this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
+		}
 
 		$this->inventarisasi->update($id_inventarisasi, array('status_pengajuan'=>0));
 

@@ -32,7 +32,7 @@ class Kibe extends MY_Controller
 		$koreksi = $this->koreksi->get($id_koreksi);
 		$filter  = $this->input->get();
 
-		if(isset($filter['serach']))
+		if(isset($filter['search']))
 			$filter = array_merge($filter, $this->set_filter($filter['search']));
 
 		unset($filter['search']);
@@ -54,7 +54,7 @@ class Kibe extends MY_Controller
 		$koreksi = $this->koreksi->get($id_koreksi);
 		$filter  = $this->input->get();
 
-		if(isset($filter['serach']))
+		if(isset($filter['search']))
 			$filter = array_merge($filter, $this->set_filter($filter['search']));
 
 		unset($filter['search']);
@@ -67,9 +67,7 @@ class Kibe extends MY_Controller
 
 	private function set_filter($q)
 	{
-		$kolom = array('tgl_perolehan', 'tgl_pembukuan', 'judul', 'pencipta', 'bahan', 'ukuran', 'asal_usul', 'kondisi', 'nilai');
-
-		foreach ($kolom as $key => $value) {
+		foreach ($this->kib->_kolom as $key => $value) {
 			$temp[$value] = $q;
 		}
 

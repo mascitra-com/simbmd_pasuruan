@@ -28,28 +28,13 @@
 	<script type="text/javascript" src="{{base_url('res/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{base_url('res/scripts/theme.js')}}"></script>
 	<script type="text/javascript">
-		var loading = (function(){
-			init();
-
-			function init() {
-				$.ajax({
-					url:"{{site_url('backup/import/do_process')}}",
-					success:function(result){
-						if (result==='true') {
-							window.location.replace("{{site_url('backup/import/insert')}}")					
-						} else {
-							$(".fa-spinner").addClass('fa-exclamation-triangle text-danger').removeClass('fa-spinner fa-spin');
-							$(".message").html("<span class='text-danger'>Terjadi kesalahan. Terdapat data yang salah atau data kosong atau data terlalu besar. Periksa kembali data anda atau pecah kembali data jika data melebihi kapasitas yang ditentukan.</span>");
-						}
-					},
-					error:function(xhr,status,error){
-						$(".fa-spinner").addClass('fa-exclamation-triangle text-danger').removeClass('fa-spinner fa-spin');
-						$(".message").html("<span class='text-danger'>Terjadi kesalahan. Terdapat data yang salah atau data kosong atau data terlalu besar. Periksa kembali data anda atau pecah kembali data jika data melebihi kapasitas yang ditentukan.</span>");
-					},
-					dataType:'html'
-				});
-			}	
-		})();
+		$.getJSON("{{site_url('backup/import/do_import')}}", function(result){
+			if (result.status === 'success') {
+				var url = "{{site_url('backup/import')}}";
+				$(".fa").removeClass('fa-spinner fa-spin').addClass('fa-check');
+				$(".message").empty().html("data berhasil diimport.<br><a href='"+url+"'>Kembali</a>");
+			}
+		});
 	</script>
 </body>
 </html>

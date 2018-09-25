@@ -69,6 +69,7 @@
 		<table class="jq-table table-striped" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('aset/kiba/get/'.$id_organisasi.'/'.$source)}}">
 			<thead>
 				<tr>
+					<th data-class='text-nowrap' data-field="reg_induk" data-switchable="false">Reg Induk</th>
 					<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
 					<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
 					<th data-class='text-nowrap' data-field="nilai" data-switchable="false" data-sortable="true">Nilai</th>

@@ -21,7 +21,6 @@ class Rekap_kib extends MY_Controller
         if (!$this->auth->get_super_access()) {
             $data['id_organisasi'] = $this->auth->get_id_organisasi();
         }
-        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('melaporkan_kib', 'mengetahui_kib')));
 
         $this->render('modules/report/rekap_kib/index', $data);
     }

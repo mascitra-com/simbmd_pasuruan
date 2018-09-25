@@ -21,7 +21,7 @@ class Kategori extends MY_Controller {
 			show_404();
 		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>2,'sub_dari'=>$id));
-		$data['induk'] 	  = $this->kategori->get($id);
+		$data['induk'] 	= $this->kategori->get($id);
 		$this->render('modules/kategori/index_bidang', $data);
 	}
 
@@ -31,7 +31,7 @@ class Kategori extends MY_Controller {
 			show_404();
 		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>3,'sub_dari'=>$id));
-		$data['induk'] 	  = $this->kategori->get($id);
+		$data['induk'] 	= $this->kategori->get($id);
 		$this->render('modules/kategori/index_kelompok', $data);
 	}
 
@@ -41,7 +41,7 @@ class Kategori extends MY_Controller {
 			show_404();
 		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>4,'sub_dari'=>$id));
-		$data['induk'] 	  = $this->kategori->get($id);
+		$data['induk'] 	= $this->kategori->get($id);
 		$this->render('modules/kategori/index_subkelompok', $data);
 	}
 
@@ -51,8 +51,20 @@ class Kategori extends MY_Controller {
 			show_404();
 		
 		$data['kategori'] = $this->kategori->get_data_list(array('jenis'=>5,'sub_dari'=>$id));
-		$data['induk'] 	  = $this->kategori->get($id);
+		$data['induk'] 	= $this->kategori->get($id);
 		$this->render('modules/kategori/index_subsubkelompok', $data);
+	}
+
+	public function get()
+	{
+		$filter = $this->input->get();
+		
+		if (isset($filter['search'])) {
+			$filter['nama'] = $filter['search'];
+			unset($filter['search']);
+		}
+
+		echo json_encode($this->kategori->get_data_list($filter));
 	}
 
 	public function add($jenis = null)

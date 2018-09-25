@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Koreksi Hapus@end
+@section('title')Koreksi Atribut@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>

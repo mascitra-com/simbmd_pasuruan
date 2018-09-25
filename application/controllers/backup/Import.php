@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class Import extends MY_Controller
 {
 	public $is_superadmin = 1;
-	private $temp = array();
+	public $kib;
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Organisasi_model','organisasi');
-		$this->init_temp();
 	}
 	
 	public function index()
@@ -24,19 +24,15 @@ class Import extends MY_Controller
 		# GET & VALIDATE DATA
 		$data = $this->input->post();
 		
-		if (empty($data['kd_upb']) OR empty($data['kib'])) {
-			$this->message('Data KIB dan UPB harus dipilih','danger');
+		if (empty($data['kib'])) {
+			$this->message('Data KIB harus dipilih','danger');
 			$this->go('backup/import');
 		}
-
-		# Empty Session
-		$this->reset_temp();
-		$temp = array();
 
 		# BEGIN UPLOAD
 		if ($_FILES['berkas']['size'] > 0) {
 			$config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
-			$config['file_name']	 = date('Ymdhis').uniqid();
+			$config['file_name']	 	 = date('Ymdhis').uniqid();
 			$config['allowed_types'] = 'xls|xlsx';
 			$config['max_size']      = 16000;
 			$config['overwrite']     = TRUE;
@@ -46,133 +42,119 @@ class Import extends MY_Controller
 			# Jika gagal
 			if (!$this->upload->do_upload('berkas')) {
 				$this->message($this->upload->display_errors(), 'danger');
-				$this->go('backup/import/on_process');
+				$this->go('backup/import/');
 			}
 
-			$temp['file_name']     = $this->upload->data('file_name');
-			$temp['kib']	       = $data['kib'];
-			$temp['id_organisasi'] = $data['kd_upb'];
-			$temp['data'] 		   = array();
-			$temp['data_error']    = array();
-			$temp['status'] 	   = 0;
+			# PUSH NAMA FILE
+			$files = $this->session->userdata('import');
 
-			$this->session->set_userdata('temp_import', $temp);
-			$this->go('backup/import/on_process');
+			if (!is_array($files))
+				$files = array();
+
+			# DELETE OLD TEMP
+			$this->delete_old_temp_files();
+
+			array_push($files, array('file_name'=>$this->upload->data('file_name'), 'kib'=>$data['kib']));
+
+			# SIMPAN DI SEASON
+			$this->session->set_userdata('import', $files);
+
+			# ARAHKAN KE HALAMAN LOADING
+			$this->render('modules/backup/import/loading');
+		}else{
+			$this->message('Pilih file terlebih dahulu', 'danger');
+			$this->go('backup/import');
 		}
-
-		$this->message('Pilih file terlebih dahulu', 'danger');
-		$this->go('backup/import');
 	}
 
-	public function on_process()
+	public function do_import()
 	{
-		if (!$this->is_status_clear(0)) {
-			show_404();
-		}
+		$this->load->library('Excel', 'excel');
 
-		$this->render('modules/backup/import/loading');
+		# Ambil nama file yang terakhir diupload
+		$temp = $this->session->userdata('import');
+		$temp = $temp[count($temp) - 1];
+		# Set model
+		$this->load->model('aset/Kib'.$temp['kib'].'_model', 'kib');
+		$this->load->model('aset/Saldo_kib'.$temp['kib'].'_model', 'kib_saldo');
+		# Persiapan config excel
+		$conf['file'] = realpath(FCPATH.'res/docs/temp/'.$temp['file_name']);
+		$conf['startRow'] = 1;
+		# Ekstrak data dari file excel
+		$results = $this->excel->import($conf);
+		# Persiapkan data untuk siap insert
+		$results = $this->finalize_data($results);
+
+		# INSERT ke DB
+		if ($this->kib_saldo->batch_insert($results)) {
+			if ($this->kib->batch_insert($results)) {
+				echo json_encode(array('status'=>'success'));
+				return;
+			}
+		}
+		echo json_encode(array('status'=>'error'));
+		return;
 	}
 
-	public function do_process()
+	private function finalize_data($data = array())
 	{
-		if (!$this->is_status_clear(0)) {
-			echo 'false';
-			exit(0);
+		# Hapus data yg melebihi batas
+		$data = $this->strip_overload_data($data);
+		# Generate reg induk
+		$reg = $this->kib->get_regInduk(count($data));
+		# Set nama kolom
+		for($i = 1; $i < count($data); $i++){
+			foreach ($data[$i] as $key => $value) {
+				# Ambil nama kolom
+				$nama_kolom = $data[0][$key];
+				# Set data sesuai kolom
+				switch ($nama_kolom) {
+					case 'tgl_perolehan':
+					case 'tgl_pembukuan':
+					case 'sertifikat_tgl':
+					case 'dokumen_tgl':
+					$data[$i][$nama_kolom] = datify($value, 'Y-m-d');
+					break;
+					default:
+					$data[$i][$nama_kolom] = $value;
+					break;
+				}
+
+				$data[$i]['reg_induk'] = $reg[$i];
+				# Unset data lama
+				unset($data[$i][$key]);
+			}
 		}
-
-		# Lock process
-		$this->temp['status'] = 1;
-		$this->update_temp();
-
-		# Proses ambil data
-		$this->load->library('Excel');
 		
-		$file_name 		= $this->session->temp_import['file_name'];
-		$config['file'] = realpath(FCPATH.'/res/docs/temp/'.$file_name);
-		$config['startRow'] = 2;
-
-		$result = $this->excel->import($config);
-		
-		if (empty($result)) {
-			echo 'false';
-			exit(0);
-		}
-
-		# Ubah format siap insert
-		$kib = 'aset/Saldo_kib'.$this->session->temp_import['kib'].'_model';
-		$this->load->model($kib, 'kib');
-		$this->kib->fix_data_import($result);
-		
-		# Delete file
-		unlink($config['file']);
-
-		# Return
-		echo 'true';
+		unset($data[0]);
+		return $data;
 	}
 
-	public function insert()
+	private function strip_overload_data($data = array())
 	{
-		if (!$this->is_status_clear(1)) {
-			show_404();
+		# Ambil maksimum baris yang diperbolehkan
+		$max = $this->config->item('import_max_rows');
+		# Ambil data dalam jangka batas
+		if (count($data) > $max + 1) {
+			return array_slice($data, 0, $max + 1);
 		}
-
-		if (!empty($this->session->temp_import['data_error'])) {
-			$this->go('backup/import/has_error');
-		}
-
-		$kib = 'aset/Saldo_kib'.$this->session->temp_import['kib'].'_model';
-		$this->load->model($kib, 'kib');
-		$sukses = $this->kib->batch_insert($this->session->temp_import['data']);
-		
-		if($sukses) {
-			$this->message('Data berhasil diimport','success');
-		} else {
-			$this->message('Data gagal diimport','danger');
-		}
-
-		$this->reset_temp();
-		$this->go('backup/import');
+		return $data;
 	}
 
-	public function has_error()
+	private function delete_old_temp_files()
 	{
-		$this->render('modules/backup/import/has_error');
-	}
+		# Ambil daftar nama file temp
+		$temp = $this->session->userdata('import');
 
-	private function is_status_clear($status)
-	{
-		if (!$this->session->has_userdata('temp_import')) {
-			return FALSE;	
+		# Jika ada isinya
+		if (is_array($temp)) {
+			# Hapus semua file lama
+			foreach ($temp as $key => $value) {
+				if (file_exists(realpath(FCPATH.'res/docs/temp/'.$value['file_name']))) {
+					unlink(realpath(FCPATH.'res/docs/temp/'.$value['file_name']));
+				}
+			}
 		}
-
-		if ($this->session->temp_import['status'] !== $status) {
-			return FALSE;
-		}
-
-		return TRUE;
+		return;
 	}
-
-	private function init_temp()
-	{
-		if ($this->is_status_clear(0)) {
-			$this->temp = $this->session->temp_import;
-		}
-	}
-
-	private function update_temp()
-	{
-		$this->session->unset_userdata('temp_import');
-		$this->session->set_userdata('temp_import', $this->temp);
-	}
-
-	private function reset_temp()
-	{
-		$this->session->unset_userdata('temp_import');
-	}
-
-	public function unduh()
-	{
-        $this->load->helper('download');
-        force_download(FCPATH.'res/docs/CONTOH_FORMAT_IMPORT_CAMPURAN.xlsx', NULL,TRUE);
-    }
 }

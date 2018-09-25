@@ -4,6 +4,7 @@ class Kibe_model extends MY_Model_aset
 {
 	public $_table = 'aset_e';
 	public $required = array('id_organisasi','id_kategori','nilai','tgl_perolehan','tgl_pembukuan','kondisi');
+    public $_kolom = array('tgl_perolehan', 'tgl_pembukuan', 'judul', 'pencipta', 'bahan', 'ukuran', 'asal_usul', 'kondisi', 'nilai');
 
     public function __construct()
     {

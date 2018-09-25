@@ -7,132 +7,132 @@
 @end
 
 @section('content')
-<div class="row">
-	<div class="col">
-		<div class="card">
-			<div class="card-header form-inline">
-				<div class="card-title"><h4>Pegawai</h4></div>
-				<div class="btn-group ml-auto">
-					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
-					<button class="btn btn-primary btn-filter"><i class="fa fa-filter mr-2"></i>Filter</button>
-					<a href="{{site_url('pegawai/add')}}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Tambah</a>
-				</div>
+<div class="card">
+	<div class="card-header form-inline">
+		<span>Data Pegawai</span>
+		<form action="{{site_url('pegawai/index')}}" method="GET" class="ml-auto">
+			<div class="input-group">
+				<select name="id_organisasi" class="select-chosen" data-placeholder="Pilih UPB...">
+					<option></option>
+					@foreach($organisasi AS $org)
+					<option value="{{$org->id}}" {{$org->id === $id_organisasi ? 'selected' : ''}}>{{$org->nama}}</option>
+					@endforeach
+				</select>
+				<span class="input-group-btn">
+					<button class="btn btn-primary">Pilih</button>
+				</span>
 			</div>
-			<div class="card-body table-responsive px-0 py-0">
-				<table class="table table-striped table-bodered table-hover">
-					<thead>
-						<tr>
-							<th class="text-center">Organisasi</th>
-							<th>Nama</th>
-							<th>NIP</th>
-							<th class="text-center">Jabatan</th>
-							<th class="text-center">Admin</th>
-							@if($this->session->auth['is_superadmin'])
-							<th class="text-center">Super Admin</th>
-							@endif
-							<th class="text-center">Kepala UPB</th>
-							<th class="text-center">Terakhir Masuk</th>
-							<th>Aksi</th>
-						</tr>
-					</thead>
-					<tbody>
-						@if(empty($pegawai))
-						<tr><td colspan="8" class="text-center">tidak ada data</td></tr>
-						@endif
-						
-						@foreach($pegawai AS $peg)
-						<tr>
-							<td class="text-center">{{$peg->id_organisasi}}</td>
-							<td>{{$peg->nama}}</td>
-							<td>{{$peg->nip}}</td>
-							<td class="text-center">{{$peg->jabatan}}</td>
-							<td class="text-center">{{!empty($peg->is_admin) ? '<i class="fa fa-2x fa-check text-success"></i>' : '<i class="fa fa-2x fa-ban text-danger"></i>'}}</td>
-							
-							<!-- IF SUPERADMIN -->
-							@if($this->session->auth['is_superadmin'])
-							<td class="text-center">{{!empty($peg->is_superadmin) ? '<i class="fa fa-2x fa-check text-success"></i>' : '<i class="fa fa-2x fa-ban text-danger"></i>'}}</td>
-							@endif
-
-							<td class="text-center">{{!empty($peg->is_kepala_upb) ? '<i class="fa fa-2x fa-check text-success"></i>' : '<i class="fa fa-2x fa-ban text-danger"></i>'}}</td>
-							
-							<td class="text-center">{{date('d/m/Y - H:i', strtotime($peg->last_login))}}</td>
-							<td>
-								<div class="btn-group btn-group-sm">
-									<a href="{{site_url('pegawai/edit/'.$peg->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-									<a href="{{site_url('pegawai/delete/'.$peg->id)}}" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
-			<div class="card-footer">{{$pagination}}</div>
+		</form>
+	</div>
+	<div class="card-body">
+		<div id="toolbar">
+			<button class="btn btn-primary" id="btn-tambah"><i class="fa fa-plus mr-2"></i>Tambah</button>
 		</div>
+		<table class="jq-table table-striped" data-toolbar="#toolbar" data-search="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('pegawai/get?id_organisasi='.$id_organisasi)}}">
+			<thead>
+				<tr>
+					<th data-formatter="formatting" data-field="no">No.</th>
+					<th data-formatter="formatting" data-field="nip">NIP</th>
+					<th data-formatter="formatting" data-field="nama" data-class="text-nowrap">Nama</th>
+					<th data-formatter="formatting" data-field="jabatan" data-class="text-nowrap">Jabatan</th>
+					<th data-formatter="formatting" data-field="is_superadmin">Super Admin</th>
+					<th data-formatter="formatting" data-field="is_admin">Admin</th>
+					<th data-formatter="formatting" data-field="is_kepala_upb">Kepala UPB</th>
+					<th data-formatter="formatting" data-field="status" data-class="text-center">Status</th>
+					<th data-formatter="formatting" data-field="last_login" data-class="text-center">Terakhir Masuk</th>
+					<th data-formatter="formatting" data-field="aksi" data-class='text-center'>Aksi</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
 	</div>
 </div>
 @end
 
 @section('modal')
-<div class="modal fade" tabindex="-1" role="dialog" id="modalfilter">
+<div class="modal fade" id="modal-form" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Filter Data</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h5 class="modal-title">Data Pegawai</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 			<div class="modal-body">
-				<form action="" method="GET">
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label>NIP</label>
-							<input type="text" class="form-control" name="nip" placeholder="nip pegawai" value="{{isset($filter['nip']) ? $filter['nip'] : ''}}" />
-						</div>
-						<div class="form-group col-md-6">
-							<label>Nama</label>
-							<input type="text" class="form-control" name="nama" placeholder="nama pegawai" value="{{isset($filter['nama']) ? $filter['nama'] : ''}}"/>
+				<form action="{{site_url('pegawai/insert')}}" method="POST">
+					<input type="hidden" name="id">
+					<input type="hidden" name="id_organisasi" value="{{$id_organisasi}}">
+					<div class="form-group row">
+						<label class="col-xl-4 col-form-label">NIP</label>
+						<div class="col">
+							<input type="text" class="form-control form-control-sm" name="nip" placeholder="Isi NIP">
 						</div>
 					</div>
-					@if($this->session->auth['is_superadmin'])
-					<div class="form-group">
-						<label>Organisasi</label>
-						<select class="form-control" name="id_organisasi">
-							<option value="">Semua. . .</option>
-							@foreach($org_list AS $org)
-							<option value="{{$org->id}}">{{$org->id.' - '.$org->nama}}</option>
-							@endforeach
-						</select>
-					</div>
-					@endif
-					<div class="form-row">
-						<div class="form-group col-md-6">
-							<label>Urutkan Berdasar</label>
-							<select class="form-control" name="ord_by">
-								<option value="id" {{isset($filter['ord_by']) && $filter['ord_by'] === 'id' ? 'selected' : ''}}>ID</option>
-								<option value="nip" {{isset($filter['ord_by']) && $filter['ord_by'] === 'nip' ? 'selected' : ''}}>NIP</option>
-								<option value="nama" {{isset($filter['ord_by']) && $filter['ord_by'] === 'nama' ? 'selected' : ''}}>Nama</option>
-							</select>
+					<div class="form-group row">
+						<label class="col-xl-4 col-form-label">Nama Lengkap</label>
+						<div class="col">
+							<input type="text" class="form-control form-control-sm" name="nama" placeholder="Isi Nama Lengkap" required>
 						</div>
-						<div class="form-group col-md-6">
-							<label>Posisi Urutan</label>
-							<select class="form-control" name="ord_pos">
-								<option value="ASC" {{isset($filter['ord_pos']) && $filter['ord_pos'] === 'ASC' ? 'selected' : ''}}>Menaik</option>
-								<option value="DESC" {{isset($filter['ord_pos']) && $filter['ord_pos'] === 'DESC' ? 'selected' : ''}}>Menurun</option>
-							</select>
+					</div>
+					<div class="form-group row">
+						<label class="col-xl-4 col-form-label">Jabatan</label>
+						<div class="col">
+							<input type="text" class="form-control form-control-sm" name="jabatan" placeholder="Isi Jabatan">
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Jumlah Data Tampilan</label>
-						<select class="form-control" name="limit">
-							<option value="20" {{isset($filter['limit']) && $filter['limit'] === '20' ? 'selected' : ''}}>20 data</option>
-							<option value="50" {{isset($filter['limit']) && $filter['limit'] === '50' ? 'selected' : ''}}>50 data</option>
-							<option value="100" {{isset($filter['limit']) && $filter['limit'] === '100' ? 'selected' : ''}}>100 data</option>
-							<option value="300" {{isset($filter['limit']) && $filter['limit'] === '300' ? 'selected' : ''}}>300 data</option>
-						</select>
+						<div class="row">
+							<label class="col-xl-4 col-form-label">Hak Akses</label>
+							<div class="col">
+								<div class="form-check">
+									<input type="checkbox" name="is_superadmin" value="1">
+									<label class="form-check-label">Superadmin</label>
+								</div>
+								<div class="form-check">
+									<input type="checkbox" name="is_admin" value="1">
+									<label class="form-check-label">Admin</label>
+								</div>
+								<div class="form-check">
+									<input type="checkbox" name="is_kepala_upb" value="1">
+									<label class="form-check-label">Kepala UPB</label>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary"><i class="fa fa-filter mr-2"></i>Filter</button>
-						<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Batal</button>
+					<div class="form-group row">
+						<label class="col-xl-4 col-form-label">Status</label>
+						<div class="col">
+							<div class="form-group">
+								<select name="status" class="form-control form-control-sm">
+									<option value="1">Aktif</option>
+									<option value="0">Tidak Aktif</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="form-group row">
+						<label class="col-xl-4 col-form-label">Username</label>
+						<div class="col">
+							<input type="text" class="form-control form-control-sm" name="username" placeholder="Isi Username" required>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xl-4 col-form-label">Password</label>
+						<div class="col">
+							<input type="password" class="form-control form-control-sm" name="password" placeholder="Isi Password">
+							<input type="password" class="form-control form-control-sm" name="re_password" placeholder="Isi Ulang Password">
+							<p class="form-text"></p>
+						</div>
+					</div>
+					<hr>
+					<div class="form-group text-center">
+						<div class="btn-group">
+							<button type="submit" class="btn btn-success"><i class="fa fa-save mr-2"></i>Simpan</button>
+							<a href="#" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')"><i class="fa fa-trash mr-2"></i>Hapus Data</a>
+							<button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times mr-2"></i>Batal</button>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -141,15 +141,82 @@
 </div>
 @end
 
-@section('script')
-<script type="text/javascript">
-	var org = (function(){
-		theme.activeMenu('.nav-pegawai');
-		$(".btn-filter").on('click', eventFilter);
+@section('style')
+<link rel="stylesheet" href="{{base_url('res/plugins/bttable/bttable.css')}}">
+@end
 
-		function eventFilter(e) {
-			$("#modalfilter").modal('show');
+@section('script')
+<script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>
+<script type="text/javascript">
+	theme.activeMenu('.nav-pegawai');
+
+	$("#btn-tambah").on('click', function(e){
+		$("#modal-form form").attr('action', "{{site_url('pegawai/insert')}}");
+		$("#modal-form form input:not([name=id_organisasi]):not([type=checkbox])").val('').prop('checked', false);
+		$("#modal-form form [type=checkbox]").prop('checked', 0);
+		$("#modal-form form select").val('1');
+		$("#modal-form form :submit").prop('disabled', true);
+		$("#modal-form").modal('show');
+	});
+
+	$("table tbody").delegate('[data-id]', 'click', function(e){
+		var id = $(e.currentTarget).data('id');
+
+		$.getJSON("{{site_url('pegawai/get?id=')}}"+id, function(result){
+			$("[name=id]").val(result.rows[0].id);
+			$("[name=nama]").val(result.rows[0].nama);
+			$("[name=nip]").val(result.rows[0].nip);
+			$("[name=jabatan]").val(result.rows[0].jabatan);
+			$("[name=username]").val(result.rows[0].username);
+			$("[name=is_superadmin]").prop('checked', parseInt(result.rows[0].is_superadmin));
+			$("[name=is_admin]").prop('checked', parseInt(result.rows[0].is_admin));
+			$("[name=is_kepala_upb]").prop('checked', parseInt(result.rows[0].is_kepala_upb));
+			$("#modal-form form a").attr('href', "{{site_url('pegawai/delete/')}}"+result.rows[0].id);
+		});
+		
+		$("#modal-form form :submit").prop('disabled', false);
+		$("#modal-form form").attr('action', "{{site_url('pegawai/update')}}");
+		$("#modal-form").modal('show');
+	});
+
+	// PASSWORD
+	$("[type=password]").keyup(function(e){
+		var pass = $("[name=password]").val();
+		var re_pass = $("[name=re_password]").val();
+		if (pass != re_pass) {
+			$(".form-text").html("Password tidak sama");
+		}else{
+			$(".form-text").html("Password sama");
 		}
-	})();
+		$("#modal-form form :submit").prop('disabled', (pass != re_pass));
+	});
+
+	// INIT Datatables
+	$(".jq-table").bootstrapTable({
+		formatRecordsPerPage: function () {
+			return ''
+		},
+		formatShowingRows: function () {
+			return ''
+		}
+	});
+
+	function formatting(value, row, index, field)
+	{
+		switch(field){
+			case 'no':
+			return index + 1;
+			case 'is_admin':
+			case 'is_superadmin':
+			case 'is_kepala_upb':
+			return (row[field] == 0 || row[field] == '') ? 'Tidak' : 'Ya';
+			case 'status':
+			return (row[field] == 0 || row[field] == '') ? "<span class='badge badge-danger'>Tidak Aktif</span>" : "<span class='badge badge-success'>Aktif</span>";
+			case 'aksi':
+			return "<button class='btn btn-sm btn-warning' data-id='"+row.id+"'>sunting</button>"
+			default:
+			return row[field];
+		}
+	}
 </script>
 @end

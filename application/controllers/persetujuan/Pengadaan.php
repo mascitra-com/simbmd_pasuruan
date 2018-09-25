@@ -93,14 +93,14 @@ class Pengadaan extends MY_Controller {
 					# Ambil last_reg jika kategori berganti
 					if ($id_kategori != $value->id_kategori) {
 						$id_kategori = $value->id_kategori;
-						$last_reg	 = $this->{$kib_temp}->get_reg_barang($id_kategori);
+						$last_reg	 = $this->{$kib_temp}->get_regBarang($id_kategori);
 					}
 
 					# Isi data reg
 					$value->reg_barang = $last_reg++;
-					$value->reg_induk  = strtoupper(uniqid().'.'.date('dmYhis'));
+					$value->reg_induk  = $this->{$kib_temp}->get_regInduk();
 					# Unset data tidak perlu
-					unset($value->id, $value->id_aset, $value->id_hapus, $value->id_transfer, $value->id_koreksi, $value->id_koreksi_detail);
+					unset($value->id, $value->id_aset, $value->id_hapus, $value->id_transfer, $value->id_koreksi, $value->id_koreksi_detail, $value->id_inventarisasi);
 				}
 
 				$this->{$kib}->batch_insert($data);
@@ -112,14 +112,16 @@ class Pengadaan extends MY_Controller {
 		$data = $this->kapitalisasi->get_many_by('id_spk', $id);
 		foreach ($data as $item) {
 			# Update data pada aset utama
-			$kib  = ($item->golongan==='3') ? 'kibc' : 'kibd';
+			$kib  = ($item->golongan=='3') ? 'kibc' : 'kibd';
 			$temp = $this->{$kib}->get($item->id_aset);
 			$nilai_tambah = ($this->nol($item->jumlah) * $this->nol($item->nilai)) + $this->nol($item->nilai_penunjang);
 			$total 		  = $nilai_tambah + $temp->nilai_tambah;
-			
+			# Update nilai_tambah pada KIB terkait			
 			$this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
+			# Update reg_induk pada kapitalisasi
+			$this->kapitalisasi->update($item->id, array('reg_induk'=>$this->kapitalisasi->get_regInduk()));
 		}
-
+		
 		return 1;
 	}
 

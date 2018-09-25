@@ -115,11 +115,11 @@ class Api extends MY_Controller
         
         # SET INIT
         $filter = $this->input->get();
-        $this->spk    = $this->spk->get($id_inventarisasi);
+        $this->inventarisasi  = $this->inventarisasi->get($id_inventarisasi);
         $this->kib    = "kapitalisasi";
         $this->is_kdp = TRUE;
         $table_name   = $this->{$this->kib}->_table;
-        $this->kolom  = array('id','id_inventarisasi','nama_barang','merk','alamat','tipe','jumlah','nilai','nilai_penunjang','id_kategori');
+        $this->kolom  = array('id','id_inventarisasi','nama_barang','merk','alamat','tipe','jumlah','nilai','nilai_penunjang', 'keterangan','id_kategori');
         
         $data['total'] = $this->{$this->kib}->group_start()->or_like($this->get_like_array($filter['search']))->group_end()->count_by(array('id_inventarisasi'=>$id_inventarisasi));
         $data['rows']  = $this->set_data($filter);
@@ -135,6 +135,10 @@ class Api extends MY_Controller
     private function set_data($filter)
     {
         # Ambil data
+        if ($this->kib !== 'kibnon' && $this->kib !== 'kapitalisasi') {
+            $this->{$this->kib}->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL');
+        }
+
         $data  = $this->{$this->kib}
         ->group_start()
         ->or_like($this->get_like_array($filter['search']))
@@ -164,7 +168,11 @@ class Api extends MY_Controller
             # Kode barang
             $temp['kode_barang'] = zerofy($value->id_kategori->kd_golongan).'.'.zerofy($value->id_kategori->kd_bidang).'.'.
             zerofy($value->id_kategori->kd_kelompok).'.'.zerofy($value->id_kategori->kd_subkelompok).'.'.
-            zerofy($value->id_kategori->kd_subsubkelompok).'.'.zerofy($value->reg_barang);
+            zerofy($value->id_kategori->kd_subsubkelompok);
+
+            if ($this->kib !== 'kapitalisasi') {
+                $temp['kode_barang'] .= '.'.zerofy($value->reg_barang);
+            }
 
             $temp['no'] = $filter['offset'] + $index + 1;
 

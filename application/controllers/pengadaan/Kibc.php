@@ -16,6 +16,20 @@ class Kibc extends MY_Controller
         $this->load->library('pagination');
     }
 
+    public function get()
+    {
+        $filter = $this->input->get();
+
+        if (isset($filter['search'])) {
+            foreach ($this->kib->_kolom as $kolom) {
+                $filter[$kolom] = $filter['search'];
+            }
+            unset($filter['search']);
+        }
+
+        echo json_encode($this->kib->get_data_aset($filter));
+    }
+
     public function add($id_spk = NULL)
     {
         if (empty($id_spk))
@@ -24,7 +38,9 @@ class Kibc extends MY_Controller
         $data['spk'] = $this->spk->get($id_spk);
         $data['total_rincian'] = $this->spk->get_total_rincian($id_spk);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $id_spk);
-        $this->render('modules/pengadaan/form_kibc', $data);
+        
+        $mode = ($this->config->item('mode')==='pasuruan') ? '' : '_jember';
+        $this->render('modules/pengadaan/form_kibc'.$mode, $data);
     }
 
     public function edit($id = NULL)
@@ -37,7 +53,9 @@ class Kibc extends MY_Controller
         $data['spk'] = $this->spk->get($data['kib']->id_spk);
         $data['total_rincian'] = $this->spk->get_total_rincian($data['kib']->id_spk);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kib']->id_spk);
-        $this->render('modules/pengadaan/form_kibc', $data);
+        
+        $mode = ($this->config->item('mode')==='pasuruan') ? '' : '_jember';
+        $this->render('modules/pengadaan/form_kibc'.$mode, $data);
     }
 
     public function insert()

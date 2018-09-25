@@ -35,12 +35,12 @@
 					<input type="text" class="form-control" name="nama" value="{{isset($kategori)?$kategori->nama :''}}" placeholder="nama kategori" required />
 				</div>
 			</div>
-			<div class="form-group row">
+			<!-- <div class="form-group row">
 				<label class="col-md-2 col-form-label text-right">Umur Ekonomis</label>
 				<div class="col-md-4">
 					<input type="number" min="0.00" step="0.01" class="form-control" name="umur_ekonomis" value="{{isset($kategori)?$kategori->umur_ekonomis :''}}" placeholder="umur ekonomis" />
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group row">
 				<label class="col-md-2 col-form-label text-right"></label>
 				<div class="col-md-4">

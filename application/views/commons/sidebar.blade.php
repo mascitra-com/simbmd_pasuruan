@@ -1,5 +1,5 @@
-x<?php $locked = $this->setting->get('lock_menu'); ?>
-<div id="sidebar">
+<?php $locked = $this->setting->get('lock_menu'); ?>
+<div id="sidebar" {{$this->config->item('mode')==='jember'?"style='background-color:".$this->setting->get('web_color')."'":""}}>
 	<div class="wrapper">
 		<div class="title">
 			<h3 class="mb-0 text-bolder">{{$this->setting->get('web_name')}}</h3>
@@ -17,23 +17,23 @@ x<?php $locked = $this->setting->get('lock_menu'); ?>
 			<li class="nav nav-saldo-awal">
 				<a href="{{set_lock_link($locked,'saldo_awal','#menu-saldo-awal')}}" data-toggle="collapse"><i class="fa fa-cloud-download fa-fw icon"></i>Saldo Awal{{set_lock_icon($locked,'saldo_awal')}}<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-awal">
-					<li class="nav"><a href="{{site_url('aset/kiba?source=saldo')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibb?source=saldo')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibc?source=saldo')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibd?source=saldo')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibe?source=saldo')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibg?source=saldo')}}"><i class="fa fa-window-restore fa-fw icon"></i>KIB-G</a></li>
+					<li class="nav"><a href="{{site_url('aset/kiba?source=saldo')}}"><i class="fa fa-cubes fa-fw icon"></i>A. Tanah</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibb?source=saldo')}}"><i class="fa fa-car fa-fw icon"></i>B. Peralatan &amp Mesin</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibc?source=saldo')}}"><i class="fa fa-home fa-fw icon"></i>C. Gedung &amp Bangunan</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibd?source=saldo')}}"><i class="fa fa-road fa-fw icon"></i>D. Jalan, Irigasi &amp Jaringan</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibe?source=saldo')}}"><i class="fa fa-book fa-fw icon"></i>E. Buku, Barang &amp Kebudayaan</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibg?source=saldo')}}"><i class="fa fa-window-restore fa-fw icon"></i>G. Aset Lainnya</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-saldo-berjalan">
 				<a href="{{set_lock_link($locked,'saldo_berjalan','#menu-saldo-berjalan')}}" data-toggle="collapse"><i class="fa fa-cloud-upload fa-fw icon"></i>Saldo Berjalan{{set_lock_icon($locked,'saldo_berjalan')}}<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-saldo-berjalan">
-					<li class="nav"><a href="{{site_url('aset/kiba?source=berjalan')}}"><i class="fa fa-cubes fa-fw icon"></i>KIB-A</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibb?source=berjalan')}}"><i class="fa fa-car fa-fw icon"></i>KIB-B</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibc?source=berjalan')}}"><i class="fa fa-home fa-fw icon"></i>KIB-C</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibd?source=berjalan')}}"><i class="fa fa-road fa-fw icon"></i>KIB-D</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibe?source=berjalan')}}"><i class="fa fa-book fa-fw icon"></i>KIB-E</a></li>
-					<li class="nav"><a href="{{site_url('aset/kibg?source=berjalan')}}"><i class="fa fa-window-restore fa-fw icon"></i>KIB-G</a></li>
+					<li class="nav"><a href="{{site_url('aset/kiba?source=berjalan')}}"><i class="fa fa-cubes fa-fw icon"></i>A. Tanah</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibb?source=berjalan')}}"><i class="fa fa-car fa-fw icon"></i>B. Peralatan &amp Mesin</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibc?source=berjalan')}}"><i class="fa fa-home fa-fw icon"></i>C. Gedung &amp Bangunan</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibd?source=berjalan')}}"><i class="fa fa-road fa-fw icon"></i>D. Jalan, Irigasi &amp Jaringan</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibe?source=berjalan')}}"><i class="fa fa-book fa-fw icon"></i>E. Buku, Barang &amp Kebudayaan</a></li>
+					<li class="nav"><a href="{{site_url('aset/kibg?source=berjalan')}}"><i class="fa fa-window-restore fa-fw icon"></i>G. Aset Lainnya</a></li>
 				</ul>
 			</li>
 
@@ -138,21 +138,16 @@ x<?php $locked = $this->setting->get('lock_menu'); ?>
 					<li class="nav"><a href="{{site_url('report/rekap_aset/index/13')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.13 thn 2006</a></li>
 				</ul>
 			</li>
-			<li class="nav nav-rekap-mutasi-tambah">
+			<li class="nav nav-rekap-mutasi">
 				<a href="{{set_lock_link($locked,'report','#menu-rekap-mutasi-tambah')}}" data-toggle="collapse">
-					<i class="fa fa-download fa-fw icon"></i>Mutasi Tambah{{set_lock_icon($locked,'report')}}<i class="fa fa-angle-down ml-auto"></i>
+					<i class="fa fa-download fa-fw icon"></i>Mutasi{{set_lock_icon($locked,'report')}}
+					<span class="badge badge-warning text-dark ml-2 mt-1">baru</span><i class="fa fa-angle-down ml-auto"></i>
 				</a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-tambah">
+					<li class="nav"><a href="{{site_url('report/rekap_inventarisasi/')}}"><i class="fa fa-file-o fa-fw icon"></i> Inventarisasi</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_hibah/')}}"><i class="fa fa-file-o fa-fw icon"></i> Hibah</a></li>
-				</ul>
-			</li>
-			<li class="nav nav-rekap-mutasi-kurang">
-				<a href="{{set_lock_link($locked,'report','#menu-rekap-mutasi-kurang')}}" data-toggle="collapse">
-					<i class="fa fa-upload fa-fw icon"></i>Mutasi Kurang{{set_lock_icon($locked,'report')}}<i class="fa fa-angle-down ml-auto"></i>
-				</a>
-				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-kurang">
-					<li class="nav nav-rekap-transfer"><a href="{{site_url('report/rekap_transfer')}}"><i class="fa fa-file-o fa-fw icon"></i>Transfer Keluar</a></li>
+					<li class="nav nav-rekap-transfer"><a href="{{site_url('report/rekap_transfer')}}"><i class="fa fa-file-o fa-fw icon"></i>Transfer</a></li>
 					<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
 				</ul>
 			</li>
@@ -190,14 +185,14 @@ x<?php $locked = $this->setting->get('lock_menu'); ?>
 				<a href="{{set_lock_link($locked,'kategori',site_url('kategori/index'))}}"><i class="fa fa-tag fa-fw icon"></i>Kategori{{set_lock_icon($locked,'kategori')}}</a>
 			</li>
 			
-			<!--<li class="nav nav-title">PERALATAN</li>
+			<li class="nav nav-title">PERALATAN</li>
 			<li class="nav nav-backup mb-4">
 				<a href="#menu-backup" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Manajemen Data<i class="fa fa-angle-down ml-auto"></i></a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-backup">
 					<li class="nav"><a href="{{site_url('backup/import')}}"><i class="fa fa-download fa-fw icon"></i>Import Saldo Awal</a></li>
-					<li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li>
+					<!-- <li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li> -->
 				</ul>
-			</li>-->
+			</li>
 			@endif
 		</ul>
 	</div>

@@ -4,7 +4,7 @@
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/koreksi_atribut'):site_url('koreksi/atribut/index?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi</a></li>
-<li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/koreksi_atribut'):site_url('koreksi/atribut/index?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Hapus</a></li>
+<li class="breadcrumb-item"><a href="{{$ref?site_url('persetujuan/koreksi_atribut'):site_url('koreksi/atribut/index?id_organisasi='.$koreksi->id_organisasi)}}">Koreksi Atribut</a></li>
 <li class="breadcrumb-item active">Rincian</li>
 @end
 

@@ -11,9 +11,10 @@ class Organisasi extends MY_Controller {
 		$this->load->model('Organisasi_model', 'organisasi');
 	}
 
+
 	public function index()
 	{
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>1));
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>1))['rows'];
 		$this->render('modules/organisasi/index', $data);
 	}
 
@@ -22,8 +23,8 @@ class Organisasi extends MY_Controller {
 		if(empty($id))
 			show_404();
 		
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>2,'sub_dari'=>$id));
-		$data['induk'] 	  	= $this->organisasi->get($id);
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>2))['rows'];
+		$data['induk'] 	  = $this->organisasi->get($id);
 		$this->render('modules/organisasi/index_unit', $data);
 	}
 
@@ -32,8 +33,8 @@ class Organisasi extends MY_Controller {
 		if(empty($id))
 			show_404();
 		
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>3,'sub_dari'=>$id));
-		$data['induk'] 	  	= $this->organisasi->get($id);
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>3,'sub_dari'=>$id))['rows'];
+		$data['induk'] 	  = $this->organisasi->get($id);
 		$this->render('modules/organisasi/index_subunit', $data);
 	}
 
@@ -42,32 +43,47 @@ class Organisasi extends MY_Controller {
 		if(empty($id))
 			show_404();
 		
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4,'sub_dari'=>$id));
-		$data['induk'] 	  	= $this->organisasi->get($id);
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4,'sub_dari'=>$id))['rows'];
+		$data['induk'] 	  = $this->organisasi->get($id);
 		$this->render('modules/organisasi/index_upb', $data);
+	}
+
+	public function get()
+	{
+		$filter = $this->input->get();
+		
+		if (isset($filter['search'])) {
+			$kolom  = array('nama','alamat','telpon','kepala_nama','kepala_nip','pengurus_nama','pengurus_nip');
+			foreach ($kolom as $key => $value) {
+				$filter[$value] = $filter['search'];
+			}
+			unset($filter['search']);
+		}
+
+		echo json_encode($this->organisasi->get_data($filter));
 	}
 
 	public function add($jenis = null)
 	{
 		switch ($jenis) {
 			case '2':
-				$data['induk'] = $this->organisasi->get($this->input->get('id'));
-				$this->render('modules/organisasi/form_unit', $data);
-				break;
+			$data['induk'] = $this->organisasi->get($this->input->get('id'));
+			$this->render('modules/organisasi/form_unit', $data);
+			break;
 
 			case '3':
-				$data['induk'] = $this->organisasi->get($this->input->get('id'));
-				$this->render('modules/organisasi/form_subunit', $data);
-				break;
+			$data['induk'] = $this->organisasi->get($this->input->get('id'));
+			$this->render('modules/organisasi/form_subunit', $data);
+			break;
 
 			case '4':
-				$data['induk'] = $this->organisasi->get($this->input->get('id'));
-				$this->render('modules/organisasi/form_upb', $data);
-				break;
+			$data['induk'] = $this->organisasi->get($this->input->get('id'));
+			$this->render('modules/organisasi/form_upb', $data);
+			break;
 			
 			default:
-				show_404();
-				break;
+			show_404();
+			break;
 		}
 	}
 
@@ -81,20 +97,20 @@ class Organisasi extends MY_Controller {
 
 		switch ($data['organisasi']->jenis) {
 			case '2':
-				$this->render('modules/organisasi/form_unit', $data);
-				break;
+			$this->render('modules/organisasi/form_unit', $data);
+			break;
 
 			case '3':
-				$this->render('modules/organisasi/form_subunit', $data);
-				break;
+			$this->render('modules/organisasi/form_subunit', $data);
+			break;
 
 			case '4':
-				$this->render('modules/organisasi/form_upb', $data);
-				break;
+			$this->render('modules/organisasi/form_upb', $data);
+			break;
 			
 			default:
-				show_404();
-				break;
+			show_404();
+			break;
 		}
 	}
 
@@ -131,37 +147,31 @@ class Organisasi extends MY_Controller {
 		}
 	}
 
-	public function delete($id = null)
+	public function lebur()
 	{
-		if (empty($id)) {
+		$data = $this->input->post();
+
+		if (empty($data['id_organisasi']) OR empty($data['id_tujuan'])) {
 			show_404();
 		}
 
-		$ref = $this->input->get('ref');
-		if (empty($ref)) {
-			$ref = 'organisasi';
+
+		$asal   = $this->organisasi->get($data['id_organisasi']);
+		$tujuan = $this->organisasi->get($data['id_tujuan']);
+
+		if ($asal->jenis !== 4) {
+			$this->organisasi->update_by(array('sub_dari'=>$asal->id), array('sub_dari'=>$tujuan->id));
+		}else{
+			$this->organisasi->lebur($asal->id, $tujuan->id);
 		}
 
-		$sukses = $this->organisasi->delete($id);
-		if($sukses) {
-			$this->message('Data berhasil dihapus','success');
-			$this->go($ref);
-		} else {
-			$this->message('Data gagal dihapus','danger');
-			$this->go($ref);
-		}
+		$this->organisasi->delete($asal->id);
+		$this->go($data['ref']);
 	}
 
 	public function cetak()
 	{
 		$data['upb'] = $this->organisasi->get_many_by('jenis',4);
 		$this->render('modules/organisasi/print', $data);
-	}
-
-	###### API
-	public function get($id)
-	{
-		$result = $this->organisasi->get_many_by(array('sub_dari'=>$id));
-		echo json_encode($result);
 	}
 }

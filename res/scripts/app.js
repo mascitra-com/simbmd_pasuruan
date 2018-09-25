@@ -45,4 +45,10 @@ $(document).ready(function() {
         duplicated: true
     });
 
+    // FIX TAB ERROR
+    $(".nav-link").on('click', function(e){
+        var dom = $(e.currentTarget).attr('href');
+        $(".tab-pane:not("+dom+")").removeClass('active');
+    });
+
 });

@@ -7,6 +7,10 @@ class Kapitalisasi extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Kapitalisasi_model', 'kapitalisasi');
+
+		$this->load->model('aset/Kibc_model', 'kibc');
+		$this->load->model('aset/Kibd_model', 'kibd');
+
 		$this->load->model('Spk_model', 'spk');
 		$this->load->model('Sp2d_model', 'sp2d');
 	}
@@ -28,16 +32,30 @@ class Kapitalisasi extends MY_Controller {
 		$this->render('modules/pengadaan/form_kapitalisasi', $data);
 	}
 
+	public function edit($id = null)
+	{
+		if (empty($id)) {
+			show_404();
+		}
+
+		$data['kpt']  = $this->kapitalisasi->subtitute($this->kapitalisasi->get($id));
+		$data['spk']  = $this->spk->get($data['kpt']->id_spk);
+		$data['sp2d'] = $this->sp2d->get_many_by(array('id_spk'=>$data['kpt']->id_spk));
+
+		$data['kpt']->id_aset = $data['kpt']->golongan == '3' ? $this->kibc->get($data['kpt']->id_aset) : $this->kibd->get($data['kpt']->id_aset);
+
+		$this->render('modules/pengadaan/form_kapitalisasi', $data);
+	}
+
 	public function insert()
 	{
 		$data = $this->input->post();
-		$data['reg_induk'] = $this->kapitalisasi->get_reg_induk();
 		$data['nilai'] = unmonefy($data['nilai']);
 		$data['nilai_penunjang'] = unmonefy($data['nilai_penunjang']);
 
 		if (!$this->kapitalisasi->form_verify($data)) {
 			$this->message('Isi data yang wajib diisi');
-			$this->go('pengadaan/kapitalisasi/add/langkah_3/'.$data['id_spk'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
+			$this->go('pengadaan/kapitalisasi/add/'.$data['id_spk']);
 		}
 		
 		$sukses = $this->kapitalisasi->insert($data);
@@ -46,7 +64,7 @@ class Kapitalisasi extends MY_Controller {
 			$this->go('pengadaan/index/rincian/'.$data['id_spk']);
 		} else {
 			$this->message('Data gagal disimpan');
-			$this->go('pengadaan/kapitalisasi/add/langkah_3/'.$data['id_spk'].'?id_aset='.$data['id_aset'].'&golongan='.$data['golongan'].'&subsubkelompok='.$data['id_kategori']);
+			$this->go('pengadaan/kapitalisasi/add/'.$data['id_spk']);
 		}
 	}
 
@@ -64,6 +82,7 @@ class Kapitalisasi extends MY_Controller {
 		}
 
 		$sukses = $this->kapitalisasi->update($id, $data);
+		
 		if($sukses) {
 			$this->message('Data berhasil disimpan','success');
 			$this->go('pengadaan/index/rincian/'.$data['id_spk']);
@@ -84,18 +103,9 @@ class Kapitalisasi extends MY_Controller {
 		$sukses = $this->kapitalisasi->delete($id);
 		if($sukses) {
 			$this->message('Data berhasil dihapus','success');
-			$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
 		} else {
-			# Rollback
-			$this->{$kib}->update($kpt->id_aset, array('nilai_tambah'=>$temp->nilai_tambah));
 			$this->message('Data gagal dihapus','danger');
-			$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
 		}
-	}
-
-	public function get_json_aset()
-	{
-		$par = $this->input->get();
-		
+		$this->go('pengadaan/index/rincian/'.$kpt->id_spk);
 	}
 }

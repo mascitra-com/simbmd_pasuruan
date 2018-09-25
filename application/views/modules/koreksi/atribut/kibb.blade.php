@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Koreksi Hapus@end
+@section('title')Koreksi Atribut@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
@@ -172,8 +172,8 @@ th, td {
 			$("[name=bahan]").val(result.rows[0].bahan);
 			$("[name=no_pabrik]").val(result.rows[0].no_pabrik);
 			$("[name=no_rangka]").val(result.rows[0].no_rangka);
-			$("[name=no_mesin]").val(result.rows[0].no_pabrik);
-			$("[name=no_polisi]").val(result.rows[0].no_pabrik);
+			$("[name=no_mesin]").val(result.rows[0].no_mesin);
+			$("[name=no_polisi]").val(result.rows[0].no_polisi);
 			$("[name=no_bpkb]").val(result.rows[0].no_bpkb);
 			$("[name=tgl_perolehan]").val(convertDate(result.rows[0].tgl_perolehan));
 			$("[name=tgl_pembukuan]").val(convertDate(result.rows[0].tgl_pembukuan));

@@ -91,8 +91,37 @@ class MY_Model_aset extends MY_Model {
 		foreach ($data as $key => $value) {
 			if (empty($value)) {
 				unset($data[$key]);
+			}else{
+				if ($key === 'id') {
+					$data[$this->_table.'.id'] = $value;
+					unset($data['id']);
+				}
 			}
 		}
 		return $data;
+	}
+
+	public function get_regInduk($jumlah = 1)
+	{
+		# Set prefix
+		$prefix = str_replace('aset_', 'KIB', $this->_table);
+		# Generate reg induk
+		while (true) {
+			$reg = array();
+			
+			while (count($reg) !== $jumlah) {
+				for($i = 0; $i < $jumlah; $i++){
+					$reg[$i] = strtoupper($prefix.'.'.uniqchar(5));
+				}
+				# Hapus duplikat
+				$reg = array_unique($reg);
+			}
+
+			# Cek duplikat
+			$count = $this->where_in('reg_induk',$reg)->count_by(array());
+			if ($count === 0) {
+				return $reg;
+			}
+		}
 	}
 }

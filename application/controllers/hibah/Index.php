@@ -118,22 +118,22 @@ class Index extends MY_Controller
         # RINCIAN
         // # COUNT
         $data['kiba']['count'] = $this->kiba_temp->count_by(array('id_hibah'=>$id));
-        $data['kiba']['sum']   = $this->kiba_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        $data['kiba']['sum']   = $this->kiba_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_hibah'=>$id))[0]->nilai;
         
         $data['kibb']['count'] = $this->kibb_temp->count_by(array('id_hibah'=>$id));
-        $data['kibb']['sum']   = $this->kibb_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        $data['kibb']['sum']   = $this->kibb_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_hibah'=>$id))[0]->nilai;
         
         $data['kibc']['count'] = $this->kibc_temp->count_by(array('id_hibah'=>$id));
-        $data['kibc']['sum']   = $this->kibc_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        $data['kibc']['sum']   = $this->kibc_temp->select("SUM(nilai+nilai_tambah) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_hibah'=>$id))[0]->nilai;
         
         $data['kibd']['count'] = $this->kibd_temp->count_by(array('id_hibah'=>$id));
-        $data['kibd']['sum']   = $this->kibd_temp->select("SUM(nilai+nilai_tambah) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        $data['kibd']['sum']   = $this->kibd_temp->select("SUM(nilai+nilai_tambah) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_hibah'=>$id))[0]->nilai;
         
         $data['kibe']['count'] = $this->kibe_temp->count_by(array('id_hibah'=>$id));
-        $data['kibe']['sum']   = $this->kibe_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        $data['kibe']['sum']   = $this->kibe_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_hibah'=>$id))[0]->nilai;
         
         $data['kibg']['count'] = $this->kibg_temp->count_by(array('id_hibah'=>$id));
-        $data['kibg']['sum']   = $this->kibg_temp->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
+        $data['kibg']['sum']   = $this->kibg_temp->select("SUM(nilai) AS nilai")->where('id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL')->get_many_by(array('id_hibah'=>$id))[0]->nilai;
 
         $data['kpt']['count'] = $this->kapitalisasi->count_by(array('id_hibah'=>$id));
         $data['kpt']['sum']   = $this->kapitalisasi->select("SUM(nilai) AS nilai")->get_many_by(array('id_hibah'=>$id))[0]->nilai;
@@ -194,7 +194,7 @@ class Index extends MY_Controller
             $this->go('hibah/kibg/add/' . $id);
             break;
             case 'tambah':
-            $this->go('hibah/kapitalisasi/add/langkah_1/' . $id);
+            $this->go('hibah/kapitalisasi/add/' . $id);
             break;
 
             default:
@@ -268,7 +268,8 @@ class Index extends MY_Controller
             $kib  = ($item->golongan==='3') ? 'kibc' : 'kibd';
             $temp = $this->{$kib}->get($item->id_aset);
             $nilai_kurang = $this->nol($item->jumlah) * $this->nol($item->nilai);
-            $total        = $temp->nilai_tambah - $nilai_kurang;
+            $total = $temp->nilai_tambah - $nilai_kurang;
+            $total = $total < 0 ? 0 : $total;
             
             $this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
         }

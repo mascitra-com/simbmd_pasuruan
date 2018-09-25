@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Koreksi Hapus@end
+@section('title')Koreksi Atribut@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="card">
-	<div class="card-header">KIB-C (Jalan, Irigasi & Jaringan)</div>
+	<div class="card-header">KIB-D (Jalan, Irigasi & Jaringan)</div>
 	<div class="card-body">
 		<table class="jq-table table-striped" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('koreksi/atribut/kibd/get/'.$koreksi->id)}}">
 			<thead>
@@ -20,6 +20,7 @@
 					<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
 					<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
 					<th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+					<th data-class='text-nowrap' data-field="nilai_tambah">Nilai Tambah</th>
 					<th data-class='text-nowrap' data-field="kontruksi">Kontruksi</th>
 					<th data-class='text-nowrap' data-field="panjang">Panjang</th>
 					<th data-class='text-nowrap' data-field="lebar">Lebar</th>

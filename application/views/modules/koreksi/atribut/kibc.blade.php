@@ -1,5 +1,5 @@
 @layout('commons/index')
-@section('title')Koreksi Hapus@end
+@section('title')Koreksi Atribut@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
@@ -20,6 +20,7 @@
 						<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
 						<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
 						<th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+						<th data-class='text-nowrap' data-field="nilai_tambah">Nilai Tambah</th>
 						<th data-class='text-nowrap' data-field="tingkat">Tingkat</th>
 						<th data-class='text-nowrap' data-field="beton">Beton</th>
 						<th data-class='text-nowrap' data-field="luas_lantai">Luas Lantai</th>
@@ -179,6 +180,7 @@ th, td {
 			$("[name=asal_usul]").val(result.rows[0].asal_usul);
 			$("[name=nilai]").val(result.rows[0].nilai);
 			$("[name=kondisi]").val(result.rows[0].kondisi==='Sangat Baik'?1:result.rows[0].kondisi==='Baik'?2:3);
+			$("[name=keterangan]").val(result.rows[0].keterangan);
 		});
 		$("#modal-edit").modal('show');
 	});

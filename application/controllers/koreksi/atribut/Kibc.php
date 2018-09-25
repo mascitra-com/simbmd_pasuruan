@@ -32,7 +32,7 @@ class Kibc extends MY_Controller
 		$koreksi = $this->koreksi->get($id_koreksi);
 		$filter  = $this->input->get();
 
-		if(isset($filter['serach']))
+		if(isset($filter['search']))
 			$filter = array_merge($filter, $this->set_filter($filter['search']));
 
 		unset($filter['search']);
@@ -54,7 +54,7 @@ class Kibc extends MY_Controller
 		$koreksi = $this->koreksi->get($id_koreksi);
 		$filter  = $this->input->get();
 
-		if(isset($filter['serach']))
+		if(isset($filter['search']))
 			$filter = array_merge($filter, $this->set_filter($filter['search']));
 
 		unset($filter['search']);
@@ -67,9 +67,7 @@ class Kibc extends MY_Controller
 
 	private function set_filter($q)
 	{
-		$kolom = array('tgl_perolehan', 'tgl_pembukuan', 'tingkat', 'beton', 'luas_lantai', 'lokasi', 'dokumen_tgl', 'dokumen_no', 'status_tanah', 'kode_tanah', 'asal_usul', 'kondisi', 'nilai');
-
-		foreach ($kolom as $key => $value) {
+		foreach ($this->kib->_kolom as $key => $value) {
 			$temp[$value] = $q;
 		}
 
@@ -97,6 +95,7 @@ class Kibc extends MY_Controller
 					}
 					break;
 					case 'nilai':
+					case 'nilai_tambah':
 					$value[$index] = monefy($item);
 					if ($is_rincian && $value[$index] !== monefy($corrected[$index])) {
 						$value[$index] = empty($item)?'':"<b class='text-danger'>-(".$value[$index].")</b>";

@@ -37,6 +37,12 @@
 									<input type="text" name="web_desc" value="{{isset($pengaturan->web_desc)?$pengaturan->web_desc:''}}" placeholder="Deskripsi website" class="form-control"/>
 								</div>
 							</div>
+							<div class="form-group row">
+								<label class="col-lg-2 col-form-label text-right">Warna Website</label>
+								<div class="col-lg-6">
+									<input type="color" name="web_color" value="{{isset($pengaturan->web_color)?$pengaturan->web_color:''}}"/>
+								</div>
+							</div>
 							<hr>
 							<div class="form-group row">
 								<label class="col-lg-2 col-form-label text-right">Tahun Periode</label>

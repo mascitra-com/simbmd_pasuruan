@@ -4,6 +4,7 @@ class Kibc_model extends MY_Model_aset
 {
 	public $_table = 'aset_c';
 	public $required = array('id_organisasi','id_kategori','nilai','tgl_pembukuan','tgl_perolehan','kondisi','nilai');
+    public $_kolom = array('tgl_perolehan', 'tgl_pembukuan', 'tingkat', 'beton', 'luas_lantai', 'lokasi', 'dokumen_tgl', 'dokumen_no', 'status_tanah', 'kode_tanah', 'asal_usul', 'kondisi', 'nilai');
 
     public function __construct()
     {
@@ -57,7 +58,7 @@ class Kibc_model extends MY_Model_aset
     public function get_rincian_widget($id_organisasi, $is_kdp)
     {
         $where_kdp = $is_kdp ? 'kd_golongan = 6' : 'kd_golongan <> 6';
-        $query = "SELECT COUNT(a.id) AS total, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS total_rusak, SUM(nilai) AS nilai, SUM(CASE WHEN(kondisi=3) THEN nilai ELSE 0 END) AS nilai_rusak
+        $query = "SELECT COUNT(a.id) AS total, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS total_rusak, SUM(nilai+nilai_tambah) AS nilai, SUM(CASE WHEN(kondisi=3) THEN nilai+nilai_tambah ELSE 0 END) AS nilai_rusak
         FROM {$this->_table} a JOIN kategori k ON a.id_kategori = k.id 
         WHERE id_organisasi = {$id_organisasi} AND {$where_kdp}";
         return $this->db->query($query)->result()[0];

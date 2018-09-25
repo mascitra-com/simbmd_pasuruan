@@ -111,23 +111,23 @@
                     <table class="jq-table table-striped" id="tb-kiba" data-toggle="#tb-kiba" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-a" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kiba/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false">No.</th>
                                 @if(!$ref)
-                                <th data-field="aksi" data-switchable="false">Aksi</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false">Aksi</th>
                                 @endif
-                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false">Nilai</th>
-                                <th data-field="luas">Luas (m2)</th>
-                                <th data-field="alamat">Alamat</th>
-                                <th data-field="sertifikat_tgl">Tgl. Sertifikat</th>
-                                <th data-field="sertifikat_no">No. Sertifikat</th>
-                                <th data-field="hak">Hak Pakai</th>
-                                <th data-field="pengguna">Pengguna</th>
-                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
-                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
-                                <th data-field="asal_usul">Asal Usul</th>
-                                <th data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-class='text-nowrap' data-field="luas">Luas (m2)</th>
+                                <th data-class='text-nowrap' data-field="alamat">Alamat</th>
+                                <th data-class='text-nowrap' data-field="sertifikat_tgl">Tgl. Sertifikat</th>
+                                <th data-class='text-nowrap' data-field="sertifikat_no">No. Sertifikat</th>
+                                <th data-class='text-nowrap' data-field="hak">Hak Pakai</th>
+                                <th data-class='text-nowrap' data-field="pengguna">Pengguna</th>
+                                <th data-class='text-nowrap' data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-class='text-nowrap' data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -147,28 +147,28 @@
                     <table class="jq-table table-striped" id="tb-kibb" data-toggle="#tb-kibb" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-b" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kibb/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false">No.</th>
                                 @if(!$ref)
-                                <th data-field="aksi" data-switchable="false">Aksi</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false">Aksi</th>
                                 @endif
-                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false">Nilai</th>
-                                <th data-field="merk">Merk</th>
-                                <th data-field="tipe">Tipe</th>
-                                <th data-field="ukuran">Ukuran/CC</th>
-                                <th data-field="bahan">Bahan</th>
-                                <th data-field="no_pabrik">No.Pabrik</th>
-                                <th data-field="no_rangka">No.Rangka</th>
-                                <th data-field="no_mesin">No.Mesin</th>
-                                <th data-field="no_polisi">No.Polisi</th>
-                                <th data-field="no_bpkb">No.BPKB</th>
-                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
-                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
-                                <th data-field="asal_usul">Asal Usul</th>
-                                <th data-field="kondisi">Kondisi</th>
-                                <th data-field="keterangan">Keterangan</th>
-                                <th data-field="id_ruangan">Ruang</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-class='text-nowrap' data-field="merk">Merk</th>
+                                <th data-class='text-nowrap' data-field="tipe">Tipe</th>
+                                <th data-class='text-nowrap' data-field="ukuran">Ukuran/CC</th>
+                                <th data-class='text-nowrap' data-field="bahan">Bahan</th>
+                                <th data-class='text-nowrap' data-field="no_pabrik">No.Pabrik</th>
+                                <th data-class='text-nowrap' data-field="no_rangka">No.Rangka</th>
+                                <th data-class='text-nowrap' data-field="no_mesin">No.Mesin</th>
+                                <th data-class='text-nowrap' data-field="no_polisi">No.Polisi</th>
+                                <th data-class='text-nowrap' data-field="no_bpkb">No.BPKB</th>
+                                <th data-class='text-nowrap' data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-class='text-nowrap' data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+                                <th data-class='text-nowrap' data-field="kondisi">Kondisi</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="id_ruangan">Ruang</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -188,26 +188,26 @@
                     <table class="jq-table table-striped" id="tb-kibc" data-toggle="#tb-kibc" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-c" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kibc/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false">No.</th>
                                 @if(!$ref)
-                                <th data-field="aksi" data-switchable="false">Aksi</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false">Aksi</th>
                                 @endif
-                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false">Nilai</th>
-                                <th data-field="tingkat">Tingkat</th>
-                                <th data-field="beton">Beton</th>
-                                <th data-field="luas_lantai">Luas Lantai</th>
-                                <th data-field="lokasi">Lokasi</th>
-                                <th data-field="dokumen_tgl">Tgl.Dokumen</th>
-                                <th data-field="dokumen_no">No.Dokumen</th>
-                                <th data-field="status_tanah">Status Tanah</th>
-                                <th data-field="kode_tanah">Kode Tanah</th>
-                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
-                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
-                                <th data-field="asal_usul">Asal Usul</th>
-                                <th data-field="kondisi">Kondisi</th>
-                                <th data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-class='text-nowrap' data-field="tingkat">Tingkat</th>
+                                <th data-class='text-nowrap' data-field="beton">Beton</th>
+                                <th data-class='text-nowrap' data-field="luas_lantai">Luas Lantai</th>
+                                <th data-class='text-nowrap' data-field="lokasi">Lokasi</th>
+                                <th data-class='text-nowrap' data-field="dokumen_tgl">Tgl.Dokumen</th>
+                                <th data-class='text-nowrap' data-field="dokumen_no">No.Dokumen</th>
+                                <th data-class='text-nowrap' data-field="status_tanah">Status Tanah</th>
+                                <th data-class='text-nowrap' data-field="kode_tanah">Kode Tanah</th>
+                                <th data-class='text-nowrap' data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-class='text-nowrap' data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+                                <th data-class='text-nowrap' data-field="kondisi">Kondisi</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -227,27 +227,27 @@
                     <table class="jq-table table-striped" id="tb-kibd" data-toggle="#tb-kibd" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-d" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kibd/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false">No.</th>
                                 @if(!$ref)
-                                <th data-field="aksi" data-switchable="false">Aksi</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false">Aksi</th>
                                 @endif
-                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false">Nilai</th>
-                                <th data-field="kontruksi">Kontruksi</th>
-                                <th data-field="panjang">Panjang</th>
-                                <th data-field="lebar">Lebar</th>
-                                <th data-field="luas">Luas</th>
-                                <th data-field="lokasi">Lokasi</th>
-                                <th data-field="dokumen_tgl">Tgl.Dokumen</th>
-                                <th data-field="dokumen_no">No.Dokumen</th>
-                                <th data-field="status_tanah">Status Tanah</th>
-                                <th data-field="kode_barang">Kode Tanah</th>
-                                <th data-field="tgl_perolehan">Tgl. Perolehan</th>
-                                <th data-field="tgl_pembukuan">Tgl. Pembukuan</th>
-                                <th data-field="asal_usul">Asal Usul</th>
-                                <th data-field="kondisi">Kondisi</th>
-                                <th data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-class='text-nowrap' data-field="kontruksi">Kontruksi</th>
+                                <th data-class='text-nowrap' data-field="panjang">Panjang</th>
+                                <th data-class='text-nowrap' data-field="lebar">Lebar</th>
+                                <th data-class='text-nowrap' data-field="luas">Luas</th>
+                                <th data-class='text-nowrap' data-field="lokasi">Lokasi</th>
+                                <th data-class='text-nowrap' data-field="dokumen_tgl">Tgl.Dokumen</th>
+                                <th data-class='text-nowrap' data-field="dokumen_no">No.Dokumen</th>
+                                <th data-class='text-nowrap' data-field="status_tanah">Status Tanah</th>
+                                <th data-class='text-nowrap' data-field="kode_barang">Kode Tanah</th>
+                                <th data-class='text-nowrap' data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-class='text-nowrap' data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+                                <th data-class='text-nowrap' data-field="kondisi">Kondisi</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -267,21 +267,21 @@
                     <table class="jq-table table-striped" id="tb-kibe" data-toggle="#tb-kibe" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-e" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kibe/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false" class="text-center">No.</th>
-                                <th data-field="aksi" data-switchable="false" class="text-nowrap text-center">Aksi</th>
-                                <th data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
-                                <th data-field="judul" class="text-nowrap">Judul</th>
-                                <th data-field="pencipta" class="text-nowrap">Pecipta</th>
-                                <th data-field="bahan" class="text-nowrap">Bahan</th>
-                                <th data-field="ukuran" class="text-nowrap">Ukuran</th>
-                                <th data-field="tgl_perolehan" class="text-nowrap">Tgl. Perolehan</th>
-                                <th data-field="tgl_pembukuan" class="text-nowrap">Tgl. Pembukuan</th>
-                                <th data-field="asal_usul" class="text-nowrap">Asal Usul</th>
-                                <th data-field="Kondisi" class="text-nowrap">Kondisi</th>
-                                <th data-field="keterangan" class="text-nowrap">Keterangan</th>
-                                <th data-field="id_ruang" class="text-nowrap">Ruang</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false" class="text-center">No.</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false" class="text-nowrap text-center">Aksi</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
+                                <th data-class='text-nowrap' data-field="judul">Judul</th>
+                                <th data-class='text-nowrap' data-field="pencipta">Pecipta</th>
+                                <th data-class='text-nowrap' data-field="bahan">Bahan</th>
+                                <th data-class='text-nowrap' data-field="ukuran">Ukuran</th>
+                                <th data-class='text-nowrap' data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-class='text-nowrap' data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+                                <th data-class='text-nowrap' data-field="Kondisi">Kondisi</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="id_ruang">Ruang</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -301,22 +301,22 @@
                     <table class="jq-table table-striped" id="tb-kibg" data-toggle="#tb-kibg" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-g" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kibg/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false" class="text-center">No.</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false" class="text-center">No.</th>
                                 @if(!$ref)
-                                <th data-field="aksi" data-switchable="false" class="text-nowrap text-center">Aksi</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false" class="text-nowrap text-center">Aksi</th>
                                 @endif
-                                <th data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
-                                <th data-field="merk" class="text-nowrap">Merk</th>
-                                <th data-field="tipe" class="text-nowrap">Tipe</th>
-                                <th data-field="ukuran" class="text-nowrap">Ukuran</th>
-                                <th data-field="tgl_perolehan" class="text-nowrap">Tgl. Perolehan</th>
-                                <th data-field="tgl_pembukuan" class="text-nowrap">Tgl. Pembukuan</th>
-                                <th data-field="asal_usul" class="text-nowrap">Asal Usul</th>
-                                <th data-field="kondisi" class="text-nowrap">Kondisi</th>
-                                <th data-field="keterangan" class="text-nowrap">Keterangan</th>
-                                <th data-field="id_ruangan" class="text-nowrap">Ruang</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false" class="text-nowrap text-center">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
+                                <th data-class='text-nowrap' data-field="merk">Merk</th>
+                                <th data-class='text-nowrap' data-field="tipe">Tipe</th>
+                                <th data-class='text-nowrap' data-field="ukuran">Ukuran</th>
+                                <th data-class='text-nowrap' data-field="tgl_perolehan">Tgl. Perolehan</th>
+                                <th data-class='text-nowrap' data-field="tgl_pembukuan">Tgl. Pembukuan</th>
+                                <th data-class='text-nowrap' data-field="asal_usul">Asal Usul</th>
+                                <th data-class='text-nowrap' data-field="kondisi">Kondisi</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="id_ruangan">Ruang</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -336,19 +336,19 @@
                     <table class="jq-table table-striped" id="tb-kpt" data-toggle="#tb-kpt" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-kpt" data-pagination="true" data-side-pagination="server" data-url="{{site_url('hibah/api/get_kpt/'.$hibah->id)}}">
                         <thead>
                             <tr>
-                                <th data-field="no" data-switchable="false">No.</th>
+                                <th data-class='text-nowrap' data-field="no" data-switchable="false">No.</th>
                                 @if(!$ref)
-                                <th data-field="aksi" data-switchable="false" class='text-nowrap'>Aksi</th>
+                                <th data-class='text-nowrap' data-field="aksi" data-switchable="false" class='text-nowrap'>Aksi</th>
                                 @endif
-                                <th data-field="kode_barang" data-switchable="false">Kode Barang</th>
-                                <th data-field="id_kategori" data-switchable="false" class="text-nowrap">Kategori</th>
-                                <th data-field="nilai" data-switchable="false">Nilai</th>
-                                <th data-field="nilai_penunjang">Nilai Penunjang</th>
-                                <th data-field="nama_barang">Nama Barang</th>
-                                <th data-field="merk">Merk</th>
-                                <th data-field="tipe">Tipe</th>
-                                <th data-field="alamat">Alamat</th>
-                                <th data-field="keterangan">Keterangan</th>
+                                <th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+                                <th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+                                <th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+                                <th data-class='text-nowrap' data-field="nilai_penunjang">Nilai Penunjang</th>
+                                <th data-class='text-nowrap' data-field="nama_barang">Nama Barang</th>
+                                <th data-class='text-nowrap' data-field="merk">Merk</th>
+                                <th data-class='text-nowrap' data-field="tipe">Tipe</th>
+                                <th data-class='text-nowrap' data-field="alamat">Alamat</th>
+                                <th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

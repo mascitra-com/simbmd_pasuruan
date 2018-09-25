@@ -41,7 +41,7 @@ class Excel
 		}
 		catch (Exception $e) 
 		{
-			die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+			die('Error loading file ": ' . $e->getMessage());
 		}
 
 		$sheet 		= $excel->getSheet(0);

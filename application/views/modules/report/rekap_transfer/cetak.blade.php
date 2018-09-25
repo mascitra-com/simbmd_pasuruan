@@ -21,7 +21,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="title bold mb-4">
-			LAPORAN TRANSFER<br>
+			LAPORAN TRANSFER {{$detail['jenis']==='1'?'MASUK':'KELUAR'}}<br>
 			{{datify($detail['periode_start'])}} s.d. {{datify($detail['periode_end'])}}
 		</div>
 		<div class="header">

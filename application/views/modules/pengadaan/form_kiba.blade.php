@@ -202,9 +202,6 @@
 					<tbody></tbody>
 				</table>
 			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" data-dismiss="modal">Pilih</button>
-			</div>
 		</div>
 	</div>
 </div>

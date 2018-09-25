@@ -26,7 +26,9 @@ class Kibb extends MY_Controller
         $data['total_rincian'] = $this->spk->get_total_rincian($id_spk);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $id_spk);
         $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['spk']->id_organisasi);
-        $this->render('modules/pengadaan/form_kibb', $data);
+        
+        $mode = ($this->config->item('mode')==='pasuruan') ? '' : '_jember';
+        $this->render('modules/pengadaan/form_kibb'.$mode, $data);
     }
 
     public function edit($id = NULL)
@@ -40,7 +42,9 @@ class Kibb extends MY_Controller
         $data['total_rincian'] = $this->spk->get_total_rincian($data['kib']->id_spk);
         $data['sp2d'] = $this->sp2d->get_many_by('id_spk', $data['kib']->id_spk);
         $data['ruangan'] = $this->ruangan->get_many_by('id_organisasi', $data['spk']->id_organisasi);
-        $this->render('modules/pengadaan/form_kibb', $data);
+        
+        $mode = ($this->config->item('mode')==='pasuruan') ? '' : '_jember';
+        $this->render('modules/pengadaan/form_kibb'.$mode, $data);
     }
 
     public function insert()

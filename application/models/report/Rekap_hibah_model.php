@@ -12,7 +12,7 @@ class Rekap_hibah_model extends MY_Model {
 	{
 		# Ambil data hibah
 		$select 	 = "hibah.id,no_jurnal,tgl_jurnal, asal_penerimaan,no_serah_terima, tgl_serah_terima,keterangan, organisasi.nama";
-		$where_query = "tgl_serah_terima BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."' AND status_pengajuan = 2";
+		$where_query = "tgl_serah_terima BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'";
 
 		switch ($config['id_organisasi']) {
 			case 'all':
@@ -31,9 +31,9 @@ class Rekap_hibah_model extends MY_Model {
 		$final = $this->db->select($select)->join('organisasi','hibah.id_organisasi = organisasi.id')->where($where)->where($where_query)->get('hibah')->result();
 		$final = $this->fill_empty_data($final);
 
-        foreach ($final as $key => $value) {
-            $value->rincian = $this->get_rincian($value->id);
-        }
+		foreach ($final as $key => $value) {
+			$value->rincian = $this->get_rincian($value->id);
+		}
 
 		return $final;
 	}
@@ -57,7 +57,7 @@ class Rekap_hibah_model extends MY_Model {
 
 		#Ambil Kapitalisasi
 		$where = "WHERE id_hibah = {$id_hibah} AND id_spk IS NULL";
-		$query = "SELECT reg_induk, kap.nama AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori} FROM aset_kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id {$where}";
+		$query = "SELECT reg_induk, kap.nama_barang AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori} FROM aset_kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id {$where}";
 		$final->kapitalisasi = $this->db->query($query)->result();
 		$final->kapitalisasi = $this->fill_empty_data($final->kapitalisasi);
 

@@ -9,38 +9,68 @@ class Organisasi_model extends MY_Model {
 		parent::__construct();
 	}
 
-	public function get_data($where = array())
+	public function get_data($filter = array())
     {
-        $this->where($where);
-        $this->order_by('kd_bidang')
-        ->order_by('kd_unit')
-        ->order_by('kd_subunit')
-        ->order_by('kd_upb');
+        # LIMIT, OFFSET, AND SORT
+        $limit  = isset($filter['limit'])?$filter['limit']:'';
+        $offset = isset($filter['offset'])?$filter['offset']:'';
+        $sort   = isset($filter['sort'])?$filter['sort']:'';
+        $order  = isset($filter['order'])?$filter['order']:'';
 
-        $result = $this->get_all();
+        # WHERE
+        $where[$this->_table.'.id'] = isset($filter['id'])?$filter['id']:'';
+        $where['kd_bidang']  = isset($filter['kd_bidang'])?$filter['kd_bidang']:'';
+        $where['kd_unit']    = isset($filter['kd_unit'])?$filter['kd_unit']:'';
+        $where['kd_subunit'] = isset($filter['kd_subunit'])?$filter['kd_subunit']:'';
+        $where['kd_upb']     = isset($filter['kd_upb'])?$filter['kd_upb']:'';
+        $where['sub_dari']   = isset($filter['sub_dari'])?$filter['sub_dari']:'';
+        $where['jenis']      = isset($filter['jenis'])?$filter['jenis']:'';
 
-        foreach ($result as $key => $value) {
+        # UNSET FILTER
+        $filter = $this->unset_attr($filter);
+        $where  = trim_empty_data($where);
+
+        # SET LIKE
+        if (count($filter) > 0) {
+            $this->group_start();
+            $this->or_like($filter);
+            $this->group_end();
+        }
+
+        if (!empty($limit) OR !empty($offset)) {
+            $clone = clone($this->db);
+            $results['total'] = $clone->where($where)->from($this->_table)->count_all_results();
+
+            $this->limit($limit, $offset);
+        }
+
+        # SET SORT
+        if (!empty($sort)) {
+            $this->order_by($sort, $order);
+        }else{
+            $this->order_by('kd_bidang')->order_by('kd_unit')->order_by('kd_subunit')->order_by('kd_upb');
+        }
+
+        $results['rows'] = $this->subtitute( $this->get_many_by($where) );
+
+        foreach ($results['rows'] as $key => $value) {
             $value->kode  = !empty($value->kd_bidang) ? zerofy($value->kd_bidang) : '';
             $value->kode .= !empty($value->kd_unit) ? '.'.(zerofy($value->kd_unit)) : '';
             $value->kode .= !empty($value->kd_subunit) ? '.'.(zerofy($value->kd_subunit)) : '';
             $value->kode .= !empty($value->kd_upb) ? '.'.(zerofy($value->kd_upb)) : '';
         }
 
-        $result = $this->fill_empty_data($result);
-        return $result;
+        return $results;
     }
 
-	public function get_formated_data()
-	{
-		$result = $this->get_all();
-		$final  = array();
-
-		foreach ($result as $key => $value) {
-			$final[$value->id] = $value->nama;
-		}
-
-		return $final;
-	}
+    private function unset_attr($filter)
+    {
+        unset($filter['limit'],$filter['offset'], $filter['order'], $filter['sort']);
+        unset($filter['id'], $filter['sub_dari'], $filter['jenis']);
+        unset($filter['kd_bidang'], $filter['kd_unit'], $filter['kd_subunit'], $filter['kd_upb']);
+        unset($filter['search']);
+        return trim_empty_data($filter);
+    }
 
     public function get_data_by_auth()
     {
@@ -63,7 +93,7 @@ class Organisasi_model extends MY_Model {
         return $result;
     }
 
-    public function get_id_by_auth($id_organisasi)
+    public function get_id_by_auth($id_organisasi = '')
     {
         $this->load->model('Auth_model', 'auth');
         return (!$this->auth->get_super_access()) ? $this->auth->get_id_organisasi() : $id_organisasi;
@@ -76,5 +106,14 @@ class Organisasi_model extends MY_Model {
         $this->db->where('kd_unit', $kode[1]);
         $this->db->where('jenis', '2');
         return $this->db->get('organisasi')->row();
+    }
+
+    public function lebur($id_asal, $id_tujuan)
+    {
+        $table = array('aset_a','aset_b','aset_c','aset_d','aset_e','aset_g','aset_kapitalisasi','aset_non','temp_aset_a','temp_aset_b','temp_aset_c','temp_aset_d','temp_aset_e','temp_aset_g','saldo_aset_a','saldo_aset_b','saldo_aset_c','saldo_aset_d','saldo_aset_e','saldo_aset_g','inventarisasi','spk','hibah','transfer','penghapusan','koreksi','kegiatan','user','pelunasan','ruangan');
+        foreach ($table as $tbl) {
+            $query = "UPDATE {$tbl} SET id_organisasi = {$id_tujuan} WHERE id_organisasi = {$id_asal}";
+            $this->db->query($query);
+        }
     }
 }

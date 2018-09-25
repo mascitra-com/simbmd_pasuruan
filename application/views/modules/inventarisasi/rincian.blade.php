@@ -98,6 +98,11 @@
 					KIB-G {{!empty($kibg['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#kpt" role="tab">
+					Penambahan Nilai {{!empty($kpt['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
+				</a>
+			</li>
 		</ul>
 	</div>
 	<div class="card-body tab-content tab-scroll">
@@ -325,6 +330,38 @@
 				<tbody></tbody>
 			</table>
 		</div>
+
+		<!-- Tambah Nilai -->
+		<div class="tab-pane" id="kpt" role="tabpanel">
+			<div id="toolbar-kpt">
+				<div class="input-group">
+					<span class="input-group-addon">Total</span>
+					<input type="text" class="form-control" value="{{!empty($kpt['count'])?$kpt['count']:'kosong'}}" readonly="">
+					<span class="input-group-addon">Rp</span>
+					<input type="text" class="form-control" value="{{!empty($kpt['count'])?monefy($kpt['sum']):'kosong'}}" readonly="">
+				</div>
+			</div>
+			<table class="jq-table table-striped" id="tb-kpt" data-toggle="#tb-kpt" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-kpt" data-pagination="true" data-side-pagination="server" data-url="{{site_url('inventarisasi/api/get_kpt/'.$inventarisasi->id)}}">
+				<thead>
+					<tr>
+						<th data-class='text-nowrap' data-field="no" data-switchable="false">No.</th>
+						@if(!$ref)
+						<th data-class='text-nowrap' data-field="aksi" data-switchable="false" class='text-nowrap'>Aksi</th>
+						@endif
+						<th data-class='text-nowrap' data-field="kode_barang" data-switchable="false">Kode Barang</th>
+						<th data-class='text-nowrap' data-field="id_kategori" data-switchable="false">Kategori</th>
+						<th data-class='text-nowrap' data-field="nilai" data-switchable="false">Nilai</th>
+						<th data-class='text-nowrap' data-field="nilai_penunjang">Nilai Penunjang</th>
+						<th data-class='text-nowrap' data-field="nama_barang">Nama Barang</th>
+						<th data-class='text-nowrap' data-field="merk">Merk</th>
+						<th data-class='text-nowrap' data-field="tipe">Tipe</th>
+						<th data-class='text-nowrap' data-field="alamat">Alamat</th>
+						<th data-class='text-nowrap' data-field="keterangan">Keterangan</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
 		
 	</div>
 </div>
@@ -349,7 +386,7 @@
 						<li><input type="radio" name="jenis" value="d"> D - Jalan, Irigasi &amp Jaringan</li>
 						<li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
 						<li><input type="radio" name="jenis" value="g"> G - Aset Lainnya</li>
-						<!-- <li><input type="radio" name="jenis" value="tambah"> Penambahan Nilai</li> -->
+						<li><input type="radio" name="jenis" value="tambah"> Penambahan Nilai</li>
 					</ul>
 					<hr>
 					<div class="form-group">

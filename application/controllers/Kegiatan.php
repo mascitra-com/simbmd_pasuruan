@@ -16,7 +16,7 @@ class Kegiatan extends MY_Controller {
 	public function index()
 	{
 		$id = $this->input->get('id_organisasi');
-		$data['organisasi']    = $this->organisasi->get_data(array('jenis'=>4));
+		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
 		
 		# Jika bukan superadmin
 		if (!$this->auth->get_super_access()) {

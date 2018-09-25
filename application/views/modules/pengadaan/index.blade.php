@@ -24,67 +24,65 @@
 		</form>
 		<div class="btn-group">
 			<button class="btn btn-primary" data-toggle="modal" data-target="#modal-spk"><i class="fa fa-plus mr-2"></i>Baru</button>
-			<!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button> -->
 			<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
 		</div>
 	</div>
 	<div class="card-body table-responsive px-0 py-0">
 		<table class="table table-hover table-striped table-bordered">
 			<thead>
-				<thead>
-					<tr>
-						<th class="text-center">No. SPK/Perjanian/Kontrak</th>
-						<th>Tanggal</th>
-						<th class="text-right">Nilai</th>
-						<th class="text-nowrap">Jangka Waktu</th>
-						<th>Keterangan</th>
-						<th class="text-center">Status Pengajuan</th>
-						<th class="text-center text-nowrap">Tanggal Verifikasi</th>
-						<th class="text-center">Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($spks AS $item)
-					<tr>
-						<td class="text-center">{{$item->nomor}}</td>
-						<td>{{datify($item->tanggal, 'd/m/Y')}}</td>
-						<td class="text-right">{{(!empty($item->nilai)) ? monefy($item->nilai) : '00,00'}}</td>
-						<td class="text-nowrap">{{$item->jangka_waktu}}</td>
-						<td class="text-sm">{{$item->keterangan}}</td>
-						<td class="text-center">
-							@if($item->status_pengajuan === '0')
-							<button class="btn btn-secondary btn-sm btn-block" id="btn-pesan">draf</button>
-							@elseif($item->status_pengajuan === '1')
-							<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
-							@elseif($item->status_pengajuan === '2')
-							<div class="btn-group">
-								<button class="btn btn-success btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
-								@if($this->session->auth['is_superadmin'] == 1)
-								<button class="btn btn-warning" data-id-batal="{{$item->id}}"><i class="fa fa-times"></i></button>
-								@endif
-							</div>
-							@elseif($item->status_pengajuan === '3')
-							<button class="btn btn-danger btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
-							@else
-							ERROR
-							@endif
-						</td>
-						<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
-						<td class="text-center">
-							<div class="btn-group btn-group-sm">
-								<a href="{{site_url('pengadaan/index/detail/'.$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
-								@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
-								<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
-								@endif
-							</div>
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
+				<tr>
+					<th class="text-center">No. SPK/Perjanian/Kontrak</th>
+					<th>Tanggal</th>
+					<th class="text-right">Nilai</th>
+					<th class="text-nowrap">Jangka Waktu</th>
+					<th>Keterangan</th>
+					<th class="text-center">Status Pengajuan</th>
+					<th class="text-center text-nowrap">Tanggal Verifikasi</th>
+					<th class="text-center">Aksi</th>
+				</tr>
 			</thead>
-		</table>
-	</div>
-	<div class="card-footer">{{$pagination}}</div>
+			<tbody>
+				@foreach($spks AS $item)
+				<tr>
+					<td class="text-center">{{$item->nomor}}</td>
+					<td>{{datify($item->tanggal, 'd/m/Y')}}</td>
+					<td class="text-right">{{(!empty($item->nilai)) ? monefy($item->nilai) : '00,00'}}</td>
+					<td class="text-nowrap">{{$item->jangka_waktu}}</td>
+					<td class="text-sm">{{$item->keterangan}}</td>
+					<td class="text-center">
+						@if($item->status_pengajuan === '0')
+						<button class="btn btn-secondary btn-sm btn-block" id="btn-pesan">draf</button>
+						@elseif($item->status_pengajuan === '1')
+						<button class="btn btn-warning btn-sm btn-block" id="btn-pesan">menunggu</button>
+						@elseif($item->status_pengajuan === '2')
+						<div class="btn-group">
+							<button class="btn btn-success btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>disetujui</button>
+							@if($this->session->auth['is_superadmin'] == 1)
+							<button class="btn btn-warning" data-id-batal="{{$item->id}}"><i class="fa fa-times"></i></button>
+							@endif
+						</div>
+						@elseif($item->status_pengajuan === '3')
+						<button class="btn btn-danger btn-sm btn-block" data-id-spk="{{$item->id}}"><i class="fa fa-comment-o mr-2"></i>ditolak</button>
+						@else
+						ERROR
+						@endif
+					</td>
+					<td class="text-center">{{($item->status_pengajuan !== '0') ? datify($item->tanggal_verifikasi) : '-'}}</td>
+					<td class="text-center">
+						<div class="btn-group btn-group-sm">
+							<a href="{{site_url('pengadaan/index/detail/'.$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
+							@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
+							<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
+							@endif
+						</div>
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</thead>
+	</table>
+</div>
+<div class="card-footer">{{$pagination}}</div>
 </div>
 @end
 

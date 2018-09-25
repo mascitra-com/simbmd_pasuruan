@@ -54,13 +54,46 @@
 								<div class="btn-group btn-group-sm">
 									<a href="{{site_url('organisasi/upb/'.$org->id)}}" class="btn btn-success"><i class="fa fa-eye"></i> Lihat Sub</a>
 									<a href="{{site_url('organisasi/edit/'.$org->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Sunting</a>
-									<a href="{{site_url('organisasi/delete/'.$org->id.'?ref=organisasi/subunit/'.$induk->id)}}" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?\nAksi ini tidak dapat diurungkan')"><i class="fa fa-trash"></i> Hapus</a>
+									<button class="btn btn-danger" data-id="{{$org->id}}" data-nama="{{$org->nama}}"><i class="fa fa-refresh"></i> Lebur</button>
 								</div>
 							</td>
 						</tr>
 						@endforeach
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+</div>
+@end
+
+@section('modal')
+<div class="modal fade" id="modal-lebur" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Lebur Organisasi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{{site_url('organisasi/lebur')}}" method="POST">
+					<input type="hidden" name="id_organisasi">
+					<input type="hidden" name="ref" value="{{'organisasi/subunit/'.$induk->id}}">
+					<div class="form-group">
+						<label for="">Organisasi Asal</label>
+						<input type="text" class="form-control" id="input-organisasi" disabled="">
+					</div>
+					<div class="form-group">
+						<label for="">Organisasi Tujuan</label>
+						<select name="id_tujuan" class="form-control" data-placeholder="Pilih organisasi..."></select>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Proses</button>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -77,6 +110,29 @@
 <script type="text/javascript">
 	var organisasi = (function(){
 		theme.activeMenu('.nav-organisasi');
+
+		$("[data-id]").on('click', function(e){
+			var id = $(e.currentTarget).data('id');
+			var nama = $(e.currentTarget).data('nama');
+			$(".modal form #input-organisasi").val(nama);
+			$(".modal form [name=id_organisasi]").val(id);
+
+			$.getJSON("{{site_url('organisasi/get?jenis=3&sort=nama&order=asc&sub_dari='.$induk->id)}}", function(result){
+
+				if (Object.keys(result.rows).length < 2) {
+					$(".modal form :submit").prop('disabled', true);
+				}
+
+				$("[name=id_tujuan]").empty();
+				$.each(result.rows, function(index, value){
+					if (value.id != id) {
+						$("[name=id_tujuan]").append("<option value='"+value.id+"'>"+value.nama+"</option>");
+					}
+				});
+			});
+
+			$("#modal-lebur").modal('show');
+		});
 	})();
 </script>
 @end

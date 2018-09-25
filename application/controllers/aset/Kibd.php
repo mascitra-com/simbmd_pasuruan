@@ -83,6 +83,7 @@ class Kibd extends MY_Controller
                     $value[$index] = datify($item);
                     break;
                     case 'nilai':
+                    case 'nilai_tambah':
                     $value[$index] = monefy($item);
                     break;
                     case 'kondisi':
