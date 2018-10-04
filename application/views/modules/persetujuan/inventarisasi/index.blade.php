@@ -14,8 +14,8 @@
 			<thead>
 				<tr>
 					<th data-field="no" data-switchable="false">No.</th>
-					<th data-field="no_jurnal" data-switchable="false">Nomor Jurnal</th>
-					<th data-field="tgl_jurnal" data-switchable="false" class="text-nowrap">Tanggal Jurnal</th>
+					<th data-field="no_jurnal" data-switchable="false">Nomor BA.</th>
+					<th data-field="tgl_jurnal" data-switchable="false" class="text-nowrap">Tanggal BA.</th>
 					<th data-field="keterangan" data-switchable="false">Keterangan</th>
 					<th data-field="aksi" data-switchable="false">Aksi</th>
 				</tr>

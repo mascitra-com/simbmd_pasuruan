@@ -34,18 +34,6 @@
 							</select>
 						</div>
 					</div>
-
-					@if($this->config->item('mode')==='jember')
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Pengelompokan Data</label>
-						<div class="col-md-4">
-							<select name="pengelompokan" class="form-control">
-								<option value="1" selected>Per-SPK</option>
-								<option value="2">Per-kategori</option>
-							</select>
-						</div>
-					</div>
-					@endif
 					
 					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Periode</label>

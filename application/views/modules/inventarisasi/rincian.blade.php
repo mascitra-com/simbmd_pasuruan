@@ -21,7 +21,7 @@
 		</a>
 		@endif
 		@if($inventarisasi->status_pengajuan === '0' || $inventarisasi->status_pengajuan === '3')
-		<button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus ml-2"></i>Tambah</button>
+		<button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus mr-2"></i>Tambah</button>
 		@endif
 		<button class="btn btn-primary"><i class="fa fa-refresh"></i> Segarkan</button>
 	</div>
@@ -30,8 +30,9 @@
 <div class="card">
 	<div class="card-header">Detail Inventarisasi</div>
 	<div class="card-body">
-		<form action="{{site_url('inventarisasi/index/update')}}" method="POST">
+		<form action="{{site_url('inventarisasi/index/update')}}" method="POST" enctype="multipart/form-data">
 			<input type="hidden" name="id" value="{{$inventarisasi->id}}">
+			<input type="hidden" name="id_organisasi" value="{{$inventarisasi->id_organisasi}}">
 			<div class="row">
 				<div class="col-12 col-xl-6">
 					<div class="row">
@@ -50,7 +51,18 @@
 							<textarea name="keterangan" class="form-control" placeholder="Keterangan">{{$inventarisasi->keterangan}}</textarea>
 						</div>
 					</div>
+					<div class="row">
+						<div class="form-group col">
+							<label for="">Dokumen Penunjang</label><br>
+							@if(!empty($inventarisasi->dokumen))
+							<a href="{{site_url('res/docs/temp/'.$inventarisasi->dokumen)}}" class="btn btn-sm btn-success"><i class="fa fa-file-o mr-2"></i> unduh</a>
+							@endif
+							<input type="file" name="berkas">
+							<p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
+						</div>
+					</div>
 					@if(!$ref && ($inventarisasi->status_pengajuan === '0' OR $inventarisasi->status_pengajuan === '3'))
+					<hr>
 					<div class="row">
 						<div class="col">
 							<button type="submit" class="btn btn-primary"><i class="fa fa-save mr-2"></i>Simpan</button>
@@ -101,6 +113,11 @@
 			<li class="nav-item">
 				<a class="nav-link" data-toggle="tab" href="#kpt" role="tab">
 					Penambahan Nilai {{!empty($kpt['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#kibnon" role="tab">
+					Tidak Diakui Aset {{!empty($kibnon['count']) ? '<i class="fa fa-asterisk text-danger ml-2"></i>' : ''}}
 				</a>
 			</li>
 		</ul>
@@ -362,7 +379,33 @@
 				<tbody></tbody>
 			</table>
 		</div>
-		
+
+		<!-- KIB-NON -->
+		<div class="tab-pane" id="kibnon" role="tabpanel">
+			<div id="toolbar-non">
+				<div class="input-group">
+					<span class="input-group-addon">Total</span>
+					<input type="text" class="form-control" value="{{!empty($kibnon['count'])?$kibnon['count']:'kosong'}}" readonly="">
+					<span class="input-group-addon">Rp</span>
+					<input type="text" class="form-control" value="{{!empty($kibnon['count'])?monefy($kibnon['sum']):'kosong'}}" readonly="">
+				</div>
+			</div>
+			<table class="jq-table table-striped" id="tb-kibnon" data-toggle="#tb-kibnon" data-search="true" data-show-columns="true" data-search-on-enter-key="true" data-toolbar="#toolbar-non" data-pagination="true" data-side-pagination="server" data-url="{{site_url('inventarisasi/api/get_kibnon/'.$inventarisasi->id)}}">
+				<thead>
+					<tr>
+						<th data-field="no" data-switchable="false" class="text-center">No.</th>
+						<th data-field="aksi" data-switchable="false" class="text-nowrap text-center">Aksi</th>
+						<th data-field="nama" class="text-nowrap">nama</th>
+						<th data-field="merk" class="text-nowrap">Merk</th>
+						<th data-field="tipe" class="text-nowrap">Tipe</th>
+						<th data-field="nilai" data-switchable="false" class="text-nowrap text-right">Nilai</th>
+						<th data-field="keterangan" class="text-nowrap">Keterangan</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+
 	</div>
 </div>
 @end
@@ -387,6 +430,10 @@
 						<li><input type="radio" name="jenis" value="e"> E - Buku, Barang &amp Kebudayaan</li>
 						<li><input type="radio" name="jenis" value="g"> G - Aset Lainnya</li>
 						<li><input type="radio" name="jenis" value="tambah"> Penambahan Nilai</li>
+					</ul>
+					<div class="modal-title">Lainnya</div>
+					<ul style="list-style:none">
+						<li><input type="radio" name="jenis" value="non"> Tidak Diakui Aset</li>
 					</ul>
 					<hr>
 					<div class="form-group">

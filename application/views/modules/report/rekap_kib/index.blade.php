@@ -73,6 +73,7 @@
 								<option value="1">Saldo Berjalan</option>
 								<option value="2">Saldo Awal (Tahun 2017)</option>
 							</select>
+							<p class="form-text text-muted">Sumber data berdasarkan saldo awal atau saldo berjalan.</p>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -93,6 +94,16 @@
 								<option value="2">Kurang Baik</option>
 								<option value="3">Rusak Berat</option>
 							</select>
+						</div>
+					</div>
+					<div class="form-group row" id="kondisi">
+						<label class="col-md-3 col-form-label text-right">Termasuk Ekstrakomtabel</label>
+						<div class="col-md-4">
+							<select name="ekstrakomtabel" class="form-control form-control-sm">
+								<option value="1">Ya</option>
+								<option value="2">Tidak</option>
+							</select>
+							<p class="form-text text-muted">Laporan mengikutkan data ekskom atau tidak.</p>
 						</div>
 					</div>
 					<div class="form-group row">

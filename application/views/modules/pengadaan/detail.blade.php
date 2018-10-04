@@ -16,13 +16,13 @@
 	</div>
 	@if(!$ref)
 	<div class="btn-group mb-3 ml-auto">
-        @if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
-        <a href="{{site_url('pengadaan/index/finish_transaction/'.$spk->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
-        @elseif($spk->status_pengajuan === '1')
-        <a href="{{site_url('pengadaan/index/cancel_transaction/'.$spk->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
-        @endif
-    </div>
-    @endif
+		@if($spk->status_pengajuan === '0' OR $spk->status_pengajuan === '3')
+		<a href="{{site_url('pengadaan/index/finish_transaction/'.$spk->id)}}" class="btn btn-success" onclick="return confirm('Anda yakin? Data tidak dapat disunting jika telah diajukan.')"><i class="fa fa-check mr-2"></i>Selesaikan Transaksi</a>
+		@elseif($spk->status_pengajuan === '1')
+		<a href="{{site_url('pengadaan/index/cancel_transaction/'.$spk->id)}}" class="btn btn-warning" onclick="return confirm('Anda yakin?')"><i class="fa fa-check mr-2"></i>Batalkan Pengajuan</a>
+		@endif
+	</div>
+	@endif
 </div>
 <div class="row mb-3">
 	<div class="col">
@@ -49,7 +49,7 @@
 		<div class="card">
 			<div class="card-header">Detail Pengadaan</div>
 			<div class="card-body">
-				<form action="{{site_url('pengadaan/index/update')}}" method="POST">
+				<form action="{{site_url('pengadaan/index/update')}}" method="POST" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="{{$spk->id}}">
 					<input type="hidden" name="id_organisasi" value="{{$spk->id_organisasi}}">
 					<div class="row">
@@ -148,6 +148,16 @@
 						</div>
 					</div>
 					<hr>
+					<div class="row">
+						<div class="form-group col">
+							<label for="">Dokumen Penunjang</label><br>
+							@if(!empty($spk->dokumen))
+							<a href="{{site_url('res/docs/temp/'.$spk->dokumen)}}" class="btn btn-sm btn-success"><i class="fa fa-file-o mr-2"></i> unduh</a>
+							@endif
+							<input type="file" name="berkas">
+							<p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
+						</div>
+					</div>
 					<div class="form-row">
 						@if(!$ref)
 						<div class="col text-right">
@@ -167,10 +177,10 @@
 
 @section('script')
 <script>
-    theme.activeMenu('.nav-pengadaan');
+	theme.activeMenu('.nav-pengadaan');
 
-    @if($spk->status_pengajuan === '1' OR $spk->status_pengajuan === '2' OR $ref)
-    $(':input').prop('disabled', true);
-    @endif
+	@if($spk->status_pengajuan === '1' OR $spk->status_pengajuan === '2' OR $ref)
+	$(':input').prop('disabled', true);
+	@endif
 </script>
 @end

@@ -21,7 +21,7 @@
 <body>
 	<div class="container-fluid">
 		<div class="title bold mb-4">
-			LAPORAN HIBAH<br>
+			LAPORAN INVENTARISASI<br>
 			{{datify($detail['periode_start'])}} s.d. {{datify($detail['periode_end'])}}
 		</div>
 		<div class="header">
@@ -85,14 +85,14 @@
 					</tr>
 					@endforeach
 					<!-- NON ASET -->
-					<!-- @foreach($inventarisasi->rincian->non_aset AS $non_aset)
+					@foreach($inventarisasi->rincian->non_aset AS $non_aset)
 					<tr class="small">
 						<td class="text-center">{{$no++}}</td>
 						<td class="text-center">-</td>
 						<td>-</td>
 						<td>{{$non_aset->nama}}</td>
 						<td class="text-center">{{$non_aset->merk}}</td>
-                        <td class="text-center">{{($aset->kondisi==1)?'B':(($aset->kondisi==2)?'KB':'RB')}}</td>
+                        <td class="text-center">-</td>
                         <td class="text-center">1 unit</td>
 						<td class="text-right">{{monefy($non_aset->nilai)}}</td>
 						<?php
@@ -100,9 +100,9 @@
 							$row++;
 						?>
 					</tr>
-					@endforeach -->
+					@endforeach
 					<!-- KAPITALISASI -->
-					<!-- @foreach($inventarisasi->rincian->kapitalisasi AS $kap)
+					@foreach($inventarisasi->rincian->kapitalisasi AS $kap)
 					<tr class="small">
 						<td class="text-center">{{$no++}}</td>
 						<td class="text-center">{{$aset->kd_golongan.'.'.$aset->kd_bidang.'.'.$aset->kd_kelompok.'.'.$aset->kd_subkelompok.'.'.$aset->kd_subsubkelompok}}</td>
@@ -117,7 +117,7 @@
 							$row++;
 						?>
 					</tr>
-					@endforeach -->
+					@endforeach
 					<!-- SUBTOTAL -->
 					<tr class="small bold">
 						<td colspan="7" class="text-right">SUB TOTAL <span class="mr-3"></span></td>

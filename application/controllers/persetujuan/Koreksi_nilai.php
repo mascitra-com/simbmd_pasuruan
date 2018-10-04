@@ -11,6 +11,13 @@ class Koreksi_nilai extends MY_Controller {
 		$this->load->model('Koreksi_model', 'koreksi');
 		$this->load->model('Koreksi_detail_model', 'koreksi_detail');
 		$this->load->model('Persetujuan_model', 'persetujuan');
+
+		$this->load->model('aset/Temp_kiba_model', 'kiba_temp');
+		$this->load->model('aset/Temp_kibb_model', 'kibb_temp');
+		$this->load->model('aset/Temp_kibc_model', 'kibc_temp');
+		$this->load->model('aset/Temp_kibd_model', 'kibd_temp');
+		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
 	}
 
 	public function index() {
@@ -31,21 +38,21 @@ class Koreksi_nilai extends MY_Controller {
 	}
 
 	public function rincian($id = NULL)
-    {
-        if (empty($id))
-            show_404();
+	{
+		if (empty($id))
+			show_404();
 
-        $data['koreksi'] = $this->koreksi->get($id);
-        $data['rincian'] = $this->koreksi->get_data_rincian($id);
+		$data['koreksi'] = $this->koreksi->get($id);
+		$data['rincian'] = $this->koreksi->get_data_rincian($id);
 
-        if (empty($data['koreksi'])) {
-            show_404();
-        }
+		if (empty($data['koreksi'])) {
+			show_404();
+		}
 
-        $this->render('modules/persetujuan/koreksi/nilai/rincian', $data);
-    }
+		$this->render('modules/persetujuan/koreksi/nilai/rincian', $data);
+	}
 
-    public function verifikasi() 
+	public function verifikasi() 
 	{
 		$data   = $this->input->post();
 		$sukses = $this->persetujuan->insert($data);

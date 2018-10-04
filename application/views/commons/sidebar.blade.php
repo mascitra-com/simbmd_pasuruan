@@ -43,7 +43,9 @@
 			</li>
 			<!--PENGADAAN -->
 			<li class="nav nav-pengadaan">
-				<a href="{{set_lock_link($locked,'pengadaan',site_url('pengadaan/index'))}}"><i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan{{set_lock_icon($locked,'pengadaan')}}</a>
+				<a href="{{set_lock_link($locked,'pengadaan',site_url('pengadaan/index'))}}">
+					<i class="fa fa-cart-plus fa-fw icon"></i>{{$this->config->item('mode')==='jember'?'Belanja Modal':'Pengadaan'}}{{set_lock_icon($locked,'pengadaan')}}
+				</a>
 			</li>
 			<!-- HIBAH -->
 			<li class="nav nav-hibah">
@@ -71,9 +73,21 @@
 				<a href="{{set_lock_link($locked,'transfer',site_url('transfer/index/keluar'))}}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar{{set_lock_icon($locked,'transfer')}}</a>
 			</li>
 			<!-- PENGHAPUSAN -->
+			@if($this->config->item('mode')==='jember')
+			<li class="nav nav-penghapusan">
+				<a href="{{set_lock_link($locked,'penghapusan','#menu-penghapusan')}}" data-toggle="collapse">
+					<i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset{{set_lock_icon($locked,'penghapusan')}}<i class="fa fa-angle-down ml-auto"></i>
+				</a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-penghapusan">
+					<li class="nav"><a href="#"><i class="fa fa-handshake-o fa-fw icon"></i>1. Pemindahtanganan Aset</a></li>
+					<li class="nav"><a href="{{site_url('penghapusan/index')}}"><i class="fa fa-trash fa-fw icon"></i>2. Penghapusan Aset</a></li>
+				</ul>
+			</li>
+			@else
 			<li class="nav nav-penghapusan">
 				<a href="{{set_lock_link($locked,'penghapusan',site_url('penghapusan/index'))}}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset{{set_lock_icon($locked,'penghapusan')}}</a>
 			</li>
+			@endif
 			<!-- KOREKSI HAPUS -->
 			@if($this->session->auth['is_superadmin'] == 1)
 			<li class="nav nav-koreksi-kurang">
@@ -133,67 +147,70 @@
 			<li class="nav nav-rekap-aset">
 				<a href="{{set_lock_link($locked,'report','#menu-rekap-aset')}}" data-toggle="collapse">
 					<i class="fa fa-cubes fa-fw icon"></i>Aset Tetap{{set_lock_icon($locked,'report')}}<i class="fa fa-angle-down ml-auto"></i></a>
-				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-aset">
-					<li class="nav"><a href="{{site_url('report/rekap_aset/index/17')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.17 thn 2007</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_aset/index/13')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.13 thn 2006</a></li>
-				</ul>
-			</li>
-			<li class="nav nav-rekap-mutasi">
-				<a href="{{set_lock_link($locked,'report','#menu-rekap-mutasi-tambah')}}" data-toggle="collapse">
-					<i class="fa fa-download fa-fw icon"></i>Mutasi{{set_lock_icon($locked,'report')}}
-					<span class="badge badge-warning text-dark ml-2 mt-1">baru</span><i class="fa fa-angle-down ml-auto"></i>
-				</a>
-				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-tambah">
-					<li class="nav"><a href="{{site_url('report/rekap_inventarisasi/')}}"><i class="fa fa-file-o fa-fw icon"></i> Inventarisasi</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_hibah/')}}"><i class="fa fa-file-o fa-fw icon"></i> Hibah</a></li>
-					<li class="nav nav-rekap-transfer"><a href="{{site_url('report/rekap_transfer')}}"><i class="fa fa-file-o fa-fw icon"></i>Transfer</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
-				</ul>
-			</li>
-			<li class="nav nav-rekap-lainnya">
-				<a href="{{set_lock_link($locked,'report','#menu-rekap-lainnya')}}" data-toggle="collapse">
-					<i class="fa fa-file-o fa-fw icon"></i>Lainnya{{set_lock_icon($locked,'report')}}<i class="fa fa-angle-down ml-auto"></i>
-				</a>
-				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-lainnya">
-					<li class="nav"><a href="{{site_url('report/rekap_kib_non')}}"><i class="fa fa-file-o fa-fw icon"></i>Rekap Non-Aset</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_ekstrakomtabel')}}"><i class="fa fa-file-o fa-fw icon"></i>Rekap Ekstrakomtabel</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
-					<li class="nav"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
-					<li class="nav"><a href="{{site_url('label')}}"><i class="fa fa-file-o fa-fw icon"></i>Labelisasi Barang</a></li>
-				</ul>
-			</li>
-			@if($this->session->auth['is_admin'] == 1)
-			<li class="nav nav-title">KAMUS</li>
-			<li class="nav nav-ruangan">
-				<a href="{{set_lock_link($locked,'ruangan',site_url('ruangan/index'))}}"><i class="fa fa-cube fa-fw icon"></i>Ruangan{{set_lock_icon($locked,'ruangan')}}</a>
-			</li>
-			<li class="nav nav-kegiatan">
-				<a href="{{set_lock_link($locked,'kegiatan',site_url('kegiatan/index'))}}"><i class="fa fa-cart-plus fa-fw icon"></i>Kegiatan{{set_lock_icon($locked,'kegiatan')}}</a>
-			</li>
-			<li class="nav nav-pegawai">
-				<a href="{{set_lock_link($locked,'pegawai',site_url('pegawai/index'))}}"><i class="fa fa-users fa-fw icon"></i>Pegawai{{set_lock_icon($locked,'pegawai')}}</a>
-			</li>
-			@endif
+					<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-aset">
+						<li class="nav"><a href="{{site_url('report/rekap_aset/index/17')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.17 thn 2007</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_aset/index/13')}}"><i class="fa fa-file-o fa-fw icon"></i> Permendagri No.13 thn 2006</a></li>
+					</ul>
+				</li>
+				<li class="nav nav-rekap-mutasi">
+					<a href="{{set_lock_link($locked,'report','#menu-rekap-mutasi-tambah')}}" data-toggle="collapse">
+						<i class="fa fa-download fa-fw icon"></i>Mutasi{{set_lock_icon($locked,'report')}}
+						<span class="badge badge-warning text-dark ml-2 mt-1">baru</span><i class="fa fa-angle-down ml-auto"></i>
+					</a>
+					<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-tambah">
+						<li class="nav"><a href="{{site_url('report/rekap_inventarisasi/')}}"><i class="fa fa-file-o fa-fw icon"></i> Inventarisasi</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
+						@if($this->config->item('mode')==='jember')
+						<li class="nav"><a href="{{site_url('report/rekap_pengadaan/per_kategori')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan (per-kategori)</a></li>
+						@endif
+						<li class="nav"><a href="{{site_url('report/rekap_hibah/')}}"><i class="fa fa-file-o fa-fw icon"></i> Hibah</a></li>
+						<li class="nav nav-rekap-transfer"><a href="{{site_url('report/rekap_transfer')}}"><i class="fa fa-file-o fa-fw icon"></i>Transfer</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
+					</ul>
+				</li>
+				<li class="nav nav-rekap-lainnya">
+					<a href="{{set_lock_link($locked,'report','#menu-rekap-lainnya')}}" data-toggle="collapse">
+						<i class="fa fa-file-o fa-fw icon"></i>Lainnya{{set_lock_icon($locked,'report')}}<i class="fa fa-angle-down ml-auto"></i>
+					</a>
+					<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-lainnya">
+						<li class="nav"><a href="{{site_url('report/rekap_kib_non')}}"><i class="fa fa-file-o fa-fw icon"></i>Rekap Non-Aset</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_ekstrakomtabel')}}"><i class="fa fa-file-o fa-fw icon"></i>Rekap Ekstrakomtabel</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_kib')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Barang</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_ruangan')}}"><i class="fa fa-file-o fa-fw icon"></i>Kartu Inventaris Ruangan</a></li>
+						<li class="nav"><a href="{{site_url('label')}}"><i class="fa fa-file-o fa-fw icon"></i>Labelisasi Barang</a></li>
+					</ul>
+				</li>
+				@if($this->session->auth['is_admin'] == 1)
+				<li class="nav nav-title">KAMUS</li>
+				<li class="nav nav-ruangan">
+					<a href="{{set_lock_link($locked,'ruangan',site_url('ruangan/index'))}}"><i class="fa fa-cube fa-fw icon"></i>Ruangan{{set_lock_icon($locked,'ruangan')}}</a>
+				</li>
+				<li class="nav nav-kegiatan">
+					<a href="{{set_lock_link($locked,'kegiatan',site_url('kegiatan/index'))}}"><i class="fa fa-cart-plus fa-fw icon"></i>Kegiatan{{set_lock_icon($locked,'kegiatan')}}</a>
+				</li>
+				<li class="nav nav-pegawai">
+					<a href="{{set_lock_link($locked,'pegawai',site_url('pegawai/index'))}}"><i class="fa fa-users fa-fw icon"></i>Pegawai{{set_lock_icon($locked,'pegawai')}}</a>
+				</li>
+				@endif
 
-			@if($this->session->auth['is_superadmin'] == 1)
-			<li class="nav nav-title">KAMUS (SUPERADMIN)</li>
-			<li class="nav nav-organisasi">
-				<a href="{{set_lock_link($locked,'organisasi',site_url('organisasi/index'))}}"><i class="fa fa-briefcase fa-fw icon"></i>Organisasi{{set_lock_icon($locked,'organisasi')}}</a>
-			</li>
-			<li class="nav nav-kategori">
-				<a href="{{set_lock_link($locked,'kategori',site_url('kategori/index'))}}"><i class="fa fa-tag fa-fw icon"></i>Kategori{{set_lock_icon($locked,'kategori')}}</a>
-			</li>
-			
-			<li class="nav nav-title">PERALATAN</li>
-			<li class="nav nav-backup mb-4">
-				<a href="#menu-backup" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Manajemen Data<i class="fa fa-angle-down ml-auto"></i></a>
-				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-backup">
-					<li class="nav"><a href="{{site_url('backup/import')}}"><i class="fa fa-download fa-fw icon"></i>Import Saldo Awal</a></li>
-					<!-- <li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li> -->
-				</ul>
-			</li>
-			@endif
-		</ul>
+				@if($this->session->auth['is_superadmin'] == 1)
+				<li class="nav nav-title">KAMUS (SUPERADMIN)</li>
+				<li class="nav nav-organisasi">
+					<a href="{{set_lock_link($locked,'organisasi',site_url('organisasi/index'))}}"><i class="fa fa-briefcase fa-fw icon"></i>Organisasi{{set_lock_icon($locked,'organisasi')}}</a>
+				</li>
+				<li class="nav nav-kategori">
+					<a href="{{set_lock_link($locked,'kategori',site_url('kategori/index'))}}"><i class="fa fa-tag fa-fw icon"></i>Kategori{{set_lock_icon($locked,'kategori')}}</a>
+				</li>
+
+				<li class="nav nav-title">PERALATAN</li>
+				<li class="nav nav-backup mb-4">
+					<a href="#menu-backup" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Manajemen Data<i class="fa fa-angle-down ml-auto"></i></a>
+					<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-backup">
+						<li class="nav"><a href="{{site_url('backup/import')}}"><i class="fa fa-download fa-fw icon"></i>Import Saldo Awal</a></li>
+						<!-- <li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li> -->
+					</ul>
+				</li>
+				@endif
+			</ul>
+		</div>
 	</div>
-</div>

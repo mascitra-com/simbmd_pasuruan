@@ -71,6 +71,7 @@
 					<td class="text-center">
 						<div class="btn-group btn-group-sm">
 							<a href="{{site_url('pengadaan/index/detail/'.$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i> rincian</a>
+							<a href="{{site_url('pengadaan/index/cetak/'.$item->id)}}" class="btn btn-warning"><i class="fa fa-print"></i></a>
 							@if($item->status_pengajuan === '0' OR $item->status_pengajuan === '3')
 							<button class="btn btn-danger" data-id="{{$item->id}}"><i class="fa fa-trash"></i></button>
 							@endif
@@ -95,7 +96,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('pengadaan/index/insert')}}" method="POST">
+				<form action="{{site_url('pengadaan/index/insert')}}" method="POST" enctype="multipart/form-data">
 					<input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
 					<div class="row">
 						<div class="col">
@@ -193,6 +194,13 @@
 						</div>
 					</div>
 					<hr>
+					<div class="row">
+						<div class="form-group col">
+							<label for="">Unggah berkas penunjang</label><br>
+							<input type="file" name="berkas">
+							<p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
+						</div>
+					</div>
 					<div class="form-row">
 						<div class="col text-right">
 							<button type="submit" class="btn btn-primary" {{empty($filter['id_organisasi'])?'disabled':''}}><i class="fa fa-save"></i> {{empty($filter['id_organisasi'])?'Pilih organisasi terlebih dahulu':'Simpan'}}</button>

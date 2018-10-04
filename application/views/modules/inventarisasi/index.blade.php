@@ -31,10 +31,11 @@
 		<table class="jq-table table-striped" data-toggle="#tb-kiba" data-search="true" data-search-on-enter-key="true" data-pagination="true" data-side-pagination="server" data-url="{{site_url('inventarisasi/index/get_inventarisasi/'.$id_organisasi)}}">
 			<thead>
 				<tr>
-					<th data-field="no" data-switchable="false">No.</th>
+					<th data-formatter="nomor" data-switchable="false">No.</th>
 					<th data-field="no_ba" data-switchable="false">Nomor Berita Acara</th>
 					<th data-field="tgl_ba" data-switchable="false" data-class="text-nowrap">Tanggal Berita Acara</th>
 					<th data-field="keterangan" data-switchable="false">Keterangan</th>
+					<th data-field="dokumen" data-class='text-center'>Dokumen Penunjang</th>
 					<th data-field="status_pengajuan" data-switchable="false" data-class="text-center">Status</th>
 					<th data-field="aksi" data-switchable="false" data-class='text-center'>Aksi</th>
 				</tr>
@@ -56,7 +57,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{site_url('inventarisasi/index/insert')}}" method="POST">
+				<form action="{{site_url('inventarisasi/index/insert')}}" method="POST" enctype="multipart/form-data">
 					<input type="hidden" name="id_organisasi" value="{{$id_organisasi}}">
 					<div class="row">
 						<div class="form-group col">
@@ -72,6 +73,13 @@
 						<div class="form-group col">
 							<label for="">Keterangan</label>
 							<textarea name="keterangan" class="form-control" placeholder="Keterangan"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col">
+							<label for="">Unggah berkas penunjang</label><br>
+							<input type="file" name="berkas">
+							<p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
 						</div>
 					</div>
 					<div class="row mt-3">
@@ -207,7 +215,7 @@ th, td {
 		}
 	});
 
-	function indexing(value, row, index)
+	function nomor(value, row, index)
 	{
 		return index + 1;
 	}

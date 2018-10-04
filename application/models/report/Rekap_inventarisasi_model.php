@@ -41,7 +41,7 @@ class Rekap_inventarisasi_model extends MY_Model {
 
 		# Ambil aset
 		$kategori = "kd_golongan, kd_bidang, kd_kelompok, kd_subkelompok, kd_subsubkelompok, k.nama";
-		$where    = "WHERE id_inventarisasi = {$id_inventarisasi} AND id_hapus IS NULL AND id_koreksi IS NULL";
+		$where    = "WHERE id_inventarisasi = {$id_inventarisasi} AND id_hapus IS NULL AND id_koreksi IS NULL AND id_transfer IS NULL";
 
 		$qa = "SELECT reg_induk, reg_barang, kondisi, CONCAT(null) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_a a JOIN kategori k ON a.id_kategori = k.id {$where}";
 		$qb = "SELECT reg_induk, reg_barang, kondisi, CONCAT(merk,' ',tipe) AS merk, CONCAT('1') AS jumlah, nilai, {$kategori}  FROM temp_aset_b b JOIN kategori k ON b.id_kategori = k.id {$where}";
@@ -54,6 +54,16 @@ class Rekap_inventarisasi_model extends MY_Model {
 		
 		$final->aset = $this->db->query($query)->result();
 		$final->aset = $this->fill_empty_data($final->aset);
+
+		# Ambil non aset
+		$select = "id,nama,CONCAT(merk,' ',tipe) AS merk,nilai";
+		$final->non_aset = $this->db->select($select)->where(array('id_inventarisasi'=>$id_inventarisasi))->get('aset_non')->result();
+		$final->non_aset = $this->fill_empty_data($final->non_aset);
+
+		#Ambil Kapitalisasi
+		$query = $qe = "SELECT reg_induk, kap.nama_barang AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori}  FROM aset_kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id WHERE id_inventarisasi = {$id_inventarisasi}";
+		$final->kapitalisasi = $this->db->query($query)->result();
+		$final->kapitalisasi = $this->fill_empty_data($final->kapitalisasi);
 
 		return $final;
 	}

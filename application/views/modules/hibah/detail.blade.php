@@ -34,7 +34,7 @@
         <div class="card">
             <div class="card-header">Detail Hibah</div>
             <div class="card-body">
-                <form action="{{ site_url('hibah/index/update') }}" method="POST">
+                <form action="{{ site_url('hibah/index/update') }}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="{{ $hibah->id }}">
                     <div class="row">
                         <div class="col">
@@ -75,6 +75,16 @@
                         <div class="form-group col">
                             <label>Keterangan</label>
                             <input type="text" class="form-control form-control-sm" value="{{ $hibah->keterangan }}" name="keterangan" placeholder="Keterangan" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="">Dokumen Penunjang</label><br>
+                            @if(!empty($hibah->dokumen))
+                            <a href="{{site_url('res/docs/temp/'.$hibah->dokumen)}}" class="btn btn-sm btn-success"><i class="fa fa-file-o mr-2"></i> unduh</a>
+                            @endif
+                            <input type="file" name="berkas">
+                            <p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
                         </div>
                     </div>
                     <hr>

@@ -156,7 +156,7 @@
 					2. Unggah file sesuai dengan jenis KIB yang dipilih. Mengunggah file yang tidak sesuai dengan jenis
 					kib menyebabkan data tidak match.<br>
 					3. Kolom yang berwarna merah adalah kolom yang tidak boleh dikosongi.<br>
-					4. Kolom <b>kondisi</b> diisi dengan indikator angka. Berikut indikatornya: <b>1 = Baik, 2 = Rusak, 3 = Rusak Berat.</b><br>
+					4. Kolom <b>kondisi</b> diisi dengan indikator angka. Berikut indikatornya: <b>1 = Baik, 2 = Kurang Baik, 3 = Rusak Berat.</b><br>
 					5. Kolom <b>Nilai</b> tidak boleh diisi dengan format <i>currency</i> dan harus diisi dengan angka tanpa titik. Misal 2000000<br>
 					6. Apabila nilai memiliki angka desimal, maka desimal dipisahkan dengan <b>tanda titik (.)</b> bukan koma (,). Misal 2000000.56<br>
 					7. Kolom <b>kd_pemilik</b> diisi dengan indikator angka, daftar indikasinya bisa dilihat dibawah.<br>
@@ -191,7 +191,7 @@
 @section('script')
 <script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>
 <script>
-	theme.activeMenu('.nav-dashboard');
+	theme.activeMenu('.nav-backup');
 	// INIT Datatables
 	$(".jq-table").bootstrapTable({
 		formatRecordsPerPage: function () {

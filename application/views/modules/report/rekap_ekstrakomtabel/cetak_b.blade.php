@@ -69,7 +69,7 @@
 					</tr>
 					<tr class="small">
 						<th class="text-center">Baik</th>
-						<th class="text-center">Kurang Baik</th>
+						<th class="text-center">Kuranng Baik</th>
 						<th class="text-center">Rusak Berat</th>
 					</tr>
 					<tr>

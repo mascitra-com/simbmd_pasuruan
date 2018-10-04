@@ -171,18 +171,6 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Nilai Sisa</label>
-						<div class="col-md-4">
-							<input type="text" class="form-control" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?monefy($kib->nilai_sisa):''}}" />
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Masa Manfaat</label>
-						<div class="col-md-4">
-							<input type="number" class="form-control" name="masa_manfaat" placeholder="masa manfaat" value="{{isset($kib)?$kib->masa_manfaat:''}}"/>
-						</div>
-					</div>
-					<div class="form-group row">
 						<label class="col-md-3 col-form-label text-right">Keterangan</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" name="keterangan" placeholder="Keterangan" value="{{isset($kib)?$kib->keterangan:''}}"/>

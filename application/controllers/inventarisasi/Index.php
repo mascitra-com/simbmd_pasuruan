@@ -20,6 +20,7 @@ class Index extends MY_Controller
 		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
 		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
 
+		$this->load->model('aset/Kibnon_model', 'kibnon');
 		$this->load->model('Kapitalisasi_model', 'kapitalisasi');
 
 		$this->load->model('Inventarisasi_model', 'inventarisasi');
@@ -52,6 +53,24 @@ class Index extends MY_Controller
 		$data = $this->input->post();
 		$data['id_organisasi'] = $this->organisasi->get_id_by_auth($data['id_organisasi']);
 
+		if ($_FILES['berkas']['size'] > 0) {
+			$config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
+			$config['file_name']	 	 = 'inv_'.uniqchar(5);
+			$config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
+			$config['max_size']      = 1000;
+			$config['overwrite']     = TRUE;
+
+			$this->load->library('upload', $config);
+			
+			# Jika gagal
+			if (!$this->upload->do_upload('berkas')) {
+				$this->message($this->upload->display_errors(), 'danger');
+				$this->go('inventarisasi/index?id_organisasi='.$data['id_organisasi']);
+			}
+
+			$data['dokumen'] = $this->upload->data('file_name');
+		}
+
 		$sukses = $this->inventarisasi->insert($data);
 		if ($sukses) {
 			$this->message('Data berhasil disimpan.');
@@ -69,6 +88,26 @@ class Index extends MY_Controller
 		$data['id_organisasi'] = $this->organisasi->get_id_by_auth($data['id_organisasi']);
 
 		unset($data['id']);
+		
+		# Upload
+		$file_name = empty($this->inventarisasi->get($id)->dokumen)?'inv_'.uniqchar(5):explode('.', $this->inventarisasi->get($id)->dokumen)[0];
+		if ($_FILES['berkas']['size'] > 0) {
+			$config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
+			$config['file_name']	 	 = $file_name;
+			$config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
+			$config['max_size']      = 1000;
+			$config['overwrite']     = TRUE;
+
+			$this->load->library('upload', $config);
+			
+			# Jika gagal
+			if (!$this->upload->do_upload('berkas')) {
+				$this->message($this->upload->display_errors(), 'danger');
+				$this->go('inventarisasi/index/rincian/'.$id);
+			}
+
+			$data['dokumen'] = $this->upload->data('file_name');
+		}
 
 		$sukses = $this->inventarisasi->update($id, $data);
 		if ($sukses) {
@@ -94,6 +133,7 @@ class Index extends MY_Controller
 			$this->kibd_temp->delete_by(array('id_inventarisasi'=>$id));
 			$this->kibe_temp->delete_by(array('id_inventarisasi'=>$id));
 			$this->kibg_temp->delete_by(array('id_inventarisasi'=>$id));
+			$this->kibnon->delete_by(array('id_inventarisasi'=>$id));
 			$this->kapitalisasi->delete_by(array('id_inventarisasi'=>$id));
 
 			$this->message('Data berhasil dihapus','success');
@@ -133,6 +173,9 @@ class Index extends MY_Controller
 		$data['kpt']['count'] = $this->kapitalisasi->count_by(array('id_inventarisasi'=>$id_inventarisasi));
 		$data['kpt']['sum']   = $this->kapitalisasi->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
 
+		$data['kibnon']['count'] = $this->kibnon->count_by(array('id_inventarisasi'=>$id_inventarisasi));
+		$data['kibnon']['sum']   = $this->kibnon->select("SUM(nilai) AS nilai")->get_many_by(array('id_inventarisasi'=>$id_inventarisasi))[0]->nilai;
+
 		$data['ref'] = empty($this->input->get('ref')) ? '' : 'true';
 
 		$this->render('modules/inventarisasi/rincian', $data);
@@ -166,6 +209,9 @@ class Index extends MY_Controller
 			break;
 			case 'tambah':
 			$this->go('inventarisasi/kapitalisasi/add/' . $id);
+			break;
+			case 'non':
+			$this->go('inventarisasi/kibnon/add/' . $id);
 			break;
 			default:
 			show_404();

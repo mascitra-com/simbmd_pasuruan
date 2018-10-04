@@ -24,6 +24,7 @@ class MY_Model_aset extends MY_Model {
 		$where['id_spk']        = isset($filter['id_spk'])?$filter['id_spk']:'';
 		$where['id_hibah']      = isset($filter['id_hibah'])?$filter['id_hibah']:'';
 		$where['id_invent']     = isset($filter['id_inventarisasi'])?$filter['id_inventarisasi']:'';
+		$where['id_koreksi']    = isset($filter['id_koreksi'])?$filter['id_koreksi']:'';
 
 		# EXCLUDE
 		$excludes = isset($filter['excludes'])?$filter['excludes']:array();

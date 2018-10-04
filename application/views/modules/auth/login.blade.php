@@ -2,23 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>SIMBMD KABUPATEN PASURUAN - LOGIN</title>
+	<title>SIMBMD KABUPATEN {{strtoupper($this->config->item('mode'))}} - LOGIN</title>
 	<link rel="stylesheet" href="{{base_url('res/plugins/bootstrap/css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{base_url('res/plugins/fontawesome/css/font-awesome.min.css')}}">
 	<style>
-		html, body {
-			background-color: #f7f7f9;
-		}
-
-		.container, .row {
-			height: 100vh;
-			max-height: 100vh;
-			overflow-y: hidden;
-		}
-
-		.text-bolder { font-weight: 700; }
-		.text-bigger { font-size: 2.3em; }
-	</style>
+	html, body {background-color: #f7f7f9;}
+	.container, .row {height: 100vh;max-height: 100vh;overflow-y: hidden;}
+	.text-bolder { font-weight: 700; }
+	.text-bigger { font-size: 2.3em; }
+</style>
 </head>
 <body>
 	<?php $message = $this->session->flashdata('message'); ?>
@@ -34,12 +26,11 @@
 				<div class="card">
 					<div class="card-body">
 						<form action="{{site_url('authentication/do_login')}}" method="POST">
-						    <div class="mb-4 text-bigger text-center">
-						    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Lambang_Kabupaten_Pasuruan.png"
-                             alt="Logo Kabupaten Pasuruan" class="img-responsive" width="100px">
-                            </div>
 							<div class="mb-4 text-bigger text-center">
-								<span class="text-bolder">SIMBMD</span><span>PASURUAN</span>
+								<img src="{{base_url('res/img/logo_'.$this->config->item('mode').'.png')}}" alt="Logo Kabupaten Pasuruan" class="img-responsive" width="100px">
+							</div>
+							<div class="mb-4 text-bigger text-center">
+								<span class="text-bolder">SIMBMD</span><span>{{strtoupper($this->config->item('mode'))}}</span>
 							</div>
 							<div class="form-group">
 								<div class="input-group">
@@ -55,9 +46,6 @@
 							</div>
 							<div class="form-group">
 								<button class="btn btn-lg btn-primary btn-block">Masuk</button>
-							</div>
-							<div class="form-group mt-0">
-								<a href="#">Lupa password? klik disini</a>
 							</div>
 						</form>
 					</div>

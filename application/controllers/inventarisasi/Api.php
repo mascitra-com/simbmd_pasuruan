@@ -126,6 +126,21 @@ class Api extends MY_Controller
         echo json_encode($data);
     }
 
+    public function get_kibnon($id_inventarisasi = NULL)
+    {
+        $this->load->model('aset/Kibnon_model','kibnon');
+        
+        # SET INIT
+        $filter = $this->input->get();
+        $this->inventarisasi = $this->inventarisasi->get($id_inventarisasi);
+        $this->kib   = "kibnon";
+        $this->kolom = array('id','id_inventarisasi', 'merk','tipe','nama','nilai','keterangan','id_organisasi');
+        
+        $data['total'] = $this->{$this->kib}->group_start()->or_like($this->get_like_array($filter['search']))->group_end()->count_by(array('id_inventarisasi'=>$id_inventarisasi));
+        $data['rows']  = $this->set_data($filter);
+        echo json_encode($data);
+    }
+
 
 
     # =================================================================
@@ -163,15 +178,17 @@ class Api extends MY_Controller
 
                 $temp['aksi'] = "<div class='btn-group'><a href='{$link_edit}' class='btn btn-sm btn-warning'><i class='fa fa-pencil'></i></a>";
                 $temp['aksi'] .= "<a href='{$link_hapus}' class='btn btn-sm btn-danger' onclick=\"return confirm('Apakah anda yakin?')\"><i class='fa fa-trash'></i></a></div>";
-            }   
+            }
 
             # Kode barang
-            $temp['kode_barang'] = zerofy($value->id_kategori->kd_golongan).'.'.zerofy($value->id_kategori->kd_bidang).'.'.
-            zerofy($value->id_kategori->kd_kelompok).'.'.zerofy($value->id_kategori->kd_subkelompok).'.'.
-            zerofy($value->id_kategori->kd_subsubkelompok);
+            if ($this->kib !== 'kibnon') {
+                $temp['kode_barang'] = zerofy($value->id_kategori->kd_golongan).'.'.zerofy($value->id_kategori->kd_bidang).'.'.
+                zerofy($value->id_kategori->kd_kelompok).'.'.zerofy($value->id_kategori->kd_subkelompok).'.'.
+                zerofy($value->id_kategori->kd_subsubkelompok);
 
-            if ($this->kib !== 'kapitalisasi') {
-                $temp['kode_barang'] .= '.'.zerofy($value->reg_barang);
+                if ($this->kib !== 'kapitalisasi') {
+                    $temp['kode_barang'] .= '.'.zerofy($value->reg_barang);
+                }
             }
 
             $temp['no'] = $filter['offset'] + $index + 1;

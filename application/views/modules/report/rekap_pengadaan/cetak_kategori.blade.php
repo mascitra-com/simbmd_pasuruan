@@ -54,11 +54,29 @@
 					?>
 					@foreach($rekap AS $r)
 					<tr>
-						<td class="text-center">{{zerofy($r['kd1'], 2).'.'.zerofy($r['kd2'], 2).'.'.zerofy($r['kd3'], 2)}}</td>
-						<td class="text-left">{{$r['nama']}}</td>
-						<td class="text-right">{{monefy($r['jumlah'])}}</td>
+						<td class="text-left {{isset($r['detail'])?'bold':''}}">{{zerofy($r['kd1'], 2)}}</td>
+						<td class="text-left {{isset($r['detail'])?'bold':''}}">{{$r['nama']}}</td>
+						<td class="text-right {{isset($r['detail'])?'bold':''}}">{{monefy($r['jumlah'])}}</td>
 						<?php $total += $r['jumlah']; ?>
 					</tr>
+						@if(isset($r['detail']))
+							@foreach($r['detail'] AS $r2)
+								<tr>
+									<td class="text-left {{isset($r2['detail'])?'bold':''}}">{{zerofy($r2['kd1'], 2).'.'.zerofy($r2['kd2'], 2)}}</td>
+									<td class="text-left {{isset($r2['detail'])?'bold':''}}">{{$r2['nama']}}</td>
+									<td class="text-right {{isset($r2['detail'])?'bold':''}}">{{monefy($r2['jumlah'])}}</td>
+								</tr>
+								@if(isset($r2['detail']))
+									@foreach($r2['detail'] AS $r3)
+										<tr>
+											<td class="text-left">{{zerofy($r3['kd1'], 2).'.'.zerofy($r3['kd2'], 2).'.'.zerofy($r3['kd3'], 2)}}</td>
+											<td class="text-left">{{$r3['nama']}}</td>
+											<td class="text-right">{{monefy($r3['jumlah'])}}</td>
+										</tr>
+									@endforeach
+								@endif
+							@endforeach
+						@endif
 					@endforeach
 					<tr class="bold">
 						<td colspan="2" class="text-right">TOTAL</td>

@@ -18,11 +18,11 @@
                     @endforeach
                 </select>
                 <span class="input-group-btn">
-                 <button class="btn btn-primary">Pilih</button>
-             </span>
-         </div>
-     </form>
-     <div class="btn-group">
+                   <button class="btn btn-primary">Pilih</button>
+               </span>
+           </div>
+       </form>
+       <div class="btn-group">
         <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus mr-2"></i>Baru</button>
         <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter"><i class="fa fa-filter mr-2"></i>Filter</button> -->
         <button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
@@ -102,7 +102,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form action="{{site_url('penghapusan/index/insert')}}" method="POST">
+                <form action="{{site_url('penghapusan/index/insert')}}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id_organisasi" value="{{isset($filter['id_organisasi'])?$filter['id_organisasi']:''}}">
                     <div class="row">
                         <div class="col">
@@ -139,10 +139,22 @@
                         <div class="form-group col">
                             <label>Alasan</label>
                             <select name="alasan" id="alasan" class="form-control form-control-sm">
-                                <option value="Dijual">Dijual</option>
-                                <option value="Dimusnahkan">Dimusnahkan</option>
-                                <option value="Dihibahkan">Dihibahkan</option>
+                                <option value="dijual">Dijual</option>
+                                <option value="dihibahkan">Dihibahkan</option>
+                                @if($this->config->item('mode')==='jember')
+                                <option value="penyertaan modal">Penyertaan Modal</option>
+                                <option value="tukar-menukar">Tukar-menukar</option>
+                                @else
+                                <option value="dimusnahkan">Dimusnahkan</option>
+                                @endif
                             </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="">Unggah berkas penunjang</label><br>
+                            <input type="file" name="berkas">
+                            <p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
                         </div>
                     </div>
                     <hr>

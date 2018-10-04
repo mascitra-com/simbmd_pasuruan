@@ -34,7 +34,7 @@
 		<div class="card">
 			<div class="card-header">Detail Penghapusan</div>
 			<div class="card-body">
-				<form action="{{site_url('penghapusan/index/update')}}" method="POST">
+				<form action="{{site_url('penghapusan/index/update')}}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="{{$hapus->id}}">
                     <input type="hidden" name="id_organisasi" value="{{$hapus->id_organisasi->id}}">
 
@@ -92,13 +92,28 @@
                         <label class="col-md-3 col-form-label text-right">Alasan</label>
                         <div class="col-md-4">
                             <select name="alasan" id="alasan" class="form-control form-control-sm">
-                                <option value="Dijual" {{$hapus->alasan == 'Dijual'?'selected':''}}>Dijual</option>
-                                <option value="Dimusnahkan" {{$hapus->alasan == 'Dimusnahkan'?'selected':''}}>Dimusnahkan</option>
-                                <option value="Dihibahkan" {{$hapus->alasan == 'Dihibahkan'?'selected':''}}>Dihibahkan</option>
+                                <option value="Dijual" {{$hapus->alasan == 'dijual'?'selected':''}}>Dijual</option>
+                                <option value="Dihibahkan" {{$hapus->alasan == 'dihibahkan'?'selected':''}}>Dihibahkan</option>
+                                @if($this->config->item('mode')==='jember')
+                                <option value="penyertaan modal" {{$hapus->alasan == 'penyertaan modal'?'selected':''}}>Penyertaan Modal</option>
+                                <option value="tukar-menukar" {{$hapus->alasan == 'tukar-menukar'?'selected':''}}>Tukar-menukar</option>
+                                @else
+                                <option value="Dimusnahkan" {{$hapus->alasan == 'dimusnahkan'?'selected':''}}>Dimusnahkan</option>
+                                @endif
                             </select>
                         </div>
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="">Dokumen Penunjang</label><br>
+                            @if(!empty($hapus->dokumen))
+                            <a href="{{site_url('res/docs/temp/'.$hapus->dokumen)}}" class="btn btn-sm btn-success"><i class="fa fa-file-o mr-2"></i> unduh</a>
+                            @endif
+                            <input type="file" name="berkas">
+                            <p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
+                        </div>
+                    </div>
                     @if(!$ref)
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-right"></label>

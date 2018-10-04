@@ -39,8 +39,6 @@
                             <th class="text-nowrap">Tgl. Pembukuan</th>
                             <th class="text-nowrap">Asal Usul</th>
                             <th class="text-nowrap">Kondisi</th>
-                            <th class="text-nowrap text-right">Nilai Sisa</th>
-                            <th class="text-nowrap">Masa Manfaat</th>
                             <th class="text-nowrap">Keterangan</th>
                             <th class="text-nowrap">Kategori</th>
                         </tr>
@@ -76,8 +74,6 @@
                             <td class="text-nowrap">{{datify($item->tgl_pembukuan, 'd-m-Y')}}</td>
                             <td class="text-nowrap">{{$item->asal_usul}}</td>
                             <td class="text-nowrap">{{($item->kondisi==1)?'Baik':(($item->kondisi==2)?'Kurang Baik':'Rusak Berat')}}</td>
-                            <td class="text-nowrap text-right">{{!empty($item->nilai_sisa)?monefy($item->nilai_sisa):'0'}}</td>
-                            <td class="text-nowrap">{{$item->masa_manfaat}}</td>
                             <td class="text-nowrap">{{$item->keterangan}}</td>
                             <td class="text-nowrap">{{$item->id_kategori->nama}}</td>
                         </tr>

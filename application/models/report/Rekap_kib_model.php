@@ -2,15 +2,24 @@
 
 class Rekap_kib_model extends MY_Model {
 
+	public $whereEkskom;
+
 	public function __construct() {
 		parent::__construct();
 	}
 
 	public function get_rekapitulasi($config)
 	{
+		# SET KIB
 		$kib  = 'get_kib'.$config['kib'];
+		# SET SUMBER DATA
 		$config['sumber_data'] = ($config['sumber_data']==1) ? '':'saldo_';
+		# SET EKSKOM
+		$year = $this->setting->get('periode_start');
+		$this->whereEkskom = $config['ekstrakomtabel']==2 ? "AND (CASE WHEN YEAR(tgl_perolehan) >= {$year} THEN nilai > batas_nilai ELSE TRUE END)" : "";
+		# AMBIL DATA
 		$data = $this->{$kib}($config['id_organisasi'], $config['kd_pemilik'], $config['urut'], $config['kondisi'], $config['sumber_data']);
+		
 		return $this->fill_empty_data($data);
 	}
 
@@ -29,7 +38,7 @@ class Rekap_kib_model extends MY_Model {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
 
-		$where  = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik}";
+		$where  = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom}";
 		
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;
@@ -56,7 +65,7 @@ class Rekap_kib_model extends MY_Model {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
 
-		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik}";
+		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom}";
 
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;
@@ -85,7 +94,7 @@ class Rekap_kib_model extends MY_Model {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
 
-		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} AND k.kd_golongan <> 6";
+		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom} AND k.kd_golongan <> 6";
 
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;
@@ -113,7 +122,7 @@ class Rekap_kib_model extends MY_Model {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
 
-		$where   = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} AND k.kd_golongan <> 6";
+		$where   = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom} AND k.kd_golongan <> 6";
 
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;
@@ -137,7 +146,7 @@ class Rekap_kib_model extends MY_Model {
 		} else {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
-		$where   = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik}";
+		$where   = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom}";
 
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;
@@ -166,7 +175,7 @@ class Rekap_kib_model extends MY_Model {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
 
-		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} AND k.kd_golongan = 6";
+		$where = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom} AND k.kd_golongan = 6";
 
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;
@@ -181,7 +190,7 @@ class Rekap_kib_model extends MY_Model {
 		return $this->db->query($query)->result();
 	}
 
-	private function get_kibg($id, $kd_pemilik, $urut = '1', $kondisi = NULL)
+	private function get_kibg($id, $kd_pemilik, $urut = '1', $kondisi = NULL, $sumber)
 	{
 		$select = 'ast.*, k.kd_golongan,k.kd_bidang,k.kd_kelompok,k.kd_subkelompok,k.kd_subsubkelompok,k.nama,o.nama AS organisasi,
 		SUM(CASE WHEN (kondisi=1) THEN 1 ELSE 0 END) AS kb, SUM(CASE WHEN (kondisi=2) THEN 1 ELSE 0 END) AS kkb, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS krb,
@@ -192,7 +201,7 @@ class Rekap_kib_model extends MY_Model {
 		} else {
 			$whereId = ($id !== 'all') ? "AND id_organisasi = {$id}" : '';
 		}
-		$where   = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik}";
+		$where   = "ast.is_deleted = 0 {$whereId} AND kd_pemilik = {$kd_pemilik} {$this->whereEkskom}";
 
 		if(!empty($kondisi)){
 			$where .= " AND kondisi =".$kondisi;

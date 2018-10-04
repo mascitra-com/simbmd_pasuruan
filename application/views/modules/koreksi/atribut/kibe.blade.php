@@ -73,11 +73,11 @@
 					<div class="row">
 						<div class="form-group col">
 							<label for="">Tanggal Perolehan</label>
-							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tgl. Perolehan">
+							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tgl. Perolehan" disabled="">
 						</div>
 						<div class="form-group col">
 							<label for="">Tanggal Pembukuan</label>
-							<input type="date" class="form-control" name="tgl_pembukuan" placeholder="Tgl. Pembukuan">
+							<input type="date" class="form-control" name="tgl_pembukuan" placeholder="Tgl. Pembukuan" disabled="">
 						</div>
 						<div class="form-group col">
 							<label for="">Asal Usul</label>
@@ -91,9 +91,9 @@
 						</div>
 						<div class="form-group col">
 							<label for="">Kondisi</label>
-							<select class="form-control" name="kondisi">
-								<option value="1">Sangat Baik</option>
-								<option value="2">Baik</option>
+							<select class="form-control" name="kondisi" disabled="">
+								<option value="1">Baik</option>
+								<option value="2">Kurang Baik</option>
 								<option value="3">Rusak Berat</option>
 							</select>
 						</div>
@@ -145,7 +145,8 @@ th, td {
 			$("[name=tgl_pembukuan]").val(convertDate(result.rows[0].tgl_pembukuan));
 			$("[name=asal_usul]").val(result.rows[0].asal_usul);
 			$("[name=nilai]").val(result.rows[0].nilai);
-			$("[name=kondisi]").val(result.rows[0].kondisi==='Sangat Baik'?1:result.rows[0].kondisi==='Baik'?2:3);
+			$("[name=kondisi]").val(result.rows[0].kondisi==='Baik'?1:result.rows[0].kondisi==='Baik'?2:3);
+			$("[name=keterangan]").val(result.rows[0].keterangan);
 		});
 		$("#modal-edit").modal('show');
 	});

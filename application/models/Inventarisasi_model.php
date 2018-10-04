@@ -49,6 +49,11 @@ class Inventarisasi_model extends MY_Model
 				break;
 			}
 
+			# Dokumen
+			if (!empty($value['dokumen'])) {
+				$value['dokumen'] = "<a href='".site_url('res/docs/temp/'.$value['dokumen'])."' class='btn btn-success btn-sm'><i class='fa fa-file-o mr-2'></i>unduh</a>";
+			}
+
 			$data['rows'][$index] = $value;
 		}
 
@@ -80,6 +85,10 @@ class Inventarisasi_model extends MY_Model
 			$value['aksi'] .= "<button class='btn btn-sm btn-success btn-setuju' data-id='".$value['id']."'><i class='fa fa-check mr-2'></i>Setuju</button>";
 			$value['aksi'] .= "<button class='btn btn-sm btn-danger btn-tolak' data-id='".$value['id']."'><i class='fa fa-times mr-2'></i>Tolak</button>";
 			$value['aksi'] .= "</div>";
+
+			if (!empty($value['dokumen'])) {
+				$value['dokumen'] = "<a href='".site_url('res/docs/temp/'.$value['dokumen'])."' class='btn btn-success btn-sm'><i class='fa fa-file-o mr-2'></i>unduh</a>";
+			}
 
 			$data['rows'][$index] = $value;
 		}

@@ -87,7 +87,7 @@ class Kibd extends MY_Controller
                     $value[$index] = monefy($item);
                     break;
                     case 'kondisi':
-                    $kondisi = array('kosong','Sangat Baik', 'Baik', 'Rusak Berat');
+                    $kondisi = array('kosong','Baik', 'Kurang Baik', 'Rusak Berat');
                     $value[$index] = $kondisi[$item];
                     break;
                 }

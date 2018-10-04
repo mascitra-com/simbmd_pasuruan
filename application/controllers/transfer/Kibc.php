@@ -44,7 +44,7 @@ class Kibc extends MY_Controller
         $kib['id_transfer'] = $data['id_transfer'];
         $kib['id_aset']     = $data['id_aset'];
 
-        unset($kib['id'], $kib['id_spk'], $kib['id_sp2d'], $kib['id_hibah']);
+        unset($kib['id'], $kib['id_spk'], $kib['id_sp2d'], $kib['id_hibah'], $kib['id_inventarisasi']);
 
         $sukses = $this->kib_temp->insert($kib);
         if($sukses) {

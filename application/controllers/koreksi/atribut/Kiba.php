@@ -79,6 +79,7 @@ class Kiba extends MY_Controller
 		foreach ($data['rows'] as $key => $value) {
 			$value = (array)$value;
 
+
 			if ($is_rincian) {
 				$corrected = (array)json_decode($this->koreksi_detail->get($value['id_koreksi_detail'])->corrected_value);
 			}
@@ -102,7 +103,7 @@ class Kiba extends MY_Controller
 					}
 					break;
 					case 'kondisi':
-					$kondisi = array('kosong','Sangat Baik', 'Baik', 'Rusak Berat');
+					$kondisi = array('kosong','Baik', 'Kurang Baik', 'Rusak Berat');
 					$value[$index] = $kondisi[$item];
 					if ($is_rincian && $item !== $corrected[$index]) {
 						$value[$index] = empty($item)?'':"<b class='text-danger'>-(".$kondisi[$item].")</b>";

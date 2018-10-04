@@ -97,11 +97,12 @@ class Rekap_pengadaan_model extends MY_Model {
 			break;
 		}
 
-		$select = 'kd_golongan AS kd1, kategori.kd_bidang AS kd2, kd_kelompok AS kd3';
+		# LEVEL 1
+		$select = 'kd_golongan AS kd1';
 		$where .= " AND spk.tanggal BETWEEN '".$config['periode_start']."' AND '".$config['periode_end']."'";
 		$where .= " AND id_spk IS NOT NULL AND id_transfer IS NULL AND id_hapus IS NULL AND id_koreksi IS NULL";
 		$join  = "spk ON id_spk = spk.id JOIN organisasi ON spk.id_organisasi = organisasi.id JOIN kategori ON id_kategori = kategori.id";
-		$group = "kd_golongan, kategori.kd_bidang, kd_kelompok";
+		$group = "kd_golongan";
 
 		$qa = "SELECT {$select}, SUM(temp_aset_a.nilai) AS jumlah FROM temp_aset_a JOIN {$join} WHERE {$where} GROUP BY {$group}";
 		$qb = "SELECT {$select}, SUM(temp_aset_b.nilai) AS jumlah FROM temp_aset_b JOIN {$join} WHERE {$where} GROUP BY {$group}";
@@ -109,14 +110,79 @@ class Rekap_pengadaan_model extends MY_Model {
 		$qd = "SELECT {$select}, SUM(temp_aset_d.nilai) AS jumlah FROM temp_aset_d JOIN {$join} WHERE {$where} GROUP BY {$group}";
 		$qe = "SELECT {$select}, SUM(temp_aset_e.nilai) AS jumlah FROM temp_aset_e JOIN {$join} WHERE {$where} GROUP BY {$group}";
 		$qg = "SELECT {$select}, SUM(temp_aset_g.nilai) AS jumlah FROM temp_aset_g JOIN {$join} WHERE {$where} GROUP BY {$group}";
-		$query = "SELECT kd1, kd2, kd3, SUM(jumlah) AS jumlah FROM ({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg}) AS q GROUP BY kd1, kd2, kd3";
+		$query = "SELECT kd1, SUM(jumlah) AS jumlah FROM ({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg}) AS q GROUP BY kd1";
 		
 		$data = $this->db->query($query)->result_array();
 
-		foreach ($data as $index=>$value) {
-			$data[$index]['nama'] = $this->db->select('nama')
-			->where(array('kd_golongan'=>$value['kd1'],'kd_bidang'=>$value['kd2'],'kd_kelompok'=>$value['kd3']))
+		foreach ($data as $i=>$v) {
+			$data[$i]['nama'] = $this->db->select('nama')
+			->where(array('kd_golongan'=>$v['kd1'], 'jenis'=>1))
 			->get('kategori')->result()[0]->nama;
+		}
+
+		# LEVEL 2
+		if ($config['jenis'] > 1) {
+			$select = 'kd_golongan AS kd1, kategori.kd_bidang AS kd2';
+			$group = "kd_golongan, kategori.kd_bidang";
+
+			foreach ($data as $key => $value) {
+				# SET WHERE KD
+				$where_kd = "kd_golongan = {$value['kd1']}";
+				# SET PLACEHOLDER
+				$tmp = array();
+				# SET QUERY
+				$qa = "SELECT {$select}, SUM(temp_aset_a.nilai) AS jumlah FROM temp_aset_a JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+				$qb = "SELECT {$select}, SUM(temp_aset_b.nilai) AS jumlah FROM temp_aset_b JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+				$qc = "SELECT {$select}, SUM(temp_aset_c.nilai) AS jumlah FROM temp_aset_c JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+				$qd = "SELECT {$select}, SUM(temp_aset_d.nilai) AS jumlah FROM temp_aset_d JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+				$qe = "SELECT {$select}, SUM(temp_aset_e.nilai) AS jumlah FROM temp_aset_e JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+				$qg = "SELECT {$select}, SUM(temp_aset_g.nilai) AS jumlah FROM temp_aset_g JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+				$query = "SELECT kd1, kd2, SUM(jumlah) AS jumlah FROM ({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg}) AS q GROUP BY kd1, kd2";
+				# GET RESULT
+				$tmp = $this->db->query($query)->result_array();
+				# GET NAMA
+				foreach ($tmp as $i=>$v) {
+					$tmp[$i]['nama'] = $this->db->select('nama')
+					->where(array('kd_golongan'=>$v['kd1'],'kd_bidang'=>$v['kd2'],'jenis'=>2))
+					->get('kategori')->result()[0]->nama;
+				}
+				# INSERT TO MAIN DATA
+				$data[$key]['detail'] = $tmp;
+			}
+		}
+
+		# LEVEL 3
+		if ($config['jenis'] > 2) {
+			# SET PARAMETER
+			$select = 'kd_golongan AS kd1, kategori.kd_bidang AS kd2, kd_kelompok AS kd3';
+			$group  = 'kd_golongan, kategori.kd_bidang, kd_kelompok';
+
+			foreach ($data as $key1=>$value1) {
+				foreach ($data[$key1]['detail'] as $key2 => $value2) {
+					# SET WHERE KD
+					$where_kd = "kd_golongan = {$value2['kd1']} AND kategori.kd_bidang = {$value2['kd2']}";
+					# SET PLACEHOLDER
+					$tmp = array();
+					# SET QUERY
+					$qa = "SELECT {$select}, SUM(temp_aset_a.nilai) AS jumlah FROM temp_aset_a JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+					$qb = "SELECT {$select}, SUM(temp_aset_b.nilai) AS jumlah FROM temp_aset_b JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+					$qc = "SELECT {$select}, SUM(temp_aset_c.nilai) AS jumlah FROM temp_aset_c JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+					$qd = "SELECT {$select}, SUM(temp_aset_d.nilai) AS jumlah FROM temp_aset_d JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+					$qe = "SELECT {$select}, SUM(temp_aset_e.nilai) AS jumlah FROM temp_aset_e JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+					$qg = "SELECT {$select}, SUM(temp_aset_g.nilai) AS jumlah FROM temp_aset_g JOIN {$join} WHERE {$where} AND {$where_kd} GROUP BY {$group}";
+					$query = "SELECT kd1, kd2, kd3, SUM(jumlah) AS jumlah FROM ({$qa} UNION ALL {$qb} UNION ALL {$qc} UNION ALL {$qd} UNION ALL {$qe} UNION ALL {$qg}) AS q GROUP BY kd1, kd2, kd3";
+					# GET RESULT
+					$tmp = $this->db->query($query)->result_array();
+					# GET NAMA
+					foreach ($tmp as $i=>$v) {
+						$tmp[$i]['nama'] = $this->db->select('nama')
+						->where(array('kd_golongan'=>$v['kd1'],'kd_bidang'=>$v['kd2'],'kd_kelompok'=>$v['kd3'],'jenis'=>3))
+						->get('kategori')->result()[0]->nama;
+					}
+					# INSERT TO MAIN DATA
+					$data[$key1]['detail'][$key2]['detail'] = $tmp;
+				}
+			}
 		}
 
 		return $data;

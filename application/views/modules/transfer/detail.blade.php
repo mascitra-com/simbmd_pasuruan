@@ -28,7 +28,7 @@
 		<div class="card">
 			<div class="card-header">Detail Transfer {{$ref==='masuk'?'Masuk':'Keluar'}}</div>
 			<div class="card-body">
-				<form action="{{site_url('transfer/index/update')}}" method="POST" id="formulir">
+				<form action="{{site_url('transfer/index/update')}}" method="POST" id="formulir" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="{{$transfer->id}}">
                     <input type="hidden" name="id_organisasi" value="{{$transfer->id_organisasi->id}}">
 
@@ -220,6 +220,17 @@
                         <label class="col-md-3 col-form-label text-right">Pangkat Golongan</label>
                         <div class="col-md-4">
                             <input type="text" name="atasan_golongan" value="{{$transfer->atasan_golongan}}" class="form-control"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label text-right" for="">Dokumen Penunjang</label><br>
+                        <div class="col-md-4">
+                            @if(!empty($transfer->dokumen))
+                            <a href="{{site_url('res/docs/temp/'.$transfer->dokumen)}}" class="btn btn-sm btn-success"><i class="fa fa-file-o mr-2"></i> unduh</a>
+                            @endif
+                            <input type="file" name="berkas">
+                            <p class="form-text text-small text-muted">Maksimal ukuran berkas adalah 1MB. Format yang diperbolehkan adalah PDF, DOC, DOCX, XLS, dan XLSX.</p>
                         </div>
                     </div>
                     @if($ref==='keluar')

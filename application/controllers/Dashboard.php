@@ -10,7 +10,7 @@ class Dashboard extends MY_Controller {
 	
 	public function index()
 	{
-		$this->render('modules/dashboard/index');
+		$this->render('modules/dashboard/index_'.$this->config->item('mode'));
 	}
 
 	public function tes()

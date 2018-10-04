@@ -54,6 +54,24 @@ class Index extends MY_Controller {
 			$this->go('pengadaan?id_organisasi='.$data['id_organisasi']);
 		}
 
+		if ($_FILES['berkas']['size'] > 0) {
+			$config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
+			$config['file_name']     = 'pgd_'.uniqchar(5);
+			$config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
+			$config['max_size']      = 1000;
+			$config['overwrite']     = TRUE;
+
+			$this->load->library('upload', $config);
+
+         # Jika gagal
+			if (!$this->upload->do_upload('berkas')) {
+				$this->message($this->upload->display_errors(), 'danger');
+				$this->go('pengadaan?id_organisasi='.$data['id_organisasi']);
+			}
+
+			$data['dokumen'] = $this->upload->data('file_name');
+		}
+
 		$sukses = $this->spk->insert($data);
 		if($sukses) {
 			$this->message('Data berhasil disimpan','success');
@@ -75,6 +93,26 @@ class Index extends MY_Controller {
 		if (!$this->spk->form_verify($data)) {
 			$this->message('Isi data yang diperlukan', 'danger');
 			$this->go('pengadaan/index/detail/'.$id);
+		}
+
+		# Upload
+		$file_name = empty($this->spk->get($id)->dokumen)?'pgd_'.uniqchar(5):explode('.', $this->spk->get($id)->dokumen)[0];
+		if ($_FILES['berkas']['size'] > 0) {
+			$config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
+			$config['file_name']     = $file_name;
+			$config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
+			$config['max_size']      = 1000;
+			$config['overwrite']     = TRUE;
+
+			$this->load->library('upload', $config);
+
+         # Jika gagal
+			if (!$this->upload->do_upload('berkas')) {
+				$this->message($this->upload->display_errors(), 'danger');
+				$this->go('pengadaan/index/detail/'.$id);
+			}
+
+			$data['dokumen'] = $this->upload->data('file_name');
 		}
 
 		$sukses = $this->spk->update($id, $data);

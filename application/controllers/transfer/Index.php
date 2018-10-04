@@ -35,7 +35,6 @@ class Index extends MY_Controller {
 
         $filter = $this->input->get();
         $filter['id_organisasi'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
-
         $data['organisasi'] = $this->organisasi->get_data_by_auth();
 
         $result = $this->transfer->get_data($filter);
@@ -49,16 +48,10 @@ class Index extends MY_Controller {
         $this->load->library('pagination');
 
         $filter = $this->input->get();
-        $data['organisasi']  = $this->organisasi->get_data(array('jenis' => 4));
         $filter['id_tujuan'] = isset($filter['id_organisasi']) ? $filter['id_organisasi'] : '';
+        $data['organisasi']  = $this->organisasi->get_data_by_auth();
 
         unset($filter['id_organisasi']);
-
-        # Jika bukan superadmin
-        if (!$this->auth->get_super_access()) {
-            $filter['id_tujuan'] = $this->auth->get_id_organisasi();
-            $data['organisasi']  = $this->organisasi->get_many_by('id', $filter['id_tujuan']);
-        }
 
         $result = $this->transfer->get_data_masuk($filter);
         $data['transfer']   = $result['data'];
@@ -73,13 +66,9 @@ class Index extends MY_Controller {
             $this->go('transfer/index/keluar');
         }
 
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4, 'id<>'=>$this->auth->get_id_organisasi()));
+        $data['organisasi'] = $this->organisasi->get_many_by(array('jenis' => 4, 'id<>'=>$this->auth->get_id_organisasi()));
         $data['org'] = $this->organisasi->get($id);
 
-        $this->load->model('pegawai_model', 'pegawai');
-
-        $data = array_merge($data, $this->pegawai->get_cookie_pegawai(array('penerima_transfer', 'penyerah_transfer', 'atasan_transfer')));
-        
         $this->render('modules/transfer/form', $data);
     }
 
@@ -91,7 +80,7 @@ class Index extends MY_Controller {
         }
 
         $data['transfer']   = $this->transfer->subtitute($this->transfer->get($id));
-        $data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4, 'id<>'=>$this->auth->get_id_organisasi()));
+        $data['organisasi'] = $this->organisasi->get_many_by(array('jenis' => 4, 'id<>'=>$this->auth->get_id_organisasi()));
 
         $this->render('modules/transfer/detail', $data);
     }
@@ -170,13 +159,31 @@ class Index extends MY_Controller {
 
         if (!$this->transfer->form_verify($data)) {
             $this->message('Isi data yang perlu diisi', 'danger');
-            $this->go('transfer/index/add/'.$data['idanisasi']);
+            $this->go('transfer/index/add/'.$data['id_organisasi']);
+        }
+
+        if ($_FILES['berkas']['size'] > 0) {
+            $config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
+            $config['file_name']         = 'tfr_'.uniqchar(5);
+            $config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
+            $config['max_size']      = 1000;
+            $config['overwrite']     = TRUE;
+
+            $this->load->library('upload', $config);
+            
+            # Jika gagal
+            if (!$this->upload->do_upload('berkas')) {
+                $this->message($this->upload->display_errors(), 'danger');
+                $this->go('transfer/index/add/'.$data['id_organisasi']);
+            }
+
+            $data['dokumen'] = $this->upload->data('file_name');
         }
 
         $sukses = $this->transfer->insert($data);
         if($sukses) {
             $this->message('Data berhasil ditambah','success');
-            $this->go('transfer/index/keluar_detail/'.$sukses);
+            $this->go('transfer/index/detail/'.$sukses.'?ref=keluar');
         } else {
             $this->message('Terjadi kesalahan', 'danger');
             $this->go('transfer/index/add/'.$data['id_organisasi']);
@@ -192,6 +199,26 @@ class Index extends MY_Controller {
         if (!$this->transfer->form_verify($data)) {
             $this->message('Isi data yang perlu diisi', 'danger');
             $this->go('transfer/index/detail/'.$data['id'].'?ref=keluar');
+        }
+
+        # Upload
+        $file_name = empty($this->transfer->get($id)->dokumen)?'trf_'.uniqchar(5):explode('.', $this->transfer->get($id)->dokumen)[0];
+        if ($_FILES['berkas']['size'] > 0) {
+            $config['upload_path']   = realpath(FCPATH.'res/docs/temp/');
+            $config['file_name']     = $file_name;
+            $config['allowed_types'] = 'pdf|doc|docx|xls|xlsx';
+            $config['max_size']      = 1000;
+            $config['overwrite']     = TRUE;
+
+            $this->load->library('upload', $config);
+            
+            # Jika gagal
+            if (!$this->upload->do_upload('berkas')) {
+                $this->message($this->upload->display_errors(), 'danger');
+                $this->go('transfer/index/detail/'.$data['id'].'?ref=keluar');
+            }
+
+            $data['dokumen'] = $this->upload->data('file_name');
         }
 
         $sukses = $this->transfer->update($id, $data);

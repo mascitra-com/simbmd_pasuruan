@@ -172,8 +172,7 @@
 				html += "<td class='text-left'>"+item.nama+"</td>";
 				html += "<td class='text-right'>"+item.nilai+"</td>";
 				html += "<td class='text-left'>"+item.keterangan+"</td>";
-				html += "<td class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm' data-id='"+item.id+"' data-kode='"+item.kode+"'><i class='fa fa-plus'></i></button>";
-				html += "<a href='"+site_url+"inventarisasi/kib"+aset+"/edit/"+item.id+"' target='_BLANK' class='btn btn-warning btn-sm' data-id='"+item.id+"' data-kode='"+item.kode+"'>Detail</a></div></td>";
+				html += "<td class='text-center'><button class='btn btn-primary btn-sm' data-id='"+item.id+"' data-kode='"+item.kode+"'><i class='fa fa-plus'></i></button></td>";
 				html += "</tr>";
 
 				$("#tb-cari-aset > tbody").append(html);
@@ -206,8 +205,7 @@
 				html += "<td class='text-left'>"+item.nama+"</td>";
 				html += "<td class='text-right'>"+item.nilai+"</td>";
 				html += "<td class='text-left'>"+item.keterangan+"</td>";
-				html += "<td class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm' data-id='"+item.id+"' data-kode='"+item.kode+"'><i class='fa fa-plus'></i></button>";
-				html += "<a href='"+site_url+"inventarisasi/kib"+aset+"/edit/"+item.id+"' target='_BLANK' class='btn btn-warning btn-sm' data-id='"+item.id+"' data-kode='"+item.kode+"'>Detail</a></div></td>";
+				html += "<td class='text-center'><button class='btn btn-primary btn-sm' data-id='"+item.id+"' data-kode='"+item.kode+"'><i class='fa fa-plus'></i></button></td>";
 				html += "</tr>";
 
 				$("#tb-cari-kdp > tbody").append(html);
