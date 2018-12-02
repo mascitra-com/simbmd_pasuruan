@@ -83,6 +83,16 @@
 					</div>
 					<div class="row">
 						<div class="form-group col">
+							<label for="">Tanggal Perolehan</label>
+							<input type="date" class="form-control" name="tgl_perolehan" placeholder="Tgl. Perolehan" disabled="">
+						</div>
+						<div class="form-group col">
+							<label for="">Tanggal Pembukuan</label>
+							<input type="date" class="form-control" name="tgl_pembukuan" placeholder="Tgl. Pembukuan">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col">
 							<label for="">Asal Usul</label>
 							<input type="text" class="form-control" name="asal_usul" placeholder="Asal Usul">
 						</div>
@@ -90,7 +100,7 @@
 					<div class="row">
 						<div class="form-group col">
 							<label for="">Nilai</label>
-							<input type="number" class="form-control" name="nilai" placeholder="Nilai">
+							<input type="number" class="form-control" name="nilai" placeholder="Nilai" disabled="">
 						</div>
 						<div class="form-group col">
 							<label for="">Kondisi</label>

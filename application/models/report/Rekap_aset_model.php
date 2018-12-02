@@ -106,7 +106,7 @@ class Rekap_aset_model extends MY_Model {
 		$sumber = ($sumber==1) ? '':'saldo_';
 		$year   = $this->setting->get('periode_start');
 
-		$whereExcom = empty($sumber) ? "AND (CASE WHEN YEAR(tgl_perolehan) >= {$year} THEN nilai > batas_nilai ELSE TRUE END)" : "";
+		$whereExcom = empty($sumber) ? "AND (CASE WHEN YEAR(tgl_perolehan) >= {$year} THEN nilai >= batas_nilai ELSE TRUE END)" : "";
 		if($org === '5.2' OR $org === '7.1' OR $org === '8.1') {
 			$kode = explode('.', $org);
 			$where 	  = "WHERE o.kd_bidang = {$kode[0]} AND kd_unit = {$kode[1]} {$whereExcom}";

@@ -52,3 +52,7 @@ $(document).ready(function() {
     });
 
 });
+
+function formatNilai(value, row, index, field){
+    return numeral(value).format('0.00');
+}

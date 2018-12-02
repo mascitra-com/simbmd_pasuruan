@@ -74,7 +74,7 @@ class Rekap_pengadaan_model extends MY_Model {
 		$final->non_aset = $this->fill_empty_data($final->non_aset);
 
 		#Ambil Kapitalisasi
-		$query = $qe = "SELECT reg_induk, kap.nama_barang_barang AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori}  FROM aset_kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id WHERE id_spk = {$id_spk}";
+		$query = $qe = "SELECT reg_induk, kap.nama_barang AS judul, CONCAT(merk,' ',tipe) AS merk, jumlah, (jumlah*nilai+nilai_penunjang) AS nilai, {$kategori}  FROM aset_kapitalisasi kap JOIN kategori k ON kap.id_kategori = k.id WHERE id_spk = {$id_spk}";
 		$final->kapitalisasi = $this->db->query($query)->result();
 		$final->kapitalisasi = $this->fill_empty_data($final->kapitalisasi);
 

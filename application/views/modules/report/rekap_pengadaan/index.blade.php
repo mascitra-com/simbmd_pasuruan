@@ -1,17 +1,19 @@
 @layout('commons/index')
-@section('title')Rekapitulasi Aset Tetap@end
+@section('title')
+Rekapitulasi {{$this->config->item('mode')==='jember'?'Belanja Modal':'Pengadaan'}}
+@end
 
 @section('breadcrump')
 <li class="breadcrumb-item"><a href="{{site_url()}}">Beranda</a></li>
 <li class="breadcrumb-item"><a href="#">Laporan</a></li>
-<li class="breadcrumb-item active">Rekapitulasi Aset Tetap</li>
+<li class="breadcrumb-item active">Rekapitulasi {{$this->config->item('mode')==='jember'?'Belanja Modal':'Pengadaan'}}</li>
 @end
 
 @section('content')
 <div class="row">
 	<div class="col">
 		<div class="card">
-			<div class="card-header">Rekapitulasi Pengadaan Aset</div>
+			<div class="card-header">Rekapitulasi {{$this->config->item('mode')==='jember'?'Belanja Modal':'Pengadaan'}}</div>
 			<div class="card-body">
 				<form action="{{site_url('report/rekap_pengadaan/cetak')}}" method="POST">
 					<div class="form-group row">

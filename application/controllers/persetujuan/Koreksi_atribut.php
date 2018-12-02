@@ -10,6 +10,19 @@ class Koreksi_atribut extends MY_Controller {
 		$this->load->model('Koreksi_detail_model', 'koreksi_detail');
 		$this->load->model('Persetujuan_model', 'persetujuan');
 		$this->load->model('Organisasi_model', 'organisasi');
+
+		$this->load->model('aset/Kiba_model', 'kiba');
+		$this->load->model('aset/Kibb_model', 'kibb');
+		$this->load->model('aset/Kibc_model', 'kibc');
+		$this->load->model('aset/Kibd_model', 'kibd');
+		$this->load->model('aset/Kibe_model', 'kibe');
+		$this->load->model('aset/Kibg_model', 'kibg');
+		$this->load->model('aset/Temp_kiba_model', 'kiba_temp');
+		$this->load->model('aset/Temp_kibb_model', 'kibb_temp');
+		$this->load->model('aset/Temp_kibc_model', 'kibc_temp');
+		$this->load->model('aset/Temp_kibd_model', 'kibd_temp');
+		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
+		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
 	}
 
 	public function index() {
@@ -46,18 +59,6 @@ class Koreksi_atribut extends MY_Controller {
 	}
 
 	private function save($id_koreksi) {
-		$this->load->model('aset/Kiba_model', 'kiba');
-		$this->load->model('aset/Kibb_model', 'kibb');
-		$this->load->model('aset/Kibc_model', 'kibc');
-		$this->load->model('aset/Kibd_model', 'kibd');
-		$this->load->model('aset/Kibe_model', 'kibe');
-		$this->load->model('aset/Kibg_model', 'kibg');
-		$this->load->model('aset/Temp_kiba_model', 'kiba_temp');
-		$this->load->model('aset/Temp_kibb_model', 'kibb_temp');
-		$this->load->model('aset/Temp_kibc_model', 'kibc_temp');
-		$this->load->model('aset/Temp_kibd_model', 'kibd_temp');
-		$this->load->model('aset/Temp_kibe_model', 'kibe_temp');
-		$this->load->model('aset/Temp_kibg_model', 'kibg_temp');
 
 		# Pindah dari Temp
 		$alfabet = array('a', 'b', 'c', 'd', 'e', 'g');

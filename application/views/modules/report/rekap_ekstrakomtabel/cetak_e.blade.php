@@ -7,7 +7,9 @@
 	"33"=>"BOT/BTO/BT",
 	"44"=>"Instansi Lainnya",
 	"98"=>"Extracomtable",
-	"99"=>"Lainnya" ); 
+	"99"=>"Lainnya",
+	"101"=>"Aset Lainnya",
+	"102"=>"Aset Rusak"); 
 ?>
 <!DOCTYPE html>
 <html lang="en">

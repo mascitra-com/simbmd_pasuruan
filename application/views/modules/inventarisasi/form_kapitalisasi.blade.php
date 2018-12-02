@@ -207,7 +207,7 @@
 @section('script')
 <script src="{{base_url('res/plugins/bttable/bttable.js')}}"></script>
 <script type="text/javascript">
-	theme.activeMenu('.nav-inventarisasi');
+	theme.activeMenu('.nav-invent');
 
 	$(".jq-table").bootstrapTable({
 		formatRecordsPerPage: function () {

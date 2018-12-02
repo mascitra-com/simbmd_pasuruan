@@ -27,7 +27,12 @@ class Kibd extends MY_Controller
             unset($filter['search']);
         }
 
-        echo json_encode($this->kib->get_data_aset($filter));
+        # SOLUSI SEMENTARA
+        $results = $this->kib->get_data_aset($filter);
+        foreach ($results['rows'] as $r) {
+            $r->nilai = monefy($r->nilai);
+        }
+        echo json_encode($results);
     }
 
     public function add($id_spk = NULL)

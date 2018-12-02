@@ -3,7 +3,7 @@
 class Hibah_model extends MY_Model
 {
 	public $_table = 'hibah';
-	public $required = array('tgl_jurnal', 'asal_penerimaan', 'id_organisasi');
+	public $required = array('tgl_jurnal', 'asal_penerimaan');
 
     public function __construct()
     {

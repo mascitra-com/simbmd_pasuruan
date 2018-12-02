@@ -25,15 +25,19 @@
 						<div class="col-md-4">
 							<select name="kd_pemilik" class="form-control">
 								<option value="">Pilih Kode Pemilik...</option>
-								<option value="00"{{isset($kib)&&$kib->kd_pemilik==='00'?'selected':''}}>00 - Pemerintah Pusat</option>
-								<option value="01"{{isset($kib)&&$kib->kd_pemilik==='01'?'selected':''}}>01 - Departemen Dalam Negeri</option>
-								<option value="11"{{isset($kib)&&$kib->kd_pemilik==='11'?'selected':''}}>11 - Pemerintah Provinsi</option>
-								<option value="12"{{isset($kib)&&$kib->kd_pemilik==='12'?'selected':''}}>12 - Pemerintah Kabupaten/Kota</option>
-								<option value="22"{{isset($kib)&&$kib->kd_pemilik==='22'?'selected':''}}>22 - Desa</option>
-								<option value="33"{{isset($kib)&&$kib->kd_pemilik==='33'?'selected':''}}>33 - BOT/BTO/BT</option>
-								<option value="44"{{isset($kib)&&$kib->kd_pemilik==='44'?'selected':''}}>44 - Instansi Lainnya</option>
-								<option value="98"{{isset($kib)&&$kib->kd_pemilik==='98'?'selected':''}}>98 - Extracomtable</option>
-								<option value="99"{{isset($kib)&&$kib->kd_pemilik==='99'?'selected':''}}>99 - Lainnya</option>
+								<option value="00" {{isset($kib)&&$kib->kd_pemilik==='00'?'selected':''}}>00 - Pemerintah Pusat</option>
+								<option value="01" {{isset($kib)&&$kib->kd_pemilik==='01'?'selected':''}}>01 - Departemen Dalam Negeri</option>
+								<option value="11" {{isset($kib)&&$kib->kd_pemilik==='11'?'selected':''}}>11 - Pemerintah Provinsi</option>
+								<option value="12" {{isset($kib)&&$kib->kd_pemilik==='12'?'selected':''}}>12 - Pemerintah Kabupaten/Kota</option>
+								<option value="22" {{isset($kib)&&$kib->kd_pemilik==='22'?'selected':''}}>22 - Desa</option>
+								<option value="33" {{isset($kib)&&$kib->kd_pemilik==='33'?'selected':''}}>33 - BOT/BTO/BT</option>
+								<option value="44" {{isset($kib)&&$kib->kd_pemilik==='44'?'selected':''}}>44 - Instansi Lainnya</option>
+								<option value="98" {{isset($kib)&&$kib->kd_pemilik==='98'?'selected':''}}>98 - Extracomtable</option>
+								<option value="99" {{isset($kib)&&$kib->kd_pemilik==='99'?'selected':''}}>99 - Lainnya</option>
+								@if($this->config->item('mode')==='jember')
+								<option value="101" {{isset($kib)&&$kib->kd_pemilik==='101'?'selected':''}}>101 - Aset Lainnya</option>
+								<option value="102" {{isset($kib)&&$kib->kd_pemilik==='102'?'selected':''}}>102 - Aset Rusak Berat</option>
+								@endif
 							</select>
 						</div>
 					</div>
@@ -168,18 +172,6 @@
 						<label class="col-md-3 col-form-label text-right">Nilai</label>
 						<div class="col-md-4">
 							<input type="text" class="form-control" name="nilai" placeholder="Nilai" value="{{isset($kib)?monefy($kib->nilai):''}}"  required/>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Nilai Sisa</label>
-						<div class="col-md-4">
-							<input type="text" class="form-control" name="nilai_sisa" placeholder="Nilai sisa" value="{{isset($kib)?monefy($kib->nilai_sisa):''}}" />
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="col-md-3 col-form-label text-right">Masa Manfaat</label>
-						<div class="col-md-4">
-							<input type="number" class="form-control" name="masa_manfaat" placeholder="masa manfaat" value="{{isset($kib)?$kib->masa_manfaat:''}}"/>
 						</div>
 					</div>
 					<div class="form-group row">

@@ -23,7 +23,7 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		COUNT(ast.id) AS jumlah, SUM(nilai) AS nilai_total';
 		
 		# WHERE
-		if($id === '5.2' OR $id === '7.1')
+		if($id === '8.1' OR $id === '7.1')
 		{
 			$kode 	 = explode('.', $id);
 			$whereId = " AND o.kd_bidang = {$kode[0]} AND o.kd_unit = {$kode[1]}";
@@ -52,7 +52,7 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 		# SELECT
 		$select = "ast.*,k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
 		# WHERE
-		if($id === '5.2' OR $id === '7.1')
+		if($id === '8.1' OR $id === '7.1')
 		{
 			$kode 	 = explode('.', $id);
 			$whereId = " AND o.kd_bidang = {$kode[0]} AND o.kd_unit = {$kode[1]}";
@@ -77,12 +77,12 @@ class Rekap_ekstrakomtabel_model extends MY_Model {
 
 	private function get_kibe($id, $kd_pemilik, $urut = '1', $kondisi = NULL)
 	{
-		$select = 'ast.*, kd_golongan,kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama,o.nama AS organisasi,
+		$select = 'ast.*, k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama,o.nama AS organisasi,
 		SUM(CASE WHEN (kondisi=1) THEN 1 ELSE 0 END) AS kb, SUM(CASE WHEN (kondisi=2) THEN 1 ELSE 0 END) AS kkb, SUM(CASE WHEN (kondisi=3) THEN 1 ELSE 0 END) AS krb,
 		COUNT(ast.id) AS jumlah, SUM(nilai) AS nilai_total';
 		
 		# WHERE
-		if($id === '5.2' OR $id === '7.1')
+		if($id === '8.1' OR $id === '7.1')
 		{
 			$kode 	 = explode('.', $id);
 			$whereId = " AND o.kd_bidang = {$kode[0]} AND o.kd_unit = {$kode[1]}";

@@ -48,6 +48,10 @@
 								<option value="44">44 - Instansi Lainnya</option>
 								<option value="98">98 - Extracomtable</option>
 								<option value="99">99 - Lainnya</option>
+								@if($this->config->item('mode')==='jember')
+								<option value="101">101 - Aset Lainnya</option>
+								<option value="102">102 - Aset Rusak</option>
+								@endif
 							</select>
 						</div>
 					</div>

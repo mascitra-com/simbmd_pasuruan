@@ -15,17 +15,10 @@ class Ruangan extends MY_Controller {
 	
 	public function index()
 	{
-		$id = $this->input->get('id_organisasi');
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis'=>4));
-		
-		# Jika bukan superadmin
-		if (!$this->auth->get_super_access()) {
-			$id = $this->auth->get_id_organisasi();
-			$data['organisasi']    = $this->organisasi->get_many_by('id', $id);
-		}
+		$data['id_organisasi'] = $this->organisasi->get_id_by_auth( $this->input->get('id_organisasi') );
+		$data['organisasi'] 	  = $this->organisasi->get_data_by_auth();
 
-		$data['ruangan'] = (!empty($id)) ? $this->ruangan->get_many_by('id_organisasi', $id): array();
-		$data['id'] = $id;
+		$data['ruangan'] = !empty($data['id_organisasi']) ? $this->ruangan->get_many_by('id_organisasi', $data['id_organisasi']): array();
 
 		$this->render('modules/ruangan/index', $data);
 	}

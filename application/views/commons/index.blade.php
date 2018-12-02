@@ -19,7 +19,11 @@
 @endif
 
 <div class="container-fluid wrapper">
+    @if($this->config->item('mode')==='jember')
+    @include('commons/sidebar_jember')
+    @else
     @include('commons/sidebar')
+    @endif
     <div id="content">
     @include('commons/header')
         <!-- BREADCRUMP -->

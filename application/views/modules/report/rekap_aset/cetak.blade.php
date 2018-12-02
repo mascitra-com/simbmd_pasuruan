@@ -108,7 +108,7 @@
                                                 @if(isset($rek3->kd_barang))
                                                     <td class="{{($detail['jenis']>2)?'bold':''}}">{{$rek3->kd_barang}}</td>
                                                 @else
-                                                    <td>01.03.{{zerofy($rek3->kd_golongan)}}.{{zerofy($rek3->kd_bidang)}}</td>
+                                                    <td>01.03.{{zerofy($rek3->kd_golongan)}}.{{zerofy($rek3->kd_bidang)}}.{{zerofy($rek3->kd_kelompok)}}</td>
                                                 @endif
                                                 <td>{{$rek3->kategori}}</td>
                                                 <td class="text-center">{{monefy($rek3->jumlah_aset, false)}}</td>

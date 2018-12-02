@@ -13,7 +13,7 @@ class Peralatan extends MY_Controller {
 
 	public function hapus_data()
 	{
-		$data['organisasi'] = $this->organisasi->get_data(array('jenis' => 4));
+		$data['organisasi'] = $this->organisasi->get_many_by(array('jenis' => 4));
 		$this->render('modules/peralatan/hapus_data', $data);
 	}
 
@@ -26,15 +26,13 @@ class Peralatan extends MY_Controller {
 			$this->go('peralatan/hapus_data');
 		}
 
-		$this->load->model('aset/Saldo_'.$data['kib'].'_model', 'kib');
-		$sukses = $this->kib->delete_by('id_organisasi', $data['id_organisasi']);
+		$this->load->model('aset/Saldo_kib'.$data['kib'].'_model', 'saldo');
+		$this->load->model('aset/Kib'.$data['kib'].'_model', 'kib');
 
-		if($sukses) {
-			$this->message('Data pada saldo awal berhasil dikosongkan','success');
-		} else {
-			$this->message('Data pada saldo awal gagal dikosongkan','danger');
-		}
+		$this->saldo->delete_by('id_organisasi', $data['id_organisasi']);
+		$this->kib->delete_by('id_organisasi', $data['id_organisasi']);
 
+		$this->message('Data pada saldo awal berhasil dikosongkan','success');
 		$this->go('peralatan/hapus_data');
 	}
 }

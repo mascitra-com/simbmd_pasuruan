@@ -26,7 +26,7 @@ class Rekap_kib_model extends MY_Model {
 	private function get_kiba($id, $kd_pemilik, $urut = '1', $kondisi = NULL, $sumber)
 	{
 		# SELECT
-		$select = "ast.*,k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
+		$select = "ast.*,(nilai + nilai_tambah) AS nilai, k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
 		# WHERE
 		if($id === '5.2' OR $id === '7.1')
 		{
@@ -82,7 +82,7 @@ class Rekap_kib_model extends MY_Model {
 	private function get_kibc($id, $kd_pemilik, $urut = '1', $kondisi = NULL, $sumber)
 	{
 		# SELECT
-		$select = "ast.*,k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
+		$select = "ast.*, (nilai + nilai_tambah) AS nilai, k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
 		# WHERE
 		if($id === '5.2' OR $id === '7.1')
 		{
@@ -110,7 +110,7 @@ class Rekap_kib_model extends MY_Model {
 	private function get_kibd($id, $kd_pemilik, $urut = '1', $kondisi = NULL, $sumber)
 	{
 		# SELECT
-		$select = "ast.*,k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
+		$select = "ast.*, (nilai + nilai_tambah) AS nilai, k.kd_golongan,k.kd_bidang,kd_kelompok,kd_subkelompok,kd_subsubkelompok,k.nama AS nama, o.nama AS organisasi";
 		# WHERE
 		if($id === '5.2' OR $id === '7.1')
 		{
@@ -163,7 +163,7 @@ class Rekap_kib_model extends MY_Model {
 	private function get_kibf($id, $kd_pemilik, $urut = '1', $kondisi = NULL, $sumber)
 	{
 		# SELECT
-		$select = 'k.*,o.nama AS organisasi,reg_barang,reg_induk,tgl_perolehan,lokasi,dokumen_tgl,dokumen_no,status_tanah,kode_tanah,kondisi,asal_usul,nilai,nilai_tambah,keterangan';
+		$select = 'k.*,o.nama AS organisasi,reg_barang,reg_induk,tgl_perolehan,lokasi,dokumen_tgl,dokumen_no,status_tanah,kode_tanah,kondisi,asal_usul,nilai,nilai_tambah,keterangan, id_organisasi';
 		# WHERE
 		if($id === '5.2' OR $id === '7.1')
 		{

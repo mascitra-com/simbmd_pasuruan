@@ -110,7 +110,8 @@ class Pengadaan extends MY_Controller {
 		# Kapitalisasi
 		$this->load->model('Kapitalisasi_model','kapitalisasi');
 		$data = $this->kapitalisasi->get_many_by('id_spk', $id);
-		foreach ($data as $item) {
+		$reg = $this->kapitalisasi->get_regInduk(count($data));
+		foreach ($data as $index=>$item) {
 			# Update data pada aset utama
 			$kib  = ($item->golongan=='3') ? 'kibc' : 'kibd';
 			$temp = $this->{$kib}->get($item->id_aset);
@@ -119,7 +120,7 @@ class Pengadaan extends MY_Controller {
 			# Update nilai_tambah pada KIB terkait			
 			$this->{$kib}->update($item->id_aset, array('nilai_tambah'=>$total));
 			# Update reg_induk pada kapitalisasi
-			$this->kapitalisasi->update($item->id, array('reg_induk'=>$this->kapitalisasi->get_regInduk()));
+			$this->kapitalisasi->update($item->id, array('reg_induk'=>$reg[$index]));
 		}
 		
 		return 1;

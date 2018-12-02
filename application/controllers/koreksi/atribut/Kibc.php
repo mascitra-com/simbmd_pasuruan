@@ -85,9 +85,11 @@ class Kibc extends MY_Controller
 
 			foreach ($value as $index => $item) {
 				switch ($index) {
+					case 'tgl_perolehan':
+					$value[$index] = datify($item);
+					break;
 					case 'dokumen_tgl':
 					case 'tgl_pembukuan':
-					case 'tgl_perolehan':
 					$value[$index] = datify($item);
 					if ($is_rincian && $value[$index] !== datify($corrected[$index])) {
 						$value[$index] = empty($item)?'':"<b class='text-danger'>-(".$value[$index].")</b>";
@@ -97,18 +99,10 @@ class Kibc extends MY_Controller
 					case 'nilai':
 					case 'nilai_tambah':
 					$value[$index] = monefy($item);
-					if ($is_rincian && $value[$index] !== monefy($corrected[$index])) {
-						$value[$index] = empty($item)?'':"<b class='text-danger'>-(".$value[$index].")</b>";
-						$value[$index] .= empty($corrected[$index])?'':"<b class='text-success'> +(".monefy($corrected[$index]).")</b>";
-					}
 					break;
 					case 'kondisi':
 					$kondisi = array('kosong','Baik', 'Kurang Baik', 'Rusak Berat');
 					$value[$index] = $kondisi[$item];
-					if ($is_rincian && $item !== $corrected[$index]) {
-						$value[$index] = empty($item)?'':"<b class='text-danger'>-(".$kondisi[$item].")</b>";
-						$value[$index] .= empty($corrected[$index])?'':"<b class='text-success'> +(".$kondisi[$corrected[$index]].")</b>";
-					}
 					break;
 					case 'tingkat':
 					case 'beton':

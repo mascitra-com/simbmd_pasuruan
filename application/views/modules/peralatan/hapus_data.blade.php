@@ -25,11 +25,12 @@
 					<div class="form-group">
 						<label>PILIH KIB</label>
 						<select name="kib" class="form-control">
-							<option value="kiba">KIB-A</option>
-							<option value="kibb">KIB-B</option>
-							<option value="kibc">KIB-C</option>
-							<option value="kibd">KIB-D</option>
-							<option value="kibe">KIB-E</option>
+							<option value="a">KIB-A</option>
+							<option value="b">KIB-B</option>
+							<option value="c">KIB-C</option>
+							<option value="d">KIB-D</option>
+							<option value="e">KIB-E</option>
+							<option value="g">KIB-G</option>
 						</select>
 					</div>
 					<div class="form-group">

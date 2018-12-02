@@ -37,14 +37,14 @@
 				</ul>
 			</li>
 
-			<li class="nav nav-title">MUTASI TAMBAH</li>
+			<li class="nav nav-title">PENAMBAHAN</li>
 			<li class="nav nav-invent">
-				<a href="{{set_lock_link($locked,'inventarisasi',site_url('inventarisasi/index'))}}"><i class="fa fa-archive fa-fw icon"></i>Inventarisasi{{set_lock_icon($locked,'inventarisasi')}}<span class="badge badge-warning text-dark ml-2 mt-1">baru</span></a>
+				<a href="{{set_lock_link($locked,'inventarisasi',site_url('inventarisasi/index'))}}"><i class="fa fa-archive fa-fw icon"></i>Pengakuan{{set_lock_icon($locked,'inventarisasi')}}<span class="badge badge-warning text-dark ml-2 mt-1">baru</span></a>
 			</li>
 			<!--PENGADAAN -->
 			<li class="nav nav-pengadaan">
 				<a href="{{set_lock_link($locked,'pengadaan',site_url('pengadaan/index'))}}">
-					<i class="fa fa-cart-plus fa-fw icon"></i>Pengadaan{{set_lock_icon($locked,'pengadaan')}}
+					<i class="fa fa-cart-plus fa-fw icon"></i>Belanja Modal{{set_lock_icon($locked,'pengadaan')}}
 				</a>
 			</li>
 			<!-- HIBAH -->
@@ -67,14 +67,20 @@
 				</ul>
 			</li>
 
-			<li class="nav nav-title">MUTASI KURANG</li>
+			<li class="nav nav-title">PENGURANGAN</li>
 			<!-- TRANSFER KELUAR -->
 			<li class="nav nav-transfer-keluar">
-				<a href="{{set_lock_link($locked,'transfer',site_url('transfer/index/keluar'))}}"><i class="fa fa-exchange fa-fw icon"></i>Transfer Keluar{{set_lock_icon($locked,'transfer')}}</a>
+				<a href="{{set_lock_link($locked,'transfer',site_url('transfer/index/keluar'))}}"><i class="fa fa-exchange fa-fw icon"></i>Mutasi Keluar{{set_lock_icon($locked,'transfer')}}</a>
 			</li>
 			<!-- PENGHAPUSAN -->
 			<li class="nav nav-penghapusan">
-				<a href="{{set_lock_link($locked,'penghapusan',site_url('penghapusan/index'))}}"><i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset{{set_lock_icon($locked,'penghapusan')}}</a>
+				<a href="{{set_lock_link($locked,'penghapusan','#menu-penghapusan')}}" data-toggle="collapse">
+					<i class="fa fa-trash fa-fw icon"></i>Penghapusan Aset{{set_lock_icon($locked,'penghapusan')}}<i class="fa fa-angle-down ml-auto"></i>
+				</a>
+				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-penghapusan">
+					<li class="nav"><a href="#"><i class="fa fa-handshake-o fa-fw icon"></i>1. Pemindahtanganan Aset</a></li>
+					<li class="nav"><a href="{{site_url('penghapusan/index')}}"><i class="fa fa-trash fa-fw icon"></i>2. Penghapusan Aset</a></li>
+				</ul>
 			</li>
 			<!-- KOREKSI HAPUS -->
 			@if($this->session->auth['is_superadmin'] == 1)
@@ -100,20 +106,20 @@
 			<li class="nav nav-title">PERSETUJUAN</li>
 			<li class="nav nav-persetujuan-pengadaan nav-persetujuan-hibah nav-invent">
 				<a href="{{set_lock_link($locked,'persetujuan','#menu-persetujuan-tambah')}}" data-toggle="collapse">
-					<i class="fa fa-download fa-fw icon"></i>Mutasi Tambah{{set_lock_icon($locked,'persetujuan')}}<i class="fa fa-angle-down ml-auto"></i>
+					<i class="fa fa-download fa-fw icon"></i>Penambahan{{set_lock_icon($locked,'persetujuan')}}<i class="fa fa-angle-down ml-auto"></i>
 				</a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-persetujuan-tambah">
 					<li class="nav"><a href="{{site_url('persetujuan/inventarisasi')}}"><i class="fa fa-check fa-fw icon"></i>Inventarisasi</a></li>
-					<li class="nav"><a href="{{site_url('persetujuan/pengadaan')}}"><i class="fa fa-check fa-fw icon"></i>Pengadaan</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/pengadaan')}}"><i class="fa fa-check fa-fw icon"></i>Belanja Modal</a></li>
 					<li class="nav"><a href="{{site_url('persetujuan/hibah')}}"><i class="fa fa-check fa-fw icon"></i>Hibah</a></li>
 				</ul>
 			</li>
 			<li class="nav nav-persetujuan-transfer nav-persetujuan-hapus">
 				<a href="{{set_lock_link($locked,'persetujuan','#menu-persetujuan-kurang')}}" data-toggle="collapse">
-					<i class="fa fa-upload fa-fw icon"></i>Mutasi Kurang{{set_lock_icon($locked,'persetujuan')}}<i class="fa fa-angle-down ml-auto"></i>
+					<i class="fa fa-upload fa-fw icon"></i>Pengurangan{{set_lock_icon($locked,'persetujuan')}}<i class="fa fa-angle-down ml-auto"></i>
 				</a>
 				<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-persetujuan-kurang">
-					<li class="nav"><a href="{{site_url('persetujuan/transfer')}}"><i class="fa fa-check fa-fw icon"></i>Transfer Keluar</a></li>
+					<li class="nav"><a href="{{site_url('persetujuan/transfer')}}"><i class="fa fa-check fa-fw icon"></i>Mutasi Keluar</a></li>
 					<li class="nav"><a href="{{site_url('persetujuan/penghapusan')}}"><i class="fa fa-check fa-fw icon"></i>Penghapusan Aset</a></li>
 				</ul>
 			</li>
@@ -147,7 +153,8 @@
 					</a>
 					<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-rekap-mutasi-tambah">
 						<li class="nav"><a href="{{site_url('report/rekap_inventarisasi/')}}"><i class="fa fa-file-o fa-fw icon"></i> Inventarisasi</a></li>
-						<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Pengadaan</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_pengadaan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Belanja Modal</a></li>
+						<li class="nav"><a href="{{site_url('report/rekap_pengadaan/per_kategori')}}"><i class="fa fa-file-o fa-fw icon"></i> Belanja Modal (per-kategori)</a></li>
 						<li class="nav"><a href="{{site_url('report/rekap_hibah/')}}"><i class="fa fa-file-o fa-fw icon"></i> Hibah</a></li>
 						<li class="nav nav-rekap-transfer"><a href="{{site_url('report/rekap_transfer')}}"><i class="fa fa-file-o fa-fw icon"></i>Transfer</a></li>
 						<li class="nav"><a href="{{site_url('report/rekap_penghapusan/')}}"><i class="fa fa-file-o fa-fw icon"></i> Penghapusan</a></li>
@@ -192,7 +199,7 @@
 					<a href="#menu-backup" data-toggle="collapse"><i class="fa fa-user fa-fw icon"></i>Manajemen Data<i class="fa fa-angle-down ml-auto"></i></a>
 					<ul class="sidebar-nav sidebar-child collapse collapseable" id="menu-backup">
 						<li class="nav"><a href="{{site_url('backup/import')}}"><i class="fa fa-download fa-fw icon"></i>Import Saldo Awal</a></li>
-						<!-- <li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li> -->
+						<li class="nav"><a href="{{site_url('peralatan/hapus_data')}}"><i class="fa fa-trash fa-fw icon"></i>Kosongkan Data</a></li>
 					</ul>
 				</li>
 				@endif

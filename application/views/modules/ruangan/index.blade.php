@@ -16,7 +16,7 @@
 						<select name="id_organisasi" class="form-control select-chosen" data-placeholder="Pilih UPB">
 							<option></option>
 							@foreach($organisasi AS $org)
-							<option value="{{$org->id}}" {{isset($id) && $org->id === $id ? 'selected' : ''}}>{{$org->nama}}</option>
+							<option value="{{$org->id}}" {{isset($id_organisasi) && $org->id === $id_organisasi ? 'selected' : ''}}>{{$org->nama}}</option>
 							@endforeach
 						</select>
 						<div class="input-group-btn">
@@ -26,7 +26,7 @@
 				</form>
 				<div class="btn-group">
 					<button class="btn btn-primary btn-refresh"><i class="fa fa-refresh mr-2"></i>Segarkan</button>
-					<a href="{{site_url('ruangan/add/'.$id)}}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Tambah</a>
+					<a href="{{site_url('ruangan/add/'.$id_organisasi)}}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Tambah</a>
 				</div>
 			</div>
 			<div class="card-body px-0 py-0">

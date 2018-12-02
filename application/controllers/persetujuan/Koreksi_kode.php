@@ -11,6 +11,13 @@ class Koreksi_kode extends MY_Controller {
 		$this->load->model('Koreksi_model', 'koreksi');
 		$this->load->model('Koreksi_detail_model', 'koreksi_detail');
 		$this->load->model('Persetujuan_model', 'persetujuan');
+
+		$this->load->model("aset/Temp_kiba_model", "kiba_temp");
+		$this->load->model("aset/Temp_kibb_model", "kibb_temp");
+		$this->load->model("aset/Temp_kibc_model", "kibc_temp");
+		$this->load->model("aset/Temp_kibd_model", "kibd_temp");
+		$this->load->model("aset/Temp_kibe_model", "kibe_temp");
+		$this->load->model("aset/Temp_kibg_model", "kibg_temp");
 	}
 
 	public function index() {
@@ -73,17 +80,10 @@ class Koreksi_kode extends MY_Controller {
 
 	private function koreksi($id_koreksi)
 	{
-		$this->load->model("aset/Temp_kiba_model", "kiba");
-		$this->load->model("aset/Temp_kibb_model", "kibb");
-		$this->load->model("aset/Temp_kibc_model", "kibc");
-		$this->load->model("aset/Temp_kibd_model", "kibd");
-		$this->load->model("aset/Temp_kibe_model", "kibe");
-		$this->load->model("aset/Temp_kibg_model", "kibg");
-		
 		$alfabet = array('a','b','c','d','e','g');
 		foreach ($alfabet as $item) {
 			# Ambil data
-			$temp = $this->{"kib{$item}"}
+			$temp = $this->{"kib{$item}_temp"}
 			->select("temp_aset_{$item}.*, corrected_value")
 			->join("koreksi_detail", "temp_aset_{$item}.id_koreksi_detail=koreksi_detail.id")
 			->get_many_by('id_koreksi', $id_koreksi);
